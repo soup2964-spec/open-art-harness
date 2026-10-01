@@ -68,7 +68,7 @@ The watchdog ran on openart.ai on 2026-09-30, first against the live site and th
 | [`bandit-allocator`](packages/bandit-allocator) | Profit-rewarded Thompson sampling that updates the existing default-model LaunchDarkly flags, with guardrails and a holdout | LaunchDarkly flags `suite-default-model-create-*` (no app change) |
 | [`audience-sync`](packages/audience-sync) | Profit-based seed audiences and suppression lists (subscribers, fraud, refunds), consent-filtered | Google Customer Match (Data Manager API), Meta, TikTok |
 
-How the pieces connect: [docs/integration-map.md](docs/integration-map.md). Rollout: [docs/30-60-90.md](docs/30-60-90.md).
+Every change in detail: [docs/CHANGES.md](docs/CHANGES.md). How the pieces connect: [docs/integration-map.md](docs/integration-map.md). Rollout: [docs/30-60-90.md](docs/30-60-90.md).
 
 ## Run it
 

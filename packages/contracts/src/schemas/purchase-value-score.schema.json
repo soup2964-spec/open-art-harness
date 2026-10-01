@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/purchase-value-score.schema.json",
+  "title": "PurchaseValueScore",
+  "description": "One row of fct_purchase_value_score: the purchase-time conditional value of one purchase. Estimand: E[gross_profit_90d | purchase], the expected gross profit of the purchase's user over the 90 days from occurred_at (this purchase included), given the purchase and only what was known at occurred_at. This is the value sent to ad platforms with the purchase, by the server and by the browser pixel. It is not PredictedProfit, which is the unconditional per-exposed-user estimate for experiment readouts. All money fields are in `currency`, major units. Enforced by validators.ts (zod), not expressible here: event_id = purchase_<invoice_id> (or purchase_<checkoutSessionId> when invoice_id is null); scored_at >= occurred_at; predicted_profit_90d = predicted_revenue_90d - predicted_generation_cost_90d - predicted_fees_90d - predicted_refund_risk (within 0.01); interval_low <= predicted_profit_90d <= interval_high; features_snapshot.as_of and every *_at feature <= occurred_at.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "invoice_id",
+    "user_id",
+    "occurred_at",
+    "scored_at",
+    "estimand",
+    "horizon_days",
+    "predicted_revenue_90d",
+    "predicted_generation_cost_90d",
+    "predicted_fees_90d",
+    "predicted_refund_risk",
+    "predicted_profit_90d",
+    "interval_low",
+    "interval_high",
+    "cash_value",
+    "currency",
+    "model_version",
+    "run_id",
+    "fitted_params_ref",
+    "features_snapshot"
+  ],
+  "properties": {
+    "event_id": {
+      "description": "The purchase's ledger event_id: purchase_<invoiceId>, or purchase_<checkoutSessionId> for an invoice-less one-time pack.",
+      "type": "string",
+      "pattern": "^purchase_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$"
+    },
+    "invoice_id": { "anyOf": [{ "type": "string", "pattern": "^in_[A-Za-z0-9]+$" }, { "type": "null" }] },
+    "user_id": { "$ref": "common.schema.json#/$defs/userId" },
+    "occurred_at": { "description": "Purchase time (the ledger row's occurred_at).", "$ref": "common.schema.json#/$defs/utcTimestamp" },
+    "scored_at": { "description": "When the score was computed; >= occurred_at.", "$ref": "common.schema.json#/$defs/utcTimestamp" },
+    "estimand": { "const": "E[gross_profit_90d | purchase]" },
+    "horizon_days": { "const": 90 },
+    "predicted_revenue_90d": { "type": "number", "minimum": 0 },
+    "predicted_generation_cost_90d": { "description": "Vendor cost of the predicted credit burn.", "type": "number", "minimum": 0 },
+    "predicted_fees_90d": { "description": "Payment processing and affiliate fees.", "type": "number", "minimum": 0 },
+    "predicted_refund_risk": { "description": "Expected refund + chargeback loss (money, not a probability).", "type": "number", "minimum": 0 },
+    "predicted_profit_90d": { "description": "Point estimate of the estimand. May be negative.", "type": "number" },
+    "interval_low": { "description": "Lower bound of the model's uncertainty interval for the estimand.", "type": "number" },
+    "interval_high": { "description": "Upper bound of the model's uncertainty interval for the estimand.", "type": "number" },
+    "cash_value": { "description": "This purchase's cash (amount paid), converted to `currency`.", "type": "number", "minimum": 0 },
+    "currency": { "$ref": "common.schema.json#/$defs/currency" },
+    "model_version": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "run_id": { "description": "The scoring run that produced this row.", "type": "string", "minLength": 1, "maxLength": 256 },
+    "fitted_params_ref": { "description": "Where the fitted parameters live (URI or table@version).", "type": "string", "minLength": 1, "maxLength": 1024 },
+    "features_snapshot": {
+      "description": "Point-in-time features used for the score (flat scalars). as_of is the feature cut-off and must be <= occurred_at.",
+      "type": "object",
+      "required": ["as_of"],
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "properties": { "as_of": { "$ref": "common.schema.json#/$defs/utcTimestamp" } },
+      "additionalProperties": { "type": ["number", "string", "boolean", "null"] }
+    }
+  }
+}

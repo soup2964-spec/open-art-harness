@@ -1,0 +1,53 @@
+country_key,iso2,country_bucket
+US,US,us
+united states,US,us
+CA,CA,tier1
+GB,GB,tier1
+IE,IE,tier1
+DE,DE,tier1
+FR,FR,tier1
+NL,NL,tier1
+BE,BE,tier1
+LU,LU,tier1
+AT,AT,tier1
+CH,CH,tier1
+SE,SE,tier1
+NO,NO,tier1
+DK,DK,tier1
+FI,FI,tier1
+IS,IS,tier1
+IT,IT,tier1
+ES,ES,tier1
+AU,AU,tier1
+NZ,NZ,tier1
+JP,JP,tier1
+KR,KR,tier1
+SG,SG,tier1
+IL,IL,tier1
+AE,AE,tier1
+canada,CA,tier1
+united kingdom,GB,tier1
+ireland,IE,tier1
+germany,DE,tier1
+france,FR,tier1
+netherlands,NL,tier1
+the netherlands,NL,tier1
+belgium,BE,tier1
+luxembourg,LU,tier1
+austria,AT,tier1
+switzerland,CH,tier1
+sweden,SE,tier1
+norway,NO,tier1
+denmark,DK,tier1
+finland,FI,tier1
+iceland,IS,tier1
+italy,IT,tier1
+spain,ES,tier1
+australia,AU,tier1
+new zealand,NZ,tier1
+japan,JP,tier1
+south korea,KR,tier1
+republic of korea,KR,tier1
+singapore,SG,tier1
+israel,IL,tier1
+united arab emirates,AE,tier1

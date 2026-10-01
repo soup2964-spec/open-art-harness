@@ -1,0 +1,24 @@
+[
+  {
+    "invoiceId": "in_1SynthU01Inv0001First",
+    "isFirstPurchase": true,
+    "isValidInvoice": true,
+    "isBusiness": false,
+    "amountMinor": 1400,
+    "amountMajor": 14,
+    "currency": "usd",
+    "ltvValueMajor": 61.25,
+    "ltvCurrency": "usd"
+  },
+  {
+    "invoiceId": "in_1SynthU02Inv0001First",
+    "isFirstPurchase": true,
+    "isValidInvoice": true,
+    "isBusiness": false,
+    "amountMinor": 210240,
+    "amountMajor": 2102.4,
+    "currency": "usd",
+    "ltvValueMajor": null,
+    "ltvCurrency": null
+  }
+]

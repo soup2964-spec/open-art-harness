@@ -1,0 +1,800 @@
+[
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000003"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce",
+          "eventTimestamp": "2026-06-03T17:02:30Z",
+          "eventSource": "WEB",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidU01",
+            "gbraid": "0AAAAASYNTHgbraidU01"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.1"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000004"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU01Inv0001First",
+          "eventTimestamp": "2026-06-03T17:04:11Z",
+          "eventSource": "WEB",
+          "conversionValue": 22.11,
+          "currency": "USD",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidU01",
+            "gbraid": "0AAAAASYNTHgbraidU01"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.1"
+          },
+          "userProperties": {
+            "customerType": "NEW"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000004"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU03Inv0001First",
+          "eventTimestamp": "2026-06-15T12:00:00Z",
+          "eventSource": "WEB",
+          "conversionValue": 34,
+          "currency": "USD",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.3"
+          },
+          "userProperties": {
+            "customerType": "NEW"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000007"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU03Inv0002AddOn",
+          "eventTimestamp": "2026-06-25T12:00:00Z",
+          "eventSource": "WEB",
+          "conversionValue": 10,
+          "currency": "USD",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.3"
+          },
+          "userProperties": {
+            "customerType": "RETURNING"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000001"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "reg_SynthU05FreeTrialE5x",
+          "eventTimestamp": "2026-07-01T10:00:00Z",
+          "eventSource": "WEB",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "0b50a3bf3dd72f160e58ebf77752ff0afb7842268ba43efd2deec1b16b62d3e1"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.5"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000002"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "activation_SynthU05FreeTrialE5x",
+          "eventTimestamp": "2026-07-01T10:05:00Z",
+          "eventSource": "WEB",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "0b50a3bf3dd72f160e58ebf77752ff0afb7842268ba43efd2deec1b16b62d3e1"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.5"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000005"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU01Inv0002Cycle",
+          "eventTimestamp": "2026-07-03T17:04:11Z",
+          "eventSource": "WEB",
+          "conversionValue": 14,
+          "currency": "USD",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidU01",
+            "gbraid": "0AAAAASYNTHgbraidU01"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.1"
+          },
+          "userProperties": {
+            "customerType": "RETURNING"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000008"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_cs_live_a1SynthU05Pack00000001",
+          "eventTimestamp": "2026-07-05T10:00:00Z",
+          "eventSource": "WEB",
+          "conversionValue": 0.01,
+          "currency": "USD",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "0b50a3bf3dd72f160e58ebf77752ff0afb7842268ba43efd2deec1b16b62d3e1"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.5"
+          },
+          "userProperties": {
+            "customerType": "NEW"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000006"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU03Inv0003Upgrade",
+          "eventTimestamp": "2026-07-05T12:00:00Z",
+          "eventSource": "WEB",
+          "conversionValue": 7.34,
+          "currency": "USD",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.3"
+          },
+          "userProperties": {
+            "customerType": "RETURNING"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000004"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU04Inv0001First",
+          "eventTimestamp": "2026-07-20T08:00:00Z",
+          "eventSource": "WEB",
+          "conversionValue": 56,
+          "currency": "USD",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "78013d4c8cd3c3ce075d037ac6887c4a35cda84712a5a23b8946979e6da7a20f"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.4"
+          },
+          "userProperties": {
+            "customerType": "NEW"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "ADJUST",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000004"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU04Inv0001First",
+          "eventTimestamp": "2026-07-20T08:00:00Z",
+          "conversionValue": 0,
+          "currency": "USD",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "78013d4c8cd3c3ce075d037ac6887c4a35cda84712a5a23b8946979e6da7a20f"
+              }
+            ]
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000005"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU01Inv0003Cycle",
+          "eventTimestamp": "2026-08-03T17:04:11Z",
+          "eventSource": "WEB",
+          "conversionValue": 14,
+          "currency": "USD",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidU01",
+            "gbraid": "0AAAAASYNTHgbraidU01"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.1"
+          },
+          "userProperties": {
+            "customerType": "RETURNING"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "ADJUST",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000005"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "sub_in_1SynthU01Inv0003Cycle",
+          "eventTimestamp": "2026-08-03T17:04:11Z",
+          "conversionValue": 0,
+          "currency": "USD",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidU01",
+            "gbraid": "0AAAAASYNTHgbraidU01"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+              }
+            ]
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000009"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "lead_6f1d2c3b-0000-4000-8000-00000000a001",
+          "eventTimestamp": "2026-09-18T16:20:00Z",
+          "eventSource": "WEB",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidLEAD1"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "697905fe72d9f83abc6577cc99a103721a931a888ef7c1403597a76f1e743d2b"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.21"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000009"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "lead_6f1d2c3b-0000-4000-8000-00000000a002",
+          "eventTimestamp": "2026-09-20T09:45:00Z",
+          "eventSource": "WEB",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "9f4493eea76d699493584d1de0df28bfec17097f8bbe3394b7dc4e6616e06b86"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.22"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000010"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "leadstage_90000000001_salesqualifiedlead",
+          "eventTimestamp": "2026-09-24T15:00:00Z",
+          "eventSource": "WEB",
+          "adIdentifiers": {
+            "gclid": "Cj0KCQjwSYNTHgclidLEAD1"
+          },
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "697905fe72d9f83abc6577cc99a103721a931a888ef7c1403597a76f1e743d2b"
+              }
+            ]
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000001"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "reg_SynthU09FranceGranted",
+          "eventTimestamp": "2026-09-24T18:10:00Z",
+          "eventSource": "WEB",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "dc0b3a44c41a438d22201f81b2a1d0cdfed424dc26ca7953e581d9148e232f93"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.9"
+          },
+          "consent": {
+            "adUserData": "CONSENT_GRANTED",
+            "adPersonalization": "CONSENT_DENIED"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  },
+  {
+    "phase": "B",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://datamanager.googleapis.com/v1/events:ingest",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "google_oauth",
+    "body": {
+      "destinations": [
+        {
+          "operatingAccount": {
+            "accountType": "GOOGLE_ADS",
+            "accountId": "1000000000"
+          },
+          "productDestinationId": "9000000001"
+        }
+      ],
+      "encoding": "HEX",
+      "events": [
+        {
+          "transactionId": "reg_SynthU06GmailSignupF6",
+          "eventTimestamp": "2026-09-25T12:00:00Z",
+          "eventSource": "WEB",
+          "userData": {
+            "userIdentifiers": [
+              {
+                "emailAddress": "4bf9d9153d35411805d2e7c193438d80cec289d78b064f85915f53fa0969a722"
+              }
+            ]
+          },
+          "eventDeviceInfo": {
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "ipAddress": "203.0.113.6"
+          }
+        }
+      ],
+      "validateOnly": true
+    }
+  }
+]

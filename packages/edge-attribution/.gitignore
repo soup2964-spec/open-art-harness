@@ -1,0 +1,8 @@
+# The repo root ignores every dist/. This package ships its edge-sim build (the watchdog's
+# --edge-sim imports dist/edge-sim.js), so re-include it; `npm test` rebuilds it first and
+# test/node/edge-sim.test.ts fails if it drifts from src.
+!/dist/
+
+# Local secrets and wrangler state
+.dev.vars
+.wrangler/

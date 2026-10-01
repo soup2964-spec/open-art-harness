@@ -1,0 +1,6809 @@
+{
+ "schema": "openart-signal/watchdog-results@1",
+ "run": {
+  "id": "2026-09-30T21-39-52-611Z-OMP4UG",
+  "target": "patched",
+  "startedAt": "2026-09-30T21:39:52.611Z",
+  "finishedAt": "2026-09-30T21:49:42.779Z",
+  "host": "not recorded",
+  "node": "v22.23.2",
+  "chromePath": "Google Chrome",
+  "cli": [
+   "run",
+   "--target",
+   "patched",
+   "--patch-container",
+   "../web-fixes/gtm/proof/patched_resource.json",
+   "--patch-gtag-config",
+   "../web-fixes/gtm/proof/patched_gtag_config.js",
+   "--inject-script",
+   "../web-fixes/gtm/proof/inject_web_fixes.min.js",
+   "--edge-sim",
+   "../edge-attribution/dist/edge-sim.js",
+   "--out",
+   "reports/patched-final-2026-09-30"
+  ],
+  "runTag": "OMP4UG",
+  "patches": {
+   "container": {
+    "path": "packages/web-fixes/gtm/proof/patched_resource.json",
+    "sha256": "3af8dea8abc9670a8fd407f78d04400959fb110492a6eb0c3bca7fe148a847eb",
+    "resourceSha256": "20b0340b822d849bdf8a398724709f26659d195368d5f260e732afc0bb45468f"
+   },
+   "gtagConfig": {
+    "path": "packages/web-fixes/gtm/proof/patched_gtag_config.js",
+    "sha256": "31865015ccf89ddccef26cab4b60042aee8c309a2da00f0984e1ad85d078a7ec",
+    "resourceSha256": "bef0a57298efe6f0b7a1e3dfb7032e0644f3c5ed1b301f3a020cf852c80fc2fb"
+   },
+   "injectScript": {
+    "path": "packages/web-fixes/gtm/proof/inject_web_fixes.min.js",
+    "sha256": "1666494dbebeb66e554f5afff2cdc6b5bd47f0d088304ea604dcaab430296d16"
+   },
+   "edgeSim": {
+    "path": "packages/edge-attribution/dist/edge-sim.js",
+    "sha256": "5e427583e694d112774f17dfccea92621a7dcf42767ed45049d4d24e81eaeb8b"
+   }
+  },
+  "pageLoads": {
+   "total": 21,
+   "budget": 60,
+   "byStage": {
+    "replay": 1,
+    "meta_one_hop": 2,
+    "meta_multi_hop": 3,
+    "meta_return": 2,
+    "oppref_marketing": 2,
+    "gbraid_wbraid": 3,
+    "instagram_webview": 2,
+    "ubo_blocked": 2,
+    "spa_pageviews": 1,
+    "consent_DE": 1,
+    "consent_GB": 1,
+    "consent_CH": 1
+   }
+  },
+  "contract": "scenarios/contract.json",
+  "errors": []
+ },
+ "summary": {
+  "checks": {
+   "PASS": 18,
+   "FAIL": 1,
+   "ERROR": 0,
+   "SKIP": 0
+  },
+  "containerChanged": false,
+  "containerState": "UNCHANGED",
+  "zeroLeak": "PROVEN",
+  "coverage": {
+   "google_ads": "100%",
+   "meta": "100%",
+   "tiktok": "100%",
+   "reddit": "100%",
+   "linkedin": "100%",
+   "x": "100%",
+   "microsoft_uet": "100%",
+   "openai_ads": "100%"
+  },
+  "pilot": true,
+  "runErrors": 0,
+  "firstPartyUnlisted": 0
+ },
+ "policy": {
+  "firstPartyUnlisted": []
+ },
+ "checks": [
+  {
+   "id": "signup.google_ads.user_data",
+   "title": "Signup reaches Google Ads, with user data",
+   "claim": "G1",
+   "platform": "google_ads",
+   "status": "PASS",
+   "expected": "≥1 Google Ads conversion with label rVk2CJ7Ot8EZEOSYw_Up for \"signup\" carrying user-provided data (EC envelope / em) on the same conversion",
+   "observed": "1 conversion event(s) (AW-11252321380); user data on 2 hit(s)",
+   "evidence": [
+    {
+     "label": "Google requests caused by the scenario",
+     "detail": "6"
+    },
+    {
+     "label": "conversion event",
+     "detail": "AW-11252321380 label=rVk2CJ7Ot8EZEOSYw_Up value=0 oid=reg_WD_TEST_UID_OMP4UG ec_mode=—",
+     "ref": "replay#1"
+    },
+    {
+     "label": "hits with user data on this conversion",
+     "detail": "2",
+     "ref": "replay#12"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "purchase.linkedin.value_and_event_id",
+   "title": "LinkedIn purchase has a value and an event id",
+   "claim": "G12",
+   "platform": "linkedin",
+   "status": "FAIL",
+   "expected": "every LinkedIn conversion hit carries val (value) and a non-empty eventId",
+   "observed": "1/1 conversion hit(s) missing value or event id",
+   "evidence": [
+    {
+     "label": "conversion hit",
+     "detail": "conversionId=29290225 val=— cur=— eventId=sub_in_WD_TEST_INV1_OMP4UG",
+     "ref": "replay#21"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "purchase.x.single_deterministic_event",
+   "title": "X sends exactly one purchase event with a deterministic id",
+   "claim": "G2",
+   "platform": "x",
+   "status": "PASS",
+   "expected": "exactly 1 X purchase event whose id ∈ {sub_in_WD_TEST_INV1_OMP4UG, purchase_in_WD_TEST_INV1_OMP4UG, sub_in_WD_TEST_INV1_OMP4UG}",
+   "observed": "1 X purchase event(s) (ids sub_in_WD_TEST_INV1_OMP4UG / 2caf9d21-99e9-4095-bfff-44a809d439c7)",
+   "evidence": [
+    {
+     "label": "conversion event",
+     "detail": "tw-qwghh-13vj24 event_id=2caf9d21-99e9-4095-bfff-44a809d439c7 conversion_id=sub_in_WD_TEST_INV1_OMP4UG order_id=—",
+     "ref": "replay#22"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "signup.tiktok.event_id",
+   "title": "TikTok signup event_id equals reg_<uid>",
+   "claim": "G2",
+   "platform": "tiktok",
+   "status": "PASS",
+   "expected": "TikTok CompleteRegistration with event_id = reg_WD_TEST_UID_OMP4UG",
+   "observed": "event_id \"reg_WD_TEST_UID_OMP4UG\"",
+   "evidence": [
+    {
+     "label": "pixel event",
+     "detail": "CompleteRegistration event_id=\"reg_WD_TEST_UID_OMP4UG\"",
+     "ref": "replay#8"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "business_subscription.consumed",
+   "title": "business_subscription is consumed",
+   "claim": "G11",
+   "platform": "any",
+   "status": "PASS",
+   "expected": "≥1 ad-platform conversion event(s) caused by \"business_subscription\"",
+   "observed": "1 conversion event(s): google_ads",
+   "evidence": [
+    {
+     "label": "conversion",
+     "detail": "google_ads conversion",
+     "ref": "replay#37"
+    },
+    {
+     "label": "non-conversion effect",
+     "detail": "google_ads conversion_user_data openart.ai/4vu8/d/ccm/form-data/<id>",
+     "ref": "replay#41"
+    },
+    {
+     "label": "non-conversion effect",
+     "detail": "tiktok diagnostic analytics.tiktok.com/api/v2/monitor",
+     "ref": "replay#43"
+    },
+    {
+     "label": "non-conversion effect",
+     "detail": "openai_ads event bzr.openai.com/v1/sdk/events",
+     "ref": "replay#44"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "generation.google.no_auto_form_events",
+   "title": "No Google automatic form_start/form_submit events on generation",
+   "claim": "FINAL VERDICTS (NEW, logged-in data)",
+   "platform": "google_ads",
+   "status": "PASS",
+   "expected": "≤0 Google form_start/form_submit events on generation",
+   "observed": "0 distinct event(s) (form_start: 0, form_submit: 0)",
+   "evidence": [
+    {
+     "label": "generation",
+     "detail": "/suite/create-image/nano-banana-2 typed=true clicked=true — sign-up wall: none; prompt DIV[contenteditable] inForm=true; Generate clicked via mouse"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.google_ads",
+   "title": "Exactly one page view per route change — Google Ads",
+   "claim": "G15",
+   "platform": "google_ads",
+   "status": "PASS",
+   "expected": "exactly 1 google_ads page view per route change",
+   "observed": "AW-11252321380: 1 | AW-11252321380: 1 | AW-11252321380: 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "2 (google-tag: 1, AW-11252321380: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "AW-11252321380: 1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "AW-11252321380: 1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "AW-11252321380: 1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.meta",
+   "title": "Exactly one page view per route change — Meta",
+   "claim": "G15",
+   "platform": "meta",
+   "status": "PASS",
+   "expected": "exactly 1 meta page view per route change",
+   "observed": "1 | 1 | 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "1 (default: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.tiktok",
+   "title": "Exactly one page view per route change — TikTok",
+   "claim": "G15",
+   "platform": "tiktok",
+   "status": "PASS",
+   "expected": "exactly 1 tiktok page view per route change",
+   "observed": "1 | 1 | 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "1 (default: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.reddit",
+   "title": "Exactly one page view per route change — Reddit",
+   "claim": "G15",
+   "platform": "reddit",
+   "status": "PASS",
+   "expected": "exactly 1 reddit page view per route change",
+   "observed": "1 | 1 | 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "1 (default: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.linkedin",
+   "title": "Exactly one page view per route change — LinkedIn",
+   "claim": "G15",
+   "platform": "linkedin",
+   "status": "PASS",
+   "expected": "exactly 1 linkedin page view per route change",
+   "observed": "1 | 1 | 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "1 (default: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.x",
+   "title": "Exactly one page view per route change — X",
+   "claim": "G15",
+   "platform": "x",
+   "status": "PASS",
+   "expected": "exactly 1 x page view per route change",
+   "observed": "1 | 1 | 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "1 (default: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "spa.page_views.microsoft_uet",
+   "title": "Exactly one page view per route change — Microsoft UET",
+   "claim": "G15",
+   "platform": "microsoft_uet",
+   "status": "PASS",
+   "expected": "exactly 1 microsoft_uet page view per route change",
+   "observed": "1 | 1 | 1",
+   "evidence": [
+    {
+     "label": "hard load (reference)",
+     "detail": "1 (default: 1)"
+    },
+    {
+     "label": "route soft1",
+     "detail": "1"
+    },
+    {
+     "label": "route soft2",
+     "detail": "1"
+    },
+    {
+     "label": "route soft3",
+     "detail": "1"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "meta.fbc.multi_hop",
+   "title": "fbc present after a multi-hop journey",
+   "claim": "G4",
+   "platform": "meta",
+   "status": "PASS",
+   "expected": "the first app page view sent to Meta (/tr or CAPI Gateway) carries fbc built from the ad fbclid",
+   "observed": "3/3 Meta hit(s) on app carry fbc",
+   "evidence": [
+    {
+     "label": "app steps",
+     "detail": "app"
+    },
+    {
+     "label": "CAPI Gateway",
+     "detail": "PageView fbc=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG",
+     "ref": "page#807"
+    },
+    {
+     "label": "CAPI Gateway",
+     "detail": "PageView fbc=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG",
+     "ref": "page#808"
+    },
+    {
+     "label": "/tr",
+     "detail": "PageView fbc=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG",
+     "ref": "page#812"
+    },
+    {
+     "label": "_fbc cookie",
+     "detail": "fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG"
+    },
+    {
+     "label": "shim fbclid cookie",
+     "detail": "WD_TEST_FBCLID_OMP4UG"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "meta.fbc.return",
+   "title": "fbc present after a return (typed) visit",
+   "claim": "G4",
+   "platform": "meta",
+   "status": "PASS",
+   "expected": "the first app page view sent to Meta (/tr or CAPI Gateway) carries fbc built from the ad fbclid",
+   "observed": "3/3 Meta hit(s) on app_typed carry fbc",
+   "evidence": [
+    {
+     "label": "app steps",
+     "detail": "app_typed"
+    },
+    {
+     "label": "CAPI Gateway",
+     "detail": "PageView fbc=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG",
+     "ref": "page#681"
+    },
+    {
+     "label": "CAPI Gateway",
+     "detail": "PageView fbc=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG",
+     "ref": "page#683"
+    },
+    {
+     "label": "/tr",
+     "detail": "PageView fbc=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG",
+     "ref": "page#685"
+    },
+    {
+     "label": "_fbc cookie",
+     "detail": "fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG"
+    },
+    {
+     "label": "shim fbclid cookie",
+     "detail": "WD_TEST_FBCLID_OMP4UG"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "openai.oppref.marketing_landing",
+   "title": "oppref preserved on marketing landings",
+   "claim": "01 §T3",
+   "platform": "openai_ads",
+   "status": "PASS",
+   "expected": "the OpenAI Ads SDK on the app page sends the oppref from the marketing landing URL",
+   "observed": "4 SDK hit(s) carry oppref",
+   "evidence": [
+    {
+     "label": "OpenAI SDK hits on app",
+     "detail": "4"
+    },
+    {
+     "label": "hit with oppref",
+     "detail": "app · bzr.openai.com/v1/sdk/events · openai::sdk_init",
+     "ref": "page#695"
+    },
+    {
+     "label": "hit with oppref",
+     "detail": "app · bzr.openai.com/v1/sdk/events · oai::diagnostic",
+     "ref": "page#695"
+    },
+    {
+     "label": "__oppref cookie",
+     "detail": "WD_TEST_OPPREF_OMP4UG"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "google.gbraid_wbraid.persisted",
+   "title": "gbraid/wbraid persisted in oa_ad_clids",
+   "claim": "G6",
+   "platform": "google_ads",
+   "status": "PASS",
+   "expected": "oa_ad_clids holds gbraid + wbraid at the end of the journey",
+   "observed": "has gbraid, wbraid, fbclid",
+   "evidence": [
+    {
+     "label": "oa_ad_clids @ landing",
+     "detail": "{\"gbraid\":{\"v\":\"WD_TEST_GBRAID_OMP4UG\",\"ts\":1790804655417}}"
+    },
+    {
+     "label": "oa_ad_clids @ app",
+     "detail": "{\"gbraid\":{\"v\":\"WD_TEST_GBRAID_OMP4UG\",\"ts\":1790804655417}}"
+    },
+    {
+     "label": "oa_ad_clids @ app_second_click",
+     "detail": "{\"gbraid\":{\"v\":\"WD_TEST_GBRAID_OMP4UG\",\"ts\":1790804655417},\"wbraid\":{\"v\":\"WD_TEST_WBRAID_OMP4UG\",\"ts\":1790804690881},\"fbclid\":{\"v\":\"WD_TEST_FBCLID2_OMP4UG\",\"ts\":1790804690881}}"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "webview.handoff.attribution",
+   "title": "In-app-browser handoff URL carries attribution or a token",
+   "claim": "G5",
+   "platform": "meta",
+   "status": "PASS",
+   "expected": "the \"Open page in your browser\" handoff URL carries a click id / UTM from the ad, or a token",
+   "observed": "carries WD_TEST_FBCLID_OMP4UG, WD_TEST_TTCLID_OMP4UG, wd_watchdog, WD_TEST_UTM_OMP4UG",
+   "evidence": [
+    {
+     "label": "handoff URL",
+     "detail": "https://openart.ai/home?fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&utm_source=wd_watchdog&utm_campaign=WD_TEST_UTM_OMP4UG"
+    },
+    {
+     "label": "source",
+     "detail": "observed-overlay"
+    },
+    {
+     "label": "hint shown",
+     "detail": "true"
+    }
+   ],
+   "confidence": "observed"
+  },
+  {
+   "id": "consent.eea_uk_ch.defaults",
+   "title": "Consent defaults set for EEA/UK/CH in consent mode",
+   "claim": "G7",
+   "platform": "google_ads",
+   "status": "PASS",
+   "expected": "Google hits in DE/GB/CH carry consent defaults (ad_storage, ad_user_data, ad_personalization denied by default) declared for that region",
+   "observed": "defaults present in every probed region",
+   "evidence": [
+    {
+     "label": "DE (DE/DE-BE)",
+     "detail": "4 Google hit(s); gcd 13p3p3p3p5l1; geo rewrites 2; consent commands 2; tag consent state ad_storage=denied@DE, ad_user_data=denied@DE, ad_personalization=denied@DE"
+    },
+    {
+     "label": "GB (GB/GB-ENG)",
+     "detail": "4 Google hit(s); gcd 13p3p3p3p5l1; geo rewrites 2; consent commands 2; tag consent state ad_storage=denied@GB, ad_user_data=denied@GB, ad_personalization=denied@GB"
+    },
+    {
+     "label": "CH (CH/CH-ZH)",
+     "detail": "4 Google hit(s); gcd 13p3p3p3p5l1; geo rewrites 2; consent commands 2; tag consent state ad_storage=denied@CH, ad_user_data=denied@CH, ad_personalization=denied@CH"
+    }
+   ],
+   "confidence": "observed"
+  }
+ ],
+ "coverage": [
+  {
+   "platform": "google_ads",
+   "standard": {
+    "covered": 4,
+    "total": 4,
+    "pct": 100,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "gbraid_wbraid",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 0,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 4,
+    "total": 5,
+    "pct": 80,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "gbraid_wbraid",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "meta",
+   "standard": {
+    "covered": 4,
+    "total": 4,
+    "pct": 100,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "instagram_webview",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 0,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 4,
+    "total": 5,
+    "pct": 80,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "instagram_webview",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "tiktok",
+   "standard": {
+    "covered": 4,
+    "total": 4,
+    "pct": 100,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "instagram_webview",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 0,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 4,
+    "total": 5,
+    "pct": 80,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "instagram_webview",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "reddit",
+   "standard": {
+    "covered": 3,
+    "total": 3,
+    "pct": 100,
+    "stored": 3,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 1,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 3,
+    "total": 4,
+    "pct": 75,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "linkedin",
+   "standard": {
+    "covered": 3,
+    "total": 3,
+    "pct": 100,
+    "stored": 3,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 1,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 3,
+    "total": 4,
+    "pct": 75,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "x",
+   "standard": {
+    "covered": 3,
+    "total": 3,
+    "pct": 100,
+    "stored": 3,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 0,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 3,
+    "total": 4,
+    "pct": 75,
+    "stored": 3,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "microsoft_uet",
+   "standard": {
+    "covered": 3,
+    "total": 3,
+    "pct": 100,
+    "stored": 3,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 0,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 3,
+    "total": 4,
+    "pct": 75,
+    "stored": 3,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": false,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  },
+  {
+   "platform": "openai_ads",
+   "standard": {
+    "covered": 4,
+    "total": 4,
+    "pct": 100,
+    "stored": 4,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "oppref_marketing",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "blocker": {
+    "covered": 0,
+    "total": 1,
+    "pct": 0,
+    "stored": 1,
+    "journeys": [
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   },
+   "all": {
+    "covered": 4,
+    "total": 5,
+    "pct": 80,
+    "stored": 5,
+    "journeys": [
+     {
+      "id": "meta_one_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_multi_hop",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "meta_return",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "oppref_marketing",
+      "covered": true,
+      "stored": true,
+      "urlOnly": false
+     },
+     {
+      "id": "ubo_blocked",
+      "covered": false,
+      "stored": true,
+      "urlOnly": false
+     }
+    ],
+    "excluded": []
+   }
+  }
+ ],
+ "journeys": [
+  {
+   "id": "meta_one_hop",
+   "title": "Meta ad → / → CTA → /home (one hop)",
+   "landingUrl": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "clickIds": {
+    "gclid": "WD_TEST_GCLID_OMP4UG",
+    "fbclid": "WD_TEST_FBCLID_OMP4UG",
+    "ttclid": "WD_TEST_TTCLID_OMP4UG",
+    "msclkid": "WD_TEST_MSCLKID_OMP4UG",
+    "rdt_cid": "WD_TEST_RDTCID_OMP4UG",
+    "li_fat_id": "WD_TEST_LIFATID_OMP4UG",
+    "twclid": "WD_TEST_TWCLID_OMP4UG",
+    "oppref": "WD_TEST_OPPREF_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "app"
+   ],
+   "appSteps": [
+    "app"
+   ],
+   "pageLoads": 2,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {
+      "gclid": "WD_TEST_GCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 8,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "gclid",
+       "_gcl_aw"
+      ],
+      "oaAdClids": [
+       "gclid"
+      ],
+      "localStorage": [
+       "_gcl_ls"
+      ],
+      "any": true
+     },
+     "examples": [
+      "app www.google.com/ccm/collect page_view gclid=WD_TEST_GCLID_OMP4UG gclaw=WD_TEST_GCLID_OMP4UG",
+      "app www.google.com/rmkt/collect/<id>/ gtag.config gclaw=WD_TEST_GCLID_OMP4UG",
+      "app www.google.com/rmkt/collect/<id>/ gtag.config gclaw=WD_TEST_GCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "meta",
+     "params": {
+      "fbclid": "WD_TEST_FBCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 4,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_fbc",
+       "fbclid"
+      ],
+      "oaAdClids": [
+       "fbclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView fb.clickID=fb.1.1790804476768.WD_TEST_FBCLID_OMP4UG",
+      "app bded8a3c6ae-1-1053047382554.us-central1.run.app/events PageView fb.clickID=fb.1.1790804476768.WD_TEST_FBCLID_OMP4UG",
+      "app www.facebook.com/tr/ PageView fbc=fb.1.1790804476768.WD_TEST_FBCLID_OMP4UG fbcs=fb.1.1790804476768.WD_TEST_FBCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "tiktok",
+     "params": {
+      "ttclid": "WD_TEST_TTCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 5,
+     "hitsWithIdOnFinal": 5,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "ttclid"
+      ],
+      "oaAdClids": [
+       "ttclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app analytics.tiktok.com/api/v2/pixel/act event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804477917",
+      "app analytics.tiktok.com/api/v2/pixel/inter event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804477917",
+      "app analytics.tiktok.com/api/v2/pixel Pageview context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804477917"
+     ]
+    },
+    {
+     "platform": "reddit",
+     "params": {
+      "rdt_cid": "WD_TEST_RDTCID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "rdt_cid",
+       "_rdt_cid"
+      ],
+      "oaAdClids": [
+       "rdt_cid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app alb.reddit.com/rp PageVisit click_id=WD_TEST_RDTCID_OMP4UG",
+      "app alb.reddit.com/rp.gif PageVisit click_id=WD_TEST_RDTCID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "linkedin",
+     "params": {
+      "li_fat_id": "WD_TEST_LIFATID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 1,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "li_fat_id"
+      ],
+      "oaAdClids": [
+       "li_fat_id"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app px.ads.linkedin.com/collect page_view li_fat_id=WD_TEST_LIFATID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "x",
+     "params": {
+      "twclid": "WD_TEST_TWCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 4,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_twclid"
+      ],
+      "oaAdClids": [
+       "twclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app t.co/1/i/adsct pageview twclid=WD_TEST_TWCLID_OMP4UG",
+      "app analytics.twitter.com/1/i/adsct pageview twclid=WD_TEST_TWCLID_OMP4UG",
+      "app t.co/i/adsct auto_long_site_dwell twclid=WD_TEST_TWCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {
+      "msclkid": "WD_TEST_MSCLKID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "msclkid",
+       "_uetmsclkid"
+      ],
+      "oaAdClids": [
+       "msclkid"
+      ],
+      "localStorage": [
+       "_uetmsclkid"
+      ],
+      "any": true
+     },
+     "examples": [
+      "app bat.bing.com/actionp/0 pageHide msclkid=WD_TEST_MSCLKID_OMP4UG-1",
+      "app bat.bing.com/action/0 pageLoad msclkid=WD_TEST_MSCLKID_OMP4UG-0"
+     ]
+    },
+    {
+     "platform": "openai_ads",
+     "params": {
+      "oppref": "WD_TEST_OPPREF_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "__oppref"
+      ],
+      "oaAdClids": [
+       "oppref"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG",
+      "app bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG"
+     ]
+    }
+   ],
+   "oaAdClidsFinal": {
+    "gclid": {
+     "v": "WD_TEST_GCLID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "fbclid": {
+     "v": "WD_TEST_FBCLID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "msclkid": {
+     "v": "WD_TEST_MSCLKID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "ttclid": {
+     "v": "WD_TEST_TTCLID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "rdt_cid": {
+     "v": "WD_TEST_RDTCID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "twclid": {
+     "v": "WD_TEST_TWCLID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "li_fat_id": {
+     "v": "WD_TEST_LIFATID_OMP4UG",
+     "ts": 1790804476768
+    },
+    "oppref": {
+     "v": "WD_TEST_OPPREF_OMP4UG",
+     "ts": 1790804476768
+    }
+   },
+   "notes": [
+    "app: clicked \"Start for Free\" (/home) via mouse; navigated=true"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_meta_one_hop.json",
+   "requestCounts": {
+    "total": 437,
+    "allowed": 325,
+    "failed": 112,
+    "collection": 99
+   }
+  },
+  {
+   "id": "meta_multi_hop",
+   "title": "Meta ad → / → /ai-model/seedance-2-5/ → app (multi hop)",
+   "landingUrl": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "clickIds": {
+    "gclid": "WD_TEST_GCLID_OMP4UG",
+    "fbclid": "WD_TEST_FBCLID_OMP4UG",
+    "ttclid": "WD_TEST_TTCLID_OMP4UG",
+    "msclkid": "WD_TEST_MSCLKID_OMP4UG",
+    "rdt_cid": "WD_TEST_RDTCID_OMP4UG",
+    "li_fat_id": "WD_TEST_LIFATID_OMP4UG",
+    "twclid": "WD_TEST_TWCLID_OMP4UG",
+    "oppref": "WD_TEST_OPPREF_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "marketing_page2",
+    "app"
+   ],
+   "appSteps": [
+    "app"
+   ],
+   "pageLoads": 3,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {
+      "gclid": "WD_TEST_GCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 8,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "gclid",
+       "_gcl_aw"
+      ],
+      "oaAdClids": [
+       "gclid"
+      ],
+      "localStorage": [
+       "_gcl_ls"
+      ],
+      "any": true
+     },
+     "examples": [
+      "app www.google.com/ccm/collect page_view gclaw=WD_TEST_GCLID_OMP4UG",
+      "app www.google.com/rmkt/collect/<id>/ gtag.config gclaw=WD_TEST_GCLID_OMP4UG",
+      "app www.google.com/rmkt/collect/<id>/ gtag.config gclaw=WD_TEST_GCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "meta",
+     "params": {
+      "fbclid": "WD_TEST_FBCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 3,
+     "hitsWithIdOnFinal": 3,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_fbc",
+       "fbclid"
+      ],
+      "oaAdClids": [
+       "fbclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView fb.clickID=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG",
+      "app bded8a3c6ae-1-1053047382554.us-central1.run.app/events PageView fb.clickID=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG",
+      "app www.facebook.com/tr/ PageView fbc=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG fbcs=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "tiktok",
+     "params": {
+      "ttclid": "WD_TEST_TTCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 5,
+     "hitsWithIdOnFinal": 5,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "ttclid"
+      ],
+      "oaAdClids": [
+       "ttclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app analytics.tiktok.com/api/v2/pixel/act event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804519921",
+      "app analytics.tiktok.com/api/v2/pixel/inter event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804519921",
+      "app analytics.tiktok.com/api/v2/pixel Pageview context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804519921"
+     ]
+    },
+    {
+     "platform": "reddit",
+     "params": {
+      "rdt_cid": "WD_TEST_RDTCID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "rdt_cid",
+       "_rdt_cid"
+      ],
+      "oaAdClids": [
+       "rdt_cid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app alb.reddit.com/rp PageVisit click_id=WD_TEST_RDTCID_OMP4UG",
+      "app alb.reddit.com/rp.gif PageVisit click_id=WD_TEST_RDTCID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "linkedin",
+     "params": {
+      "li_fat_id": "WD_TEST_LIFATID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 1,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "li_fat_id"
+      ],
+      "oaAdClids": [
+       "li_fat_id"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app px.ads.linkedin.com/collect page_view li_fat_id=WD_TEST_LIFATID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "x",
+     "params": {
+      "twclid": "WD_TEST_TWCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 4,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_twclid"
+      ],
+      "oaAdClids": [
+       "twclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app t.co/1/i/adsct pageview twclid=WD_TEST_TWCLID_OMP4UG",
+      "app analytics.twitter.com/1/i/adsct pageview twclid=WD_TEST_TWCLID_OMP4UG",
+      "app t.co/i/adsct auto_long_site_dwell twclid=WD_TEST_TWCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {
+      "msclkid": "WD_TEST_MSCLKID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "msclkid",
+       "_uetmsclkid"
+      ],
+      "oaAdClids": [
+       "msclkid"
+      ],
+      "localStorage": [
+       "_uetmsclkid"
+      ],
+      "any": true
+     },
+     "examples": [
+      "app bat.bing.com/actionp/0 pageHide msclkid=WD_TEST_MSCLKID_OMP4UG-0",
+      "app bat.bing.com/action/0 pageLoad msclkid=WD_TEST_MSCLKID_OMP4UG-0"
+     ]
+    },
+    {
+     "platform": "openai_ads",
+     "params": {
+      "oppref": "WD_TEST_OPPREF_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "__oppref"
+      ],
+      "oaAdClids": [
+       "oppref"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG",
+      "app bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG"
+     ]
+    }
+   ],
+   "oaAdClidsFinal": {
+    "gclid": {
+     "v": "WD_TEST_GCLID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "fbclid": {
+     "v": "WD_TEST_FBCLID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "msclkid": {
+     "v": "WD_TEST_MSCLKID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "ttclid": {
+     "v": "WD_TEST_TTCLID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "rdt_cid": {
+     "v": "WD_TEST_RDTCID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "twclid": {
+     "v": "WD_TEST_TWCLID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "li_fat_id": {
+     "v": "WD_TEST_LIFATID_OMP4UG",
+     "ts": 1790804518966
+    },
+    "oppref": {
+     "v": "WD_TEST_OPPREF_OMP4UG",
+     "ts": 1790804518966
+    }
+   },
+   "notes": [
+    "marketing_page2: clicked \"Seedance 2.5\" (/ai-model/seedance-2-5/) via dom-click; navigated=true",
+    "app: clicked \"Generate with Seedance 2.5\" (/suite/create-video/byte-plus-seedance-2-5) via mouse; navigated=true"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_meta_multi_hop.json",
+   "requestCounts": {
+    "total": 549,
+    "allowed": 389,
+    "failed": 160,
+    "collection": 138
+   }
+  },
+  {
+   "id": "meta_return",
+   "title": "Meta ad → /, then a typed /home (return visit)",
+   "landingUrl": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "clickIds": {
+    "gclid": "WD_TEST_GCLID_OMP4UG",
+    "fbclid": "WD_TEST_FBCLID_OMP4UG",
+    "ttclid": "WD_TEST_TTCLID_OMP4UG",
+    "msclkid": "WD_TEST_MSCLKID_OMP4UG",
+    "rdt_cid": "WD_TEST_RDTCID_OMP4UG",
+    "li_fat_id": "WD_TEST_LIFATID_OMP4UG",
+    "twclid": "WD_TEST_TWCLID_OMP4UG",
+    "oppref": "WD_TEST_OPPREF_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "app_typed"
+   ],
+   "appSteps": [
+    "app_typed"
+   ],
+   "pageLoads": 2,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {
+      "gclid": "WD_TEST_GCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 8,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "gclid",
+       "_gcl_aw"
+      ],
+      "oaAdClids": [
+       "gclid"
+      ],
+      "localStorage": [
+       "_gcl_ls"
+      ],
+      "any": true
+     },
+     "examples": [
+      "app_typed www.google.com/ccm/collect page_view gclaw=WD_TEST_GCLID_OMP4UG",
+      "app_typed www.google.com/rmkt/collect/<id>/ gtag.config gclaw=WD_TEST_GCLID_OMP4UG",
+      "app_typed www.google.com/rmkt/collect/<id>/ gtag.config gclaw=WD_TEST_GCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "meta",
+     "params": {
+      "fbclid": "WD_TEST_FBCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 3,
+     "hitsWithIdOnFinal": 3,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_fbc",
+       "fbclid"
+      ],
+      "oaAdClids": [
+       "fbclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app_typed m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView fb.clickID=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG",
+      "app_typed bded8a3c6ae-1-1053047382554.us-central1.run.app/events PageView fb.clickID=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG",
+      "app_typed www.facebook.com/tr/ PageView fbc=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG fbcs=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "tiktok",
+     "params": {
+      "ttclid": "WD_TEST_TTCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "ttclid"
+      ],
+      "oaAdClids": [
+       "ttclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app_typed analytics.tiktok.com/api/v2/pixel Pageview context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804579815",
+      "app_typed analytics.tiktok.com/api/v2/pixel/act event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804579815"
+     ]
+    },
+    {
+     "platform": "reddit",
+     "params": {
+      "rdt_cid": "WD_TEST_RDTCID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "rdt_cid",
+       "_rdt_cid"
+      ],
+      "oaAdClids": [
+       "rdt_cid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app_typed alb.reddit.com/rp PageVisit click_id=WD_TEST_RDTCID_OMP4UG",
+      "app_typed alb.reddit.com/rp.gif PageVisit click_id=WD_TEST_RDTCID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "linkedin",
+     "params": {
+      "li_fat_id": "WD_TEST_LIFATID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 3,
+     "hitsWithIdOnFinal": 1,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "li_fat_id"
+      ],
+      "oaAdClids": [
+       "li_fat_id"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app_typed px.ads.linkedin.com/collect page_view li_fat_id=WD_TEST_LIFATID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "x",
+     "params": {
+      "twclid": "WD_TEST_TWCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 4,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_twclid"
+      ],
+      "oaAdClids": [
+       "twclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app_typed t.co/1/i/adsct pageview twclid=WD_TEST_TWCLID_OMP4UG",
+      "app_typed analytics.twitter.com/1/i/adsct pageview twclid=WD_TEST_TWCLID_OMP4UG",
+      "app_typed t.co/i/adsct auto_long_site_dwell twclid=WD_TEST_TWCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {
+      "msclkid": "WD_TEST_MSCLKID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "msclkid",
+       "_uetmsclkid"
+      ],
+      "oaAdClids": [
+       "msclkid"
+      ],
+      "localStorage": [
+       "_uetmsclkid"
+      ],
+      "any": true
+     },
+     "examples": [
+      "app_typed bat.bing.com/actionp/0 pageHide msclkid=WD_TEST_MSCLKID_OMP4UG-1",
+      "app_typed bat.bing.com/action/0 pageLoad msclkid=WD_TEST_MSCLKID_OMP4UG-0"
+     ]
+    },
+    {
+     "platform": "openai_ads",
+     "params": {
+      "oppref": "WD_TEST_OPPREF_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app_typed"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "__oppref"
+      ],
+      "oaAdClids": [
+       "oppref"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app_typed bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG",
+      "app_typed bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG"
+     ]
+    }
+   ],
+   "oaAdClidsFinal": {
+    "gclid": {
+     "v": "WD_TEST_GCLID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "fbclid": {
+     "v": "WD_TEST_FBCLID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "msclkid": {
+     "v": "WD_TEST_MSCLKID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "ttclid": {
+     "v": "WD_TEST_TTCLID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "rdt_cid": {
+     "v": "WD_TEST_RDTCID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "twclid": {
+     "v": "WD_TEST_TWCLID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "li_fat_id": {
+     "v": "WD_TEST_LIFATID_OMP4UG",
+     "ts": 1790804578898
+    },
+    "oppref": {
+     "v": "WD_TEST_OPPREF_OMP4UG",
+     "ts": 1790804578898
+    }
+   },
+   "notes": [],
+   "errors": [],
+   "rawFile": "raw/journey_meta_return.json",
+   "requestCounts": {
+    "total": 429,
+    "allowed": 324,
+    "failed": 105,
+    "collection": 91
+   }
+  },
+  {
+   "id": "oppref_marketing",
+   "title": "ChatGPT ad (oppref) → marketing landing → CTA → app",
+   "landingUrl": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "clickIds": {
+    "oppref": "WD_TEST_OPPREF_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "app"
+   ],
+   "appSteps": [
+    "app"
+   ],
+   "pageLoads": 2,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "meta",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "tiktok",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 5,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "reddit",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "linkedin",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "x",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "openai_ads",
+     "params": {
+      "oppref": "WD_TEST_OPPREF_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 2,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "__oppref"
+      ],
+      "oaAdClids": [
+       "oppref"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG",
+      "app bzr.openai.com/v1/sdk/events openai::sdk_init oppref=WD_TEST_OPPREF_OMP4UG"
+     ]
+    }
+   ],
+   "oaAdClidsFinal": {
+    "oppref": {
+     "v": "WD_TEST_OPPREF_OMP4UG",
+     "ts": 1790804617643
+    }
+   },
+   "notes": [
+    "app: clicked \"Start for Free\" (/home) via mouse; navigated=true"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_oppref_marketing.json",
+   "requestCounts": {
+    "total": 435,
+    "allowed": 325,
+    "failed": 110,
+    "collection": 97
+   }
+  },
+  {
+   "id": "gbraid_wbraid",
+   "title": "iOS Google ad (gbraid) → / → app, then an app landing with wbraid (+ a later Meta click)",
+   "landingUrl": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gbraid=WD_TEST_GBRAID_OMP4UG",
+   "clickIds": {
+    "gbraid": "WD_TEST_GBRAID_OMP4UG",
+    "wbraid": "WD_TEST_WBRAID_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "app",
+    "app_second_click"
+   ],
+   "appSteps": [
+    "app",
+    "app_second_click"
+   ],
+   "pageLoads": 3,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {
+      "gbraid": "WD_TEST_GBRAID_OMP4UG",
+      "wbraid": "WD_TEST_WBRAID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 28,
+     "hitsWithIdOnFinal": 10,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "gbraid",
+       "_gcl_ag",
+       "wbraid",
+       "_gcl_gb"
+      ],
+      "oaAdClids": [
+       "gbraid",
+       "wbraid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app www.google.com/ccm/collect page_view gbraid=WD_TEST_GBRAID_OMP4UG gclgb=WD_TEST_GBRAID_OMP4UG",
+      "app www.google.com/ccm/collect page_view gbraid=WD_TEST_GBRAID_OMP4UG gclgb=WD_TEST_GBRAID_OMP4UG",
+      "app www.google.com/ccm/collect page_view gbraid=WD_TEST_GBRAID_OMP4UG gclgb=WD_TEST_GBRAID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "meta",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 7,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "tiktok",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 9,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "reddit",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "linkedin",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 9,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "x",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 8,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "openai_ads",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "app_second_click"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    }
+   ],
+   "oaAdClidsFinal": {
+    "gbraid": {
+     "v": "WD_TEST_GBRAID_OMP4UG",
+     "ts": 1790804655417
+    },
+    "wbraid": {
+     "v": "WD_TEST_WBRAID_OMP4UG",
+     "ts": 1790804690881
+    },
+    "fbclid": {
+     "v": "WD_TEST_FBCLID2_OMP4UG",
+     "ts": 1790804690881
+    }
+   },
+   "notes": [
+    "app: clicked \"Start for Free\" (/home) via mouse; navigated=true",
+    "second landing mirrors research T2c (a later click on another ad rewrites oa_ad_clids)"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_gbraid_wbraid.json",
+   "requestCounts": {
+    "total": 603,
+    "allowed": 426,
+    "failed": 177,
+    "collection": 156
+   }
+  },
+  {
+   "id": "instagram_webview",
+   "title": "Instagram in-app browser: / → CTA → /home → sign-in → \"Open page in your browser\"",
+   "landingUrl": "https://openart.ai/?fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&utm_source=wd_watchdog&utm_campaign=WD_TEST_UTM_OMP4UG",
+   "clickIds": {
+    "fbclid": "WD_TEST_FBCLID_OMP4UG",
+    "ttclid": "WD_TEST_TTCLID_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "app",
+    "auth_open_1",
+    "handoff_overlay"
+   ],
+   "appSteps": [
+    "app",
+    "auth_open_1"
+   ],
+   "pageLoads": 2,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "meta",
+     "params": {
+      "fbclid": "WD_TEST_FBCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 5,
+     "hitsWithIdOnFinal": 5,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "_fbc",
+       "fbclid"
+      ],
+      "oaAdClids": [
+       "fbclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView fb.clickID=fb.1.1790804715157.WD_TEST_FBCLID_OMP4UG",
+      "app www.facebook.com/tr/ PageView fbc=fb.1.1790804715157.WD_TEST_FBCLID_OMP4UG fbcs=fb.1.1790804715157.WD_TEST_FBCLID_OMP4UG",
+      "app bded8a3c6ae-1-1053047382554.us-central1.run.app/events PageView fb.clickID=fb.1.1790804715157.WD_TEST_FBCLID_OMP4UG"
+     ]
+    },
+    {
+     "platform": "tiktok",
+     "params": {
+      "ttclid": "WD_TEST_TTCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 7,
+     "hitsWithIdOnFinal": 7,
+     "sentOnFinalPage": true,
+     "sentAnywhere": true,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "ttclid"
+      ],
+      "oaAdClids": [
+       "ttclid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": [
+      "app analytics.tiktok.com/api/v2/pixel/act event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804716286",
+      "app analytics.tiktok.com/api/v2/pixel/inter event context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804716286",
+      "app analytics.tiktok.com/api/v2/pixel Pageview context.ad.callback=WD_TEST_TTCLID_OMP4UG.1790804716286"
+     ]
+    },
+    {
+     "platform": "reddit",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 2,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "linkedin",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 8,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "x",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 6,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "openai_ads",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "app",
+      "auth_open_1"
+     ],
+     "hitsOnFinal": 3,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    }
+   ],
+   "oaAdClidsFinal": {
+    "fbclid": {
+     "v": "WD_TEST_FBCLID_OMP4UG",
+     "ts": 1790804715157
+    },
+    "ttclid": {
+     "v": "WD_TEST_TTCLID_OMP4UG",
+     "ts": 1790804715157
+    }
+   },
+   "handoff": {
+    "hintFound": true,
+    "overlayOpened": true,
+    "overlayUrl": "https://openart.ai/home?fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&utm_source=wd_watchdog&utm_campaign=WD_TEST_UTM_OMP4UG",
+    "locationHref": "https://openart.ai/home",
+    "source": "observed-overlay"
+   },
+   "notes": [
+    "app: clicked \"Start for Free\" (/home) via mouse; navigated=true"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_instagram_webview.json",
+   "requestCounts": {
+    "total": 432,
+    "allowed": 293,
+    "failed": 139,
+    "collection": 126
+   }
+  },
+  {
+   "id": "ubo_blocked",
+   "title": "uBlock Origin defaults: ad URL with every click id → / → CTA → app",
+   "landingUrl": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "clickIds": {
+    "gclid": "WD_TEST_GCLID_OMP4UG",
+    "fbclid": "WD_TEST_FBCLID_OMP4UG",
+    "ttclid": "WD_TEST_TTCLID_OMP4UG",
+    "msclkid": "WD_TEST_MSCLKID_OMP4UG",
+    "rdt_cid": "WD_TEST_RDTCID_OMP4UG",
+    "li_fat_id": "WD_TEST_LIFATID_OMP4UG",
+    "twclid": "WD_TEST_TWCLID_OMP4UG",
+    "oppref": "WD_TEST_OPPREF_OMP4UG"
+   },
+   "stepsOrder": [
+    "landing",
+    "app"
+   ],
+   "appSteps": [
+    "app"
+   ],
+   "pageLoads": 2,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {
+      "gclid": "WD_TEST_GCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "meta",
+     "params": {
+      "fbclid": "WD_TEST_FBCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "tiktok",
+     "params": {
+      "ttclid": "WD_TEST_TTCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "reddit",
+     "params": {
+      "rdt_cid": "WD_TEST_RDTCID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "rdt_cid"
+      ],
+      "oaAdClids": [
+       "rdt_cid"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": []
+    },
+    {
+     "platform": "linkedin",
+     "params": {
+      "li_fat_id": "WD_TEST_LIFATID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [
+       "li_fat_id"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": []
+    },
+    {
+     "platform": "x",
+     "params": {
+      "twclid": "WD_TEST_TWCLID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {
+      "msclkid": "WD_TEST_MSCLKID_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "openai_ads",
+     "params": {
+      "oppref": "WD_TEST_OPPREF_OMP4UG"
+     },
+     "relevant": true,
+     "finalSteps": [
+      "app"
+     ],
+     "hitsOnFinal": 0,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [
+       "__oppref"
+      ],
+      "oaAdClids": [
+       "oppref"
+      ],
+      "localStorage": [],
+      "any": true
+     },
+     "examples": []
+    }
+   ],
+   "oaAdClidsFinal": {
+    "li_fat_id": {
+     "v": "WD_TEST_LIFATID_OMP4UG",
+     "ts": 1790804778560
+    },
+    "rdt_cid": {
+     "v": "WD_TEST_RDTCID_OMP4UG",
+     "ts": 1790804778560
+    },
+    "oppref": {
+     "v": "WD_TEST_OPPREF_OMP4UG",
+     "ts": 1790804778560
+    }
+   },
+   "blocker": {
+    "engine": "uBlock Origin default lists (blocklists)",
+    "blocked": 33,
+    "strippedParams": [
+     "gclid, fbclid, ttclid, msclkid, twclid stripped by $removeparam=gclid | $removeparam=fbclid | $removeparam=ttclid | $removeparam=msclkid | $removeparam=twclid"
+    ]
+   },
+   "notes": [
+    "app: clicked \"Start for Free\" (/home) via mouse; navigated=true"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_ubo_blocked.json",
+   "requestCounts": {
+    "total": 329,
+    "allowed": 294,
+    "failed": 34,
+    "collection": 7
+   }
+  },
+  {
+   "id": "spa_pageviews",
+   "title": "Suite soft navigations (page views per route change) + a generation attempt",
+   "landingUrl": "https://openart.ai/home?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG",
+   "clickIds": {},
+   "stepsOrder": [
+    "hard_load",
+    "soft1",
+    "soft2",
+    "soft3",
+    "generation"
+   ],
+   "appSteps": [
+    "hard_load",
+    "soft1",
+    "soft2",
+    "soft3",
+    "generation"
+   ],
+   "pageLoads": 1,
+   "perPlatform": [
+    {
+     "platform": "google_ads",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 44,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "meta",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 14,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "tiktok",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 20,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "reddit",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 5,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "linkedin",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 42,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "x",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 12,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "microsoft_uet",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 11,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    },
+    {
+     "platform": "openai_ads",
+     "params": {},
+     "relevant": false,
+     "finalSteps": [
+      "hard_load",
+      "soft1",
+      "soft2",
+      "soft3",
+      "generation"
+     ],
+     "hitsOnFinal": 4,
+     "hitsWithIdOnFinal": 0,
+     "sentOnFinalPage": false,
+     "sentAnywhere": false,
+     "urlOnlyOnFinal": false,
+     "stored": {
+      "cookies": [],
+      "oaAdClids": [],
+      "localStorage": [],
+      "any": false
+     },
+     "examples": []
+    }
+   ],
+   "oaAdClidsFinal": null,
+   "pageViews": {
+    "hardLoad": {
+     "google_ads": {
+      "total": 2,
+      "streams": {
+       "google-tag": 1,
+       "AW-11252321380": 1
+      },
+      "examples": [
+       "www.google.com/ccm/collect page_view /home",
+       "www.google.com/ccm/collect page_view /home"
+      ]
+     },
+     "meta": {
+      "total": 1,
+      "streams": {
+       "default": 1
+      },
+      "examples": [
+       "m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView /home"
+      ]
+     },
+     "tiktok": {
+      "total": 1,
+      "streams": {
+       "default": 1
+      },
+      "examples": [
+       "analytics.tiktok.com/api/v2/pixel Pageview /home"
+      ]
+     },
+     "reddit": {
+      "total": 1,
+      "streams": {
+       "default": 1
+      },
+      "examples": [
+       "alb.reddit.com/rp PageVisit /home"
+      ]
+     },
+     "linkedin": {
+      "total": 1,
+      "streams": {
+       "default": 1
+      },
+      "examples": [
+       "px.ads.linkedin.com/collect page_view /home"
+      ]
+     },
+     "x": {
+      "total": 1,
+      "streams": {
+       "default": 1
+      },
+      "examples": [
+       "t.co/1/i/adsct pageview /home"
+      ]
+     },
+     "microsoft_uet": {
+      "total": 1,
+      "streams": {
+       "default": 1
+      },
+      "examples": [
+       "bat.bing.com/action/0 pageLoad /home"
+      ]
+     },
+     "amplitude": {
+      "total": 0,
+      "streams": {},
+      "examples": []
+     }
+    },
+    "routes": [
+     {
+      "step": "soft1",
+      "to": "https://openart.ai/suite/create-image/nano-banana-2",
+      "historyEvents": [
+       "soft:/suite/create-image/nano-banana-2",
+       "soft:/suite/create-image",
+       "soft:/suite/create-image/nano-banana-2",
+       "soft:/suite/create-image/nano-banana-2"
+      ],
+      "ok": true,
+      "counts": {
+       "google_ads": {
+        "total": 1,
+        "streams": {
+         "AW-11252321380": 1
+        },
+        "examples": [
+         "www.google.com/ccm/collect page_view /suite/create-image/nano-banana-2"
+        ]
+       },
+       "meta": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView /suite/create-image/nano-banana-2"
+        ]
+       },
+       "tiktok": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "analytics.tiktok.com/api/v2/pixel Pageview /suite/create-image/nano-banana-2"
+        ]
+       },
+       "reddit": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "alb.reddit.com/rp.gif PageVisit /suite/create-image/nano-banana-2"
+        ]
+       },
+       "linkedin": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "px.ads.linkedin.com/collect page_view /suite/create-image/nano-banana-2"
+        ]
+       },
+       "x": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "t.co/1/i/adsct pageview /suite/create-image/nano-banana-2"
+        ]
+       },
+       "microsoft_uet": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "bat.bing.com/action/0 pageLoad /suite/create-image/nano-banana-2"
+        ]
+       },
+       "amplitude": {
+        "total": 0,
+        "streams": {},
+        "examples": []
+       }
+      }
+     },
+     {
+      "step": "soft2",
+      "to": "https://openart.ai/suite/create-video/kling-3-omni",
+      "historyEvents": [
+       "soft:/suite/create-video/kling-3-omni",
+       "soft:/suite/create-video",
+       "soft:/suite/create-video/kling-3-omni",
+       "soft:/suite/create-video/kling-3-omni"
+      ],
+      "ok": true,
+      "counts": {
+       "google_ads": {
+        "total": 1,
+        "streams": {
+         "AW-11252321380": 1
+        },
+        "examples": [
+         "www.google.com/ccm/collect page_view /suite/create-video/kling-3-omni"
+        ]
+       },
+       "meta": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView /suite/create-video/kling-3-omni"
+        ]
+       },
+       "tiktok": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "analytics.tiktok.com/api/v2/pixel Pageview /suite/create-video/kling-3-omni"
+        ]
+       },
+       "reddit": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "alb.reddit.com/rp.gif PageVisit /suite/create-video/kling-3-omni"
+        ]
+       },
+       "linkedin": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "px.ads.linkedin.com/collect page_view /suite/create-video/kling-3-omni"
+        ]
+       },
+       "x": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "t.co/1/i/adsct pageview /suite/create-video/kling-3-omni"
+        ]
+       },
+       "microsoft_uet": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "bat.bing.com/action/0 pageLoad /suite/create-video/kling-3-omni"
+        ]
+       },
+       "amplitude": {
+        "total": 0,
+        "streams": {},
+        "examples": []
+       }
+      }
+     },
+     {
+      "step": "soft3",
+      "to": "https://openart.ai/suite/inspire/feed",
+      "historyEvents": [
+       "soft:/suite/inspire/feed"
+      ],
+      "ok": true,
+      "counts": {
+       "google_ads": {
+        "total": 1,
+        "streams": {
+         "AW-11252321380": 1
+        },
+        "examples": [
+         "www.google.com/ccm/collect page_view /suite/inspire/feed"
+        ]
+       },
+       "meta": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events PageView /suite/inspire/feed"
+        ]
+       },
+       "tiktok": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "analytics.tiktok.com/api/v2/pixel Pageview /suite/inspire/feed"
+        ]
+       },
+       "reddit": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "alb.reddit.com/rp.gif PageVisit /suite/inspire/feed"
+        ]
+       },
+       "linkedin": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "px.ads.linkedin.com/collect page_view /suite/inspire/feed"
+        ]
+       },
+       "x": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "t.co/1/i/adsct pageview /suite/inspire/feed"
+        ]
+       },
+       "microsoft_uet": {
+        "total": 1,
+        "streams": {
+         "default": 1
+        },
+        "examples": [
+         "bat.bing.com/action/0 pageLoad /suite/inspire/feed"
+        ]
+       },
+       "amplitude": {
+        "total": 0,
+        "streams": {},
+        "examples": []
+       }
+      }
+     }
+    ]
+   },
+   "generation": {
+    "attempted": true,
+    "page": "/suite/create-image/nano-banana-2",
+    "typed": true,
+    "clicked": true,
+    "note": "sign-up wall: none; prompt DIV[contenteditable] inForm=true; Generate clicked via mouse"
+   },
+   "routeChanges": [
+    {
+     "step": "soft1",
+     "from": "https://openart.ai/home?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG",
+     "to": "https://openart.ai/suite/create-image/nano-banana-2",
+     "method": "mouse",
+     "historyEvents": [
+      "soft:/suite/create-image/nano-banana-2",
+      "soft:/suite/create-image",
+      "soft:/suite/create-image/nano-banana-2",
+      "soft:/suite/create-image/nano-banana-2"
+     ],
+     "ok": true
+    },
+    {
+     "step": "soft2",
+     "from": "https://openart.ai/suite/create-image/nano-banana-2",
+     "to": "https://openart.ai/suite/create-video/kling-3-omni",
+     "method": "mouse",
+     "historyEvents": [
+      "soft:/suite/create-video/kling-3-omni",
+      "soft:/suite/create-video",
+      "soft:/suite/create-video/kling-3-omni",
+      "soft:/suite/create-video/kling-3-omni"
+     ],
+     "ok": true
+    },
+    {
+     "step": "soft3",
+     "from": "https://openart.ai/suite/create-video/kling-3-omni",
+     "to": "https://openart.ai/suite/inspire/feed",
+     "method": "mouse",
+     "historyEvents": [
+      "soft:/suite/inspire/feed"
+     ],
+     "ok": true
+    }
+   ],
+   "notes": [
+    "soft-nav candidates: /suite/home /suite/chat /suite/director /suite/create-video /suite/create-image /suite/world /suite/character /suite/create-voice-over/eleven_multilingual_v2 /suite/director/projects /suite/characters-and-worlds /suite/brand-kit /suite/media /suite/inspire/feed /suite/tutorials /suite/create-video/byte-plus-seedance-2-5 /suite/create-image/gpt-image-2-5 /suite/home/templates/VyP4HYMMp7EWkbIqdGmv /suite/home/templates/7m8awqZcBnFda9CbacCd /suite/home/templates/LVKzLYyh9oBRaN7hxPjf /suite/home/templates/vYqwMD4vZNiiPkVIJReO → picked /suite/create-image /suite/create-video /suite/inspire/feed"
+   ],
+   "errors": [],
+   "rawFile": "raw/journey_spa_pageviews.json",
+   "requestCounts": {
+    "total": 678,
+    "allowed": 401,
+    "failed": 277,
+    "collection": 268
+   }
+  }
+ ],
+ "replay": {
+  "page": "https://openart.ai/pricing",
+  "loadStatus": "load",
+  "scenarios": [
+   {
+    "id": "signup",
+    "desc": "server one-shot cookies; dataLayer.push({event:'signup',user_data:{email}}); cookie removed after the push",
+    "context": {
+     "uid": "WD_TEST_UID_OMP4UG",
+     "email": "wd.test@example.com"
+    },
+    "perVendor": {
+     "google_ads": [
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "rVk2CJ7Ot8EZEOSYw_Up",
+        "value": "0",
+        "oid": "reg_WD_TEST_UID_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "2050954539.1790804419",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/p/c/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "rVk2CJ7Ot8EZEOSYw_Up",
+        "value": "0",
+        "oid": "reg_WD_TEST_UID_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "2050954539.1790804419",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/d/ccm/conversion/<id>/",
+       "transport": "Image GET",
+       "fields": {
+        "en": "conversion",
+        "label": "rVk2CJ7Ot8EZEOSYw_Up",
+        "value": "0",
+        "oid": "reg_WD_TEST_UID_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "2050954539.1790804419",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion_user_data",
+       "endpoint": "openart.ai/4vu8/d/ccm/form-data/<id>",
+       "transport": "XHR POST",
+       "fields": {
+        "ec_mode": "m",
+        "emd": "tvd.1~i1.fem.mm.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "2050954539.1790804419"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "rVk2CJ7Ot8EZEOSYw_Up",
+        "value": "0",
+        "oid": "reg_WD_TEST_UID_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ec_mode": "m",
+        "emd": "tvd.1~i1.fem.mm.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "2050954539.1790804419",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.google.com/pagead/1p-conversion/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "rVk2CJ7Ot8EZEOSYw_Up",
+        "value": "0",
+        "oid": "reg_WD_TEST_UID_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "2050954539.1790804419",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "reddit": [
+      {
+       "kind": "conversion",
+       "event": "SignUp",
+       "endpoint": "alb.reddit.com/rp.gif",
+       "transport": "Image GET",
+       "fields": {
+        "event": "SignUp",
+        "em": "8e7feae87760ed8592d36c61c3fef16e868b95bd9e76f5d304a383e02ce94216",
+        "m.conversionId": "6fb92c317271c6ce22b656fedf1af3111274c8484417239d8321f172ddb43652"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      }
+     ],
+     "linkedin": [
+      {
+       "kind": "conversion",
+       "event": "conversion 29290241",
+       "endpoint": "px.ads.linkedin.com/collect",
+       "transport": "Image GET",
+       "fields": {
+        "pid": "10481401",
+        "conversionId": "29290241",
+        "eventId": "reg_WD_TEST_UID_OMP4UG",
+        "tm": "gtmv2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "x": [
+      {
+       "kind": "conversion",
+       "event": "tw-qwghh-13vj22",
+       "endpoint": "t.co/1/i/adsct",
+       "transport": "Image GET",
+       "fields": {
+        "txn_id": "tw-qwghh-13vj22",
+        "event_id": "a5bc75d7-ea05-4e67-b97a-0522dfc5f5a8",
+        "event": {
+         "conversion_id": "reg_WD_TEST_UID_OMP4UG"
+        },
+        "conversion_id": "reg_WD_TEST_UID_OMP4UG",
+        "email_address": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "tw-qwghh-13vj22",
+       "endpoint": "analytics.twitter.com/1/i/adsct",
+       "transport": "Image GET",
+       "fields": {
+        "txn_id": "tw-qwghh-13vj22",
+        "event_id": "a5bc75d7-ea05-4e67-b97a-0522dfc5f5a8",
+        "event": {
+         "conversion_id": "reg_WD_TEST_UID_OMP4UG"
+        },
+        "conversion_id": "reg_WD_TEST_UID_OMP4UG",
+        "email_address": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "tiktok": [
+      {
+       "kind": "conversion",
+       "event": "CompleteRegistration",
+       "endpoint": "analytics.tiktok.com/api/v2/pixel",
+       "transport": "Ping POST",
+       "fields": {
+        "event": "CompleteRegistration",
+        "event_id": "reg_WD_TEST_UID_OMP4UG",
+        "message_id": "messageId-1790804418987-9279835146957-D9QOQ5JC77U6RO6J21IG",
+        "properties": {},
+        "user_email": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "enrich",
+       "event": "EnrichIpv6",
+       "endpoint": "analytics-ipv6.tiktokw.us/ipv6/enrich_ipv6",
+       "transport": "Ping POST",
+       "fields": {
+        "event": "EnrichIpv6",
+        "event_id": "",
+        "message_id": "messageId-1790804418988-7297266038665-D9QOQ5JC77U6RO6J21IG#source=2",
+        "properties": {},
+        "user_email": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "enrich",
+       "event": "EnrichAM",
+       "endpoint": "analytics.tiktok.com/api/v2/pixel",
+       "transport": "Ping POST",
+       "fields": {
+        "event": "EnrichAM",
+        "event_id": "",
+        "message_id": "messageId-1790804418988-7297266038665-D9QOQ5JC77U6RO6J21IG",
+        "properties": {},
+        "user_email": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "enrich",
+       "event": "EnrichAM",
+       "endpoint": "analytics.tiktok.com/api/v2/pixel",
+       "transport": "Ping POST",
+       "fields": {
+        "event": "EnrichAM",
+        "event_id": "",
+        "message_id": "messageId-1790804418995-5372031967878-D9QOQ5JC77U6RO6J21IG",
+        "properties": {},
+        "user_email": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      }
+     ],
+     "openai_ads": [
+      {
+       "kind": "event",
+       "event": "openai::sdk_init",
+       "endpoint": "bzr.openai.com/v1/sdk/events",
+       "transport": "XHR POST",
+       "fields": {
+        "type": "openai::sdk_init",
+        "obref": "6992da4c-f0c6-46a7-890c-5b259a196162"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "diagnostic",
+       "event": "oai::diagnostic",
+       "endpoint": "bzr.openai.com/v1/sdk/events",
+       "transport": "XHR POST",
+       "fields": {
+        "type": "oai::diagnostic",
+        "obref": "6992da4c-f0c6-46a7-890c-5b259a196162"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      }
+     ]
+    }
+   },
+   {
+    "id": "new_user_signed_up",
+    "desc": "CONTROL (never emitted by the app): dataLayer.push({event:'new_user_signed_up'})",
+    "context": {},
+    "perVendor": {}
+   },
+   {
+    "id": "purchase",
+    "desc": "gtag('set','user_data',{email}); gtag('event','purchase',n); gtag('event','conversion_event_purchase',n); uetq.push('event','purchase',…)",
+    "context": {
+     "email": "wd.test@example.com",
+     "transaction_id": "sub_in_WD_TEST_INV1_OMP4UG",
+     "invoice_id": "in_WD_TEST_INV1_OMP4UG"
+    },
+    "perVendor": {
+     "google_ads": [
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "OfGcCJisoLQZEOSYw_Up",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "303593972.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/p/c/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "OfGcCJisoLQZEOSYw_Up",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "303593972.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "4Rf-CM6EhJMcEIP_-OQ-",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1919210101.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/p/c/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "4Rf-CM6EhJMcEIP_-OQ-",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1919210101.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/d/ccm/conversion/<id>/",
+       "transport": "Image GET",
+       "fields": {
+        "en": "conversion",
+        "label": "OfGcCJisoLQZEOSYw_Up",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "303593972.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/d/ccm/conversion/<id>/",
+       "transport": "Image GET",
+       "fields": {
+        "en": "conversion",
+        "label": "4Rf-CM6EhJMcEIP_-OQ-",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1919210101.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "OfGcCJisoLQZEOSYw_Up",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ec_mode": "c",
+        "emd": "tvd.1~i1.fem.mm.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "303593972.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "4Rf-CM6EhJMcEIP_-OQ-",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ec_mode": "c",
+        "emd": "tvd.1~i1.fem.mm.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "1919210101.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion_user_data",
+       "endpoint": "openart.ai/4vu8/d/ccm/form-data/<id>",
+       "transport": "XHR POST",
+       "fields": {
+        "ec_mode": "c",
+        "emd": "tvd.1~i1.fem.mc.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "303593972.1790804431"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "conversion_user_data",
+       "endpoint": "openart.ai/4vu8/d/ccm/form-data/<id>",
+       "transport": "XHR POST",
+       "fields": {
+        "ec_mode": "c",
+        "emd": "tvd.1~i1.fem.mc.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "1919210101.1790804431"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.google.com/pagead/1p-conversion/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "OfGcCJisoLQZEOSYw_Up",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "303593972.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.google.com/pagead/1p-conversion/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "4Rf-CM6EhJMcEIP_-OQ-",
+        "value": "56",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV1_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1919210101.1790804431",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "reddit": [
+      {
+       "kind": "conversion",
+       "event": "Purchase",
+       "endpoint": "alb.reddit.com/rp.gif",
+       "transport": "Image GET",
+       "fields": {
+        "event": "Purchase",
+        "em": "8e7feae87760ed8592d36c61c3fef16e868b95bd9e76f5d304a383e02ce94216",
+        "m.itemCount": "1",
+        "m.valueDecimal": "56",
+        "m.currency": "USD",
+        "m.transactionId": "sub_in_WD_TEST_INV1_OMP4UG",
+        "m.products": "[{\"id\":\"pro_monthly\",\"quantity\":1}]",
+        "m.conversionId": "bf46c106b4b5b2f8eaa856487802830940e98f4a5ba450058cf38d436c06b4bb"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "linkedin": [
+      {
+       "kind": "conversion",
+       "event": "conversion 29290225",
+       "endpoint": "px.ads.linkedin.com/collect",
+       "transport": "Image GET",
+       "fields": {
+        "pid": "10481401",
+        "conversionId": "29290225",
+        "eventId": "sub_in_WD_TEST_INV1_OMP4UG",
+        "tm": "gtmv2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "x": [
+      {
+       "kind": "conversion",
+       "event": "tw-qwghh-13vj24",
+       "endpoint": "t.co/1/i/adsct",
+       "transport": "Image GET",
+       "fields": {
+        "txn_id": "tw-qwghh-13vj24",
+        "event_id": "2caf9d21-99e9-4095-bfff-44a809d439c7",
+        "event": {
+         "value": 56,
+         "currency": "USD",
+         "conversion_id": "sub_in_WD_TEST_INV1_OMP4UG"
+        },
+        "conversion_id": "sub_in_WD_TEST_INV1_OMP4UG",
+        "value": 56,
+        "currency": "USD",
+        "email_address": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "tw-qwghh-13vj24",
+       "endpoint": "analytics.twitter.com/1/i/adsct",
+       "transport": "Image GET",
+       "fields": {
+        "txn_id": "tw-qwghh-13vj24",
+        "event_id": "2caf9d21-99e9-4095-bfff-44a809d439c7",
+        "event": {
+         "value": 56,
+         "currency": "USD",
+         "conversion_id": "sub_in_WD_TEST_INV1_OMP4UG"
+        },
+        "conversion_id": "sub_in_WD_TEST_INV1_OMP4UG",
+        "value": 56,
+        "currency": "USD",
+        "email_address": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "microsoft_uet": [
+      {
+       "kind": "conversion",
+       "event": "custom:purchase",
+       "endpoint": "bat.bing.com/action/0",
+       "transport": "Image GET",
+       "fields": {
+        "ti": "187107444",
+        "evt": "custom",
+        "ea": "purchase",
+        "gv": "56",
+        "gc": "USD",
+        "transaction_id": "sub_in_WD_TEST_INV1_OMP4UG"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "tiktok": [
+      {
+       "kind": "diagnostic",
+       "endpoint": "analytics.tiktok.com/api/v2/monitor",
+       "transport": "Ping POST",
+       "fields": {
+        "custom_name": "cdp_visiter_plugin",
+        "custom_enum": "ga_data_detected",
+        "message": "{\"path\":\"dataLayer.push.transaction_id\",\"event\":\"purchase\",\"value\":\"sub_in_WD_TEST_INV1_OMP4UG\"}"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ]
+    }
+   },
+   {
+    "id": "first_purchase",
+    "desc": "dataLayer.push({event:'first_purchase',eventModel:{transaction_id:'sub_<invoiceId>',value,currency,items},user_data:{email}})",
+    "context": {
+     "email": "wd.test@example.com",
+     "transaction_id": "sub_in_WD_TEST_INV2_OMP4UG",
+     "invoice_id": "in_WD_TEST_INV2_OMP4UG"
+    },
+    "perVendor": {
+     "tiktok": [
+      {
+       "kind": "conversion",
+       "event": "Purchase",
+       "endpoint": "analytics.tiktok.com/api/v2/pixel",
+       "transport": "Ping POST",
+       "fields": {
+        "event": "Purchase",
+        "event_id": "sub_in_WD_TEST_INV2_OMP4UG",
+        "message_id": "messageId-1790804437043-4178757885361-D9QOQ5JC77U6RO6J21IG",
+        "properties": {
+         "value": 300,
+         "currency": "USD"
+        },
+        "user_email": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2",
+        "dynamic_parameter_config": {
+         "value": "sub_in_WD_TEST_INV1_OMP4UG"
+        }
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "enrich",
+       "event": "EnrichAM",
+       "endpoint": "analytics.tiktok.com/api/v2/pixel",
+       "transport": "Ping POST",
+       "fields": {
+        "event": "EnrichAM",
+        "event_id": "",
+        "message_id": "messageId-1790804437044-1111299703749-D9QOQ5JC77U6RO6J21IG",
+        "properties": {},
+        "user_email": "603fe8f8f69fbd503bdec8d803509f279ec38f0267e4945a058ce9cadb22edd2"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "diagnostic",
+       "endpoint": "analytics.tiktok.com/api/v2/monitor",
+       "transport": "Ping POST",
+       "fields": {
+        "custom_name": "cdp_visiter_plugin",
+        "custom_enum": "ga_data_detected",
+        "message": "{\"path\":\"dataLayer.push.eventModel.transaction_id\",\"event\":\"first_purchase\",\"value\":\"sub_in_WD_TEST_INV2_OMP4UG\"}"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ]
+    }
+   },
+   {
+    "id": "business_subscription",
+    "desc": "dataLayer.push({event:'business_subscription',eventModel:{…},user_data:{email}})",
+    "context": {
+     "email": "wd.test@example.com",
+     "transaction_id": "sub_in_WD_TEST_INV3_OMP4UG",
+     "invoice_id": "in_WD_TEST_INV3_OMP4UG"
+    },
+    "perVendor": {
+     "google_ads": [
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "OAFIX_BUSINESS_LABEL_TBD",
+        "value": "227",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV3_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1210276385.1790804443",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/p/c/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "OAFIX_BUSINESS_LABEL_TBD",
+        "value": "227",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV3_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1210276385.1790804443",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "openart.ai/4vu8/as/d/ccm/conversion/<id>/",
+       "transport": "Image GET",
+       "fields": {
+        "en": "conversion",
+        "label": "OAFIX_BUSINESS_LABEL_TBD",
+        "value": "227",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV3_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1210276385.1790804443",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.googleadservices.com/pagead/conversion/<id>/",
+       "transport": "XHR GET",
+       "fields": {
+        "en": "conversion",
+        "label": "OAFIX_BUSINESS_LABEL_TBD",
+        "value": "227",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV3_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ec_mode": "m",
+        "emd": "tvd.1~i1.fem.mm.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "1210276385.1790804443",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      },
+      {
+       "kind": "conversion_user_data",
+       "endpoint": "openart.ai/4vu8/d/ccm/form-data/<id>",
+       "transport": "XHR POST",
+       "fields": {
+        "ec_mode": "m",
+        "emd": "tvd.1~i1.fem.mm.r19.n19",
+        "eme": "encrypted: emkid=48e1fb89-70b4-455d-b4ba-ddc64d9ac59b, ev=132 bytes (first byte 0x4 = uncompressed EC point, i.e. an ephemeral public key prefix)",
+        "ecsid": "1210276385.1790804443"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "conversion",
+       "event": "conversion",
+       "endpoint": "www.google.com/pagead/1p-conversion/<id>/",
+       "transport": "XHR POST",
+       "fields": {
+        "en": "conversion",
+        "label": "OAFIX_BUSINESS_LABEL_TBD",
+        "value": "227",
+        "currency_code": "USD",
+        "oid": "sub_in_WD_TEST_INV3_OMP4UG",
+        "oidsrc": "1",
+        "bttype": "purchase",
+        "ecsid": "1210276385.1790804443",
+        "url": "https://openart.ai/pricing"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "tiktok": [
+      {
+       "kind": "diagnostic",
+       "endpoint": "analytics.tiktok.com/api/v2/monitor",
+       "transport": "Ping POST",
+       "fields": {
+        "custom_name": "cdp_visiter_plugin",
+        "custom_enum": "ga_data_detected",
+        "message": "{\"path\":\"dataLayer.push.eventModel.transaction_id\",\"event\":\"business_subscription\",\"value\":\"sub_in_WD_TEST_INV3_OMP4UG\"}"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ],
+     "openai_ads": [
+      {
+       "kind": "event",
+       "event": "openai::sdk_init",
+       "endpoint": "bzr.openai.com/v1/sdk/events",
+       "transport": "XHR POST",
+       "fields": {
+        "type": "openai::sdk_init",
+        "obref": "6992da4c-f0c6-46a7-890c-5b259a196162"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      },
+      {
+       "kind": "diagnostic",
+       "event": "oai::diagnostic",
+       "endpoint": "bzr.openai.com/v1/sdk/events",
+       "transport": "XHR POST",
+       "fields": {
+        "type": "oai::diagnostic",
+        "obref": "6992da4c-f0c6-46a7-890c-5b259a196162"
+       },
+       "clickIds": {},
+       "scenarioData": false
+      }
+     ]
+    }
+   },
+   {
+    "id": "purchase_first",
+    "desc": "gtag('set','user_data',{email}); gtag('event','purchase_first',n); gtag('event','conversion_event_purchase_first',n) (list price, unstable id)",
+    "context": {
+     "email": "wd.test@example.com",
+     "transaction_id": "sub_pro_monthly_WD_TEST_UID_OMP4UG_1790804403253"
+    },
+    "perVendor": {
+     "tiktok": [
+      {
+       "kind": "diagnostic",
+       "endpoint": "analytics.tiktok.com/api/v2/monitor",
+       "transport": "Ping POST",
+       "fields": {
+        "custom_name": "cdp_visiter_plugin",
+        "custom_enum": "ga_data_detected",
+        "message": "{\"path\":\"dataLayer.push.transaction_id\",\"event\":\"purchase_first\",\"value\":\"sub_pro_monthly_WD_TEST_UID_OMP4UG_1790804403253\"}"
+       },
+       "clickIds": {},
+       "scenarioData": true
+      }
+     ]
+    }
+   }
+  ],
+  "sealProbes": [
+   {
+    "phase": "A_fetch_only",
+    "at": "2026-09-30T21:40:16.435Z",
+    "result": {
+     "fetch": "rejected: Failed to fetch (example.com)",
+     "keepalive": "rejected: Failed to fetch (example.com)",
+     "beaconReturned": true,
+     "img": "onerror",
+     "xhr": "onerror",
+     "iframe": "onload (error page)",
+     "worker": "rejected: Failed to fetch",
+     "websocket": "threw WebSocket blocked by the OpenArt watchdog collection seal"
+    }
+   }
+  ],
+  "readiness": {
+   "href": "https://openart.ai/pricing",
+   "title": "OpenArt Pricing - AI Creator Studio for Video & Images",
+   "webdriver": false,
+   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+   "gtmKeys": [
+    "e",
+    "debugGroupId",
+    "tcf",
+    "pscdl",
+    "GTM-56CMP8K",
+    "rm",
+    "dataLayer",
+    "mb",
+    "r",
+    "sequence",
+    "SANDBOXED_JS_SEMAPHORE",
+    "gth",
+    "ads_pageview",
+    "dedupe_gclid",
+    "AW-11252321380"
+   ],
+   "hasContainer": true,
+   "dataLayerLen": 10,
+   "gtag": "function",
+   "ttq": "object",
+   "ttqLoaded": true,
+   "twq": "function",
+   "twqExe": true,
+   "rdt": "function",
+   "rdtSendEvent": true,
+   "lintrk": "function",
+   "uetq": "object",
+   "uetqIsArray": false,
+   "fbq": "function",
+   "oaiq": "function",
+   "googleTagData": "object"
+  },
+  "rawFile": "raw/run_replay_2026-09-30T21-40-03-254Z.json",
+  "accounting": {
+   "postSealRecords": 69,
+   "unaccounted": 0,
+   "failRequestErrors": 0,
+   "proxyPostSeal": [
+    {
+     "iso": "2026-09-30T21:40:15.809Z",
+     "kind": "CONNECT",
+     "target": "accounts.google.com:443",
+     "action": "refused-403",
+     "class": "Chrome-internal service (GCM / component updater / sync infra)"
+    },
+    {
+     "iso": "2026-09-30T21:40:34.602Z",
+     "kind": "CONNECT",
+     "target": "android.clients.google.com:443",
+     "action": "refused-403",
+     "class": "Chrome-internal service (GCM / component updater / sync infra)"
+    },
+    {
+     "iso": "2026-09-30T21:40:41.582Z",
+     "kind": "CONNECT",
+     "target": "accounts.google.com:443",
+     "action": "refused-403",
+     "class": "Chrome-internal service (GCM / component updater / sync infra)"
+    },
+    {
+     "iso": "2026-09-30T21:41:03.689Z",
+     "kind": "CONNECT",
+     "target": "update.googleapis.com:443",
+     "action": "refused-403",
+     "class": "Chrome-internal service (GCM / component updater / sync infra)"
+    }
+   ],
+   "attributionDisagreements": 0
+  }
+ },
+ "consent": {
+  "mapping": {
+   "l": {
+    "default": "not set",
+    "update": "none"
+   },
+   "m": {
+    "default": "not set",
+    "update": "denied"
+   },
+   "n": {
+    "default": "not set",
+    "update": "granted"
+   },
+   "p": {
+    "default": "denied",
+    "update": "none"
+   },
+   "q": {
+    "default": "denied",
+    "update": "denied"
+   },
+   "r": {
+    "default": "denied",
+    "update": "granted"
+   },
+   "t": {
+    "default": "granted",
+    "update": "none"
+   },
+   "u": {
+    "default": "granted",
+    "update": "denied"
+   },
+   "v": {
+    "default": "granted",
+    "update": "granted"
+   }
+  },
+  "source": {
+   "primary": "Simo Ahava, \"Consent Mode V2 For Google Tags\" (decode by Markus Baersch) — https://www.simoahava.com/analytics/consent-mode-v2-google-tags/",
+   "corroborating": "https://www.giancampo.com/2024/02/understanding-new-gcd-parameter-in-ga4.html",
+   "googleStatement": "https://developers.google.com/tag-platform/security/concepts/consent-mode — gcd \"is always sent to Google services, regardless of whether consent mode is activated or not\"",
+   "checked": "2026-09-29"
+  },
+  "order": [
+   "ad_storage",
+   "analytics_storage",
+   "ad_user_data",
+   "ad_personalization"
+  ],
+  "observed": [
+   {
+    "scope": "journeys (US vantage, live geo)",
+    "hits": 230,
+    "gcd": {
+     "13t3t3t3t5l1": 230
+    },
+    "gcs": {
+     "G111": 78,
+     "(absent)": 152
+    },
+    "decoded": {
+     "ad_storage": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "analytics_storage": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "ad_user_data": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "ad_personalization": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "extra": [
+      {
+       "letter": "l",
+       "default": "not set",
+       "update": "none",
+       "effective": "not set"
+      }
+     ]
+    },
+    "consentCommands": 46
+   },
+   {
+    "scope": "replay page load + scenarios",
+    "hits": 36,
+    "gcd": {
+     "13t3t3t3t5l1": 36
+    },
+    "gcs": {
+     "G111": 28,
+     "(absent)": 8
+    },
+    "decoded": {
+     "ad_storage": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "analytics_storage": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "ad_user_data": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "ad_personalization": {
+      "letter": "t",
+      "default": "granted",
+      "update": "none",
+      "effective": "granted"
+     },
+     "extra": [
+      {
+       "letter": "l",
+       "default": "not set",
+       "update": "none",
+       "effective": "not set"
+      }
+     ]
+    },
+    "consentCommands": 0
+   },
+   {
+    "scope": "probe DE (DE/DE-BE, geo rewritten locally)",
+    "hits": 4,
+    "gcd": {
+     "13p3p3p3p5l1": 4
+    },
+    "gcs": {
+     "G100": 4
+    },
+    "decoded": {
+     "ad_storage": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "analytics_storage": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "ad_user_data": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "ad_personalization": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "extra": [
+      {
+       "letter": "l",
+       "default": "not set",
+       "update": "none",
+       "effective": "not set"
+      }
+     ]
+    },
+    "consentCommands": 2,
+    "geoRewrites": 2
+   },
+   {
+    "scope": "probe GB (GB/GB-ENG, geo rewritten locally)",
+    "hits": 4,
+    "gcd": {
+     "13p3p3p3p5l1": 4
+    },
+    "gcs": {
+     "G100": 4
+    },
+    "decoded": {
+     "ad_storage": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "analytics_storage": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "ad_user_data": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "ad_personalization": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "extra": [
+      {
+       "letter": "l",
+       "default": "not set",
+       "update": "none",
+       "effective": "not set"
+      }
+     ]
+    },
+    "consentCommands": 2,
+    "geoRewrites": 2
+   },
+   {
+    "scope": "probe CH (CH/CH-ZH, geo rewritten locally)",
+    "hits": 4,
+    "gcd": {
+     "13p3p3p3p5l1": 4
+    },
+    "gcs": {
+     "G100": 4
+    },
+    "decoded": {
+     "ad_storage": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "analytics_storage": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "ad_user_data": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "ad_personalization": {
+      "letter": "p",
+      "default": "denied",
+      "update": "none",
+      "effective": "denied"
+     },
+     "extra": [
+      {
+       "letter": "l",
+       "default": "not set",
+       "update": "none",
+       "effective": "not set"
+      }
+     ]
+    },
+    "consentCommands": 2,
+    "geoRewrites": 2
+   }
+  ]
+ },
+ "container": {
+  "baseline": {
+   "containerId": "GTM-56CMP8K",
+   "version": "25",
+   "resourceSha256": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540",
+   "capturedAt": "2026-09-29"
+  },
+  "loaders": [
+   {
+    "loader": "www.googletagmanager.com/gtm.js",
+    "snapshot": {
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+     "status": 200,
+     "bytes": 495604,
+     "containerId": "GTM-56CMP8K",
+     "version": "25",
+     "resourceSha256": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540"
+    },
+    "bodySha256": "6fb1c6d93ae855a5a1ff5672a4af94d82113a0cbe0fef6d9caac2099ddf82a6d",
+    "matchesBaseline": true,
+    "status": "unchanged",
+    "diff": {
+     "identical": true,
+     "versionBefore": "25",
+     "versionAfter": "25",
+     "tags": {
+      "added": [],
+      "removed": [],
+      "changed": []
+     },
+     "triggers": {
+      "added": [],
+      "removed": [],
+      "changed": []
+     },
+     "variables": {
+      "added": [],
+      "removed": [],
+      "changed": []
+     }
+    },
+    "summary": [
+     "identical to baseline"
+    ]
+   },
+   {
+    "loader": "openart.ai/4vu8/ (Google tag gateway)",
+    "snapshot": {
+     "url": "https://openart.ai/4vu8/",
+     "status": 200,
+     "bytes": 525802,
+     "containerId": "GTM-56CMP8K",
+     "version": "25",
+     "resourceSha256": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540"
+    },
+    "bodySha256": "c46ccbab6383280c7a345a46dd2f9aa6195816b399e4e5b3bee629476471a6f4",
+    "matchesBaseline": true,
+    "status": "unchanged",
+    "diff": {
+     "identical": true,
+     "versionBefore": "25",
+     "versionAfter": "25",
+     "tags": {
+      "added": [],
+      "removed": [],
+      "changed": []
+     },
+     "triggers": {
+      "added": [],
+      "removed": [],
+      "changed": []
+     },
+     "variables": {
+      "added": [],
+      "removed": [],
+      "changed": []
+     }
+    },
+    "summary": [
+     "identical to baseline"
+    ]
+   }
+  ],
+  "loadersAgree": true,
+  "state": "UNCHANGED",
+  "changed": false,
+  "problems": [],
+  "executed": [
+   {
+    "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+    "kind": "container",
+    "version": "25",
+    "resourceSha256Served": "20b0340b822d849bdf8a398724709f26659d195368d5f260e732afc0bb45468f",
+    "resourceSha256Live": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540"
+   },
+   {
+    "url": "https://openart.ai/4vu8/",
+    "kind": "container",
+    "version": "25",
+    "resourceSha256Served": "20b0340b822d849bdf8a398724709f26659d195368d5f260e732afc0bb45468f",
+    "resourceSha256Live": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540"
+   },
+   {
+    "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K&gtg_health=1",
+    "kind": "other",
+    "version": null,
+    "resourceSha256Served": null,
+    "resourceSha256Live": null
+   },
+   {
+    "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+    "kind": "config",
+    "version": "4",
+    "resourceSha256Served": "bef0a57298efe6f0b7a1e3dfb7032e0644f3c5ed1b301f3a020cf852c80fc2fb",
+    "resourceSha256Live": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96"
+   },
+   {
+    "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIDWSrEw",
+    "kind": "config",
+    "version": "4",
+    "resourceSha256Served": "bef0a57298efe6f0b7a1e3dfb7032e0644f3c5ed1b301f3a020cf852c80fc2fb",
+    "resourceSha256Live": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96"
+   }
+  ],
+  "gtagConfig": {
+   "loader": "www.googletagmanager.com/gtag/js?id=AW-11252321380",
+   "snapshot": {
+    "url": "https://www.googletagmanager.com/gtag/js?id=AW-11252321380",
+    "status": 200,
+    "bytes": 495385,
+    "containerId": "AW-11252321380",
+    "version": "4",
+    "resourceSha256": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96"
+   },
+   "bodySha256": "c7d8e1dbf160c9ee7e6bd055c9727087e5ea22ea10641dd24e8b180f15cb8d5e",
+   "matchesBaseline": true,
+   "status": "unchanged",
+   "diff": {
+    "identical": true,
+    "versionBefore": "4",
+    "versionAfter": "4",
+    "tags": {
+     "added": [],
+     "removed": [],
+     "changed": []
+    },
+    "triggers": {
+     "added": [],
+     "removed": [],
+     "changed": []
+    },
+    "variables": {
+     "added": [],
+     "removed": [],
+     "changed": []
+    }
+   },
+   "summary": [
+    "identical to baseline"
+   ],
+   "baseline": {
+    "version": "4",
+    "resourceSha256": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96"
+   }
+  },
+  "patched": {
+   "source": "packages/web-fixes/gtm/proof/patched_resource.json",
+   "resourceSha256": "20b0340b822d849bdf8a398724709f26659d195368d5f260e732afc0bb45468f",
+   "summary": [
+    "+ tag 1002",
+    "+ tag 1003",
+    "+ tag 1004",
+    "+ tag 1005",
+    "+ tag 1006",
+    "+ tag 1007",
+    "+ tag 1008",
+    "+ tag 1009",
+    "+ tag 1010",
+    "+ tag 1011",
+    "~ tag 34 (__cvt_PBGZL — Reddit PageVisit): once_per_event, once_per_load",
+    "~ tag 57 (__cvt_PBGZL — Reddit SignUp): vtp_conversionId",
+    "~ tag 58 (__cvt_TB7ZX — LinkedIn purchase 29290225): vtp_eventId",
+    "~ tag 72 (__cvt_TB7ZX — LinkedIn signup 29290241): vtp_eventId",
+    "+ trigger _eq({{__e}}, \"business_subscription\") && _re({{__jsm(js:346b)}}, \"^sub_\")",
+    "+ trigger _eq({{__e}}, \"virtual_page_view\")",
+    "+ trigger _eq({{__e}}, \"purchase\") && _re({{__jsm(js:346b)}}, \"^sub_\")",
+    "- trigger _eq({{__e}}, \"purchase\")",
+    "- trigger _eq({{__e}}, \"new_user_signed_up\")",
+    "~ trigger _eq({{__e}}, \"gtm.js\"): fires",
+    "~ trigger _eq({{__e}}, \"signup\"): fires",
+    "+ variable __v(user_id)",
+    "+ variable __k(oa_signup_uid)",
+    "+ variable __jsm(js:436b)",
+    "+ variable __awec(MANUAL)",
+    "+ variable __jsm(js:346b)",
+    "+ variable __v(page_location)",
+    "+ variable __v(page_referrer)",
+    "+ variable __v(page_title)"
+   ],
+   "diff": {
+    "identical": false,
+    "versionBefore": "25",
+    "versionAfter": "25",
+    "tags": {
+     "added": [
+      {
+       "key": "1002",
+       "tagId": 1002,
+       "function": "__awct",
+       "summary": "__awct",
+       "params": {
+        "vtp_enableNewCustomerReporting": false,
+        "vtp_enableConversionLinker": true,
+        "vtp_orderId": "{{__jsm(js:436b)}}",
+        "vtp_enableProductReporting": false,
+        "vtp_enableEnhancedConversion": true,
+        "vtp_cssProvidedEnhancedConversionValue": "{{__awec(MANUAL)}}",
+        "vtp_conversionCookiePrefix": "_gcl",
+        "vtp_enableShippingData": false,
+        "vtp_conversionId": "11252321380",
+        "vtp_conversionLabel": "rVk2CJ7Ot8EZEOSYw_Up",
+        "vtp_rdp": false,
+        "vtp_url": "{{__u}}",
+        "vtp_enableProductReportingCheckbox": true,
+        "vtp_enableNewCustomerReportingCheckbox": true,
+        "vtp_enableEnhancedConversionsCheckbox": true,
+        "vtp_enableRdpCheckbox": true,
+        "vtp_enableTransportUrl": false,
+        "vtp_enableCustomParams": false,
+        "vtp_enableEventParameters": true
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1003",
+       "tagId": 1003,
+       "function": "__awct",
+       "summary": "__awct",
+       "params": {
+        "vtp_enableNewCustomerReporting": false,
+        "vtp_enableConversionLinker": true,
+        "vtp_orderId": "{{__v(eventModel.transaction_id)}}",
+        "vtp_enableProductReporting": false,
+        "vtp_conversionValue": "{{__v(eventModel.value)}}",
+        "vtp_enableEnhancedConversion": true,
+        "vtp_cssProvidedEnhancedConversionValue": "{{__awec(MANUAL)}}",
+        "vtp_conversionCookiePrefix": "_gcl",
+        "vtp_enableShippingData": false,
+        "vtp_conversionId": "11252321380",
+        "vtp_currencyCode": "{{__v(eventModel.currency)}}",
+        "vtp_conversionLabel": "OAFIX_BUSINESS_LABEL_TBD",
+        "vtp_rdp": false,
+        "vtp_url": "{{__u}}",
+        "vtp_enableProductReportingCheckbox": true,
+        "vtp_enableNewCustomerReportingCheckbox": true,
+        "vtp_enableEnhancedConversionsCheckbox": true,
+        "vtp_enableRdpCheckbox": true,
+        "vtp_enableTransportUrl": false,
+        "vtp_enableCustomParams": false,
+        "vtp_enableEventParameters": true
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1004",
+       "tagId": 1004,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">\n(function () {\n  window.dataLayer = window.dataLayer || [];\n  var gtag = window.gtag || function () { window.dataLayer.push(arguments); };\n  gtag('event', 'page_view', {\n    send_to: ['AW-11252321380', 'AW-16854695811'],\n    page_location: {{__v(page_location)}},\n    page_referrer: {{__v(page_referrer)}},\n    page_title: {{__v(page_title)}}\n  });\n})();\n</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1005",
+       "tagId": 1005,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">!function(d,e,f,a,b,c){d.twq||(a=d.twq=function(){a.exe?a.exe.apply(a,arguments):a.queue.push(arguments)},a.version=\"1.1\",a.queue=[],b=e.createElement(f),b.async=!0,b.src=\"https://static.ads-twitter.com/uwt.js\",c=e.getElementsByTagName(f)[0],c.parentNode.insertBefore(b,c))}(window,document,\"script\");twq.integration=\"gtm-ad-manager\";twq(\"set\",\"dataLayerTracking\",\"false\",\"qwghh\");twq(\"config\",\"qwghh\");</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1006",
+       "tagId": 1006,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">twq(\"event\",\"tw-qwghh-13vj22\",{email_address:{{__v(user_data.email)}},conversion_id:{{__jsm(js:436b)}}});</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1007",
+       "tagId": 1007,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">\n(function () {\n  if (typeof ttq === 'undefined') { return; }\n  var email = {{__v(user_data.email)}};\n  var eventId = {{__jsm(js:436b)}};\n  if (typeof email === 'string' && email.indexOf('@') > -1) { ttq.identify({ email: email.toLowerCase() }); }\n  if (typeof eventId === 'string' && eventId) { ttq.track('CompleteRegistration', {}, { event_id: eventId }); }\n  else { ttq.track('CompleteRegistration'); }\n})();\n</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1008",
+       "tagId": 1008,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">(function(c,d,f,g,e){c[e]=c[e]||[];var h=function(){var b={ti:\"187107444\",enableAutoSpaTracking:!1};b.q=c[e];c[e]=new UET(b);c[e].push(\"pageLoad\")};var a=d.createElement(f);a.src=g;a.async=1;a.onload=a.onreadystatechange=function(){var b=this.readyState;b&&b!==\"loaded\"&&b!==\"complete\"||(h(),a.onload=a.onreadystatechange=null)};d=d.getElementsByTagName(f)[0];d.parentNode.insertBefore(a,d)})(window,document,\"script\",\"https://bat.bing.net/bat.js\",\"uetq\");</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1009",
+       "tagId": 1009,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">\n(function () {\n  window.uetq = window.uetq || [];\n  window.uetq.push('event', 'page_view', {\n    page_path: window.location.pathname + window.location.search,\n    page_title: {{__v(page_title)}}\n  });\n})();\n</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1010",
+       "tagId": 1010,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">!function(d,h,e){d.TiktokAnalyticsObject=e;var a=d[e]=d[e]||[];a.methods=\"page track identify instances debug on off once ready alias group enableCookie disableCookie holdConsent revokeConsent grantConsent\".split(\" \");a.setAndDefer=function(b,c){b[c]=function(){b.push([c].concat(Array.prototype.slice.call(arguments,0)))}};for(d=0;d<a.methods.length;d++)a.setAndDefer(a,a.methods[d]);a.instance=function(b){b=a._i[b]||[];for(var c=0;c<a.methods.length;c++)a.setAndDefer(b,a.methods[c]);return b};a.load=\nfunction(b,c){var f=\"https://analytics.tiktok.com/i18n/pixel/events.js\",g=c&&c.partner;a._i=a._i||{};a._i[b]=[];a._i[b]._u=f;a._i[b]._partner=g||\"GoogleTagManagerClient\";a._t=a._t||{};a._t[b]=+new Date;a._o=a._o||{};a._o[b]=c||{};a._partner=a._partner||\"GoogleTagManagerClient\";c=document.createElement(\"script\");c.type=\"text/javascript\";c.async=!0;c.src=f+\"?sdkid\\x3d\"+b+\"\\x26lib\\x3d\"+e;b=document.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(c,b)};a.load(\"D9QOQ5JC77U6RO6J21IG\",{historyObserver:!1});a.page()}(window,\ndocument,\"ttq\");</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      },
+      {
+       "key": "1011",
+       "tagId": 1011,
+       "function": "__html",
+       "summary": "__html",
+       "params": {
+        "vtp_html": "<script type=\"text/gtmscript\">\n(function () {\n  if (typeof ttq === 'undefined' || typeof ttq.page !== 'function') { return; }\n  ttq.page();\n})();\n</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false
+       },
+       "flags": {
+        "metadata": {},
+        "once_per_event": true
+       }
+      }
+     ],
+     "removed": [],
+     "changed": [
+      {
+       "key": "34",
+       "summary": "__cvt_PBGZL — Reddit PageVisit",
+       "changes": [
+        {
+         "field": "once_per_event",
+         "after": true
+        },
+        {
+         "field": "once_per_load",
+         "before": true
+        }
+       ]
+      },
+      {
+       "key": "57",
+       "summary": "__cvt_PBGZL — Reddit SignUp",
+       "changes": [
+        {
+         "field": "vtp_conversionId",
+         "after": "{{__jsm(js:436b)}}"
+        }
+       ]
+      },
+      {
+       "key": "58",
+       "summary": "__cvt_TB7ZX — LinkedIn purchase 29290225",
+       "changes": [
+        {
+         "field": "vtp_eventId",
+         "before": "",
+         "after": "{{__jsm(js:346b)}}"
+        }
+       ]
+      },
+      {
+       "key": "72",
+       "summary": "__cvt_TB7ZX — LinkedIn signup 29290241",
+       "changes": [
+        {
+         "field": "vtp_eventId",
+         "before": "",
+         "after": "{{__jsm(js:436b)}}"
+        }
+       ]
+      }
+     ]
+    },
+    "triggers": {
+     "added": [
+      {
+       "key": "_eq({{__e}}, \"business_subscription\") && _re({{__jsm(js:346b)}}, \"^sub_\")",
+       "fires": [
+        "1003"
+       ],
+       "blocks": []
+      },
+      {
+       "key": "_eq({{__e}}, \"virtual_page_view\")",
+       "fires": [
+        "1004",
+        "1005",
+        "1009",
+        "1011",
+        "34",
+        "52"
+       ],
+       "blocks": []
+      },
+      {
+       "key": "_eq({{__e}}, \"purchase\") && _re({{__jsm(js:346b)}}, \"^sub_\")",
+       "fires": [
+        "15",
+        "19",
+        "35",
+        "58",
+        "75"
+       ],
+       "blocks": []
+      }
+     ],
+     "removed": [
+      {
+       "key": "_eq({{__e}}, \"purchase\")",
+       "fires": [
+        "15",
+        "19",
+        "35",
+        "58",
+        "75"
+       ],
+       "blocks": []
+      },
+      {
+       "key": "_eq({{__e}}, \"new_user_signed_up\")",
+       "fires": [
+        "17"
+       ],
+       "blocks": []
+      }
+     ],
+     "changed": [
+      {
+       "key": "_eq({{__e}}, \"gtm.js\")",
+       "changes": [
+        {
+         "field": "fires",
+         "before": [
+          "10",
+          "34",
+          "38",
+          "52",
+          "74",
+          "77"
+         ],
+         "after": [
+          "10",
+          "1005",
+          "1008",
+          "1010",
+          "34",
+          "52"
+         ]
+        }
+       ]
+      },
+      {
+       "key": "_eq({{__e}}, \"signup\")",
+       "changes": [
+        {
+         "field": "fires",
+         "before": [
+          "57",
+          "72",
+          "76",
+          "79"
+         ],
+         "after": [
+          "1002",
+          "1006",
+          "1007",
+          "57",
+          "72"
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "variables": {
+     "added": [
+      {
+       "key": "__v(user_id)",
+       "function": "__v",
+       "params": {
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "user_id"
+       }
+      },
+      {
+       "key": "__k(oa_signup_uid)",
+       "function": "__k",
+       "params": {
+        "vtp_decodeCookie": true,
+        "vtp_name": "oa_signup_uid"
+       }
+      },
+      {
+       "key": "__jsm(js:436b)",
+       "function": "__jsm",
+       "params": {
+        "vtp_javascript": "(function() {\n  var re = /^[A-Za-z0-9_-]{1,128}$/;\n  var uid = {{__v(user_id)}};\n  if (typeof uid !== 'string' || !re.test(uid)) {\n    var raw = {{__k(oa_signup_uid)}};\n    var sep = typeof raw === 'string' ? raw.indexOf(':') : -1;\n    uid = sep > 0 ? raw.slice(0, sep) : undefined;\n  }\n  if (typeof uid !== 'string' || !re.test(uid)) { return undefined; }\n  return 'reg_' + uid;\n})();"
+       }
+      },
+      {
+       "key": "__awec(MANUAL)",
+       "function": "__awec",
+       "params": {
+        "vtp_mode": "MANUAL",
+        "vtp_email": "{{__v(user_data.email)}}"
+       }
+      },
+      {
+       "key": "__jsm(js:346b)",
+       "function": "__jsm",
+       "params": {
+        "vtp_javascript": "(function() {\n  var t = {{__v(eventModel.transaction_id)}};\n  if (typeof t !== 'string') { return undefined; }\n  var m = /^sub_([A-Za-z0-9_-]{4,128})$/.exec(t);\n  if (!m) { return undefined; }\n  var id = m[1];\n  if (/_\\d{13}$/.test(id) || /^[A-Za-z0-9]+_\\d+_[^_]*_\\d{12,}$/.test(id)) { return undefined; }\n  return t;\n})();"
+       }
+      },
+      {
+       "key": "__v(page_location)",
+       "function": "__v",
+       "params": {
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "page_location"
+       }
+      },
+      {
+       "key": "__v(page_referrer)",
+       "function": "__v",
+       "params": {
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "page_referrer"
+       }
+      },
+      {
+       "key": "__v(page_title)",
+       "function": "__v",
+       "params": {
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "page_title"
+       }
+      }
+     ],
+     "removed": [],
+     "changed": []
+    }
+   }
+  }
+ },
+ "patchEvents": [
+  {
+   "step": "LOAD",
+   "url": "https://openart.ai/pricing",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NDA0MzkwLCJmIjp7ImEiOjE3OTA4MDQ0MDQzOTAsInQiOiJkIiwicCI6Ii9wcmljaW5nIn0sIm0iOiJmIiwiY2siOiJ1MDAtLS0tIn0.EdbiypEO7Vo_JvIaCIDgPtElbf12XP03Lnwwh__scSc"
+  },
+  {
+   "step": "LOAD",
+   "url": "https://openart.ai/pricing",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "LOAD",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "LOAD",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "LOAD",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NDc2NzY4LCJmIjp7ImEiOjE3OTA4MDQ0NzY3NjgsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2NsaWQiLCJmYmNsaWQiLCJtc2Nsa2lkIiwidHRjbGlkIiwidHdjbGlkIiwibGlfZmF0X2lkIiwicmR0X2NpZCIsIm9wcHJlZiJdLCJzYiI6MX0sIm0iOiJmIiwibCI6ImYiLCJrIjp7ImdjbGlkIjpbIldEX1RFU1RfR0NMSURfT01QNFVHIiwxNzkwODA0NDc2NzY4XSwiZmJjbGlkIjpbIldEX1RFU1RfRkJDTElEX09NUDRVRyIsMTc5MDgwNDQ3Njc2OF0sIm1zY2xraWQiOlsiV0RfVEVTVF9NU0NMS0lEX09NUDRVRyIsMTc5MDgwNDQ3Njc2OF0sInR0Y2xpZCI6WyJXRF9URVNUX1RUQ0xJRF9PTVA0VUciLDE3OTA4MDQ0NzY3NjhdLCJ0d2NsaWQiOlsiV0RfVEVTVF9UV0NMSURfT01QNFVHIiwxNzkwODA0NDc2NzY4XSwibGlfZmF0X2lkIjpbIldEX1RFU1RfTElGQVRJRF9PTVA0VUciLDE3OTA4MDQ0NzY3NjhdLCJyZHRfY2lkIjpbIldEX1RFU1RfUkRUQ0lEX09NUDRVRyIsMTc5MDgwNDQ3Njc2OF0sIm9wcHJlZiI6WyJXRF9URVNUX09QUFJFRl9PTVA0VUciLDE3OTA4MDQ0NzY3NjhdfSwiYmQiOiJmYjQ0NTkxZi01NDJiLTQ5YTctYjMwNi1mOTFlMzIxNWNmNzYiLCJjayI6InUwMC0tLS0ifQ.sfPSIcnQb48bDRW2JbSozVGcHLWUN9lJCVzHu3mMLYU | oa_ad_clids=%7B%22gclid%22%3A%7B%22v%22%3A%22WD_TEST_GCLID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22fbclid%22%3A%7B%22v%22%3A%22WD_TEST_FBCLID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22msclkid%22%3A%7B%22v%22%3A%22WD_TEST_MSCLKID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22ttclid%22%3A%7B%22v%22%3A%22WD_TEST_TTCLID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22twclid%22%3A%7B%22v%22%3A%22WD_TEST_TWCLID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22li_fat_id%22%3A%7B%22v%22%3A%22WD_TEST_LIFATID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22rdt_cid%22%3A%7B%22v%22%3A%22WD_TEST_RDTCID_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%2C%22oppref%22%3A%7B%22v%22%3A%22WD_TEST_OPPREF_OMP4UG%22%2C%22ts%22%3A1790804476768%7D%7D | _fbc=fb.1.1790804476768.WD_TEST_FBCLID_OMP4UG | ttclid=WD_TEST_TTCLID_OMP4UG.1790804476768 | __oppref=WD_TEST_OPPREF_OMP4UG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home?_gl=1*1a06jr*_up*MQ..&gclid=WD_TEST_GCLID_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NDc2NzY4LCJmIjp7ImEiOjE3OTA4MDQ0NzY3NjgsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2NsaWQiLCJmYmNsaWQiLCJtc2Nsa2lkIiwidHRjbGlkIiwidHdjbGlkIiwibGlfZmF0X2lkIiwicmR0X2NpZCIsIm9wcHJlZiJdLCJzYiI6MX0sIm0iOiJmIiwibCI6eyJhIjoxNzkwODA0NDkyMjE0LCJ0IjoicCIsInAiOiIvaG9tZSIsImsiOlsiZ2NsaWQiXX0sImsiOnsiZ2NsaWQiOlsiV0RfVEVTVF9HQ0xJRF9PTVA0VUciLDE3OTA4MDQ0NzY3NjhdLCJmYmNsaWQiOlsiV0RfVEVTVF9GQkNMSURfT01QNFVHIiwxNzkwODA0NDc2NzY4XSwibXNjbGtpZCI6WyJXRF9URVNUX01TQ0xLSURfT01QNFVHIiwxNzkwODA0NDc2NzY4XSwidHRjbGlkIjpbIldEX1RFU1RfVFRDTElEX09NUDRVRyIsMTc5MDgwNDQ3Njc2OF0sInR3Y2xpZCI6WyJXRF9URVNUX1RXQ0xJRF9PTVA0VUciLDE3OTA4MDQ0NzY3NjhdLCJsaV9mYXRfaWQiOlsiV0RfVEVTVF9MSUZBVElEX09NUDRVRyIsMTc5MDgwNDQ3Njc2OF0sInJkdF9jaWQiOlsiV0RfVEVTVF9SRFRDSURfT01QNFVHIiwxNzkwODA0NDc2NzY4XSwib3BwcmVmIjpbIldEX1RFU1RfT1BQUkVGX09NUDRVRyIsMTc5MDgwNDQ3Njc2OF19LCJiZCI6ImZiNDQ1OTFmLTU0MmItNDlhNy1iMzA2LWY5MWUzMjE1Y2Y3NiIsImNrIjoidTAwLS0tLSJ9.VeDkNhk5F_gfpuVNhLtv3TdzTqYFU7jKwv6b4SlQR0Q"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home?_gl=1*1a06jr*_up*MQ..&gclid=WD_TEST_GCLID_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "app",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NTE4OTY2LCJmIjp7ImEiOjE3OTA4MDQ1MTg5NjYsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2NsaWQiLCJmYmNsaWQiLCJtc2Nsa2lkIiwidHRjbGlkIiwidHdjbGlkIiwibGlfZmF0X2lkIiwicmR0X2NpZCIsIm9wcHJlZiJdLCJzYiI6MX0sIm0iOiJmIiwibCI6ImYiLCJrIjp7ImdjbGlkIjpbIldEX1RFU1RfR0NMSURfT01QNFVHIiwxNzkwODA0NTE4OTY2XSwiZmJjbGlkIjpbIldEX1RFU1RfRkJDTElEX09NUDRVRyIsMTc5MDgwNDUxODk2Nl0sIm1zY2xraWQiOlsiV0RfVEVTVF9NU0NMS0lEX09NUDRVRyIsMTc5MDgwNDUxODk2Nl0sInR0Y2xpZCI6WyJXRF9URVNUX1RUQ0xJRF9PTVA0VUciLDE3OTA4MDQ1MTg5NjZdLCJ0d2NsaWQiOlsiV0RfVEVTVF9UV0NMSURfT01QNFVHIiwxNzkwODA0NTE4OTY2XSwibGlfZmF0X2lkIjpbIldEX1RFU1RfTElGQVRJRF9PTVA0VUciLDE3OTA4MDQ1MTg5NjZdLCJyZHRfY2lkIjpbIldEX1RFU1RfUkRUQ0lEX09NUDRVRyIsMTc5MDgwNDUxODk2Nl0sIm9wcHJlZiI6WyJXRF9URVNUX09QUFJFRl9PTVA0VUciLDE3OTA4MDQ1MTg5NjZdfSwiYmQiOiIxZjk4Mzg5Ni02NDIyLTQxNDEtYTEyMC04ODZjZTdmMzA0Y2MiLCJjayI6InUwMC0tLS0ifQ.oH5QXnFLAiHOqEY3I5a8EdFzKbw8FJkH57Z3cXU0K6I | oa_ad_clids=%7B%22gclid%22%3A%7B%22v%22%3A%22WD_TEST_GCLID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22fbclid%22%3A%7B%22v%22%3A%22WD_TEST_FBCLID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22msclkid%22%3A%7B%22v%22%3A%22WD_TEST_MSCLKID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22ttclid%22%3A%7B%22v%22%3A%22WD_TEST_TTCLID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22twclid%22%3A%7B%22v%22%3A%22WD_TEST_TWCLID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22li_fat_id%22%3A%7B%22v%22%3A%22WD_TEST_LIFATID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22rdt_cid%22%3A%7B%22v%22%3A%22WD_TEST_RDTCID_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%2C%22oppref%22%3A%7B%22v%22%3A%22WD_TEST_OPPREF_OMP4UG%22%2C%22ts%22%3A1790804518966%7D%7D | _fbc=fb.1.1790804518966.WD_TEST_FBCLID_OMP4UG | ttclid=WD_TEST_TTCLID_OMP4UG.1790804518966 | __oppref=WD_TEST_OPPREF_OMP4UG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "marketing_page2",
+   "url": "https://openart.ai/ai-model/seedance-2-5/",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "marketing_page2",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/suite/create-video/byte-plus-seedance-2-5",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NTc4ODk4LCJmIjp7ImEiOjE3OTA4MDQ1Nzg4OTgsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2NsaWQiLCJmYmNsaWQiLCJtc2Nsa2lkIiwidHRjbGlkIiwidHdjbGlkIiwibGlfZmF0X2lkIiwicmR0X2NpZCIsIm9wcHJlZiJdLCJzYiI6MX0sIm0iOiJmIiwibCI6ImYiLCJrIjp7ImdjbGlkIjpbIldEX1RFU1RfR0NMSURfT01QNFVHIiwxNzkwODA0NTc4ODk4XSwiZmJjbGlkIjpbIldEX1RFU1RfRkJDTElEX09NUDRVRyIsMTc5MDgwNDU3ODg5OF0sIm1zY2xraWQiOlsiV0RfVEVTVF9NU0NMS0lEX09NUDRVRyIsMTc5MDgwNDU3ODg5OF0sInR0Y2xpZCI6WyJXRF9URVNUX1RUQ0xJRF9PTVA0VUciLDE3OTA4MDQ1Nzg4OThdLCJ0d2NsaWQiOlsiV0RfVEVTVF9UV0NMSURfT01QNFVHIiwxNzkwODA0NTc4ODk4XSwibGlfZmF0X2lkIjpbIldEX1RFU1RfTElGQVRJRF9PTVA0VUciLDE3OTA4MDQ1Nzg4OThdLCJyZHRfY2lkIjpbIldEX1RFU1RfUkRUQ0lEX09NUDRVRyIsMTc5MDgwNDU3ODg5OF0sIm9wcHJlZiI6WyJXRF9URVNUX09QUFJFRl9PTVA0VUciLDE3OTA4MDQ1Nzg4OThdfSwiYmQiOiJjODViZTE0ZC1kMzI1LTQ3ZmEtYTA1NS00MTRmZWE0NGU2NWIiLCJjayI6InUwMC0tLS0ifQ.3LvxTQbybsJwMG9uNO77vaDkN030yxrHBJMYp8S28ew | oa_ad_clids=%7B%22gclid%22%3A%7B%22v%22%3A%22WD_TEST_GCLID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22fbclid%22%3A%7B%22v%22%3A%22WD_TEST_FBCLID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22msclkid%22%3A%7B%22v%22%3A%22WD_TEST_MSCLKID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22ttclid%22%3A%7B%22v%22%3A%22WD_TEST_TTCLID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22twclid%22%3A%7B%22v%22%3A%22WD_TEST_TWCLID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22li_fat_id%22%3A%7B%22v%22%3A%22WD_TEST_LIFATID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22rdt_cid%22%3A%7B%22v%22%3A%22WD_TEST_RDTCID_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%2C%22oppref%22%3A%7B%22v%22%3A%22WD_TEST_OPPREF_OMP4UG%22%2C%22ts%22%3A1790804578898%7D%7D | _fbc=fb.1.1790804578898.WD_TEST_FBCLID_OMP4UG | ttclid=WD_TEST_TTCLID_OMP4UG.1790804578898 | __oppref=WD_TEST_OPPREF_OMP4UG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIDWSrEw",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "app_typed",
+   "url": "https://openart.ai/home",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "app_typed",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NjE3NjQzLCJmIjp7ImEiOjE3OTA4MDQ2MTc2NDMsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsib3BwcmVmIl0sInNiIjoxfSwibSI6ImYiLCJsIjoiZiIsImsiOnsib3BwcmVmIjpbIldEX1RFU1RfT1BQUkVGX09NUDRVRyIsMTc5MDgwNDYxNzY0M119LCJiZCI6IjEzNDhlZWMzLTNhNDgtNDUyNi1hY2FkLTg0ZmJhYjFjYTdjZSIsImNrIjoidTAwLS0tLSJ9.uH4C5RVfIp5EDtmgVW6aT_NgvlYoUGn8fSr7m4KCCUA | oa_ad_clids=%7B%22oppref%22%3A%7B%22v%22%3A%22WD_TEST_OPPREF_OMP4UG%22%2C%22ts%22%3A1790804617643%7D%7D | __oppref=WD_TEST_OPPREF_OMP4UG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "app",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gbraid=WD_TEST_GBRAID_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NjU1NDE3LCJmIjp7ImEiOjE3OTA4MDQ2NTU0MTcsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2JyYWlkIl0sInNiIjoxfSwibSI6ImYiLCJsIjoiZiIsImsiOnsiZ2JyYWlkIjpbIldEX1RFU1RfR0JSQUlEX09NUDRVRyIsMTc5MDgwNDY1NTQxN119LCJiZCI6IjljMjIxM2U0LTM3OWUtNGE5Zi04YmYzLTdiNjkzZDVmYjNiZiIsImNrIjoidTAwLS0tLSJ9.a5ScNzESq1F0XoiKvE7HGd-6r3xMFBn7X-5Wg4PvIOk | oa_ad_clids=%7B%22gbraid%22%3A%7B%22v%22%3A%22WD_TEST_GBRAID_OMP4UG%22%2C%22ts%22%3A1790804655417%7D%7D"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gbraid=WD_TEST_GBRAID_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIDWSrEw",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home?_gl=1*1qwfcdf*_up*MQ..&gbraid=WD_TEST_GBRAID_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NjU1NDE3LCJmIjp7ImEiOjE3OTA4MDQ2NTU0MTcsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2JyYWlkIl0sInNiIjoxfSwibSI6ImYiLCJsIjp7ImEiOjE3OTA4MDQ2NjkyMTMsInQiOiJwIiwicCI6Ii9ob21lIiwiayI6WyJnYnJhaWQiXX0sImsiOnsiZ2JyYWlkIjpbIldEX1RFU1RfR0JSQUlEX09NUDRVRyIsMTc5MDgwNDY1NTQxN119LCJiZCI6IjljMjIxM2U0LTM3OWUtNGE5Zi04YmYzLTdiNjkzZDVmYjNiZiIsImNrIjoidTAwLS0tLSJ9.nlubc8rdpumiTkmO2fI4kkVKFn_zNNcKH6rB3ubNbfw"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home?_gl=1*1qwfcdf*_up*MQ..&gbraid=WD_TEST_GBRAID_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "app",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "app_second_click",
+   "url": "https://openart.ai/home?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&wbraid=WD_TEST_WBRAID_OMP4UG&fbclid=WD_TEST_FBCLID2_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NjU1NDE3LCJmIjp7ImEiOjE3OTA4MDQ2NTU0MTcsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsiZ2JyYWlkIl0sInNiIjoxfSwibSI6ImYiLCJsIjp7ImEiOjE3OTA4MDQ2OTA4ODEsInQiOiJwIiwicCI6Ii9ob21lIiwidSI6eyJzIjoid2Rfd2F0Y2hkb2ciLCJtIjoic3ludGhldGljIiwiYyI6IldEX1RFU1RfVVRNX09NUDRVRyJ9LCJrIjpbIndicmFpZCIsImZiY2xpZCJdfSwiayI6eyJnYnJhaWQiOlsiV0RfVEVTVF9HQlJBSURfT01QNFVHIiwxNzkwODA0NjU1NDE3XSwid2JyYWlkIjpbIldEX1RFU1RfV0JSQUlEX09NUDRVRyIsMTc5MDgwNDY5MDg4MV0sImZiY2xpZCI6WyJXRF9URVNUX0ZCQ0xJRDJfT01QNFVHIiwxNzkwODA0NjkwODgxXX0sImJkIjoiOWMyMjEzZTQtMzc5ZS00YTlmLThiZjMtN2I2OTNkNWZiM2JmIiwiY2siOiJ1MDAtLS0tIn0.HJ920P80OGcXY6BZGFk4AtvD1HwleAbSNcWfyqtaDTc | oa_ad_clids=%7B%22gbraid%22%3A%7B%22v%22%3A%22WD_TEST_GBRAID_OMP4UG%22%2C%22ts%22%3A1790804655417%7D%2C%22wbraid%22%3A%7B%22v%22%3A%22WD_TEST_WBRAID_OMP4UG%22%2C%22ts%22%3A1790804690881%7D%2C%22fbclid%22%3A%7B%22v%22%3A%22WD_TEST_FBCLID2_OMP4UG%22%2C%22ts%22%3A1790804690881%7D%7D | _fbc=fb.1.1790804690881.WD_TEST_FBCLID2_OMP4UG"
+  },
+  {
+   "step": "app_second_click",
+   "url": "https://openart.ai/home?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&wbraid=WD_TEST_WBRAID_OMP4UG&fbclid=WD_TEST_FBCLID2_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&utm_source=wd_watchdog&utm_campaign=WD_TEST_UTM_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0NzE1MTU3LCJmIjp7ImEiOjE3OTA4MDQ3MTUxNTcsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsImMiOiJXRF9URVNUX1VUTV9PTVA0VUcifSwiayI6WyJmYmNsaWQiLCJ0dGNsaWQiXSwiYiI6Imluc3RhZ3JhbSIsInNiIjoxfSwibSI6ImYiLCJsIjoiZiIsImsiOnsiZmJjbGlkIjpbIldEX1RFU1RfRkJDTElEX09NUDRVRyIsMTc5MDgwNDcxNTE1N10sInR0Y2xpZCI6WyJXRF9URVNUX1RUQ0xJRF9PTVA0VUciLDE3OTA4MDQ3MTUxNTddfSwiYmQiOiIzNTk5M2IxMi1jOTc0LTQ2MDgtOWI1Ni04OTA4NTBhMTIyYjQiLCJjayI6InUwMC0tLS0ifQ.jeMyQ7vkohDBeegZedFlpPCxtKbD8SmUS8PvQ360BsE | oa_ad_clids=%7B%22fbclid%22%3A%7B%22v%22%3A%22WD_TEST_FBCLID_OMP4UG%22%2C%22ts%22%3A1790804715157%7D%2C%22ttclid%22%3A%7B%22v%22%3A%22WD_TEST_TTCLID_OMP4UG%22%2C%22ts%22%3A1790804715157%7D%7D | _fbc=fb.1.1790804715157.WD_TEST_FBCLID_OMP4UG | ttclid=WD_TEST_TTCLID_OMP4UG.1790804715157"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&utm_source=wd_watchdog&utm_campaign=WD_TEST_UTM_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "app",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&gclid=WD_TEST_GCLID_OMP4UG&fbclid=WD_TEST_FBCLID_OMP4UG&ttclid=WD_TEST_TTCLID_OMP4UG&msclkid=WD_TEST_MSCLKID_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&twclid=WD_TEST_TWCLID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "ubo-removeparam",
+   "detail": "gclid, fbclid, ttclid, msclkid, twclid stripped by $removeparam=gclid | $removeparam=fbclid | $removeparam=ttclid | $removeparam=msclkid | $removeparam=twclid"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0Nzc4NTYwLCJmIjp7ImEiOjE3OTA4MDQ3Nzg1NjAsInQiOiJwIiwicCI6Ii8iLCJ1Ijp7InMiOiJ3ZF93YXRjaGRvZyIsIm0iOiJzeW50aGV0aWMiLCJjIjoiV0RfVEVTVF9VVE1fT01QNFVHIn0sImsiOlsibGlfZmF0X2lkIiwicmR0X2NpZCIsIm9wcHJlZiJdLCJzYiI6MX0sIm0iOiJmIiwibCI6ImYiLCJrIjp7ImxpX2ZhdF9pZCI6WyJXRF9URVNUX0xJRkFUSURfT01QNFVHIiwxNzkwODA0Nzc4NTYwXSwicmR0X2NpZCI6WyJXRF9URVNUX1JEVENJRF9PTVA0VUciLDE3OTA4MDQ3Nzg1NjBdLCJvcHByZWYiOlsiV0RfVEVTVF9PUFBSRUZfT01QNFVHIiwxNzkwODA0Nzc4NTYwXX0sImJkIjoiZGYxY2Y4OWItODE4NS00M2U1LWE2ZTYtMzQ4YWEyZTBkOTEwIiwiY2siOiJ1MDAtLS0tIn0.VlS7LQC1fQz_El5PVnCWaE6DRRuFXDCSKcQX5Y1fZAY | oa_ad_clids=%7B%22li_fat_id%22%3A%7B%22v%22%3A%22WD_TEST_LIFATID_OMP4UG%22%2C%22ts%22%3A1790804778560%7D%2C%22rdt_cid%22%3A%7B%22v%22%3A%22WD_TEST_RDTCID_OMP4UG%22%2C%22ts%22%3A1790804778560%7D%2C%22oppref%22%3A%7B%22v%22%3A%22WD_TEST_OPPREF_OMP4UG%22%2C%22ts%22%3A1790804778560%7D%7D | __oppref=WD_TEST_OPPREF_OMP4UG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG&rdt_cid=WD_TEST_RDTCID_OMP4UG&li_fat_id=WD_TEST_LIFATID_OMP4UG&oppref=WD_TEST_OPPREF_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "app",
+   "url": "https://openart.ai/home",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "hard_load",
+   "url": "https://openart.ai/home?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0ODIzMTYwLCJmIjp7ImEiOjE3OTA4MDQ4MjMxNjAsInQiOiJjIiwicCI6Ii9ob21lIiwidSI6eyJzIjoid2Rfd2F0Y2hkb2ciLCJtIjoic3ludGhldGljIiwiYyI6IldEX1RFU1RfVVRNX09NUDRVRyJ9LCJzYiI6MX0sIm0iOiJmIiwibCI6ImYiLCJiZCI6ImFkZGEzZGJkLTJiYmItNGFlOC1iYWFkLWVkODFlNmM0MmJmMSIsImNrIjoidTAwLS0tLSJ9.aC7Dq-0p_JT9FDsiH2qsiid7xLky8nH4Y6m0Axc-UVo"
+  },
+  {
+   "step": "hard_load",
+   "url": "https://openart.ai/home?utm_source=wd_watchdog&utm_medium=synthetic&utm_campaign=WD_TEST_UTM_OMP4UG",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "hard_load",
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "hard_load",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "hard_load",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0OTMzNTU4LCJmIjp7ImEiOjE3OTA4MDQ5MzM1NTgsInQiOiJkIiwicCI6Ii8ifSwibSI6InUiLCJjayI6InIwMC0tLS0ifQ.EiX1E5M5_8mPH9xNLr182h0j416JGEY60-E3zr3FLSQ"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "geo",
+   "detail": "geo US/US-CA -> DE/DE-BE"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "geo",
+   "detail": "geo US/US-CA -> DE/DE-BE"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0OTUwOTIzLCJmIjp7ImEiOjE3OTA4MDQ5NTA5MjMsInQiOiJkIiwicCI6Ii8ifSwibSI6InUiLCJjayI6InIwMC0tLS0ifQ.W64JR0nXdKs8Ly1ahCdyygvpXvtD6_gse6T8W2CxsWY"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "geo",
+   "detail": "geo US/US-CA -> GB/GB-ENG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIDWSrEw",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIDWSrEw",
+   "what": "geo",
+   "detail": "geo US/US-CA -> GB/GB-ENG"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/",
+   "what": "edge-sim",
+   "detail": "oa_attr=1.eyJ2IjoxLCJjIjoxNzkwODA0OTY3MzcwLCJmIjp7ImEiOjE3OTA4MDQ5NjczNzAsInQiOiJkIiwicCI6Ii8ifSwibSI6InUiLCJjayI6InIwMC0tLS0ifQ.lWyFRKQAawbT-s4nILIYmO4UxtDbTxvEYAqcPzQWoK4"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/",
+   "what": "inject-script",
+   "detail": "inserted at head (1666494dbebe)"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "container",
+   "detail": "spliced patched_resource.json into live container GTM-56CMP8K"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/",
+   "what": "geo",
+   "detail": "geo US/US-CA -> CH/CH-ZH"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "gtag-config",
+   "detail": "served patched_gtag_config.js in place of live config AW-11252321380"
+  },
+  {
+   "step": "landing",
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "what": "geo",
+   "detail": "geo US/US-CA -> CH/CH-ZH"
+  }
+ ],
+ "loaders": [
+  {
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K",
+   "kind": "container",
+   "version": "25",
+   "resourceSha256Served": "20b0340b822d849bdf8a398724709f26659d195368d5f260e732afc0bb45468f",
+   "resourceSha256Live": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540"
+  },
+  {
+   "url": "https://openart.ai/4vu8/",
+   "kind": "container",
+   "version": "25",
+   "resourceSha256Served": "20b0340b822d849bdf8a398724709f26659d195368d5f260e732afc0bb45468f",
+   "resourceSha256Live": "b832149fc3cea392676159ed519fb33502bf9f2a30dd0ec90cda8f9aebd0e540"
+  },
+  {
+   "url": "https://www.googletagmanager.com/gtm.js?id=GTM-56CMP8K&gtg_health=1",
+   "kind": "other",
+   "version": null,
+   "resourceSha256Served": null,
+   "resourceSha256Live": null
+  },
+  {
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIqxM",
+   "kind": "config",
+   "version": "4",
+   "resourceSha256Served": "bef0a57298efe6f0b7a1e3dfb7032e0644f3c5ed1b301f3a020cf852c80fc2fb",
+   "resourceSha256Live": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96"
+  },
+  {
+   "url": "https://openart.ai/4vu8/C_mYUAFo3ktMtwbOA2KWC5ag7fQzy1xc1dbYrTQHn3aW09MIDWSrEw",
+   "kind": "config",
+   "version": "4",
+   "resourceSha256Served": "bef0a57298efe6f0b7a1e3dfb7032e0644f3c5ed1b301f3a020cf852c80fc2fb",
+   "resourceSha256Live": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96"
+  }
+ ],
+ "zeroLeak": {
+  "status": "PROVEN",
+  "sessions": [
+   {
+    "id": "pilot",
+    "kind": "pilot",
+    "seen": 16,
+    "allowed": 6,
+    "allowedViaWatchdogFetch": 0,
+    "failed": 10,
+    "collectionAttempts": 10,
+    "collectionFailedOk": 10,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 0,
+     "noRoute": 0,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "127.0.0.1"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "wd-proxy-canary.invalid",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "pilot: WebSocket ws://127.0.0.1:62210/wd-collect-probe-ws-direct",
+     "pilot: WebSocket ws://127.0.0.1:62210/wd-collect-probe-ws-proto",
+     "pilot: SharedWorker http://127.0.0.1:62210/wd-collect-probe-shared.js",
+     "pilot: serviceWorker.register /wd-collect-probe-sw.js",
+     "pilot: window.open http://127.0.0.1:62210/wd-collect-probe-popup"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "replay-load",
+    "kind": "replay (pre-seal page load)",
+    "seen": 170,
+    "allowed": 117,
+    "allowedViaWatchdogFetch": 27,
+    "failed": 53,
+    "collectionAttempts": 46,
+    "collectionFailedOk": 46,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 4,
+     "noRoute": 1,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "replay-sealed",
+    "kind": "replay (full seal)",
+    "seen": 51,
+    "allowed": 0,
+    "allowedViaWatchdogFetch": 0,
+    "failed": 51,
+    "collectionAttempts": 49,
+    "collectionFailedOk": 49,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 0,
+     "noRoute": 0,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "meta_one_hop",
+    "kind": "journey",
+    "seen": 437,
+    "allowed": 325,
+    "allowedViaWatchdogFetch": 34,
+    "failed": 112,
+    "collectionAttempts": 99,
+    "collectionFailedOk": 99,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 5,
+     "noRoute": 1,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "meta_multi_hop",
+    "kind": "journey",
+    "seen": 549,
+    "allowed": 389,
+    "allowedViaWatchdogFetch": 52,
+    "failed": 160,
+    "collectionAttempts": 138,
+    "collectionFailedOk": 138,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 5,
+     "noRoute": 2,
+     "policyAllowed": 2
+    },
+    "unpausedAllowed": [
+     "Media GET https://openart.ai/pageforge-assets/openart-home/use-cases/template/ugc-ads.mp4 (no response) net::ERR_ABORTED",
+     "Media GET https://openart.ai/pageforge-assets/openart-home/use-cases/template/mirco-drama.mp4 (no response) net::ERR_ABORTED"
+    ],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "meta_return",
+    "kind": "journey",
+    "seen": 429,
+    "allowed": 324,
+    "allowedViaWatchdogFetch": 34,
+    "failed": 105,
+    "collectionAttempts": 91,
+    "collectionFailedOk": 91,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 5,
+     "noRoute": 1,
+     "policyAllowed": 1
+    },
+    "unpausedAllowed": [
+     "Media GET https://cdn.openart.ai/production/2026-07/uploads/8NX6NnDnPc4CuiBCUz81/file_55KL4fVo_1784200835662.mp4 (no response) net::ERR_ABORTED"
+    ],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "oppref_marketing",
+    "kind": "journey",
+    "seen": 435,
+    "allowed": 325,
+    "allowedViaWatchdogFetch": 34,
+    "failed": 110,
+    "collectionAttempts": 97,
+    "collectionFailedOk": 97,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 5,
+     "noRoute": 2,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "gbraid_wbraid",
+    "kind": "journey",
+    "seen": 603,
+    "allowed": 426,
+    "allowedViaWatchdogFetch": 41,
+    "failed": 177,
+    "collectionAttempts": 156,
+    "collectionFailedOk": 156,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 10,
+     "noRoute": 1,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "instagram_webview",
+    "kind": "journey",
+    "seen": 432,
+    "allowed": 293,
+    "allowedViaWatchdogFetch": 34,
+    "failed": 139,
+    "collectionAttempts": 126,
+    "collectionFailedOk": 126,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 10,
+     "noRoute": 1,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "ubo_blocked",
+    "kind": "journey",
+    "seen": 329,
+    "allowed": 295,
+    "allowedViaWatchdogFetch": 6,
+    "failed": 34,
+    "collectionAttempts": 7,
+    "collectionFailedOk": 7,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 5,
+     "noRoute": 0,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "spa_pageviews",
+    "kind": "journey",
+    "seen": 678,
+    "allowed": 401,
+    "allowedViaWatchdogFetch": 27,
+    "failed": 278,
+    "collectionAttempts": 268,
+    "collectionFailedOk": 268,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 36,
+     "noRoute": 0,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "clerk.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "hard_load: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "consent_DE",
+    "kind": "consent-probe",
+    "seen": 124,
+    "allowed": 90,
+    "allowedViaWatchdogFetch": 20,
+    "failed": 34,
+    "collectionAttempts": 28,
+    "collectionFailedOk": 28,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 0,
+     "noRoute": 0,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "consent_GB",
+    "kind": "consent-probe",
+    "seen": 125,
+    "allowed": 90,
+    "allowedViaWatchdogFetch": 20,
+    "failed": 35,
+    "collectionAttempts": 29,
+    "collectionFailedOk": 29,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 0,
+     "noRoute": 1,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   },
+   {
+    "id": "consent_CH",
+    "kind": "consent-probe",
+    "seen": 124,
+    "allowed": 90,
+    "allowedViaWatchdogFetch": 20,
+    "failed": 34,
+    "collectionAttempts": 28,
+    "collectionFailedOk": 28,
+    "independentSuspects": [],
+    "responsesForFailed": [],
+    "unaccounted": [],
+    "accountedOtherwise": {
+     "blockedByChrome": 0,
+     "preflightFailed": 0,
+     "noRoute": 0,
+     "policyAllowed": 0
+    },
+    "unpausedAllowed": [],
+    "markerLeaks": [],
+    "tunnelledHosts": [
+     "cdn.openart.ai",
+     "i18n.openart.ai",
+     "openart.ai"
+    ],
+    "nonAllowlistedTunnels": [],
+    "refusedByProxy": [
+     "accounts.google.com",
+     "android.clients.google.com",
+     "update.googleapis.com",
+     "www.google.com"
+    ],
+    "postSealAllowed": 0,
+    "blockedInPage": [
+     "landing: serviceWorker.register /4vu8/_/service_worker/69f0/sw.js?path=%2F4vu8"
+    ],
+    "heldTargets": [],
+    "teardownOk": true,
+    "pass": true,
+    "problems": []
+   }
+  ],
+  "totals": {
+   "seen": 4502,
+   "allowed": 3171,
+   "allowedViaWatchdogFetch": 349,
+   "failed": 1332,
+   "collectionAttempts": 1172,
+   "collectionCompleted": 0,
+   "independentSuspects": 0,
+   "unaccounted": 0
+  },
+  "method": [
+   "Interception was live in every session: browser-level and page Fetch enabled (a target whose Fetch failed is never resumed), >0 decisions, and the proxy carried the browser traffic.",
+   "Every collection-endpoint request (policy label) was answered with Fetch.failRequest(BlockedByClient) before leaving Chrome; failRequest succeeded.",
+   "An independent classifier (the research teardown regexes + the rest of the endpoint inventory) re-audited every ALLOWED request, including third-party GETs the watchdog fetched itself: none is a tracking endpoint.",
+   "The Network event stream shows no failed request received a response, and every network request Chrome made is accounted for: by its own Fetch decision; as provably undelivered (blocked by Chrome, its CORS preflight failed by the seal, or a third-party host the proxy never connected to); or as a request the policy allows anyway (e.g. a media range request the page cancelled before interception) — those are listed.",
+   "No allowed third-party request carried a synthetic WD_TEST marker in its URL or Referer.",
+   "The browser could reach first-party openart.ai hosts only: the gatekeeper proxy refused every other CONNECT before any upstream socket existed; third-party bytes came only from the watchdog's own GETs.",
+   "Channels outside Fetch stayed closed: no WebSocket, no service worker ran or installed (registrations refused in-page; worker targets held paused), no popup, no Reporting API report, no speculation-rules prefetch/prerender (disabled by profile preference).",
+   "Chrome was SIGKILLed with the proxy sealed (no unload beacons); the process tree is dead, nothing references the profile, and the profile directory is deleted."
+  ]
+ },
+ "pilot": {
+  "ok": true,
+  "expectations": [
+   {
+    "probe": "fetch()",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "fetch keepalive POST",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "navigator.sendBeacon",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "new Image()",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "XMLHttpRequest POST",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "iframe navigation",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "dedicated worker fetch()",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "sendBeacon during navigation (pagehide)",
+    "ok": true,
+    "detail": "paused → failed (BlockedByClient)"
+   },
+   {
+    "probe": "WebSocket (in-page seal)",
+    "ok": true,
+    "detail": "SecurityError"
+   },
+   {
+    "probe": "WebSocket via prototype.constructor",
+    "ok": true,
+    "detail": "SecurityError"
+   },
+   {
+    "probe": "WebSocket from an about:blank iframe (contentWindow)",
+    "ok": true,
+    "detail": "SecurityError"
+   },
+   {
+    "probe": "WebSocket from an about:blank iframe (window.frames)",
+    "ok": true,
+    "detail": "SecurityError"
+   },
+   {
+    "probe": "WebSocket in a dedicated worker",
+    "ok": true,
+    "detail": "SecurityError"
+   },
+   {
+    "probe": "SharedWorker",
+    "ok": true,
+    "detail": "SecurityError"
+   },
+   {
+    "probe": "service-worker registration",
+    "ok": true,
+    "detail": "rejected SecurityError"
+   },
+   {
+    "probe": "window.open popup",
+    "ok": true,
+    "detail": "null"
+   },
+   {
+    "probe": "no WebSocket handshake reached the server or Chrome",
+    "ok": true,
+    "detail": "server upgrades 0, Chrome webSocketCreated 0"
+   },
+   {
+    "probe": "no service worker ran; no popup target",
+    "ok": true,
+    "detail": "sw versions []; extra pages 0; held targets 0"
+   },
+   {
+    "probe": "speculation-rules prefetch/prerender (browser process, invisible to Fetch)",
+    "ok": true,
+    "detail": "never requested (no-preloading preference)"
+   },
+   {
+    "probe": "Reporting API (network service, invisible to Fetch)",
+    "ok": true,
+    "detail": "0 report(s) queued"
+   },
+   {
+    "probe": "RECEIVING SIDE: no probe request reached the server",
+    "ok": true,
+    "detail": "server saw only: /pilot /csp-violation.png /favicon.ico /pilot-next"
+   },
+   {
+    "probe": "RECEIVING SIDE: the pilot pages themselves arrived (the page really loaded)",
+    "ok": true,
+    "detail": "2/2 page loads received"
+   },
+   {
+    "probe": "proxy liveness (the page load went through the gatekeeper proxy)",
+    "ok": true,
+    "detail": "6 request(s) carried, 7 refused (incl. Chrome background hosts)"
+   },
+   {
+    "probe": "proxy refuses a host outside the allowlist",
+    "ok": true,
+    "detail": "HTTP/1.1 403 Forbidden"
+   },
+   {
+    "probe": "no probe resolved in the page",
+    "ok": true,
+    "detail": "{\"fetch\":\"rejected\",\"keepalive\":\"rejected\",\"beaconReturned\":true,\"img\":\"onerror\",\"xhr\":\"onerror\",\"iframe\":\"onload (error page)\",\"worker\":\"rejected\",\"workerWebSocket\":\"SecurityError\",\"ws\":\"SecurityError\",\"wsProto\":\"SecurityError\",\"wsIframe\":\"SecurityError\",\"wsFrames\":\"SecurityError\",\"sharedWorker\":\"SecurityError\",\"serviceWorker\":\"rejected SecurityError\",\"popup\":\"null\"}"
+   }
+  ]
+ }
+}

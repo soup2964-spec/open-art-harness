@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/hubspot-contact-property-change.schema.json",
+  "title": "HubSpot webhook event: contact.propertyChange (lifecyclestage)",
+  "description": "HubSpot app-webhook payload item (webhooks are delivered as a JSON array of these). openart-signal subscribes to propertyName=lifecyclestage to emit lead_stage_change. How OpenArt consumes HubSpot today is unknown; a CRM export to BigQuery with the same fields works equally.",
+  "type": "object",
+  "required": [
+    "eventId",
+    "subscriptionId",
+    "portalId",
+    "occurredAt",
+    "subscriptionType",
+    "attemptNumber",
+    "objectId",
+    "propertyName",
+    "propertyValue"
+  ],
+  "properties": {
+    "eventId": { "type": "integer" },
+    "subscriptionId": { "type": "integer" },
+    "portalId": { "type": "integer" },
+    "appId": { "type": "integer" },
+    "occurredAt": { "description": "ms epoch", "type": "integer", "minimum": 1000000000000 },
+    "subscriptionType": { "const": "contact.propertyChange" },
+    "attemptNumber": { "type": "integer", "minimum": 0 },
+    "objectId": { "type": "integer" },
+    "propertyName": { "type": "string" },
+    "propertyValue": { "type": "string" },
+    "changeSource": { "type": "string" },
+    "sourceId": { "type": ["string", "null"] }
+  }
+}

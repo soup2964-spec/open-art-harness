@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/conversion-service/x/conversions.schema.json",
+  "title": "X Ads Conversion API: POST https://ads-api.x.com/12/measurement/conversions/{pixel_id}",
+  "description": "Transcribed from https://docs.x.com/x-ads-api/measurement/web-conversions and gtm-server-side (fetched 2026-09-29) and the archived API reference (web.archive.org capture 2025-11-18 of developer.x.com/.../api-reference/conversions; docs.x.com has no live reference page). Auth: OAuth 1.0a user context (HMAC-SHA1), added by the live transport. 'Up to 500 conversion events may be provided' comes from the archived reference only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["conversions"],
+  "properties": {
+    "conversions": { "type": "array", "minItems": 1, "maxItems": 500, "items": { "$ref": "#/$defs/Conversion" } }
+  },
+  "$defs": {
+    "Conversion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conversion_time", "event_id", "identifiers"],
+      "properties": {
+        "conversion_time": { "description": "'The time, expressed in ISO 8601.' e.g. 2022-02-18T01:14:00.603Z", "type": "string", "format": "date-time" },
+        "event_id": { "description": "The Events Manager event id (the conversion type, e.g. tw-o5h34-o9p5x), not the dedup key.", "type": "string", "pattern": "^[a-z0-9-]{3,64}$" },
+        "identifiers": {
+          "description": "'At least one of the identifier objects (twclid or email) is required'; IP/UA only 'alongside a second identifier'.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "minProperties": 1,
+            "properties": {
+              "twclid": { "type": "string", "minLength": 1 },
+              "hashed_email": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+              "hashed_phone_number": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+              "ip_address": { "type": "string", "minLength": 2 },
+              "user_agent": { "type": "string", "minLength": 1 }
+            }
+          },
+          "contains": {
+            "anyOf": [{ "required": ["twclid"] }, { "required": ["hashed_email"] }, { "required": ["hashed_phone_number"] }]
+          }
+        },
+        "conversion_id": { "description": "'For deduplication between pixel and conversion API conversions.'", "type": "string", "minLength": 1 },
+        "value": { "description": "'Type: double'", "type": "number", "minimum": 0 },
+        "price_currency": { "description": "'ISO-4217 … Default: USD'", "type": "string", "pattern": "^[A-Z]{3}$" },
+        "number_items": { "type": "integer", "minimum": 1 },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}

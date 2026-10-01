@@ -1,0 +1,16 @@
+# Cloud Scheduler trigger for the Cloud Run job, as a gcloud --flags-file (nothing is deployed here):
+#   gcloud scheduler jobs create http openart-signal-watchdog-daily \
+#     --location REGION --flags-file infra/watchdog/cloud-scheduler.yaml
+# The scheduler calls the Cloud Run Admin API `jobs.run` with an OAuth token for a dedicated service
+# account that holds roles/run.invoker on the job (and nothing else).
+# Daily at 06:15 America/Los_Angeles (after OpenArt's overnight GTM publishes, before the working day).
+--schedule: '15 6 * * *'
+--time-zone: America/Los_Angeles
+--uri: https://run.googleapis.com/v2/projects/PROJECT_ID/locations/REGION/jobs/openart-signal-watchdog:run
+--http-method: POST
+--oauth-service-account-email: watchdog-scheduler@PROJECT_ID.iam.gserviceaccount.com
+--oauth-token-scope: https://www.googleapis.com/auth/cloud-platform
+--attempt-deadline: 30m
+# No scheduler retries: a missed day is better than repeated live page loads.
+--max-retry-attempts: 0
+--description: OpenArt signal watchdog — sealed conversion replay, click-ID journeys, consent probes, GTM-56CMP8K diff

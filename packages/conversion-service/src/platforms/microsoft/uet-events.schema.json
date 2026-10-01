@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/conversion-service/microsoft/uet-events.schema.json",
+  "title": "Microsoft UET Conversions API: POST https://capi.uet.microsoft.com/v1/{tagId}/events",
+  "description": "Transcribed from https://learn.microsoft.com/en-us/advertising/guides/uet-conversion-api-integration?view=bingads-13 (updated 2026-08-04, fetched 2026-09-29). 'The maximum number of events per batch upload is 1,000.' Authorization: Bearer <UET tag API token>, added by the live transport.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["data"],
+  "properties": {
+    "data": { "type": "array", "minItems": 1, "maxItems": 1000, "items": { "$ref": "#/$defs/Event" } },
+    "continueOnValidationError": { "description": "'false (default) – entire request will not be processed'", "type": "boolean" },
+    "dataProvider": { "type": "string" }
+  },
+  "$defs": {
+    "Event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eventType", "eventTime", "userData"],
+      "properties": {
+        "eventType": { "enum": ["pageLoad", "custom"] },
+        "eventId": { "description": "'Required for deduplication'", "type": "string", "minLength": 1 },
+        "eventName": { "description": "'Required for deduplication'", "type": "string", "minLength": 1 },
+        "eventTime": { "description": "'UNIX epoch time UTC) in seconds. eventTime must be within the last 7 days.'", "type": "integer", "minimum": 1000000000, "maximum": 9999999999 },
+        "eventSourceUrl": { "type": "string", "format": "uri" },
+        "pageLoadId": { "type": "string" },
+        "referrerUrl": { "type": "string" },
+        "pageTitle": { "type": "string" },
+        "keywords": { "type": "string" },
+        "adStorageConsent": { "enum": ["G", "D"] },
+        "userData": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "clientUserAgent": { "type": "string", "minLength": 1 },
+            "anonymousId": { "type": "string", "minLength": 1 },
+            "externalId": { "description": "'Never send real user IDs … recommend generating new UUIDs or applying a hash.'", "type": "string", "minLength": 1 },
+            "em": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "ph": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "clientIpAddress": { "type": "string", "minLength": 2 },
+            "msclkid": { "description": "'Must be a valid UUID.'", "type": "string", "pattern": "^[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}$" },
+            "idfa": { "type": "string" },
+            "gaid": { "type": "string" }
+          },
+          "anyOf": [
+            { "required": ["anonymousId"] },
+            { "required": ["externalId"] },
+            { "required": ["em"] },
+            { "required": ["ph"] },
+            { "required": ["msclkid"] },
+            { "required": ["idfa"] },
+            { "required": ["gaid"] }
+          ]
+        },
+        "customData": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "eventCategory": { "type": "string" },
+            "eventLabel": { "type": "string" },
+            "eventValue": { "type": "number" },
+            "searchTerm": { "type": "string" },
+            "transactionId": { "type": "string", "minLength": 1 },
+            "value": { "description": "'Revenue value'", "type": "number", "minimum": 0 },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+            "itemIds": { "type": "array", "items": { "type": "string" } },
+            "pageType": { "enum": ["cart", "category", "home", "other", "product", "purchase", "searchresults"] },
+            "ecommTotalValue": { "type": "number" },
+            "ecommCategory": { "type": "string" }
+          },
+          "dependentRequired": { "value": ["currency"] }
+        }
+      },
+      "allOf": [
+        { "if": { "properties": { "eventType": { "const": "pageLoad" } } }, "then": { "required": ["eventSourceUrl"] } }
+      ]
+    }
+  }
+}

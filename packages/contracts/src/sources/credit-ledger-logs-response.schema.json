@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/credit-ledger-logs-response.schema.json",
+  "title": "GET /suite/api/credits/logs response",
+  "description": "Request: GET https://openart.ai/suite/api/credits/logs?limit=20[&filter=spent|granted|refunded][&cursor=…] (research/10 §3.3; crawl/loggedin_billing/evidence_api_samples_REDACTED.json).",
+  "type": "object",
+  "required": ["success", "entries", "hasMore"],
+  "properties": {
+    "success": { "type": "boolean" },
+    "entries": { "type": "array", "items": { "$ref": "credit-ledger-entry.schema.json" } },
+    "hasMore": { "type": "boolean" },
+    "nextCursor": { "type": "string" }
+  }
+}

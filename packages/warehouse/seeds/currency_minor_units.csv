@@ -1,0 +1,26 @@
+currency,minor_unit_digits,source
+USD,2,ISO 4217
+EUR,2,ISO 4217
+GBP,2,ISO 4217
+CAD,2,ISO 4217
+AUD,2,ISO 4217
+NZD,2,ISO 4217
+CHF,2,ISO 4217
+SEK,2,ISO 4217
+NOK,2,ISO 4217
+DKK,2,ISO 4217
+PLN,2,ISO 4217
+BRL,2,ISO 4217
+MXN,2,ISO 4217
+INR,2,ISO 4217
+SGD,2,ISO 4217
+HKD,2,ISO 4217
+AED,2,ISO 4217
+ILS,2,ISO 4217
+JPY,0,ISO 4217; Stripe zero-decimal currency
+KRW,0,ISO 4217; Stripe zero-decimal currency
+VND,0,ISO 4217; Stripe zero-decimal currency
+CLP,0,ISO 4217; Stripe zero-decimal currency
+IDR,2,ISO 4217 (Stripe charges in 2-decimal units)
+KWD,3,ISO 4217; Stripe three-decimal currency
+BHD,3,ISO 4217; Stripe three-decimal currency

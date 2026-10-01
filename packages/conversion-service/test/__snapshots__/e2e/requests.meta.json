@@ -1,0 +1,547 @@
+[
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "InitiateCheckout",
+          "event_time": 1780506150,
+          "event_id": "checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce",
+          "event_source_url": "https://openart.ai/pricing",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+            ],
+            "external_id": [
+              "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd"
+            ],
+            "client_ip_address": "203.0.113.1",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000001"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "Purchase",
+          "event_time": 1780506251,
+          "event_id": "purchase_in_1SynthU01Inv0001First",
+          "event_source_url": "https://openart.ai/suite/subscriptions",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+            ],
+            "external_id": [
+              "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd"
+            ],
+            "client_ip_address": "203.0.113.1",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000001",
+            "subscription_id": "sub_1SynthU01Starter000001"
+          },
+          "custom_data": {
+            "value": 22.11,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU01Inv0001First",
+            "predicted_ltv": 22.11,
+            "value_basis": "predicted_profit_90d"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "Purchase",
+          "event_time": 1781524800,
+          "event_id": "purchase_in_1SynthU03Inv0001First",
+          "event_source_url": "https://openart.ai/suite/subscriptions",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+            ],
+            "external_id": [
+              "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff"
+            ],
+            "client_ip_address": "203.0.113.3",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbc": "fb.1.1781427480000.IwAR3SYNTHfbclidU03xYz",
+            "fbp": "fb.1.1780000000000.100000003",
+            "subscription_id": "sub_1SynthU03Plus00000001"
+          },
+          "custom_data": {
+            "value": 34,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU03Inv0001First",
+            "value_basis": "cash_fallback"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "purchase_add_on",
+          "event_time": 1782388800,
+          "event_id": "purchase_in_1SynthU03Inv0002AddOn",
+          "event_source_url": "https://openart.ai/suite/subscriptions",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+            ],
+            "external_id": [
+              "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff"
+            ],
+            "client_ip_address": "203.0.113.3",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbc": "fb.1.1781427480000.IwAR3SYNTHfbclidU03xYz",
+            "fbp": "fb.1.1780000000000.100000003",
+            "subscription_id": "sub_1SynthU03Plus00000001"
+          },
+          "custom_data": {
+            "value": 10,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU03Inv0002AddOn",
+            "value_basis": "cash"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "CompleteRegistration",
+          "event_time": 1782900000,
+          "event_id": "reg_SynthU05FreeTrialE5x",
+          "event_source_url": "https://openart.ai/",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "0b50a3bf3dd72f160e58ebf77752ff0afb7842268ba43efd2deec1b16b62d3e1"
+            ],
+            "external_id": [
+              "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3"
+            ],
+            "client_ip_address": "203.0.113.5",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000005"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "activation_first_generation",
+          "event_time": 1782900300,
+          "event_id": "activation_SynthU05FreeTrialE5x",
+          "event_source_url": "https://openart.ai/suite",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "0b50a3bf3dd72f160e58ebf77752ff0afb7842268ba43efd2deec1b16b62d3e1"
+            ],
+            "external_id": [
+              "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3"
+            ],
+            "client_ip_address": "203.0.113.5",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000005"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "purchase_renewal",
+          "event_time": 1783098251,
+          "event_id": "purchase_in_1SynthU01Inv0002Cycle",
+          "action_source": "system_generated",
+          "user_data": {
+            "em": [
+              "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+            ],
+            "external_id": [
+              "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd"
+            ],
+            "client_ip_address": "203.0.113.1",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000001",
+            "subscription_id": "sub_1SynthU01Starter000001"
+          },
+          "custom_data": {
+            "value": 14,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU01Inv0002Cycle",
+            "value_basis": "cash"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "purchase_one_time_pack",
+          "event_time": 1783245600,
+          "event_id": "purchase_cs_live_a1SynthU05Pack00000001",
+          "event_source_url": "https://openart.ai/suite/subscriptions",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "0b50a3bf3dd72f160e58ebf77752ff0afb7842268ba43efd2deec1b16b62d3e1"
+            ],
+            "external_id": [
+              "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3"
+            ],
+            "client_ip_address": "203.0.113.5",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000005"
+          },
+          "custom_data": {
+            "value": 0.01,
+            "currency": "USD",
+            "order_id": "sub_cs_live_a1SynthU05Pack00000001",
+            "predicted_ltv": 0.01,
+            "value_basis": "predicted_profit_90d"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "purchase_upgrade",
+          "event_time": 1783252800,
+          "event_id": "purchase_in_1SynthU03Inv0003Upgrade",
+          "event_source_url": "https://openart.ai/suite/subscriptions",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+            ],
+            "external_id": [
+              "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff"
+            ],
+            "client_ip_address": "203.0.113.3",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbc": "fb.1.1781427480000.IwAR3SYNTHfbclidU03xYz",
+            "fbp": "fb.1.1780000000000.100000003",
+            "subscription_id": "sub_1SynthU03Plus00000001"
+          },
+          "custom_data": {
+            "value": 7.34,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU03Inv0003Upgrade",
+            "value_basis": "cash"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "Purchase",
+          "event_time": 1784534400,
+          "event_id": "purchase_in_1SynthU04Inv0001First",
+          "event_source_url": "https://openart.ai/suite/subscriptions",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "78013d4c8cd3c3ce075d037ac6887c4a35cda84712a5a23b8946979e6da7a20f"
+            ],
+            "external_id": [
+              "56d7fb4c1093445c602566d966df825b38c1379d574bf2e82672c8ff6e8d62ed"
+            ],
+            "client_ip_address": "203.0.113.4",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000004",
+            "subscription_id": "sub_1SynthU04Pro000000001"
+          },
+          "custom_data": {
+            "value": 56,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU04Inv0001First",
+            "value_basis": "cash_fallback"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "purchase_renewal",
+          "event_time": 1785776651,
+          "event_id": "purchase_in_1SynthU01Inv0003Cycle",
+          "action_source": "system_generated",
+          "user_data": {
+            "em": [
+              "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+            ],
+            "external_id": [
+              "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd"
+            ],
+            "client_ip_address": "203.0.113.1",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000001",
+            "subscription_id": "sub_1SynthU01Starter000001"
+          },
+          "custom_data": {
+            "value": 14,
+            "currency": "USD",
+            "order_id": "sub_in_1SynthU01Inv0003Cycle",
+            "value_basis": "cash"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "Lead",
+          "event_time": 1789748400,
+          "event_id": "lead_6f1d2c3b-0000-4000-8000-00000000a001",
+          "event_source_url": "https://openart.ai/enterprise",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "697905fe72d9f83abc6577cc99a103721a931a888ef7c1403597a76f1e743d2b"
+            ],
+            "client_ip_address": "203.0.113.21",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "Lead",
+          "event_time": 1789897500,
+          "event_id": "lead_6f1d2c3b-0000-4000-8000-00000000a002",
+          "event_source_url": "https://openart.ai/enterprise",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "9f4493eea76d699493584d1de0df28bfec17097f8bbe3394b7dc4e6616e06b86"
+            ],
+            "client_ip_address": "203.0.113.22",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "CompleteRegistration",
+          "event_time": 1790273400,
+          "event_id": "reg_SynthU09FranceGranted",
+          "event_source_url": "https://openart.ai/",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "dc0b3a44c41a438d22201f81b2a1d0cdfed424dc26ca7953e581d9148e232f93"
+            ],
+            "external_id": [
+              "3c8c4e57cb145848cabf12170fd2af5fd0f88b5235fcbba0cbef9b2116f9724c"
+            ],
+            "client_ip_address": "203.0.113.9",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000009"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  },
+  {
+    "phase": "B",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://graph.facebook.com/v26.0/843671884361709/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "meta_access_token",
+    "body": {
+      "data": [
+        {
+          "event_name": "CompleteRegistration",
+          "event_time": 1790337600,
+          "event_id": "reg_SynthU06GmailSignupF6",
+          "event_source_url": "https://openart.ai/",
+          "action_source": "website",
+          "user_data": {
+            "em": [
+              "046758cbe1fffc8c995b84dd17027507c122e20bfc39380ab6bfbb54de252d27"
+            ],
+            "external_id": [
+              "66ad45d89313b3adad3e86c41dd54d1408aebe816422fd28c3ee1b98e52e71cd"
+            ],
+            "client_ip_address": "203.0.113.6",
+            "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)",
+            "fbp": "fb.1.1780000000000.100000006"
+          },
+          "data_processing_options": []
+        }
+      ]
+    }
+  }
+]

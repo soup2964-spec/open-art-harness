@@ -1,0 +1,201 @@
+[
+  {
+    "id": "evt_1SynthU02CheckoutDone",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1781126911,
+    "data": {
+      "object": {
+        "id": "cs_live_a1SynthU02Checkout0001",
+        "object": "checkout.session",
+        "mode": "subscription",
+        "status": "complete",
+        "payment_status": "paid",
+        "customer": "SynthU02WonderYearB2",
+        "customer_creation": null,
+        "customer_details": {
+          "email": "synth.u02@example.test",
+          "name": null,
+          "address": null,
+          "phone": null,
+          "tax_exempt": "none",
+          "tax_ids": []
+        },
+        "client_reference_id": null,
+        "subscription": "sub_1SynthU02Wonder0000001",
+        "invoice": "in_1SynthU02Inv0001First",
+        "payment_intent": null,
+        "amount_subtotal": 210240,
+        "amount_total": 210240,
+        "currency": "usd",
+        "allow_promotion_codes": true,
+        "automatic_tax": {
+          "enabled": false,
+          "liability": null,
+          "status": null
+        },
+        "created": 1781126910,
+        "expires_at": 1781213310,
+        "livemode": true,
+        "locale": null,
+        "metadata": {},
+        "payment_method_types": [
+          "card",
+          "amazon_pay",
+          "crypto"
+        ],
+        "success_url": "https://openart.ai/suite/subscriptions?success=subscription_purchased&tier=3500&interval=year&uid=SynthU02WonderYearB2&quantity=undefined&session_id={CHECKOUT_SESSION_ID}",
+        "cancel_url": "https://openart.ai/pricing",
+        "url": null
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "checkout.session.completed"
+  },
+  {
+    "id": "evt_1SynthU02InvPaid0001",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1781127002,
+    "data": {
+      "object": {
+        "id": "in_1SynthU02Inv0001First",
+        "object": "invoice",
+        "account_country": "US",
+        "account_name": "OpenArt AI",
+        "amount_due": 210240,
+        "amount_overpaid": 0,
+        "amount_paid": 210240,
+        "amount_remaining": 0,
+        "attempt_count": 1,
+        "attempted": true,
+        "billing_reason": "subscription_create",
+        "collection_method": "charge_automatically",
+        "created": 1781127000,
+        "currency": "usd",
+        "customer": "SynthU02WonderYearB2",
+        "customer_email": null,
+        "discounts": [],
+        "effective_at": 1781127000,
+        "hosted_invoice_url": null,
+        "livemode": true,
+        "metadata": {},
+        "number": "SYNTH0002-0001",
+        "parent": {
+          "type": "subscription_details",
+          "quote_details": null,
+          "subscription_details": {
+            "metadata": {},
+            "subscription": "sub_1SynthU02Wonder0000001"
+          }
+        },
+        "period_end": 1812663000,
+        "period_start": 1781127000,
+        "status": "paid",
+        "status_transitions": {
+          "finalized_at": 1781127000,
+          "paid_at": 1781127000,
+          "marked_uncollectible_at": null,
+          "voided_at": null
+        },
+        "subtotal": 210240,
+        "subtotal_excluding_tax": 210240,
+        "total": 210240,
+        "total_excluding_tax": 210240,
+        "lines": {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/invoices/in_1SynthU02Inv0001First/lines",
+          "data": [
+            {
+              "id": "il_1SynthU02Line0001",
+              "object": "line_item",
+              "amount": 210240,
+              "currency": "usd",
+              "description": "1 × OpenArt Wonder (at $2,102.40 / year)",
+              "discount_amounts": [],
+              "discountable": true,
+              "discounts": [],
+              "invoice": "in_1SynthU02Inv0001First",
+              "livemode": true,
+              "metadata": {},
+              "parent": {
+                "type": "subscription_item_details",
+                "invoice_item_details": null,
+                "subscription_item_details": {
+                  "invoice_item": null,
+                  "proration": false,
+                  "proration_details": null,
+                  "subscription": "sub_1SynthU02Wonder0000001",
+                  "subscription_item": "si_SynthU02ItemPlan01"
+                }
+              },
+              "period": {
+                "start": 1781127000,
+                "end": 1812663000
+              },
+              "pricing": {
+                "type": "price_details",
+                "price_details": {
+                  "price": "price_1SULGUKVhG51tYSBGd4Avkuj",
+                  "product": "prod_TRDhpbWHKB2e4p"
+                },
+                "unit_amount_decimal": "210240"
+              },
+              "quantity": 1,
+              "subscription": "sub_1SynthU02Wonder0000001",
+              "taxes": []
+            }
+          ]
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice.paid"
+  },
+  {
+    "id": "evt_1SynthU02InvPay0001",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1781127002,
+    "data": {
+      "object": {
+        "id": "inpay_1SynthU02Pay0001",
+        "object": "invoice_payment",
+        "amount_paid": 210240,
+        "amount_requested": 210240,
+        "created": 1781127000,
+        "currency": "usd",
+        "invoice": "in_1SynthU02Inv0001First",
+        "is_default": true,
+        "livemode": true,
+        "payment": {
+          "type": "payment_intent",
+          "payment_intent": "pi_3SynthU02Pi0001"
+        },
+        "status": "paid",
+        "status_transitions": {
+          "canceled_at": null,
+          "paid_at": 1781127000
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice_payment.paid"
+  }
+]

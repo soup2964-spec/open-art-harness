@@ -1,0 +1,677 @@
+[
+  {
+    "id": "evt_1SynthU01CheckoutDone",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1780506192,
+    "data": {
+      "object": {
+        "id": "cs_live_a1SynthU01Checkout0001",
+        "object": "checkout.session",
+        "mode": "subscription",
+        "status": "complete",
+        "payment_status": "paid",
+        "customer": "SynthU01StarterMonA1",
+        "customer_creation": null,
+        "customer_details": {
+          "email": "synth.u01@example.test",
+          "name": null,
+          "address": null,
+          "phone": null,
+          "tax_exempt": "none",
+          "tax_ids": []
+        },
+        "client_reference_id": null,
+        "subscription": "sub_1SynthU01Starter000001",
+        "invoice": "in_1SynthU01Inv0001First",
+        "payment_intent": null,
+        "amount_subtotal": 1400,
+        "amount_total": 1400,
+        "currency": "usd",
+        "allow_promotion_codes": true,
+        "automatic_tax": {
+          "enabled": false,
+          "liability": null,
+          "status": null
+        },
+        "created": 1780506191,
+        "expires_at": 1780592591,
+        "livemode": true,
+        "locale": null,
+        "metadata": {},
+        "payment_method_types": [
+          "card",
+          "amazon_pay",
+          "crypto"
+        ],
+        "success_url": "https://openart.ai/suite/subscriptions?success=subscription_purchased&tier=1000&interval=month&uid=SynthU01StarterMonA1&quantity=undefined&session_id={CHECKOUT_SESSION_ID}",
+        "cancel_url": "https://openart.ai/pricing",
+        "url": null
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "checkout.session.completed"
+  },
+  {
+    "id": "evt_1SynthU01InvPaid0001",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1780506253,
+    "data": {
+      "object": {
+        "id": "in_1SynthU01Inv0001First",
+        "object": "invoice",
+        "account_country": "US",
+        "account_name": "OpenArt AI",
+        "amount_due": 1400,
+        "amount_overpaid": 0,
+        "amount_paid": 1400,
+        "amount_remaining": 0,
+        "attempt_count": 1,
+        "attempted": true,
+        "billing_reason": "subscription_create",
+        "collection_method": "charge_automatically",
+        "created": 1780506251,
+        "currency": "usd",
+        "customer": "SynthU01StarterMonA1",
+        "customer_email": null,
+        "discounts": [],
+        "effective_at": 1780506251,
+        "hosted_invoice_url": null,
+        "livemode": true,
+        "metadata": {},
+        "number": "SYNTH0001-0001",
+        "parent": {
+          "type": "subscription_details",
+          "quote_details": null,
+          "subscription_details": {
+            "metadata": {},
+            "subscription": "sub_1SynthU01Starter000001"
+          }
+        },
+        "period_end": 1783098251,
+        "period_start": 1780506251,
+        "status": "paid",
+        "status_transitions": {
+          "finalized_at": 1780506251,
+          "paid_at": 1780506251,
+          "marked_uncollectible_at": null,
+          "voided_at": null
+        },
+        "subtotal": 1400,
+        "subtotal_excluding_tax": 1400,
+        "total": 1400,
+        "total_excluding_tax": 1400,
+        "lines": {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/invoices/in_1SynthU01Inv0001First/lines",
+          "data": [
+            {
+              "id": "il_1SynthU01Line0001",
+              "object": "line_item",
+              "amount": 1400,
+              "currency": "usd",
+              "description": "1 × OpenArt Starter (at $14.00 / month)",
+              "discount_amounts": [],
+              "discountable": true,
+              "discounts": [],
+              "invoice": "in_1SynthU01Inv0001First",
+              "livemode": true,
+              "metadata": {},
+              "parent": {
+                "type": "subscription_item_details",
+                "invoice_item_details": null,
+                "subscription_item_details": {
+                  "invoice_item": null,
+                  "proration": false,
+                  "proration_details": null,
+                  "subscription": "sub_1SynthU01Starter000001",
+                  "subscription_item": "si_SynthU01ItemPlan01"
+                }
+              },
+              "period": {
+                "start": 1780506251,
+                "end": 1783098251
+              },
+              "pricing": {
+                "type": "price_details",
+                "price_details": {
+                  "price": "price_1QWx4UKVhG51tYSBfdRth4n8",
+                  "product": "prod_RHumJXcmLdV3R9"
+                },
+                "unit_amount_decimal": "1400"
+              },
+              "quantity": 1,
+              "subscription": "sub_1SynthU01Starter000001",
+              "taxes": []
+            }
+          ]
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice.paid"
+  },
+  {
+    "id": "evt_1SynthU01InvPay0001",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1780506253,
+    "data": {
+      "object": {
+        "id": "inpay_1SynthU01Pay0001",
+        "object": "invoice_payment",
+        "amount_paid": 1400,
+        "amount_requested": 1400,
+        "created": 1780506251,
+        "currency": "usd",
+        "invoice": "in_1SynthU01Inv0001First",
+        "is_default": true,
+        "livemode": true,
+        "payment": {
+          "type": "payment_intent",
+          "payment_intent": "pi_3SynthU01Pi0001"
+        },
+        "status": "paid",
+        "status_transitions": {
+          "canceled_at": null,
+          "paid_at": 1780506251
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice_payment.paid"
+  },
+  {
+    "id": "evt_1SynthU01InvPaid0002",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1783098253,
+    "data": {
+      "object": {
+        "id": "in_1SynthU01Inv0002Cycle",
+        "object": "invoice",
+        "account_country": "US",
+        "account_name": "OpenArt AI",
+        "amount_due": 1400,
+        "amount_overpaid": 0,
+        "amount_paid": 1400,
+        "amount_remaining": 0,
+        "attempt_count": 1,
+        "attempted": true,
+        "billing_reason": "subscription_cycle",
+        "collection_method": "charge_automatically",
+        "created": 1783098251,
+        "currency": "usd",
+        "customer": "SynthU01StarterMonA1",
+        "customer_email": null,
+        "discounts": [],
+        "effective_at": 1783098251,
+        "hosted_invoice_url": null,
+        "livemode": true,
+        "metadata": {},
+        "number": "SYNTH0001-0002",
+        "parent": {
+          "type": "subscription_details",
+          "quote_details": null,
+          "subscription_details": {
+            "metadata": {},
+            "subscription": "sub_1SynthU01Starter000001"
+          }
+        },
+        "period_end": 1785776651,
+        "period_start": 1783098251,
+        "status": "paid",
+        "status_transitions": {
+          "finalized_at": 1783098251,
+          "paid_at": 1783098251,
+          "marked_uncollectible_at": null,
+          "voided_at": null
+        },
+        "subtotal": 1400,
+        "subtotal_excluding_tax": 1400,
+        "total": 1400,
+        "total_excluding_tax": 1400,
+        "lines": {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/invoices/in_1SynthU01Inv0002Cycle/lines",
+          "data": [
+            {
+              "id": "il_1SynthU01Line0002",
+              "object": "line_item",
+              "amount": 1400,
+              "currency": "usd",
+              "description": "1 × OpenArt Starter (at $14.00 / month)",
+              "discount_amounts": [],
+              "discountable": true,
+              "discounts": [],
+              "invoice": "in_1SynthU01Inv0002Cycle",
+              "livemode": true,
+              "metadata": {},
+              "parent": {
+                "type": "subscription_item_details",
+                "invoice_item_details": null,
+                "subscription_item_details": {
+                  "invoice_item": null,
+                  "proration": false,
+                  "proration_details": null,
+                  "subscription": "sub_1SynthU01Starter000001",
+                  "subscription_item": "si_SynthU01ItemPlan01"
+                }
+              },
+              "period": {
+                "start": 1783098251,
+                "end": 1785776651
+              },
+              "pricing": {
+                "type": "price_details",
+                "price_details": {
+                  "price": "price_1QWx4UKVhG51tYSBfdRth4n8",
+                  "product": "prod_RHumJXcmLdV3R9"
+                },
+                "unit_amount_decimal": "1400"
+              },
+              "quantity": 1,
+              "subscription": "sub_1SynthU01Starter000001",
+              "taxes": []
+            }
+          ]
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice.paid"
+  },
+  {
+    "id": "evt_1SynthU01InvPay0002",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1783098253,
+    "data": {
+      "object": {
+        "id": "inpay_1SynthU01Pay0002",
+        "object": "invoice_payment",
+        "amount_paid": 1400,
+        "amount_requested": 1400,
+        "created": 1783098251,
+        "currency": "usd",
+        "invoice": "in_1SynthU01Inv0002Cycle",
+        "is_default": true,
+        "livemode": true,
+        "payment": {
+          "type": "payment_intent",
+          "payment_intent": "pi_3SynthU01Pi0002"
+        },
+        "status": "paid",
+        "status_transitions": {
+          "canceled_at": null,
+          "paid_at": 1783098251
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice_payment.paid"
+  },
+  {
+    "id": "evt_1SynthU01InvPaid0003",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1785776653,
+    "data": {
+      "object": {
+        "id": "in_1SynthU01Inv0003Cycle",
+        "object": "invoice",
+        "account_country": "US",
+        "account_name": "OpenArt AI",
+        "amount_due": 1400,
+        "amount_overpaid": 0,
+        "amount_paid": 1400,
+        "amount_remaining": 0,
+        "attempt_count": 1,
+        "attempted": true,
+        "billing_reason": "subscription_cycle",
+        "collection_method": "charge_automatically",
+        "created": 1785776651,
+        "currency": "usd",
+        "customer": "SynthU01StarterMonA1",
+        "customer_email": null,
+        "discounts": [],
+        "effective_at": 1785776651,
+        "hosted_invoice_url": null,
+        "livemode": true,
+        "metadata": {},
+        "number": "SYNTH0001-0003",
+        "parent": {
+          "type": "subscription_details",
+          "quote_details": null,
+          "subscription_details": {
+            "metadata": {},
+            "subscription": "sub_1SynthU01Starter000001"
+          }
+        },
+        "period_end": 1788455051,
+        "period_start": 1785776651,
+        "status": "paid",
+        "status_transitions": {
+          "finalized_at": 1785776651,
+          "paid_at": 1785776651,
+          "marked_uncollectible_at": null,
+          "voided_at": null
+        },
+        "subtotal": 1400,
+        "subtotal_excluding_tax": 1400,
+        "total": 1400,
+        "total_excluding_tax": 1400,
+        "lines": {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/invoices/in_1SynthU01Inv0003Cycle/lines",
+          "data": [
+            {
+              "id": "il_1SynthU01Line0003",
+              "object": "line_item",
+              "amount": 1400,
+              "currency": "usd",
+              "description": "1 × OpenArt Starter (at $14.00 / month)",
+              "discount_amounts": [],
+              "discountable": true,
+              "discounts": [],
+              "invoice": "in_1SynthU01Inv0003Cycle",
+              "livemode": true,
+              "metadata": {},
+              "parent": {
+                "type": "subscription_item_details",
+                "invoice_item_details": null,
+                "subscription_item_details": {
+                  "invoice_item": null,
+                  "proration": false,
+                  "proration_details": null,
+                  "subscription": "sub_1SynthU01Starter000001",
+                  "subscription_item": "si_SynthU01ItemPlan01"
+                }
+              },
+              "period": {
+                "start": 1785776651,
+                "end": 1788455051
+              },
+              "pricing": {
+                "type": "price_details",
+                "price_details": {
+                  "price": "price_1QWx4UKVhG51tYSBfdRth4n8",
+                  "product": "prod_RHumJXcmLdV3R9"
+                },
+                "unit_amount_decimal": "1400"
+              },
+              "quantity": 1,
+              "subscription": "sub_1SynthU01Starter000001",
+              "taxes": []
+            }
+          ]
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice.paid"
+  },
+  {
+    "id": "evt_1SynthU01InvPay0003",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1785776653,
+    "data": {
+      "object": {
+        "id": "inpay_1SynthU01Pay0003",
+        "object": "invoice_payment",
+        "amount_paid": 1400,
+        "amount_requested": 1400,
+        "created": 1785776651,
+        "currency": "usd",
+        "invoice": "in_1SynthU01Inv0003Cycle",
+        "is_default": true,
+        "livemode": true,
+        "payment": {
+          "type": "payment_intent",
+          "payment_intent": "pi_3SynthU01Pi0003"
+        },
+        "status": "paid",
+        "status_transitions": {
+          "canceled_at": null,
+          "paid_at": 1785776651
+        }
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "invoice_payment.paid"
+  },
+  {
+    "id": "evt_1SynthU01ChargeRefund",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1785921160,
+    "data": {
+      "object": {
+        "id": "ch_3SynthU01Chg0003",
+        "object": "charge",
+        "amount": 1400,
+        "amount_captured": 1400,
+        "amount_refunded": 1400,
+        "balance_transaction": null,
+        "captured": true,
+        "created": 1785776651,
+        "currency": "usd",
+        "customer": "SynthU01StarterMonA1",
+        "description": null,
+        "disputed": false,
+        "livemode": true,
+        "metadata": {},
+        "paid": true,
+        "payment_intent": "pi_3SynthU01Pi0003",
+        "refunded": true,
+        "status": "succeeded"
+      },
+      "previous_attributes": {
+        "amount_refunded": 0,
+        "refunded": false
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "charge.refunded"
+  },
+  {
+    "id": "evt_1SynthU01SubCancelReq",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1785921182,
+    "data": {
+      "object": {
+        "id": "sub_1SynthU01Starter000001",
+        "object": "subscription",
+        "billing_cycle_anchor": 1785776651,
+        "cancel_at": 1788455051,
+        "cancel_at_period_end": true,
+        "canceled_at": 1785921182,
+        "cancellation_details": {
+          "comment": null,
+          "feedback": null,
+          "reason": "cancellation_requested"
+        },
+        "collection_method": "charge_automatically",
+        "created": 1780506251,
+        "currency": "usd",
+        "customer": "SynthU01StarterMonA1",
+        "ended_at": null,
+        "items": {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/subscription_items?subscription=sub_1SynthU01Starter000001",
+          "data": [
+            {
+              "id": "si_SynthU01ItemPlan01",
+              "object": "subscription_item",
+              "created": 1780506251,
+              "current_period_start": 1785776651,
+              "current_period_end": 1788455051,
+              "metadata": {},
+              "price": {
+                "id": "price_1QWx4UKVhG51tYSBfdRth4n8",
+                "object": "price",
+                "active": true,
+                "currency": "usd",
+                "product": "prod_RHumJXcmLdV3R9",
+                "type": "recurring",
+                "recurring": {
+                  "interval": "month",
+                  "interval_count": 1,
+                  "usage_type": "licensed"
+                },
+                "unit_amount": 1400,
+                "unit_amount_decimal": "1400",
+                "lookup_key": null,
+                "livemode": true,
+                "metadata": {}
+              },
+              "quantity": 1,
+              "subscription": "sub_1SynthU01Starter000001"
+            }
+          ]
+        },
+        "latest_invoice": "in_1SynthU01Inv0003Cycle",
+        "livemode": true,
+        "metadata": {},
+        "pause_collection": null,
+        "schedule": null,
+        "start_date": 1780506251,
+        "status": "active"
+      },
+      "previous_attributes": {
+        "cancel_at_period_end": false,
+        "cancel_at": null,
+        "canceled_at": null
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "customer.subscription.updated"
+  },
+  {
+    "id": "evt_1SynthU01SubDeleted",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1788455051,
+    "data": {
+      "object": {
+        "id": "sub_1SynthU01Starter000001",
+        "object": "subscription",
+        "billing_cycle_anchor": 1785776651,
+        "cancel_at": 1788455051,
+        "cancel_at_period_end": true,
+        "canceled_at": 1785921182,
+        "cancellation_details": {
+          "comment": null,
+          "feedback": null,
+          "reason": "cancellation_requested"
+        },
+        "collection_method": "charge_automatically",
+        "created": 1780506251,
+        "currency": "usd",
+        "customer": "SynthU01StarterMonA1",
+        "ended_at": 1788455051,
+        "items": {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/subscription_items?subscription=sub_1SynthU01Starter000001",
+          "data": [
+            {
+              "id": "si_SynthU01ItemPlan01",
+              "object": "subscription_item",
+              "created": 1780506251,
+              "current_period_start": 1785776651,
+              "current_period_end": 1788455051,
+              "metadata": {},
+              "price": {
+                "id": "price_1QWx4UKVhG51tYSBfdRth4n8",
+                "object": "price",
+                "active": true,
+                "currency": "usd",
+                "product": "prod_RHumJXcmLdV3R9",
+                "type": "recurring",
+                "recurring": {
+                  "interval": "month",
+                  "interval_count": 1,
+                  "usage_type": "licensed"
+                },
+                "unit_amount": 1400,
+                "unit_amount_decimal": "1400",
+                "lookup_key": null,
+                "livemode": true,
+                "metadata": {}
+              },
+              "quantity": 1,
+              "subscription": "sub_1SynthU01Starter000001"
+            }
+          ]
+        },
+        "latest_invoice": "in_1SynthU01Inv0003Cycle",
+        "livemode": true,
+        "metadata": {},
+        "pause_collection": null,
+        "schedule": null,
+        "start_date": 1780506251,
+        "status": "canceled"
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "customer.subscription.deleted"
+  }
+]

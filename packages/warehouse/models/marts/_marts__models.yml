@@ -1,0 +1,616 @@
+version: 2
+
+models:
+  # ----------------------------------------------------------------- conversion ledger
+  - name: fct_conversion_ledger
+    description: >
+      One row per canonical conversion event, conforming to the ConversionLedgerEvent contract
+      (first 33 columns, in CONVERSION_LEDGER_COLUMNS order). Ids reuse the browser's dedup ids
+      (reg_<uid>, purchase_<invoiceId>, sub_<invoiceId>). Warehouse-only columns follow.
+    data_tests:
+      - expression_is_true:
+          arguments:
+            expression: "schema_version = 1"
+      - expression_is_true:
+          arguments:
+            expression: "cash_value_minor is null or currency is not null"
+    columns:
+      - name: event_id
+        data_tests:
+          - unique
+          - not_null
+          - matches_regex:
+              arguments:
+                pattern: '^\S{5,300}$'
+      - name: event_name
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [signup, activation_first_generation, checkout_started, purchase_first, purchase_renewal, purchase_upgrade, purchase_add_on, purchase_one_time_pack, refund, chargeback, enterprise_lead, lead_stage_change]
+      - name: occurred_at
+        data_tests: [not_null]
+      - name: source_system
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [stripe, credit_ledger, amplitude, hubspot, app_backend]
+      - name: source_event_id
+        data_tests: [not_null]
+      - name: user_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^\S{1,128}$'
+      - name: order_id
+        data_tests:
+          - unique
+          - matches_regex:
+              arguments:
+                pattern: '^sub_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$'
+      - name: adjusts_event_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^purchase_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$'
+          - relationships:
+              arguments:
+                to: ref('fct_conversion_ledger')
+                field: event_id
+      - name: adjusts_order_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^sub_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$'
+          - relationships:
+              arguments:
+                to: ref('fct_conversion_ledger')
+                field: order_id
+      - name: currency
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^[A-Z]{3}$'
+      - name: invoice_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^in_[A-Za-z0-9]+$'
+      - name: subscription_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^sub_[A-Za-z0-9]+$'
+      - name: checkout_session_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^cs_(live|test)_[A-Za-z0-9]+$'
+      - name: charge_id
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^(ch|py)_[A-Za-z0-9]+$'
+      - name: plan_tier
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [essential, advanced, infinite, wonder, team, business]
+      - name: previous_plan_tier
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [essential, advanced, infinite, wonder, team, business]
+      - name: billing_interval
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [month, year]
+      - name: credit_pack_quantity
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 1
+      - name: click_ids
+        data_tests: [not_null]
+      - name: utm
+        data_tests: [not_null]
+      - name: consent
+        data_tests: [not_null]
+      - name: experiment_arms
+        data_tests: [not_null]
+      - name: requires_web_fix
+        description: TRUE when a platform the event is sent to has a browser twin that needs packages/web-fixes first (contracts platform_event_mapping.csv).
+        data_tests: [not_null]
+      - name: reddit_pixel_conversion_id
+        description: SHA-256 hex of order_id, exactly what the Reddit pixel sends as m.conversionId.
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^[0-9a-f]{64}$'
+      - name: restated_order_value_minor
+        description: Refunds/chargebacks only. The purchase's value after this adjustment, as a Google/Microsoft restatement would send it.
+        data_tests: [not_negative]
+      - name: is_qa_account
+        data_tests: [not_null]
+      - name: cash_value_reporting
+        description: cash_value_minor in major units of var reporting_currency (FX at the event date); NULL only without a rate (quarantined).
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+                where: "cash_value_minor is not null"
+
+  # ----------------------------------------------------------------- generation cost
+  - name: fct_generation_cost
+    description: Serving cost of every generation (ledger CONSUME line) at vendor list price, with the vendor discount and override hook applied.
+    data_tests:
+      - equal_row_count:
+          arguments:
+            compare_model: ref('stg_app__credit_ledger_details')
+      - expression_is_true:
+          arguments:
+            expression: "credits_charged = quantity * unit_credits"
+    columns:
+      - name: generation_id
+        data_tests: [unique, not_null]
+      - name: cost_usd
+        data_tests: [not_null, not_negative]
+      - name: cost_basis
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [override_setting, override_capability, exact_setting, unlimited_original_credits, unlimited_cheapest_setting, capability_mean_per_credit, default_per_credit]
+      - name: discount_pct_applied
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: matching_settings
+        description: More than one setting with the same credits for a capability would make the setting ambiguous.
+        data_tests:
+          - accepted_range:
+              arguments:
+                max_value: 1
+              config:
+                severity: warn
+
+  # ----------------------------------------------------------------- experiment exposures
+  - name: fct_experiment_exposures
+    description: ExperimentExposure contract rows (first exposure per user and flag).
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, flag_key]
+    columns:
+      - name: user_id
+        data_tests: [not_null]
+      - name: arm
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('default_model_arms')
+                field: arm
+      - name: first_exposed_at
+        data_tests: [not_null]
+      - name: source
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [amplitude_exposure_event, amplitude_user_property, launchdarkly]
+      - name: n_distinct_arms
+        description: Users exposed to more than one arm of a flag are excluded from readouts.
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 1
+                max_value: 1
+              config:
+                severity: warn
+
+  # ----------------------------------------------------------------- features
+  - name: fct_user_features_24h
+    description: >
+      What was knowable 24 hours after signup, one row per signed-up user. Every fact is bounded
+      by feature_window_end; tests/singular/assert_features_known_before_anchor.sql checks every
+      *_at / *_known_at column against it.
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+      - name: cf_fold
+        data_tests: [not_null]
+      - name: video_share_24h
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: arm_default_share_24h
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: generations_24h
+        data_tests: [not_null, not_negative]
+      - name: credits_consumed_24h
+        data_tests: [not_null, not_negative]
+      - name: generation_cost_24h_usd
+        data_tests: [not_null, not_negative]
+      - name: acquisition_channel
+        data_tests: [not_null]
+
+  # ----------------------------------------------------------------- predicted profit
+  - name: fct_predicted_profit_24h
+    description: >
+      PredictedProfit contract rows (first 13 columns). ESTIMAND: unconditional E[90d profit per
+      exposed user], scored at signup + 24h, for experiment and bandit readouts ONLY (never an ad
+      value: see fct_purchase_value_score). Cross-fitted, signals-only by default.
+    data_tests:
+      # "profit decomposition sums correctly" (the contract's own 0.01 tolerance)
+      - expression_is_true:
+          arguments:
+            expression: "abs(predicted_profit - (predicted_revenue - predicted_generation_cost - predicted_fees - predicted_refund_risk)) <= 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "horizon_days = 90 and feature_window_hours = 24 and currency = 'USD'"
+      # ML review 8: predicted_profit = p * V - C
+      - expression_is_true:
+          arguments:
+            expression: "abs(p_convert * value_if_converted - unconditional_cost - predicted_profit) <= 0.01"
+            where_clause: "p_convert > 0"
+      - expression_is_true:
+          arguments:
+            expression: "estimand = 'unconditional E[90d profit per exposed user]' and intended_use = 'experiment_and_bandit_readouts_only'"
+      - expression_is_true:
+          arguments:
+            expression: "fit_id like 'xf%'"
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+      - name: computed_at
+        data_tests: [not_null]
+      - name: predicted_revenue
+        data_tests: [not_null, not_negative]
+      - name: predicted_generation_cost
+        data_tests: [not_null, not_negative]
+      - name: predicted_fees
+        data_tests: [not_null, not_negative]
+      - name: predicted_refund_risk
+        data_tests: [not_null, not_negative]
+      - name: refund_probability
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: predicted_profit
+        data_tests: [not_null]
+      - name: model_version
+        data_tests: [not_null]
+      - name: features
+        data_tests: [not_null]
+      - name: fitted_params_ref
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_model_parameters')
+                field: fitted_params_ref
+      - name: p_convert
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+
+  # ----------------------------------------------------------------- purchase value score
+  - name: fct_purchase_value_score
+    description: >
+      PurchaseValueScore contract rows (first 20 columns). ESTIMAND: E[gross_profit_90d | purchase],
+      scored at the purchase from point-in-time features. The value for ad platforms
+      (platform_value = max(predicted_profit_90d, 0)).
+    data_tests:
+      - expression_is_true:
+          arguments:
+            expression: "abs(predicted_profit_90d - (predicted_revenue_90d - predicted_generation_cost_90d - predicted_fees_90d - predicted_refund_risk)) <= 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "interval_low <= interval_high and predicted_profit_90d >= interval_low - 0.01 and predicted_profit_90d <= interval_high + 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "scored_at >= occurred_at"
+      - expression_is_true:
+          arguments:
+            expression: "estimand = 'E[gross_profit_90d | purchase]' and horizon_days = 90"
+      - expression_is_true:
+          arguments:
+            expression: "platform_value = case when predicted_profit_90d > 0 then predicted_profit_90d else 0 end"
+      - expression_is_true:
+          arguments:
+            expression: "(invoice_id is not null and event_id = 'purchase_' || invoice_id) or (invoice_id is null and event_id like 'purchase_cs_%')"
+    columns:
+      - name: event_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_conversion_ledger')
+                field: event_id
+      - name: predicted_revenue_90d
+        data_tests: [not_null, not_negative]
+      - name: predicted_generation_cost_90d
+        data_tests: [not_null, not_negative]
+      - name: predicted_fees_90d
+        data_tests: [not_null, not_negative]
+      - name: predicted_refund_risk
+        data_tests: [not_null, not_negative]
+      - name: cash_value
+        data_tests: [not_null, not_negative]
+      - name: currency
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^[A-Z]{3}$'
+      - name: platform_value
+        data_tests: [not_null, not_negative]
+      - name: fitted_params_ref
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_model_parameters')
+                field: fitted_params_ref
+
+  - name: fct_purchase_value_score_log
+    description: Append-only record of every purchase value served (first score per purchase and model version).
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [event_id, model_version]
+    columns:
+      - name: run_id
+        data_tests: [not_null]
+      - name: fitted_params_ref
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_model_parameters')
+                field: fitted_params_ref
+
+  - name: fct_predicted_profit_24h_log
+    description: Append-only record of the 24h scores readouts used (first score per user and model version).
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, model_version]
+    columns:
+      - name: fitted_params_ref
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_model_parameters')
+                field: fitted_params_ref
+
+  # ----------------------------------------------------------------- experiment readout
+  - name: fct_experiment_profit_by_arm
+    description: >
+      Default-model experiment readout per flag and arm: intention to treat (first-exposed arm,
+      contaminated users kept and counted), realised profit over a fixed 90-day horizon for matured
+      users only, predicted profit with sampling, model-error, stratified, PPI and bootstrap intervals.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [flag_key, arm]
+      - expression_is_true:
+          arguments:
+            expression: "conversion_rate_ci_low <= conversion_rate and conversion_rate <= conversion_rate_ci_high"
+      - expression_is_true:
+          arguments:
+            expression: "realised_profit_ci_low <= realised_profit_per_exposed_usd and realised_profit_per_exposed_usd <= realised_profit_ci_high"
+      - expression_is_true:
+          arguments:
+            expression: "predicted_profit_ci_low <= predicted_profit_per_exposed_usd and predicted_profit_per_exposed_usd <= predicted_profit_ci_high"
+      # the model-error interval is never narrower than the sampling-only one (ML review 5)
+      - expression_is_true:
+          arguments:
+            expression: "predicted_profit_ci_low <= predicted_profit_sampling_ci_low + 1e-6 and predicted_profit_ci_high >= predicted_profit_sampling_ci_high - 1e-6"
+      - expression_is_true:
+          arguments:
+            expression: "predicted_profit_stratified_ci_low <= predicted_profit_stratified_per_exposed_usd and predicted_profit_stratified_per_exposed_usd <= predicted_profit_stratified_ci_high"
+      - expression_is_true:
+          arguments:
+            expression: "ppi_profit_ci_low <= ppi_profit_per_exposed_usd and ppi_profit_per_exposed_usd <= ppi_profit_ci_high"
+      - expression_is_true:
+          arguments:
+            expression: "ppi_bootstrap_ci_low <= ppi_bootstrap_ci_high"
+            where_clause: "bootstrap_replicates > 0"
+      # decomposition holds per arm, not only per user
+      - expression_is_true:
+          arguments:
+            expression: "abs(predicted_profit_per_exposed_usd - (predicted_revenue_per_exposed_usd - predicted_generation_cost_per_exposed_usd - predicted_fees_per_exposed_usd - predicted_refund_risk_per_exposed_usd)) <= 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "abs(mean_p_convert * value_if_converted_usd - unconditional_cost_per_exposed_usd - predicted_profit_per_exposed_usd) <= 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "abs(realised_profit_per_exposed_usd - (revenue_per_exposed_usd - generation_cost_per_exposed_usd - fees_per_exposed_usd)) <= 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "matured_users <= exposed_users and scored_users <= exposed_users and contaminated_users <= exposed_users"
+    columns:
+      - name: exposed_users
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 1
+      - name: conversion_rate
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: generation_cost_per_exposed_usd
+        data_tests: [not_negative]
+
+  - name: fct_experiment_profit_by_arm_daily
+    description: >
+      The bandit-allocator's native input: one row per (exposure_date, flag_key, arm,
+      country_bucket, device, acquisition_channel, allocation_slice). The first 17 columns are its
+      EXPERIMENT_PROFIT_BY_ARM_COLUMNS; the rest are documented in README.md.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [exposure_date, flag_key, arm, country_bucket, device, acquisition_channel, allocation_slice]
+      - expression_is_true:
+          arguments:
+            expression: "scored_users <= exposed_users and converted_users <= scored_users and contaminated_users <= exposed_users and matured_users <= exposed_users"
+      # the allocator's own identity check: components sum to profit within 0.01 per scored user
+      - expression_is_true:
+          arguments:
+            expression: "abs(sum_predicted_revenue - sum_predicted_generation_cost - sum_predicted_fees - sum_predicted_refund_risk - sum_predicted_profit) <= 0.01 * greatest(1, scored_users) + 1e-6"
+      - expression_is_true:
+          arguments:
+            expression: "abs(sum_expected_value_if_converted - sum_unconditional_cost - sum_predicted_profit) <= 0.01 * greatest(1, scored_users) + 1e-6"
+      # Cauchy-Schwarz: sum(x^2) >= (sum x)^2 / n
+      - expression_is_true:
+          arguments:
+            expression: "scored_users = 0 or sum_sq_predicted_profit + 1e-6 * (1 + abs(sum_predicted_profit * sum_predicted_profit / scored_users)) >= sum_predicted_profit * sum_predicted_profit / scored_users"
+    columns:
+      - name: country_bucket
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [us, tier1, rest, unknown]
+      - name: device
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [desktop, mobile, tablet, unknown]
+      - name: acquisition_channel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [google_cpc, meta_paid_social, tiktok_paid_social, affiliate, other_paid, organic, unknown]
+      - name: allocation_slice
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [holdout, bandit]
+      - name: sum_sq_predicted_profit
+        data_tests: [not_negative]
+      - name: sum_predicted_revenue
+        data_tests: [not_negative]
+      - name: sum_predicted_generation_cost
+        data_tests: [not_negative]
+      - name: sum_predicted_fees
+        data_tests: [not_negative]
+      - name: sum_predicted_refund_risk
+        data_tests: [not_negative]
+
+  # ----------------------------------------------------------------- audiences
+  - name: fct_audience_candidates
+    description: Seed and exclusion list memberships per user for audience-sync, with consent gating.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, list_name]
+      - expression_is_true:
+          arguments:
+            expression: "not (candidate_role = 'seed' and (has_refund or has_chargeback or has_fraud_dispute))"
+      - expression_is_true:
+          arguments:
+            expression: "(candidate_role = 'seed') = (seed_value_usd is not null)"
+      - expression_is_true:
+          arguments:
+            expression: "not (is_eea_uk_ch and upload_allowed)"
+      - expression_is_true:
+          arguments:
+            expression: "not (requires_consent and upload_allowed) and not (consent_region is null and upload_allowed)"
+      # database review 8: no hashed identifier beside the uid (audience-sync hashes per platform)
+      - expression_is_true:
+          arguments:
+            expression: "external_id_sha256 is null"
+    columns:
+      - name: list_name
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [oa_high_predicted_profit_90d, oa_paying_customers_suppress, oa_refund_or_chargeback_suppress, oa_low_predicted_profit_suppress]
+          - matches_regex:
+              arguments:
+                pattern: '^[a-z0-9][a-z0-9_.-]{2,127}$'
+      - name: reason
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^[a-z][a-z0-9_]{2,63}$'
+      - name: candidate_role
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [seed, exclusion]
+      - name: seed_value_usd
+        description: Meta LOOKALIKE_VALUE must be non-negative.
+        data_tests: [not_negative]
+
+  # ----------------------------------------------------------------- reconciliation
+  - name: fct_reconciliation
+    description: Stripe truth vs warehouse vs platform-reported purchases as an additive waterfall per month, platform and report layer.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [period_month, platform, report_layer, step_order]
+      - expression_is_true:
+          arguments:
+            expression: "abs(conversions_delta) < 1e-9 and abs(value_usd_delta) < 0.005"
+            where_clause: "step_name = 'warehouse_vs_stripe'"
+    columns:
+      - name: step_name
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [stripe_truth, warehouse_vs_stripe, refunds_not_netted, out_of_scope_purchase_types, blocked_users, double_counting, ltv_in_value, value_not_sent, fallback_misvaluation, time_zone, unattributed_users, attribution_window, click_vs_conversion_date, modeled_platform_report, residual, platform_reported]
+      - name: report_layer
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [tag_received, ads_attributed]
+
+  - name: dim_model_parameters
+    description: >
+      Append-only: every parameter set a score was produced with, one row per (fitted_params_ref,
+      parameter_name): vars (OBSERVED / ILLUSTRATIVE / CONFIG) and FITTED values of the serving fits.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [fitted_params_ref, parameter_name]
+    columns:
+      - name: fitted_params_ref
+        data_tests: [not_null]
+      - name: parameter_name
+        data_tests: [not_null]
+      - name: label
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [OBSERVED, ILLUSTRATIVE, CONFIG, FITTED]
+
+  - name: fct_data_quality_quarantine
+    description: Source records the warehouse could not use as-is (warned, never build-stopping).
+    columns:
+      - name: severity
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [excluded, flagged]
+      - name: issue
+        data_tests: [not_null]

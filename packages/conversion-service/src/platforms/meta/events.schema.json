@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/conversion-service/meta/events.schema.json",
+  "title": "Meta Conversions API: POST https://graph.facebook.com/{API_VERSION}/{PIXEL_ID}/events",
+  "description": "Transcribed from developers.facebook.com/documentation/ads-commerce/conversions-api/: using-the-api.md, parameters/main-body.md, parameters/server-event.md, parameters/customer-information-parameters.md, parameters/custom-data.md, marketing-api/overview/data-processing-options.md (fetched 2026-09-29). Only the parameters openart-signal can send are allowed (additionalProperties false); all hashed values are lowercase SHA-256 hex. The access token is a query parameter added by the live transport, never part of the body here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "description": "'You can send up to 1,000 events in data.' 'If any event you send in a batch is invalid, we reject the entire batch.'",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1000,
+      "items": { "$ref": "#/$defs/ServerEvent" }
+    },
+    "test_event_code": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "Sha256Hex": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "Sha256List": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Sha256Hex" } },
+    "UserData": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "em": { "$ref": "#/$defs/Sha256List" },
+        "ph": { "$ref": "#/$defs/Sha256List" },
+        "external_id": { "$ref": "#/$defs/Sha256List" },
+        "client_ip_address": { "type": "string", "minLength": 2 },
+        "client_user_agent": { "type": "string", "minLength": 1 },
+        "fbc": {
+          "description": "fb.${subdomain_index}.${creation_time_ms}.${fbclid}; never hashed.",
+          "type": "string",
+          "pattern": "^fb\\.[0-9]+\\.[0-9]{13}\\..+$"
+        },
+        "fbp": { "type": "string", "pattern": "^fb\\.[0-9]+\\.[0-9]{13}\\..+$" },
+        "subscription_id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "CustomData": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "order_id": { "type": "string", "minLength": 1 },
+        "predicted_ltv": { "description": "'The predicted lifetime value of a conversion event.' pLTV values 'Must be a positive number'.", "type": "number", "exclusiveMinimum": 0 },
+        "value_basis": { "description": "Custom parameter (custom_data accepts custom keys): how openart-signal derived value. predicted_profit_90d = purchase-time E[gross_profit_90d | purchase]; cash_fallback = no purchase-time score within the SLA; cash = a later purchase.", "enum": ["predicted_profit_90d", "cash_fallback", "cash"] }
+      },
+      "dependentRequired": { "value": ["currency"], "predicted_ltv": ["currency"] }
+    },
+    "ServerEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_name", "event_time", "user_data", "action_source"],
+      "properties": {
+        "event_name": { "type": "string", "minLength": 1 },
+        "event_time": { "description": "'A Unix timestamp in seconds'", "type": "integer", "minimum": 1000000000, "maximum": 9999999999 },
+        "event_id": { "type": "string", "minLength": 1 },
+        "event_source_url": { "type": "string", "format": "uri" },
+        "action_source": { "enum": ["email", "website", "app", "phone_call", "chat", "physical_store", "system_generated", "business_messaging", "other"] },
+        "user_data": { "$ref": "#/$defs/UserData" },
+        "custom_data": { "$ref": "#/$defs/CustomData" },
+        "opt_out": { "type": "boolean" },
+        "data_processing_options": { "type": "array", "items": { "const": "LDU" }, "maxItems": 1 },
+        "data_processing_options_country": { "enum": [0, 1] },
+        "data_processing_options_state": { "type": "integer", "minimum": 0 }
+      },
+      "allOf": [
+        {
+          "description": "'Website events shared using the Conversions API require the client_user_agent, action_source, and event_source_url parameters'",
+          "if": { "properties": { "action_source": { "const": "website" } } },
+          "then": { "required": ["event_source_url"], "properties": { "user_data": { "required": ["client_user_agent"] } } }
+        },
+        {
+          "description": "'value' and 'currency' are 'Required for purchase events'.",
+          "if": { "properties": { "event_name": { "const": "Purchase" } } },
+          "then": { "required": ["custom_data"], "properties": { "custom_data": { "required": ["value", "currency"] } } }
+        },
+        {
+          "description": "data_processing_options_country is 'Required, if you send LDU'; 'If you set a country, you must also set a state.'",
+          "if": { "properties": { "data_processing_options": { "contains": { "const": "LDU" } } }, "required": ["data_processing_options"] },
+          "then": { "required": ["data_processing_options_country", "data_processing_options_state"] }
+        }
+      ]
+    }
+  }
+}

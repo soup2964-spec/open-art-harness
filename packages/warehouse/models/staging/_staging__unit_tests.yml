@@ -1,0 +1,119 @@
+unit_tests:
+  - name: stripe_events_keep_first_delivery_and_drop_test_mode
+    description: >
+      Stripe redelivers events and never guarantees order (research/08 §6.2). One row per event id,
+      the earliest delivery wins, and test-mode events are dropped when stripe_livemode_only is on.
+    model: stg_stripe__events
+    given:
+      - input: source('stripe', 'events')
+        format: dict
+        rows:
+          - {id: evt_1A, type: invoice.paid, created: 1780459782, api_version: 2026-08-26.dahlia, livemode: true, data: '{"object": {"id": "in_1A", "object": "invoice"}}', received_at: '2026-06-03 04:09:50'}
+          - {id: evt_1A, type: invoice.paid, created: 1780459782, api_version: 2026-08-26.dahlia, livemode: true, data: '{"object": {"id": "in_1A", "object": "invoice"}}', received_at: '2026-06-03 04:09:43'}
+          - {id: evt_1B, type: charge.refunded, created: 1780459900, api_version: 2026-08-26.dahlia, livemode: false, data: '{"object": {"id": "ch_1B", "object": "charge"}}', received_at: '2026-06-03 04:12:00'}
+    expect:
+      format: dict
+      rows:
+        - {stripe_event_id: evt_1A, event_type: invoice.paid, object_id: in_1A, object_type: invoice, received_at: '2026-06-03 04:09:43'}
+
+  - name: stripe_refunds_turn_cumulative_amounts_into_steps
+    description: >
+      charge.refunded carries the cumulative amount_refunded. Two partial refunds (500 then 1400
+      cumulative) become steps of 500 and 900; a duplicate event with the same cumulative amount is
+      one step, whatever previous_attributes says.
+    model: stg_stripe__refunds
+    given:
+      - input: ref('stg_stripe__events')
+        format: dict
+        rows:
+          - {stripe_event_id: evt_r1, event_type: charge.refunded, created_at: '2026-08-01 10:00:00', event_object: '{"id": "ch_1X", "customer": "SynthUser1", "payment_intent": "pi_1X", "amount": 1400, "amount_refunded": 500, "currency": "usd"}', previous_attributes: '{"amount_refunded": 0}'}
+          - {stripe_event_id: evt_r2, event_type: charge.refunded, created_at: '2026-08-02 10:00:00', event_object: '{"id": "ch_1X", "customer": "SynthUser1", "payment_intent": "pi_1X", "amount": 1400, "amount_refunded": 1400, "currency": "usd"}', previous_attributes: '{"amount_refunded": 500}'}
+          - {stripe_event_id: evt_r2dup, event_type: charge.refunded, created_at: '2026-08-02 10:00:05', event_object: '{"id": "ch_1X", "customer": "SynthUser1", "payment_intent": "pi_1X", "amount": 1400, "amount_refunded": 1400, "currency": "usd"}', previous_attributes: '{}'}
+          - {stripe_event_id: evt_other, event_type: invoice.paid, created_at: '2026-08-02 10:00:00', event_object: '{"id": "in_1X"}', previous_attributes: '{}'}
+    expect:
+      format: dict
+      rows:
+        - {stripe_event_id: evt_r1, charge_id: ch_1X, amount_refunded_cumulative_minor: 500, refund_step_minor: 500, currency: USD}
+        - {stripe_event_id: evt_r2, charge_id: ch_1X, amount_refunded_cumulative_minor: 1400, refund_step_minor: 900, currency: USD}
+
+  - name: amplitude_export_rows_dedupe_on_uuid
+    description: >
+      The Amplitude export can repeat a row (database review 6: mutation M14 survived). One row per
+      uuid, the earliest upload wins; a row uploaded after the as-of instant is not seen at all.
+    model: stg_amplitude__events
+    overrides:
+      vars:
+        as_of_timestamp: '2026-09-28 00:00:00'
+    given:
+      - input: source('amplitude', 'events')
+        format: dict
+        rows:
+          - {uuid: a1, event_type: asset_created, event_time: '2026-06-01 10:00:00', client_event_time: '2026-06-01 10:00:00', server_upload_time: '2026-06-01 10:00:02', user_id: u1, device_id: d1, session_id: 1, platform: Web, os_name: Chrome, device_type: Mac, country: Canada, library: amplitude-ts, event_properties: '{"model": "first-copy"}', user_properties: '{"ab_suite-default-model-create-image": "gpt-image-2"}'}
+          - {uuid: a1, event_type: asset_created, event_time: '2026-06-01 10:00:00', client_event_time: '2026-06-01 10:00:00', server_upload_time: '2026-06-01 11:00:00', user_id: u1, device_id: d1, session_id: 1, platform: Web, os_name: Chrome, device_type: Mac, country: Canada, library: amplitude-ts, event_properties: '{"model": "second-copy"}', user_properties: '{}'}
+          - {uuid: a2, event_type: asset_created, event_time: '2026-09-27 23:00:00', client_event_time: '2026-09-27 23:00:00', server_upload_time: '2026-09-28 00:30:00', user_id: u1, device_id: d1, session_id: 2, platform: Web, os_name: Chrome, device_type: Mac, country: Canada, library: amplitude-ts, event_properties: '{}', user_properties: '{}'}
+    expect:
+      format: dict
+      rows:
+        - {event_uuid: a1, ep_model: first-copy, up_ab_suite_default_model_create_image: gpt-image-2}
+
+  - name: credit_ledger_dedupes_entries_and_quarantines_rows_without_a_user
+    description: >
+      Replicas can deliver a ledger entry twice (mutation M15 survived): one row per entry id. An
+      entry without userId never reaches the models (it is listed in fct_data_quality_quarantine),
+      and an entry created after the as-of instant is not seen.
+    model: stg_app__credit_ledger
+    overrides:
+      vars:
+        as_of_timestamp: '2026-09-28 00:00:00'
+    given:
+      - input: source('app', 'credit_ledger')
+        format: dict
+        rows:
+          - {id: 018f0000-0000-7000-8000-000000000001, userId: u1, type: CONSUME, amount: -5, creditField: trial_credit_balance, balanceBefore: 40, balanceAfter: 35, sequenceId: 0, previousSequenceId: 0, reference: '{"businessType": "gpt-image-2:text2image", "businessId": "h1"}', idempotencyKey: 'h1:REDUCE:1', createdAt: '2026-06-01T10:00:00.000Z', reason: null, teamMemberUserId: null, businessDetails: '[]'}
+          - {id: 018f0000-0000-7000-8000-000000000001, userId: u1, type: CONSUME, amount: -5, creditField: trial_credit_balance, balanceBefore: 40, balanceAfter: 35, sequenceId: 0, previousSequenceId: 0, reference: '{"businessType": "gpt-image-2:text2image", "businessId": "h1"}', idempotencyKey: 'h1:REDUCE:1', createdAt: '2026-06-01T10:00:00.000Z', reason: null, teamMemberUserId: null, businessDetails: '[]'}
+          - {id: 018f0000-0000-7000-8000-000000000002, userId: null, type: ADD, amount: 40, creditField: trial_credit_balance, balanceBefore: 0, balanceAfter: 40, sequenceId: 0, previousSequenceId: 0, reference: '{"businessType": "USER_SIGNUP_TRIAL", "businessId": "x"}', idempotencyKey: 'x:ADD:1', createdAt: '2026-06-01T09:00:00.000Z', reason: null, teamMemberUserId: null, businessDetails: '[]'}
+          - {id: 018f0000-0000-7000-8000-000000000003, userId: u1, type: CONSUME, amount: -5, creditField: trial_credit_balance, balanceBefore: 35, balanceAfter: 30, sequenceId: 0, previousSequenceId: 0, reference: '{"businessType": "gpt-image-2:text2image", "businessId": "h3"}', idempotencyKey: 'h3:REDUCE:1', createdAt: '2026-09-29T10:00:00.000Z', reason: null, teamMemberUserId: null, businessDetails: '[]'}
+    expect:
+      format: dict
+      rows:
+        - {ledger_entry_id: 018f0000-0000-7000-8000-000000000001, user_id: u1, amount: -5}
+
+  - name: stripe_invoices_dedupe_on_invoice_id
+    description: >
+      Stripe can double-generate an event for one invoice (research/08 §6.2; mutation M16
+      survived): one row per invoice id, the earliest event wins.
+    model: stg_stripe__invoices
+    given:
+      - input: ref('stg_stripe__events')
+        format: dict
+        rows:
+          - {stripe_event_id: evt_b, event_type: invoice.paid, created_at: '2026-06-03 04:09:45', object_id: in_1, event_object: '{"id": "in_1", "customer": "u1", "status": "paid", "billing_reason": "subscription_create", "currency": "usd", "amount_paid": 1400, "created": 1780459780}'}
+          - {stripe_event_id: evt_a, event_type: invoice.paid, created_at: '2026-06-03 04:09:42', object_id: in_1, event_object: '{"id": "in_1", "customer": "u1", "status": "paid", "billing_reason": "subscription_create", "currency": "usd", "amount_paid": 1400, "created": 1780459780}'}
+    expect:
+      format: dict
+      rows:
+        - {invoice_id: in_1, paid_event_id: evt_a, amount_paid_minor: 1400, currency: USD}
+
+  - name: disputes_follow_their_lifecycle
+    description: >
+      charge.dispute.closed used to be ignored, so every dispute counted as lost forever (database
+      review 2). dp_won is won (funds reinstated), dp_lost is lost, dp_open is still open (the
+      money stays withdrawn), dp_inquiry is an inquiry (no funds ever withdrawn).
+    model: stg_stripe__disputes
+    given:
+      - input: ref('stg_stripe__events')
+        format: dict
+        rows:
+          - {stripe_event_id: e1, event_type: charge.dispute.created, created_at: '2026-07-01 00:00:00', object_id: dp_won, event_object: '{"id": "dp_won", "charge": "ch_1", "payment_intent": "pi_1", "amount": 1400, "currency": "usd", "reason": "fraudulent", "status": "needs_response", "created": 1782864000}'}
+          - {stripe_event_id: e2, event_type: charge.dispute.closed, created_at: '2026-07-20 00:00:00', object_id: dp_won, event_object: '{"id": "dp_won", "charge": "ch_1", "payment_intent": "pi_1", "amount": 1400, "currency": "usd", "reason": "fraudulent", "status": "won", "created": 1782864000}'}
+          - {stripe_event_id: e3, event_type: charge.dispute.created, created_at: '2026-07-02 00:00:00', object_id: dp_lost, event_object: '{"id": "dp_lost", "charge": "ch_2", "payment_intent": "pi_2", "amount": 900, "currency": "usd", "reason": "general", "status": "needs_response", "created": 1782950400}'}
+          - {stripe_event_id: e4, event_type: charge.dispute.closed, created_at: '2026-07-25 00:00:00', object_id: dp_lost, event_object: '{"id": "dp_lost", "charge": "ch_2", "payment_intent": "pi_2", "amount": 900, "currency": "usd", "reason": "general", "status": "lost", "created": 1782950400}'}
+          - {stripe_event_id: e5, event_type: charge.dispute.created, created_at: '2026-07-03 00:00:00', object_id: dp_open, event_object: '{"id": "dp_open", "charge": "ch_3", "payment_intent": "pi_3", "amount": 500, "currency": "usd", "reason": "general", "status": "needs_response", "created": 1783036800}'}
+          - {stripe_event_id: e6, event_type: charge.dispute.created, created_at: '2026-07-04 00:00:00', object_id: dp_inquiry, event_object: '{"id": "dp_inquiry", "charge": "ch_4", "payment_intent": "pi_4", "amount": 700, "currency": "usd", "reason": "general", "status": "warning_needs_response", "created": 1783123200}'}
+    expect:
+      format: dict
+      rows:
+        - {dispute_id: dp_won, dispute_status: won, is_funds_reinstated: true, is_money_lost: false, closed_at: '2026-07-20 00:00:00'}
+        - {dispute_id: dp_lost, dispute_status: lost, is_funds_reinstated: false, is_money_lost: true, closed_at: '2026-07-25 00:00:00'}
+        - {dispute_id: dp_open, dispute_status: needs_response, is_funds_reinstated: false, is_money_lost: true, closed_at: null}
+        - {dispute_id: dp_inquiry, dispute_status: warning_needs_response, is_funds_reinstated: false, is_money_lost: false, closed_at: null}

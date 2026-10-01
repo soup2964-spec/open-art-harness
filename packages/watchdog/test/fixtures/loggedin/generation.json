@@ -1,0 +1,175 @@
+{
+ "meta": {
+  "source": "crawl/loggedin/generation/05_pixel_raw_after_click.json (sanitised)"
+ },
+ "requests": [
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://t.co/i/adsct?events=%5B%5B%22autobuttonclick%22%2C%7B%22value%22%3A%22Generate+1%22%7D%5D%5D&event_id=8e827e76-e294-482c-8c4b-b0238e3cefcb",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://analytics.twitter.com/i/adsct?events=%5B%5B%22autobuttonclick%22%2C%7B%22value%22%3A%22Generate+1%22%7D%5D%5D&event_id=8e827e76-e294-482c-8c4b-b0238e3cefcb",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "{\"event_name\":\"InputData\",\"event_id\":\"ob3_plugin-set_55ad40faaa681db033de616238d6676adbba99f484f18047a6541c093c3af8a3\"}"
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11252321380/?en=form_start&gcd=13l3l3l3l1l1&dma=0&npa=",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/rmkt/collect/11252321380/?en=form_start&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16854695811/?en=form_start&gcd=13l3l3l3l1l1&dma=0&npa=",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/rmkt/collect/16854695811/?en=form_start&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11252321380/?en=form_submit&gcd=13l3l3l3l1l1&dma=0",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/rmkt/collect/11252321380/?en=form_submit&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16854695811/?en=form_submit&gcd=13l3l3l3l1l1&dma=0",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/rmkt/collect/16854695811/?en=form_submit&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://px.ads.linkedin.com/wa/?fmt=g",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://analytics.tiktok.com/api/v2/monitor",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "{\"metric_name\":\"custom_info\"}"
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.facebook.com/tr/",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "ev=SubscribedButtonClick&eid=ob3_plugin-set_55ad40faaa681db033de616238d6676adbba99f484f18047a6541c093c3af8a3&ts=1790707369577&id=843671884361709"
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/pagead/1p-user-list/11252321380/?en=form_submit&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/pagead/1p-user-list/16854695811/?en=form_start&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/pagead/1p-user-list/16854695811/?en=form_submit&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "generate_click",
+   "t": 0,
+   "url": "https://www.google.com/pagead/1p-user-list/11252321380/?en=form_start&gcd=13l3l3l3l1l1&dma=0&npa=0",
+   "method": "GET",
+   "type": "Image",
+   "postData": null
+  },
+  {
+   "step": "after_003s",
+   "t": 0,
+   "url": "https://analytics.tiktok.com/api/v2/pixel/inter",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/audience-member.schema.json",
+  "title": "AudienceMember",
+  "description": "One membership change for an ad-platform audience list. Identifiers are SHA-256 hex of the value normalised FOR THIS PLATFORM (normalization.ts hashEmailFor/hashPhoneFor/hashExternalIdFor); a Reddit email hash is not a Meta email hash. user_id is internal lineage and is never sent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["platform", "list_name", "action", "reason", "identifiers", "value", "user_id", "computed_at"],
+  "properties": {
+    "platform": { "$ref": "common.schema.json#/$defs/platform" },
+    "list_name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_.-]{2,127}$" },
+    "action": { "enum": ["add", "remove"] },
+    "reason": {
+      "description": "snake_case reason, e.g. high_predicted_profit, negative_predicted_profit_suppression, paying_customer_suppression, refund_or_chargeback_suppression.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{2,63}$"
+    },
+    "identifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "email_sha256": { "$ref": "common.schema.json#/$defs/sha256Hex" },
+        "phone_sha256": { "$ref": "common.schema.json#/$defs/sha256Hex" },
+        "external_id_sha256": { "$ref": "common.schema.json#/$defs/sha256Hex" }
+      }
+    },
+    "value": {
+      "description": "Optional seed value for value-based lookalikes (Meta LOOKALIKE_VALUE must be non-negative).",
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "user_id": { "anyOf": [{ "$ref": "common.schema.json#/$defs/userId" }, { "type": "null" }] },
+    "computed_at": { "$ref": "common.schema.json#/$defs/utcTimestamp" }
+  }
+}

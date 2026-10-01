@@ -1,0 +1,64 @@
+# Cloud Run JOB for the daily OpenArt signal watchdog (GCP-native; nothing is deployed by this repo).
+# Deploy (after replacing PROJECT_ID / REGION / TAG):
+#   gcloud artifacts repositories create openart-signal --repository-format=docker --location=REGION
+#   docker build --platform linux/amd64 -f infra/watchdog/Dockerfile -t REGION-docker.pkg.dev/PROJECT_ID/openart-signal/watchdog:TAG .
+#   docker push REGION-docker.pkg.dev/PROJECT_ID/openart-signal/watchdog:TAG
+#   gcloud run jobs replace infra/watchdog/cloudrun-job.yaml --region REGION
+#   gcloud run jobs execute openart-signal-watchdog --region REGION --wait      # one manual run
+# Service account (least privilege):
+#   roles/storage.objectCreator on gs://openart-signal-watchdog      (results + report)
+#   roles/bigquery.dataEditor on dataset signal_watchdog             (optional BigQuery load)
+#   roles/secretmanager.secretAccessor on secret watchdog-slack-webhook
+# Egress: Chrome reaches ONLY openart.ai hosts, through the watchdog's gatekeeper proxy; allowed
+# third-party SDK scripts/fonts are fetched by the watchdog process itself (GET, no cookies); every
+# measurement/collection request is failed inside Chrome and never sent. The Node process also makes
+# the 3 container GETs, the GCS/BigQuery writes and the Slack post.
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: openart-signal-watchdog
+  labels:
+    app: openart-signal-watchdog
+  annotations:
+    run.googleapis.com/launch-stage: GA
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      parallelism: 1
+      taskCount: 1
+      template:
+        spec:
+          # Never retry automatically: a retry would repeat the live page loads. Contract FAILs are
+          # findings (exit 0); a crash / failed seal self-test (3), an unproven zero-leak (2) or an
+          # alert that could not be delivered (4) fails the execution (alert on it in Cloud Monitoring).
+          maxRetries: 0
+          timeoutSeconds: 3600
+          serviceAccountName: watchdog@PROJECT_ID.iam.gserviceaccount.com
+          containers:
+            - image: REGION-docker.pkg.dev/PROJECT_ID/openart-signal/watchdog:TAG
+              resources:
+                limits:
+                  cpu: '2'
+                  memory: 4Gi
+              env:
+                - name: WATCHDOG_TARGET
+                  value: live
+                - name: WATCHDOG_BUCKET
+                  value: openart-signal-watchdog
+                # Optional BigQuery load (tables: runs, check_results — infra/watchdog/bigquery/*.json)
+                - name: WATCHDOG_BQ_DATASET
+                  value: PROJECT_ID.signal_watchdog
+                # allowlisted flags only (anything else aborts the run): no userns sandbox, small /dev/shm
+                - name: WATCHDOG_CHROME_ARGS
+                  value: --no-sandbox --disable-dev-shm-usage
+                # Extra CLI flags, e.g. "--journeys meta_one_hop,spa_pageviews" for a lighter run
+                - name: WATCHDOG_RUN_ARGS
+                  value: ''
+                - name: SLACK_WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: watchdog-slack-webhook
+                      key: latest

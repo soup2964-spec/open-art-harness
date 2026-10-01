@@ -1,0 +1,64 @@
+{
+  "_source": "Verbatim request bodies from the LaunchDarkly REST API docs, fetched 2026-09-29 (inline // comments removed; they make the JSON invalid). The patch-format tests validate these AND the allocator's output against the same schema, so the schema is anchored to the documentation rather than to our own code.",
+  "_urls": {
+    "patchFeatureFlag": "https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag",
+    "semanticPatch": "https://launchdarkly.com/docs/api#updates-using-semantic-patch",
+    "approvalForFlag": "https://launchdarkly.com/docs/api/approvals/post-approval-request-for-flag"
+  },
+  "headers": {
+    "Content-Type": "application/json; domain-model=launchdarkly.semanticpatch",
+    "LD-API-Version": "20240415"
+  },
+  "updateFallthroughVariationOrRollout": {
+    "environmentKey": "environment-key-123abc",
+    "instructions": [
+      {
+        "kind": "updateFallthroughVariationOrRollout",
+        "rolloutContextKind": "user",
+        "rolloutWeights": {
+          "2f43f67c-3e4e-4945-a18a-26559378ca00": 15000,
+          "e5830889-1ec5-4b0c-9cc9-c48790090c43": 85000
+        }
+      }
+    ]
+  },
+  "updateRuleVariationOrRollout": {
+    "environmentKey": "environment-key-123abc",
+    "instructions": [
+      {
+        "kind": "updateRuleVariationOrRollout",
+        "ruleId": "a902ef4a-2faf-4eaf-88e1-ecc356708a29",
+        "variationId": "2f43f67c-3e4e-4945-a18a-26559378ca00"
+      }
+    ]
+  },
+  "addRule": {
+    "environmentKey": "environment-key-123abc",
+    "instructions": [
+      {
+        "kind": "addRule",
+        "clauses": [
+          {
+            "contextKind": "organization",
+            "attribute": "located_in",
+            "op": "in",
+            "negate": false,
+            "values": ["Sweden", "Norway"]
+          }
+        ],
+        "rolloutContextKind": "organization",
+        "rolloutWeights": {
+          "2f43f67c-3e4e-4945-a18a-26559378ca00": 15000,
+          "e5830889-1ec5-4b0c-9cc9-c48790090c43": 85000
+        }
+      }
+    ]
+  },
+  "approvalRequestForFlag": {
+    "description": "Requesting to update targeting",
+    "instructions": [
+      { "kind": "addTargets", "values": ["context-key-123abc"], "variationId": "ce67d625-a8b9-4fb5-a344-ab909d9d4f4d" }
+    ],
+    "_note": "The docs print `instructions` as a stringified JSON array while the schema says a list of instruction objects; the list-of-objects form (schema) is used here and by the allocator."
+  }
+}

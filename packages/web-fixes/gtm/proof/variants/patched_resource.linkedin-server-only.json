@@ -1,0 +1,1228 @@
+{
+  "version": "25",
+  "macros": [
+    {
+      "function": "__e"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "eventModel.transaction_id"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "eventModel.value"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "eventModel.currency"
+    },
+    {
+      "function": "__u",
+      "vtp_enableMultiQueryKeys": false,
+      "vtp_enableIgnoreEmptyQueryParam": false
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "user_data.email"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "conversion_happened_at"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "event_id"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "conversion_rule_id"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "value"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "user_data"
+    },
+    {
+      "function": "__awec",
+      "vtp_mode": "AUTO",
+      "vtp_autoPhoneEnabled": false,
+      "vtp_autoAddressEnabled": true,
+      "vtp_autoEmailEnabled": true,
+      "vtp_enableElementBlocking": false,
+      "vtp_isAutoCollectPiiEnabledFlag": true
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "currency"
+    },
+    {
+      "function": "__k",
+      "vtp_decodeCookie": false,
+      "vtp_name": "li_fat_id"
+    },
+    {
+      "function": "__jsm",
+      "vtp_javascript": [
+        "template",
+        "(function(){var a=",
+        [
+          "escape",
+          [
+            "macro",
+            11
+          ],
+          8,
+          16
+        ],
+        ";return a=a&&a.email?a.email:void 0})();"
+      ]
+    },
+    {
+      "function": "__jsm",
+      "vtp_javascript": [
+        "template",
+        "(function(){var a=",
+        [
+          "escape",
+          [
+            "macro",
+            11
+          ],
+          8,
+          16
+        ],
+        ";return a=a&&a.address&&a.address.country?a.address.country:void 0})();"
+      ]
+    },
+    {
+      "function": "__jsm",
+      "vtp_javascript": [
+        "template",
+        "(function(){var a=",
+        [
+          "escape",
+          [
+            "macro",
+            11
+          ],
+          8,
+          16
+        ],
+        ";return a=a&&a.address&&a.address.first_name?a.address.first_name:void 0})();"
+      ]
+    },
+    {
+      "function": "__jsm",
+      "vtp_javascript": [
+        "template",
+        "(function(){var a=",
+        [
+          "escape",
+          [
+            "macro",
+            11
+          ],
+          8,
+          16
+        ],
+        ";return a=a&&a.address&&a.address.last_name?a.address.last_name:void 0})();"
+      ]
+    },
+    {
+      "function": "__u",
+      "vtp_component": "URL",
+      "vtp_enableMultiQueryKeys": false,
+      "vtp_enableIgnoreEmptyQueryParam": false
+    },
+    {
+      "function": "__u",
+      "vtp_component": "HOST",
+      "vtp_enableMultiQueryKeys": false,
+      "vtp_enableIgnoreEmptyQueryParam": false
+    },
+    {
+      "function": "__u",
+      "vtp_component": "PATH",
+      "vtp_enableMultiQueryKeys": false,
+      "vtp_enableIgnoreEmptyQueryParam": false
+    },
+    {
+      "function": "__f",
+      "vtp_component": "URL"
+    },
+    {
+      "function": "__e"
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.element",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementClasses",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementId",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementTarget",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementUrl",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__aev",
+      "vtp_varType": "TEXT"
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.element",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementClasses",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementId",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementTarget",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.elementUrl",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__aev",
+      "vtp_varType": "TEXT"
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.oldHistoryState",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__cid"
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.scrollThreshold",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.scrollUnits",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_name": "gtm.scrollDirection",
+      "vtp_dataLayerVersion": 1
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "user_id"
+    },
+    {
+      "function": "__k",
+      "vtp_decodeCookie": true,
+      "vtp_name": "oa_signup_uid"
+    },
+    {
+      "function": "__jsm",
+      "vtp_javascript": [
+        "template",
+        "(function() {\n  var re = /^[A-Za-z0-9_-]{1,128}$/;\n  var uid = ",
+        [
+          "escape",
+          [
+            "macro",
+            40
+          ],
+          8,
+          16
+        ],
+        ";\n  if (typeof uid !== 'string' || !re.test(uid)) {\n    var raw = ",
+        [
+          "escape",
+          [
+            "macro",
+            41
+          ],
+          8,
+          16
+        ],
+        ";\n    var sep = typeof raw === 'string' ? raw.indexOf(':') : -1;\n    uid = sep > 0 ? raw.slice(0, sep) : undefined;\n  }\n  if (typeof uid !== 'string' || !re.test(uid)) { return undefined; }\n  return 'reg_' + uid;\n})();"
+      ]
+    },
+    {
+      "function": "__awec",
+      "vtp_mode": "MANUAL",
+      "vtp_email": [
+        "macro",
+        5
+      ]
+    },
+    {
+      "function": "__jsm",
+      "vtp_javascript": [
+        "template",
+        "(function() {\n  var t = ",
+        [
+          "escape",
+          [
+            "macro",
+            1
+          ],
+          8,
+          16
+        ],
+        ";\n  if (typeof t !== 'string') { return undefined; }\n  var m = /^sub_([A-Za-z0-9_-]{4,128})$/.exec(t);\n  if (!m) { return undefined; }\n  var id = m[1];\n  if (/_\\d{13}$/.test(id) || /^[A-Za-z0-9]+_\\d+_[^_]*_\\d{12,}$/.test(id)) { return undefined; }\n  return t;\n})();"
+      ]
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "page_location"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "page_referrer"
+    },
+    {
+      "function": "__v",
+      "vtp_dataLayerVersion": 2,
+      "vtp_setDefaultValue": false,
+      "vtp_name": "page_title"
+    }
+  ],
+  "tags": [
+    {
+      "function": "__gclidw",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableCrossDomain": true,
+      "vtp_enableUrlPassthrough": true,
+      "vtp_acceptIncoming": true,
+      "vtp_formDecoration": false,
+      "vtp_urlPosition": "query",
+      "vtp_enableCookieOverrides": true,
+      "tag_id": 10
+    },
+    {
+      "function": "__awct",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableNewCustomerReporting": false,
+      "vtp_enableConversionLinker": true,
+      "vtp_orderId": [
+        "macro",
+        1
+      ],
+      "vtp_enableProductReporting": false,
+      "vtp_conversionValue": [
+        "macro",
+        2
+      ],
+      "vtp_enableEnhancedConversion": false,
+      "vtp_conversionCookiePrefix": "_gcl",
+      "vtp_enableShippingData": false,
+      "vtp_conversionId": "11252321380",
+      "vtp_currencyCode": [
+        "macro",
+        3
+      ],
+      "vtp_conversionLabel": "OfGcCJisoLQZEOSYw_Up",
+      "vtp_rdp": false,
+      "vtp_url": [
+        "macro",
+        4
+      ],
+      "vtp_enableProductReportingCheckbox": true,
+      "vtp_enableNewCustomerReportingCheckbox": true,
+      "vtp_enableEnhancedConversionsCheckbox": false,
+      "vtp_enableRdpCheckbox": true,
+      "vtp_enableTransportUrl": false,
+      "vtp_enableCustomParams": false,
+      "vtp_enableEventParameters": true,
+      "tag_id": 15
+    },
+    {
+      "function": "__awct",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableNewCustomerReporting": false,
+      "vtp_enableConversionLinker": true,
+      "vtp_enableProductReporting": false,
+      "vtp_enableEnhancedConversion": false,
+      "vtp_conversionCookiePrefix": "_gcl",
+      "vtp_enableShippingData": false,
+      "vtp_conversionId": "11252321380",
+      "vtp_conversionLabel": "rVk2CJ7Ot8EZEOSYw_Up",
+      "vtp_rdp": false,
+      "vtp_url": [
+        "macro",
+        4
+      ],
+      "vtp_enableProductReportingCheckbox": true,
+      "vtp_enableNewCustomerReportingCheckbox": true,
+      "vtp_enableEnhancedConversionsCheckbox": false,
+      "vtp_enableRdpCheckbox": true,
+      "vtp_enableTransportUrl": false,
+      "vtp_enableCustomParams": false,
+      "vtp_enableEventParameters": true,
+      "tag_id": 17
+    },
+    {
+      "function": "__awct",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableNewCustomerReporting": false,
+      "vtp_enableConversionLinker": true,
+      "vtp_orderId": [
+        "macro",
+        1
+      ],
+      "vtp_enableProductReporting": false,
+      "vtp_conversionValue": [
+        "macro",
+        2
+      ],
+      "vtp_conversionCookiePrefix": "_gcl",
+      "vtp_enableShippingData": false,
+      "vtp_conversionId": "16854695811",
+      "vtp_currencyCode": [
+        "macro",
+        3
+      ],
+      "vtp_conversionLabel": "4Rf-CM6EhJMcEIP_-OQ-",
+      "vtp_rdp": false,
+      "vtp_url": [
+        "macro",
+        4
+      ],
+      "vtp_enableProductReportingCheckbox": true,
+      "vtp_enableNewCustomerReportingCheckbox": true,
+      "vtp_enableEnhancedConversionsCheckbox": false,
+      "vtp_enableRdpCheckbox": true,
+      "vtp_enableTransportUrl": false,
+      "vtp_enableCustomParams": false,
+      "vtp_enableEventParameters": true,
+      "tag_id": 19
+    },
+    {
+      "function": "__googtag",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_tagId": "AW-11252321380",
+      "tag_id": 20
+    },
+    {
+      "function": "__cvt_PBGZL",
+      "metadata": [
+        "map"
+      ],
+      "vtp_enableFirstPartyCookies": true,
+      "vtp_dataProcessingOptions": false,
+      "vtp_useEcommerceProductData": false,
+      "vtp_eventType": "PageVisit",
+      "vtp_id": "a2_j6xo78gpljnf",
+      "vtp_advancedMatching": false,
+      "vtp_productInputType": "entryManual",
+      "tag_id": 34,
+      "once_per_event": true
+    },
+    {
+      "function": "__cvt_PBGZL",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableFirstPartyCookies": true,
+      "vtp_dataProcessingOptions": false,
+      "vtp_useEcommerceProductData": false,
+      "vtp_currency": [
+        "macro",
+        3
+      ],
+      "vtp_eventType": "Purchase",
+      "vtp_id": "a2_j6xo78gpljnf",
+      "vtp_transactionValue": [
+        "macro",
+        2
+      ],
+      "vtp_advancedMatching": false,
+      "vtp_productInputType": "entryManual",
+      "vtp_conversionId": [
+        "macro",
+        1
+      ],
+      "vtp_transactionId": [
+        "macro",
+        1
+      ],
+      "tag_id": 35
+    },
+    {
+      "function": "__cvt_TB7ZX",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_customUrl": "",
+      "vtp_eventId": "",
+      "vtp_partnerId": "10481401",
+      "vtp_conversionId": "",
+      "tag_id": 52
+    },
+    {
+      "function": "__cvt_PBGZL",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableFirstPartyCookies": true,
+      "vtp_dataProcessingOptions": false,
+      "vtp_useEcommerceProductData": false,
+      "vtp_eventType": "SignUp",
+      "vtp_id": "a2_j6xo78gpljnf",
+      "vtp_advancedMatching": true,
+      "vtp_productInputType": "entryManual",
+      "vtp_advancedMatchingParams": [
+        "list",
+        [
+          "map",
+          "name",
+          "email",
+          "value",
+          [
+            "macro",
+            5
+          ]
+        ]
+      ],
+      "tag_id": 57,
+      "vtp_conversionId": [
+        "macro",
+        42
+      ]
+    },
+    {
+      "function": "__cvt_TB7ZX",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_customUrl": "",
+      "vtp_eventId": "",
+      "vtp_partnerId": "10481401",
+      "vtp_conversionId": "29290225",
+      "tag_id": 58
+    },
+    {
+      "function": "__cvt_TB7ZX",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_customUrl": "",
+      "vtp_eventId": [
+        "macro",
+        42
+      ],
+      "vtp_partnerId": "10481401",
+      "vtp_conversionId": "29290241",
+      "tag_id": 72
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_html": "<script type=\"text/gtmscript\">(function(c,d,f,g,e){c[e]=c[e]||[];var h=function(){var b={ti:\"187107444\",enableAutoSpaTracking:!0};b.q=c[e];c[e]=new UET(b);c[e].push(\"pageLoad\")};var a=d.createElement(f);a.src=g;a.async=1;a.onload=a.onreadystatechange=function(){var b=this.readyState;b&&b!==\"loaded\"&&b!==\"complete\"||(h(),a.onload=a.onreadystatechange=null)};d=d.getElementsByTagName(f)[0];d.parentNode.insertBefore(a,d)})(window,document,\"script\",\"https://bat.bing.net/bat.js\",\"uetq\");</script>",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 38
+    },
+    {
+      "function": "__html",
+      "vtp_html": "\n<script type=\"text/gtmscript\">!function(d,e,f,a,b,c){d.twq||(a=d.twq=function(){a.exe?a.exe.apply(a,arguments):a.queue.push(arguments)},a.version=\"1.1\",a.queue=[],b=e.createElement(f),b.async=!0,b.src=\"https://static.ads-twitter.com/uwt.js\",c=e.getElementsByTagName(f)[0],c.parentNode.insertBefore(b,c))}(window,document,\"script\");twq.integration=\"gtm-ad-manager\";twq(\"config\",\"qwghh\");</script>\n",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 74
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">twq(\"event\",\"tw-qwghh-13vj24\",{value:",
+        [
+          "escape",
+          [
+            "macro",
+            2
+          ],
+          8,
+          16
+        ],
+        ",currency:",
+        [
+          "escape",
+          [
+            "macro",
+            3
+          ],
+          8,
+          16
+        ],
+        ",conversion_id:",
+        [
+          "escape",
+          [
+            "macro",
+            1
+          ],
+          8,
+          16
+        ],
+        ",email_address:",
+        [
+          "escape",
+          [
+            "macro",
+            5
+          ],
+          8,
+          16
+        ],
+        "});</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 75
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">twq(\"event\",\"tw-qwghh-13vj22\",{email_address:",
+        [
+          "escape",
+          [
+            "macro",
+            5
+          ],
+          8,
+          16
+        ],
+        "});</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 76
+    },
+    {
+      "function": "__html",
+      "vtp_html": "\n<script type=\"text/gtmscript\">!function(d,h,e){d.TiktokAnalyticsObject=e;var a=d[e]=d[e]||[];a.methods=\"page track identify instances debug on off once ready alias group enableCookie disableCookie holdConsent revokeConsent grantConsent\".split(\" \");a.setAndDefer=function(b,c){b[c]=function(){b.push([c].concat(Array.prototype.slice.call(arguments,0)))}};for(d=0;d<a.methods.length;d++)a.setAndDefer(a,a.methods[d]);a.instance=function(b){b=a._i[b]||[];for(var c=0;c<a.methods.length;c++)a.setAndDefer(b,a.methods[c]);return b};a.load=\nfunction(b,c){var f=\"https://analytics.tiktok.com/i18n/pixel/events.js\",g=c&&c.partner;a._i=a._i||{};a._i[b]=[];a._i[b]._u=f;a._i[b]._partner=g||\"GoogleTagManagerClient\";a._t=a._t||{};a._t[b]=+new Date;a._o=a._o||{};a._o[b]=c||{};a._partner=a._partner||\"GoogleTagManagerClient\";c=document.createElement(\"script\");c.type=\"text/javascript\";c.async=!0;c.src=f+\"?sdkid\\x3d\"+b+\"\\x26lib\\x3d\"+e;b=document.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(c,b)};a.load(\"D9QOQ5JC77U6RO6J21IG\");a.page()}(window,\ndocument,\"ttq\");</script>\n",
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 77
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">(function(){function b(c){return c&&c!==\"undefined\"&&c!==\"null\"?c:\"\"}if(typeof ttq!==\"undefined\"){var a=b(\"",
+        [
+          "escape",
+          [
+            "macro",
+            5
+          ],
+          7
+        ],
+        "\"),e=b(\"",
+        [
+          "escape",
+          [
+            "macro",
+            2
+          ],
+          7
+        ],
+        "\"),f=b(\"",
+        [
+          "escape",
+          [
+            "macro",
+            3
+          ],
+          7
+        ],
+        "\"),d=b(\"",
+        [
+          "escape",
+          [
+            "macro",
+            1
+          ],
+          7
+        ],
+        "\");a.indexOf(\"@\")>-1&&ttq.identify({email:a.toLowerCase()});a={value:parseFloat(e)||0,currency:f||\"USD\"};d?ttq.track(\"Purchase\",a,{event_id:d}):ttq.track(\"Purchase\",a)}})();</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 78
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">(function(){if(typeof ttq!==\"undefined\"){var a=(a=\"",
+        [
+          "escape",
+          [
+            "macro",
+            5
+          ],
+          7
+        ],
+        "\",a!==\"undefined\")&&a!==\"null\"?a:\"\";a.indexOf(\"@\")>-1&&ttq.identify({email:a.toLowerCase()});ttq.track(\"CompleteRegistration\")}})();</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false,
+      "tag_id": 79
+    },
+    {
+      "function": "__awct",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableNewCustomerReporting": false,
+      "vtp_enableConversionLinker": true,
+      "tag_id": 1002,
+      "vtp_orderId": [
+        "macro",
+        42
+      ],
+      "vtp_enableProductReporting": false,
+      "vtp_enableEnhancedConversion": true,
+      "vtp_cssProvidedEnhancedConversionValue": [
+        "macro",
+        43
+      ],
+      "vtp_conversionCookiePrefix": "_gcl",
+      "vtp_enableShippingData": false,
+      "vtp_conversionId": "11252321380",
+      "vtp_conversionLabel": "rVk2CJ7Ot8EZEOSYw_Up",
+      "vtp_rdp": false,
+      "vtp_url": [
+        "macro",
+        4
+      ],
+      "vtp_enableProductReportingCheckbox": true,
+      "vtp_enableNewCustomerReportingCheckbox": true,
+      "vtp_enableEnhancedConversionsCheckbox": true,
+      "vtp_enableRdpCheckbox": true,
+      "vtp_enableTransportUrl": false,
+      "vtp_enableCustomParams": false,
+      "vtp_enableEventParameters": true
+    },
+    {
+      "function": "__awct",
+      "metadata": [
+        "map"
+      ],
+      "once_per_event": true,
+      "vtp_enableNewCustomerReporting": false,
+      "vtp_enableConversionLinker": true,
+      "tag_id": 1003,
+      "vtp_orderId": [
+        "macro",
+        1
+      ],
+      "vtp_enableProductReporting": false,
+      "vtp_conversionValue": [
+        "macro",
+        2
+      ],
+      "vtp_enableEnhancedConversion": true,
+      "vtp_cssProvidedEnhancedConversionValue": [
+        "macro",
+        43
+      ],
+      "vtp_conversionCookiePrefix": "_gcl",
+      "vtp_enableShippingData": false,
+      "vtp_conversionId": "11252321380",
+      "vtp_currencyCode": [
+        "macro",
+        3
+      ],
+      "vtp_conversionLabel": "OAFIX_BUSINESS_LABEL_TBD",
+      "vtp_rdp": false,
+      "vtp_url": [
+        "macro",
+        4
+      ],
+      "vtp_enableProductReportingCheckbox": true,
+      "vtp_enableNewCustomerReportingCheckbox": true,
+      "vtp_enableEnhancedConversionsCheckbox": true,
+      "vtp_enableRdpCheckbox": true,
+      "vtp_enableTransportUrl": false,
+      "vtp_enableCustomParams": false,
+      "vtp_enableEventParameters": true
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1004,
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">\n(function () {\n  window.dataLayer = window.dataLayer || [];\n  var gtag = window.gtag || function () { window.dataLayer.push(arguments); };\n  gtag('event', 'page_view', {\n    send_to: ['AW-11252321380', 'AW-16854695811'],\n    page_location: ",
+        [
+          "escape",
+          [
+            "macro",
+            45
+          ],
+          8,
+          16
+        ],
+        ",\n    page_referrer: ",
+        [
+          "escape",
+          [
+            "macro",
+            46
+          ],
+          8,
+          16
+        ],
+        ",\n    page_title: ",
+        [
+          "escape",
+          [
+            "macro",
+            47
+          ],
+          8,
+          16
+        ],
+        "\n  });\n})();\n</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1005,
+      "once_per_event": true,
+      "vtp_html": "<script type=\"text/gtmscript\">!function(d,e,f,a,b,c){d.twq||(a=d.twq=function(){a.exe?a.exe.apply(a,arguments):a.queue.push(arguments)},a.version=\"1.1\",a.queue=[],b=e.createElement(f),b.async=!0,b.src=\"https://static.ads-twitter.com/uwt.js\",c=e.getElementsByTagName(f)[0],c.parentNode.insertBefore(b,c))}(window,document,\"script\");twq.integration=\"gtm-ad-manager\";twq(\"set\",\"dataLayerTracking\",\"false\",\"qwghh\");twq(\"config\",\"qwghh\");</script>",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1006,
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">twq(\"event\",\"tw-qwghh-13vj22\",{email_address:",
+        [
+          "escape",
+          [
+            "macro",
+            5
+          ],
+          8,
+          16
+        ],
+        ",conversion_id:",
+        [
+          "escape",
+          [
+            "macro",
+            42
+          ],
+          8,
+          16
+        ],
+        "});</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1007,
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">\n(function () {\n  if (typeof ttq === 'undefined') { return; }\n  var email = ",
+        [
+          "escape",
+          [
+            "macro",
+            5
+          ],
+          8,
+          16
+        ],
+        ";\n  var eventId = ",
+        [
+          "escape",
+          [
+            "macro",
+            42
+          ],
+          8,
+          16
+        ],
+        ";\n  if (typeof email === 'string' && email.indexOf('@') > -1) { ttq.identify({ email: email.toLowerCase() }); }\n  if (typeof eventId === 'string' && eventId) { ttq.track('CompleteRegistration', {}, { event_id: eventId }); }\n  else { ttq.track('CompleteRegistration'); }\n})();\n</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1008,
+      "once_per_event": true,
+      "vtp_html": "<script type=\"text/gtmscript\">(function(c,d,f,g,e){c[e]=c[e]||[];var h=function(){var b={ti:\"187107444\",enableAutoSpaTracking:!1};b.q=c[e];c[e]=new UET(b);c[e].push(\"pageLoad\")};var a=d.createElement(f);a.src=g;a.async=1;a.onload=a.onreadystatechange=function(){var b=this.readyState;b&&b!==\"loaded\"&&b!==\"complete\"||(h(),a.onload=a.onreadystatechange=null)};d=d.getElementsByTagName(f)[0];d.parentNode.insertBefore(a,d)})(window,document,\"script\",\"https://bat.bing.net/bat.js\",\"uetq\");</script>",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1009,
+      "once_per_event": true,
+      "vtp_html": [
+        "template",
+        "<script type=\"text/gtmscript\">\n(function () {\n  window.uetq = window.uetq || [];\n  window.uetq.push('event', 'page_view', {\n    page_path: window.location.pathname + window.location.search,\n    page_title: ",
+        [
+          "escape",
+          [
+            "macro",
+            47
+          ],
+          8,
+          16
+        ],
+        "\n  });\n})();\n</script>"
+      ],
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1010,
+      "once_per_event": true,
+      "vtp_html": "<script type=\"text/gtmscript\">!function(d,h,e){d.TiktokAnalyticsObject=e;var a=d[e]=d[e]||[];a.methods=\"page track identify instances debug on off once ready alias group enableCookie disableCookie holdConsent revokeConsent grantConsent\".split(\" \");a.setAndDefer=function(b,c){b[c]=function(){b.push([c].concat(Array.prototype.slice.call(arguments,0)))}};for(d=0;d<a.methods.length;d++)a.setAndDefer(a,a.methods[d]);a.instance=function(b){b=a._i[b]||[];for(var c=0;c<a.methods.length;c++)a.setAndDefer(b,a.methods[c]);return b};a.load=\nfunction(b,c){var f=\"https://analytics.tiktok.com/i18n/pixel/events.js\",g=c&&c.partner;a._i=a._i||{};a._i[b]=[];a._i[b]._u=f;a._i[b]._partner=g||\"GoogleTagManagerClient\";a._t=a._t||{};a._t[b]=+new Date;a._o=a._o||{};a._o[b]=c||{};a._partner=a._partner||\"GoogleTagManagerClient\";c=document.createElement(\"script\");c.type=\"text/javascript\";c.async=!0;c.src=f+\"?sdkid\\x3d\"+b+\"\\x26lib\\x3d\"+e;b=document.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(c,b)};a.load(\"D9QOQ5JC77U6RO6J21IG\",{historyObserver:!1});a.page()}(window,\ndocument,\"ttq\");</script>",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1011,
+      "once_per_event": true,
+      "vtp_html": "<script type=\"text/gtmscript\">\n(function () {\n  if (typeof ttq === 'undefined' || typeof ttq.page !== 'function') { return; }\n  ttq.page();\n})();\n</script>",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    },
+    {
+      "function": "__html",
+      "metadata": [
+        "map"
+      ],
+      "tag_id": 1014,
+      "once_per_event": true,
+      "vtp_html": "<script type=\"text/gtmscript\">\n/* OA-FIX LinkedIn option (b): LinkedIn purchases are reported server-side only, by conversion-service\n   (Conversions API, eventId sub_<invoiceId>, conversionValue). Tag 58 is paused in this set-up.\n   This tag sends nothing. */\n</script>",
+      "vtp_supportDocumentWrite": false,
+      "vtp_enableIframeMode": false,
+      "vtp_enableEditJsMacroBehavior": false
+    }
+  ],
+  "predicates": [
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "gtm.js"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "purchase"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "new_user_signed_up"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "gtm.init"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "signup"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "first_purchase"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "business_subscription"
+    },
+    {
+      "function": "_re",
+      "arg0": [
+        "macro",
+        44
+      ],
+      "arg1": "^sub_"
+    },
+    {
+      "function": "_eq",
+      "arg0": [
+        "macro",
+        0
+      ],
+      "arg1": "virtual_page_view"
+    }
+  ],
+  "rules": [
+    [
+      [
+        "if",
+        0
+      ],
+      [
+        "add",
+        0,
+        5,
+        7,
+        21,
+        24,
+        26
+      ]
+    ],
+    [
+      [
+        "if",
+        3
+      ],
+      [
+        "add",
+        4
+      ]
+    ],
+    [
+      [
+        "if",
+        4
+      ],
+      [
+        "add",
+        8,
+        10
+      ]
+    ],
+    [
+      [
+        "if",
+        5
+      ],
+      [
+        "add",
+        16
+      ]
+    ],
+    [
+      [
+        "if",
+        4
+      ],
+      [
+        "add",
+        18,
+        22,
+        23
+      ]
+    ],
+    [
+      [
+        "if",
+        6,
+        7
+      ],
+      [
+        "add",
+        19
+      ]
+    ],
+    [
+      [
+        "if",
+        8
+      ],
+      [
+        "add",
+        20,
+        21,
+        25,
+        27,
+        7,
+        5
+      ]
+    ],
+    [
+      [
+        "if",
+        1,
+        7
+      ],
+      [
+        "add",
+        28,
+        6,
+        1,
+        3,
+        13
+      ]
+    ]
+  ]
+}

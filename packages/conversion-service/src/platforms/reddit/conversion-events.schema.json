@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/conversion-service/reddit/conversion-events.schema.json",
+  "title": "Reddit Conversions API v3: POST https://ads-api.reddit.com/api/v3/pixels/{pixel_id}/conversion_events",
+  "description": "Transcribed from the OpenAPI schema embedded in https://ads-api.reddit.com/docs/v3/api/post-conversion-events plus the direct-integration and migration guides (fetched 2026-09-29). The API marks every object additionalProperties:false; this schema does the same. Auth is 'Authorization: Bearer <conversion access token>' (scope adsconversions), added by the live transport.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events"],
+      "properties": {
+        "test_id": { "type": "string", "minLength": 1 },
+        "events": { "type": "array", "minItems": 1, "maxItems": 1000, "items": { "$ref": "#/$defs/Event" } }
+      }
+    }
+  },
+  "$defs": {
+    "Event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_at", "action_source", "type"],
+      "properties": {
+        "event_at": { "description": "'Unix epoch in milliseconds'", "type": "integer", "minimum": 1000000000000, "maximum": 99999999999999 },
+        "action_source": { "enum": ["WEBSITE", "APP", "OTHER", "PHYSICAL_STORE"] },
+        "type": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tracking_type"],
+          "properties": {
+            "tracking_type": { "enum": ["PAGE_VISIT", "VIEW_CONTENT", "SEARCH", "ADD_TO_CART", "ADD_TO_WISHLIST", "PURCHASE", "LEAD", "SIGN_UP", "CUSTOM"] },
+            "custom_event_name": { "description": "'case-sensitive … can have up to 64 characters, including spaces.'", "type": "string", "minLength": 1, "maxLength": 64 }
+          },
+          "if": { "properties": { "tracking_type": { "const": "CUSTOM" } } },
+          "then": { "required": ["custom_event_name"] }
+        },
+        "click_id": { "type": "string", "minLength": 1 },
+        "event_source_url": { "type": "string", "format": "uri" },
+        "referrer_url": { "type": "string", "format": "uri" },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "conversion_id": { "type": "string", "minLength": 1 },
+            "order_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+            "item_count": { "type": "integer", "minimum": 0 },
+            "value": { "description": "'in the base unit of the currency'", "type": "number", "minimum": 0 }
+          },
+          "dependentRequired": { "value": ["currency"] }
+        },
+        "user": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "email": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "phone_number": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "external_id": { "type": "string", "minLength": 1 },
+            "ip_address": { "type": "string", "minLength": 2 },
+            "user_agent": { "type": "string", "minLength": 1 },
+            "uuid": { "type": "string", "minLength": 1 },
+            "data_processing_options": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["modes", "country"],
+              "properties": {
+                "modes": { "type": "array", "items": { "const": "LDU" }, "minItems": 1, "maxItems": 1 },
+                "country": { "description": "'ISO 3166-1 alpha-2'", "type": "string", "pattern": "^[A-Z]{2}$" },
+                "region": { "description": "'the ISO 3166-2 subdivision code or the subdivision code without the country prefix'", "type": "string", "pattern": "^([A-Z]{2}-)?[A-Z0-9]{1,3}$" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

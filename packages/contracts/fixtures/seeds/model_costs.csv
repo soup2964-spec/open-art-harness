@@ -1,0 +1,110 @@
+model_id,business_type,setting,credits,list_cost_usd,cost_per_credit_usd,source_url,notes
+byte-plus-seedance-2,byte-plus-seedance-2:text2video,720p 5s,400,0.7600,0.0019,https://docs.byteplus.com/en/docs/ModelArk/1544106,"[bt:code]; 04 called this a default model; defaults are A/B-assigned per visitor (research/12 V4), label dropped; basis: BytePlus list $7.0/M tok (720p 5s=$0.76)"
+byte-plus-seedance-2,byte-plus-seedance-2:text2video,480p 5s,175,0.3500,0.002,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list
+byte-plus-seedance-2,byte-plus-seedance-2:text2video,1080p 5s,1000,1.8700,0.00187,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $7.7/M tok
+byte-plus-seedance-2,byte-plus-seedance-2:text2video,4K 5s,2000,3.8900,0.001945,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $4.0/M tok
+byte-plus-seedance-2-fal,byte-plus-seedance-2-fal:text2video,720p 5s,400,1.5170,0.0037925,https://fal.ai/models/bytedance/seedance-2.0/text-to-video,[bt:code]; OpenArt has internal byte-plus-seedance-2-fal/-minimax/-rampingup routes (OBSERVED ids); route mix unknown; basis: fal list $0.3034/s
+byte-plus-seedance-2-fast,byte-plus-seedance-2-fast:text2video,720p 5s,350,0.6000,0.0017143,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $5.6/M (25% enterprise promo to 2026-10-07 => $0.45)
+byte-plus-seedance-2-fast,byte-plus-seedance-2-fast:text2video,480p 5s,150,0.2800,0.0018667,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list
+byte-plus-seedance-2-mini,byte-plus-seedance-2-mini:text2video,720p 5s,200,0.3800,0.0019,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $3.5/M (60% enterprise promo => $0.152)
+byte-plus-seedance-2-5,byte-plus-seedance-2-5:text2video,720p 5s,650,1.1560,0.0017785,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $10.70/M tok
+byte-plus-seedance-2-5,byte-plus-seedance-2-5:text2video,1080p 5s,1605,2.8430,0.0017713,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $11.7/M tok
+byte-plus-seedance-2-5,byte-plus-seedance-2-5:text2video,480p 5s,300,0.5140,0.0017133,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list
+byte-plus-seedance-1-5,byte-plus-seedance-1-5:text2video,720p 5s audio,150,0.2600,0.0017333,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list $2.4/M (audio)
+byte-plus-seedance-1-5,byte-plus-seedance-1-5:text2video,1080p 5s audio,300,0.5800,0.0019333,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus list
+veo3-1,veo3-1:text2video,standard 1080p 8s audio,1080,3.2000,0.002963,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.40/s w/ audio
+veo3-1,veo3-1:text2video,standard 720p 8s no audio,560,1.6000,0.0028571,https://cloud.google.com/vertex-ai/generative-ai/pricing,[bt:code]; basis: Vertex video-only $0.20/s (Gemini API has no audio-less discount => $3.20)
+veo3-1,veo3-1:text2video,standard 4K 8s audio,1600,4.8000,0.003,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.60/s
+veo3-1,veo3-1:text2video,fast 720p 8s audio,280,0.8000,0.0028571,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.10/s
+veo3-1,veo3-1:text2video,fast 1080p 8s audio,320,0.9600,0.003,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.12/s
+veo3-1,veo3-1:text2video,fast 4K 8s audio,800,2.4000,0.003,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.30/s
+veo3-1,veo3-1:text2video,lite 720p 8s audio,160,0.4000,0.0025,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.05/s
+veo3-1,veo3-1:text2video,lite 1080p 8s audio,240,0.6400,0.0026667,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.08/s
+gemini-omni-flash,gemini-omni-flash:text2video,720p 5s,250,0.5068,0.0020272,https://cloud.google.com/vertex-ai/generative-ai/pricing,"[bt:code]; basis: Google $17.50/M video tok x 5,792 tok/s"
+gemini-omni-1-1-flash,gemini-omni-1-1-flash:text2video,1080p 5s,375,0.7602,0.0020272,https://cloud.google.com/vertex-ai/generative-ai/pricing,"[bt:code]; basis: Google 8,688 tok/s x $17.50/M"
+gemini-omni-1-1-flash,gemini-omni-1-1-flash:text2video,4K 5s,750,1.5204,0.0020272,https://cloud.google.com/vertex-ai/generative-ai/pricing,"[bt:code]; basis: Google 17,376 tok/s x $17.50/M"
+kling-v3,kling-v3:text2video,std 5s with audio,175,0.6300,0.0036,https://fal.ai/models/fal-ai/kling-video/v3/standard/text-to-video,[bt:code]; basis: fal $0.126/s
+kling-v3,kling-v3:text2video,pro 5s with audio,200,0.8400,0.0042,https://fal.ai/models/fal-ai/kling-video/v3/pro/text-to-video,[bt:code]; basis: fal $0.168/s
+kling-v3,kling-v3:text2video,pro 10s with audio,400,1.6800,0.0042,https://fal.ai/models/fal-ai/kling-video/v3/pro/text-to-video,[bt:code]; basis: fal $0.168/s
+kling-v3,kling-v3:text2video,4K 5s,600,2.1000,0.0035,https://fal.ai/models/fal-ai/kling-video/o3/4k/text-to-video,"[bt:code]; ESTIMATE, not a published list price (04 flag E); basis: proxy: fal Kling O3 4K $0.42/s"
+kling-3-omni,kling-3-omni:text2video,std 5s with audio,175,0.5600,0.0032,https://fal.ai/models/fal-ai/kling-video/o3/standard/text-to-video,[bt:code]; basis: fal O3 std $0.112/s audio
+kling-3-omni,kling-3-omni:text2video,pro 5s with audio,200,0.7000,0.0035,https://fal.ai/models/fal-ai/kling-video/o3/pro/text-to-video,[bt:code]; basis: fal O3 pro $0.14/s audio
+kling2-6,kling2-6:text2video,pro 5s with audio,200,0.7000,0.0035,https://fal.ai/models/fal-ai/kling-video/v2.6/pro/text-to-video,"[bt:code]; 04 called this a default model; defaults are A/B-assigned per visitor (research/12 V4), label dropped; basis: fal $0.14/s"
+kling2-6,kling2-6:text2video,std 5s,60,0.2100,0.0035,https://fal.ai/models/fal-ai/kling-video/v2.5-turbo/standard/image-to-video,"[bt:code]; ESTIMATE, not a published list price (04 flag E); basis: proxy: fal Kling 2.5-turbo std $0.042/s"
+kling2-5,kling2-5:text2video,pro 5s,100,0.3500,0.0035,https://fal.ai/models/fal-ai/kling-video/v2.5-turbo/pro/text-to-video,[bt:code]; basis: fal $0.35/5s
+kling2-1-master,kling2-1-master:text2video,5s,500,1.4000,0.0028,https://fal.ai/models/fal-ai/kling-video/v2.1/master/text-to-video,[bt:code]; basis: fal $1.40/5s
+kling-O1,kling-O1:text2video,5s,150,0.5600,0.0037333,https://fal.ai/models/fal-ai/kling-video/o1/image-to-video,[bt:code]; basis: fal $0.112/s
+minimax-h3,minimax-h3:text2video,768p 5s,300,0.3000,0.001,https://fal.ai/models/minimax/h3/text-to-video,[bt:code]; basis: fal $0.06/s
+minimax-h3,minimax-h3:text2video,2K 5s,450,0.6500,0.0014444,https://fal.ai/models/minimax/h3/text-to-video,[bt:code]; basis: fal $0.13/s
+minimax-h3,minimax-h3:text2video,768p 5s promo-to-2026-10-04,200,0.3000,0.0015,https://fal.ai/models/minimax/h3/text-to-video,"[bt:code]; promotional credit rate (campaign code, time-limited); promo credit rate OBSERVED in campaign code; basis: fal $0.06/s"
+fal-h3-max,fal-h3-max:text2video,768p 5s,200,0.4000,0.002,https://fal.ai/models/minimax/h3-max/text-to-video,[bt:code]; basis: fal list $0.08/s (50% launch promo to 2026-09-30 => $0.20)
+fal-h3-max-turbo,fal-h3-max-turbo:text2video,768p 5s,100,0.2000,0.002,https://fal.ai/models/minimax/h3-max-turbo/text-to-video,[bt:code]; basis: fal list $0.04/s (promo => $0.10)
+hailuo-2-3,hailuo-2-3:text2video,768p 6s,150,0.2800,0.0018667,https://fal.ai/models/fal-ai/minimax/hailuo-2.3/standard/text-to-video,[bt:code]; basis: fal $0.28/6s
+hailuo-2-3,hailuo-2-3:text2video,1080p 6s,300,0.4900,0.0016333,https://fal.ai/models/fal-ai/minimax/hailuo-2.3/pro/text-to-video,[bt:code]; basis: fal $0.49/6s
+hailuo-02,hailuo-02:text2video,768p 6s,150,0.2700,0.0018,https://fal.ai/models/fal-ai/minimax/hailuo-02/standard/text-to-video,[bt:code]; basis: fal $0.045/s
+wan3-0,wan3-0:text2video,720p 5s,200,0.4126,0.002063,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global(US) list $0.0825/s (30% promo => $0.289)
+wan3-0-prime,wan3-0-prime:text2video,720p 5s,350,0.6360,0.0018171,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.1272/s
+wan2-7,wan2-7:text2video,720p 5s,125,0.4301,0.0034408,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.0860/s
+wan2-6,wan2-6:text2video,1080p 5s,175,0.7168,0.004096,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.1434/s
+wan2-5,wan2-5:text2video,720p 5s,150,0.4301,0.0028673,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.0860/s
+happyhorse,happyhorse:text2video,720P 5s,250,0.6188,0.0024752,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.1238/s
+happyhorse-1-1,happyhorse-1-1:text2video,720P 5s,175,0.6188,0.003536,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.1238/s
+happyhorse-1-1,happyhorse-1-1:text2video,1080P 5s,225,0.8251,0.0036671,https://www.alibabacloud.com/help/en/model-studio/model-pricing,[bt:code]; basis: Alibaba Global $0.1650/s
+grok-imagine,grok-imagine:text2video,720p 5s,200,0.3500,0.00175,https://fal.ai/models/xai/grok-imagine-video/text-to-video,[bt:code]; basis: fal $0.07/s
+grok-imagine-1-5,grok-imagine-1-5:text2video,720p 5s,400,0.7000,0.00175,https://fal.ai/models/xai/grok-imagine-video/v1.5/text-to-video,[bt:code]; basis: fal $0.14/s
+grok-imagine-1-5,grok-imagine-1-5:text2video,1080p 5s,900,1.2500,0.0013889,https://fal.ai/models/xai/grok-imagine-video/v1.5/text-to-video,[bt:code]; basis: fal $0.25/s
+ltx2-5,ltx2-5:text2video,720p 6s,360,0.5400,0.0015,https://ltx.io/model/api,[bt:code]; basis: LTX API $0.09/s
+ltx2-5,ltx2-5:text2video,1080p 6s,660,1.0200,0.0015455,https://ltx.io/model/api,[bt:code]; basis: LTX API $0.17/s
+pixverseV6,pixverseV6:text2video,720p 5s (no audio),70,0.2250,0.0032143,https://fal.ai/models/fal-ai/pixverse/v6/text-to-video,[bt:code]; basis: fal $0.045/s
+pixverseC1,pixverseC1:text2video,720p 5s with audio,90,0.3250,0.0036111,https://fal.ai/models/fal-ai/pixverse/c1/text-to-video,[bt:code]; basis: fal $0.065/s
+pixelverse5,pixelverse5:text2video,720p 5s,150,0.2000,0.0013333,https://fal.ai/models/fal-ai/pixverse/v5/text-to-video,[bt:code]; basis: fal $0.20/5s
+flux-3-video,flux-3-video:text2video,720p 5s,600,0.8500,0.0014167,https://fal.ai/models/blackforestlabs/flux-3/text-to-video,[bt:code]; basis: fal $0.17/s
+flux-3-video,flux-3-video:text2video,1080p 5s,1000,1.4500,0.00145,https://fal.ai/models/blackforestlabs/flux-3/text-to-video,[bt:code]; basis: fal $0.29/s
+nano-banana,nano-banana:text2image,1K,15,0.0390,0.0026,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.039
+nano-banana-2,nano-banana-2:text2image,1K,20,0.0670,0.00335,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.067
+nano-banana-2,nano-banana-2:text2image,2K,30,0.1010,0.0033667,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.101
+nano-banana-2,nano-banana-2:text2image,4K,50,0.1510,0.00302,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.151
+nano-banana-2-lite,nano-banana-2-lite:text2image,1K,15,0.0336,0.00224,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.0336
+nano-banana-pro,nano-banana-pro:text2image,1K/2K,40,0.1340,0.00335,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; Gemini Batch/Flex tiers are 50% lower (research/12 correction 4); basis: Google $0.134
+nano-banana-pro,nano-banana-pro:text2image,4K,80,0.2400,0.003,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; Gemini Batch/Flex tiers are 50% lower (research/12 correction 4); basis: Google $0.24
+gpt-image-2-5,gpt-image-2-5-flare:text2image,1024x1024 low,5,0.00588,0.001176,https://developers.openai.com/,"[bt:code]; cost = OpenAI official image-token calculator at $30/M output tokens (research/12 V3, correction 3; saved research/12_evidence/vendors/openai_GptImageTokenCalculator.js); 04 cited fal; 04 called this a default model; defaults are A/B-assigned per visitor (research/12 V4), label dropped; basis: OpenAI list via fal"
+gpt-image-2-5,gpt-image-2-5-flare:text2image,1024x1024 medium,30,0.01317,0.000439,https://developers.openai.com/,"[bt:code]; cost = OpenAI official image-token calculator at $30/M output tokens (research/12 V3, correction 3; saved research/12_evidence/vendors/openai_GptImageTokenCalculator.js); 04 cited fal; basis: OpenAI list via fal"
+gpt-image-2-5,gpt-image-2-5-flare:text2image,1024x1024 high,105,0.05268,0.0005017,https://developers.openai.com/,"[bt:code]; cost = OpenAI official image-token calculator at $30/M output tokens (research/12 V3, correction 3; saved research/12_evidence/vendors/openai_GptImageTokenCalculator.js); 04 cited fal; basis: OpenAI list via fal"
+gpt-image-2,gpt-image-2:text2image,1024x1024 low,5,0.0060,0.0012,https://fal.ai/models/openai/gpt-image-2,[bt:code]; basis: OpenAI list via fal
+gpt-image-2,gpt-image-2:text2image,1024x1024 medium,30,0.0530,0.0017667,https://fal.ai/models/openai/gpt-image-2,[bt:code]; basis: OpenAI list via fal
+gpt-image-2,gpt-image-2:text2image,1024x1024 high,105,0.2110,0.0020095,https://fal.ai/models/openai/gpt-image-2,[bt:code]; basis: OpenAI list via fal
+gpt-image-1-5,gpt-image-1-5:text2image,1024x1024 medium,25,0.0340,0.00136,https://fal.ai/models/fal-ai/gpt-image-1.5,[bt:code]; basis: OpenAI list via fal
+gpt-image-1-5,gpt-image-1-5:text2image,1024x1024 high,90,0.1330,0.0014778,https://fal.ai/models/fal-ai/gpt-image-1.5,[bt:code]; basis: OpenAI list via fal
+byte-plus-seedream-4-5,byte-plus-seedream-4-5:text2image,2K,15,0.0400,0.0026667,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus $0.04
+byte-plus-seedream-4,byte-plus-seedream-4:text2image,2K,15,0.0300,0.002,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus $0.03
+byte-plus-seedream-5-lite,byte-plus-seedream-5-lite:text2image,2K,15,0.0350,0.0023333,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus $0.035
+byte-plus-seedream-5-pro,byte-plus-seedream-5-pro:text2image,1K (<=1.5K),30,0.0450,0.0015,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus $0.045
+byte-plus-seedream-5-pro,byte-plus-seedream-5-pro:text2image,2K,60,0.0900,0.0015,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus $0.09
+byte-plus-seedream-5-flash,byte-plus-seedream-5-flash:text2image,1 image,6,0.0180,0.003,https://docs.byteplus.com/en/docs/ModelArk/1544106,[bt:code]; basis: BytePlus $0.018
+flux-2-pro,flux-2-pro:text2image,1MP,10,0.0300,0.003,https://fal.ai/models/fal-ai/flux-2-pro,[bt:code]; basis: fal $0.03 first MP
+flux-2-max,flux-2-max:text2image,1MP,20,0.0700,0.0035,https://fal.ai/models/fal-ai/flux-2-max,[bt:code]; basis: fal $0.07 first MP
+flux-2-flex,flux-2-flex:text2image,1MP,15,0.0500,0.0033333,https://fal.ai/models/fal-ai/flux-2-flex,[bt:code]; basis: fal $0.05/MP
+flux-2-klein-9b,flux-2-klein-9b:text2image,1MP,5,0.0060,0.0012,https://fal.ai/models/fal-ai/flux-2/klein/9b,[bt:code]; basis: fal $0.006/MP
+flux-kontext-pro,flux-kontext-pro:text2image,1 image,5,0.0400,0.008,https://fal.ai/models/fal-ai/flux-pro/kontext,[bt:code]; basis: fal/BFL $0.04
+flux-kontext-max,flux-kontext-max:text2image,1 image,15,0.0800,0.0053333,https://fal.ai/models/fal-ai/flux-pro/kontext/max,[bt:code]; basis: fal/BFL $0.08
+flux-1-1-pro,flux-1-1-pro:text2image,1MP,5,0.0400,0.008,https://fal.ai/models/fal-ai/flux-pro/v1.1,[bt:code]; basis: fal/BFL $0.04/MP
+recraft-v4,recraft-v4:text2image,raster,20,0.0400,0.002,https://fal.ai/models/fal-ai/recraft/v4/text-to-image,[bt:code]; basis: fal $0.04
+recraft-v4-pro,recraft-v4-pro:text2image,raster,110,0.2500,0.0022727,https://fal.ai/models/fal-ai/recraft/v4/pro/text-to-image,[bt:code]; basis: fal $0.25
+recraft-v4-1,recraft-v4-1:text2image,raster,20,0.0350,0.00175,https://fal.ai/models/fal-ai/recraft/v4.1/text-to-image,[bt:code]; basis: fal $0.035
+qwen-image-3,qwen-image-3:text2image,1K,16,0.0400,0.0025,https://fal.ai/models/alibaba/qwen-image-3/text-to-image,[bt:code]; basis: fal $0.04 (1K)
+grok-imagine,grok-imagine:text2image,1 image,10,0.0200,0.002,https://fal.ai/models/xai/grok-imagine-image/edit,"[bt:code]; 04 called this a default model; defaults are A/B-assigned per visitor (research/12 V4), label dropped; basis: fal/xAI $0.02"
+grok-imagine-image-2,grok-imagine-image-2:text2image,1K low,26,0.0400,0.0015385,https://fal.ai/models/xai/grok-imagine-image/v2.0/text-to-image,[bt:code]; basis: fal $0.04
+kling-3-omni,kling-3-omni:text2image,1K,10,0.0280,0.0028,https://fal.ai/models/fal-ai/kling-image/o3/text-to-image,[bt:code]; basis: fal Kling image $0.028
+z-image,z-image:text2image,<=1MP,8,0.0050,0.000625,https://fal.ai/models/fal-ai/z-image/turbo,[bt:code]; 04 listed 5 credits; logged-in UI shows 8 at the 1:1 1MP default (research/09 MISMATCH); UI value used; basis: fal $0.005/MP
+openart-sdxl,openart-sdxl:text2image,1 image,1,0.0015,0.0015,ESTIMATE: ~1-2s H100-class at $1.89-4.50/h (https://fal.ai/pricing),"[bt:observed]; ESTIMATE, not a published list price (04 flag E); basis: self-hosted GPU (estimate)"
+midjourney-v7,midjourney-v7:text2image,"fast, 4-image grid",120,,,n/a,[bt:code]; basis: no public API price
+reve-2.1,reve-2.1:text2image,1 image,130,,,n/a,[bt:code]; basis: not verified
+minimax-speech-2-8-hd,minimax-speech-2-8-hd:text2speech,"1,000 characters",40,0.1000,0.0025,https://fal.ai/models/fal-ai/minimax/speech-2.8-hd,[bt:code]; basis: fal $0.10/1K chars
+lyria-3-pro-preview,lyria-3-pro-preview:text2music,full song,50,0.0800,0.0016,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.08/song
+lyria-3-clip-preview,lyria-3-clip-preview:text2music,30 s clip,25,0.0400,0.0016,https://ai.google.dev/gemini-api/docs/pricing,[bt:code]; basis: Google $0.04
+mirelo,mirelo:generate-sfx,5 s,25,0.0350,0.0014,https://fal.ai/models/mirelo-ai/sfx-v1/video-to-audio,[bt:code]; basis: fal $0.007/s
+mmaudio,mmaudio:generate-sfx,~8 s,10,0.0080,0.0008,https://fal.ai/models/fal-ai/mmaudio-v2,[bt:code]; basis: fal $0.001/s
+kling-avatar,kling-avatar:image2video,std 10 s,150,0.5620,0.0037467,https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/standard,[bt:code]; basis: fal v2 std $0.0562/s
+kling-avatar,kling-avatar:image2video,pro 10 s,250,1.1500,0.0046,https://fal.ai/models/fal-ai/kling-video/ai-avatar/v2/pro,[bt:code]; basis: fal v2 pro $0.115/s
+kling-lipsync-v1,kling-lipsync-v1:lipSync,5 s video,20,0.0700,0.0035,https://fal.ai/models/fal-ai/kling-video/lipsync/audio-to-video,[bt:code]; basis: fal $0.014/s
+byte-plus-dreamactor-m2,byte-plus-dreamactor-m2:motion-sync,10 s,200,0.5000,0.0025,https://fal.ai/models/fal-ai/bytedance/dreamactor/v2,[bt:code]; basis: fal $0.05/s

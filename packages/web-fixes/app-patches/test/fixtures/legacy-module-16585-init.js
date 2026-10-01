@@ -1,0 +1,3 @@
+/* Extracted verbatim. (1) openart.ai___next__static__chunks__pages___app-a1820d4f2194dce7.js module 16585: legacy Amplitude init wrapper il (exported as S1), chars 2544442-2544914. io = amplitude init. */
+let il=e=>{let{userId:t,deviceId:n}=e,i=n||function(){var e,t;if("undefined"!=typeof document)return(null===(e=document.cookie.match(/(?:^|;\s*)oa_device_id=([^;]+)/))||void 0===e?void 0:e[1])??(null===(t=document.cookie.match(/(?:^|;\s*)unique_device_id=([^;]+)/))||void 0===t?void 0:t[1])}(),r="3e2fda7a5cbcc867099904a028486db4",o={...i?{deviceId:i}:{},defaultTracking:{attribution:!0,pageViews:!0,sessions:!1,formInteractions:!1,fileDownloads:!1}};t?io(r,t,o):io(r,o)};
+return il;

@@ -1,0 +1,3 @@
+/* Extracted verbatim from openart.ai/suite/_next/static/chunks/ea9b966c01d84c18.js, Turbopack module 825073: UA lists X/ee (chars 113954-114243) and the in-app-browser detector used by eb() (chars 118408-118658). */
+let X=[/linkedinapp/,/instagram/,/\bfban|\bfbav|\bfb_iab|\bfbios|\bfbdv/,/musical_ly|bytedance|bytelocale|tiktok/,/micromessenger/,/twitter/,/\bline\//,/pinterest/,/snapchat/,/reddit/,/whatsapp/,/telegram/,/slack/,/discord/,/qq\//,/weibo/,/kakaotalk/,/electron/],ee=[/;\s*wv\)/,/\bgsa\//];
+return function(){if("undefined"==typeof navigator)return!1;var e=navigator.userAgent;if(!e)return!1;let t=e.toLowerCase();return!!(X.some(e=>e.test(t))||ee.some(e=>e.test(t))||/iphone|ipad|ipod/.test(t)&&!/safari\//.test(t)&&!/crios|fxios|edgios/.test(t))};

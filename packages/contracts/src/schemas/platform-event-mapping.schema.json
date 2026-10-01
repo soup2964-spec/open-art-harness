@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/platform-event-mapping.schema.json",
+  "title": "PlatformEventMapping",
+  "description": "The canonical-event x platform table (src/platform-event-mapping.ts): which platform event a canonical event becomes, which field carries the dedup key and value, which user-data and click-id fields are sent, and what the existing browser tag already sends (browser_twin) so server events dedupe with today's pixels. Templates use {user_id}, {invoice_id}, {event_id}, {order_id}.",
+  "type": "array",
+  "items": { "$ref": "#/$defs/row" },
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_event",
+        "platform",
+        "send",
+        "delivery",
+        "status",
+        "platform_event_name",
+        "destination",
+        "action_source",
+        "dedup_key_field",
+        "dedup_key_template",
+        "value_field",
+        "currency_field",
+        "user_data_fields",
+        "click_id_fields",
+        "consent_fields",
+        "event_time_field",
+        "max_event_age_days",
+        "browser_twin",
+        "requires_web_fix",
+        "notes",
+        "sources"
+      ],
+      "properties": {
+        "canonical_event": { "$ref": "common.schema.json#/$defs/canonicalEventName" },
+        "platform": { "$ref": "common.schema.json#/$defs/platform" },
+        "send": { "type": "boolean" },
+        "delivery": { "enum": ["server_event", "server_adjustment", "none"] },
+        "status": {
+          "description": "twin_observed = the browser already sends this conversion (dedup required); server_only = no browser twin today; not_sent = deliberately not sent.",
+          "enum": ["twin_observed", "server_only", "not_sent"]
+        },
+        "platform_event_name": { "type": ["string", "null"] },
+        "destination": { "type": ["string", "null"] },
+        "action_source": { "type": ["string", "null"] },
+        "dedup_key_field": { "type": ["string", "null"] },
+        "dedup_key_template": { "type": ["string", "null"] },
+        "value_field": { "type": ["string", "null"] },
+        "currency_field": { "type": ["string", "null"] },
+        "user_data_fields": { "type": "array", "items": { "type": "string" } },
+        "click_id_fields": { "type": "array", "items": { "type": "string" } },
+        "consent_fields": { "type": "array", "items": { "type": "string" } },
+        "event_time_field": { "type": ["string", "null"] },
+        "max_event_age_days": { "type": ["integer", "null"], "minimum": 1 },
+        "browser_twin": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["event", "id_template", "id_hashed", "value_sent", "scope", "evidence"],
+              "properties": {
+                "event": { "type": "string" },
+                "id_template": { "type": ["string", "null"] },
+                "id_hashed": { "type": "boolean" },
+                "value_sent": { "type": "string" },
+                "scope": { "type": "string" },
+                "evidence": { "type": "string" }
+              }
+            }
+          ]
+        },
+        "requires_web_fix": { "type": "boolean" },
+        "notes": { "type": "string" },
+        "sources": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "send": { "const": true } } },
+          "then": {
+            "properties": {
+              "delivery": { "enum": ["server_event", "server_adjustment"] },
+              "platform_event_name": { "type": "string" },
+              "dedup_key_field": { "type": "string" },
+              "dedup_key_template": { "type": "string" }
+            }
+          },
+          "else": { "properties": { "delivery": { "const": "none" }, "status": { "const": "not_sent" } } }
+        }
+      ]
+    }
+  }
+}

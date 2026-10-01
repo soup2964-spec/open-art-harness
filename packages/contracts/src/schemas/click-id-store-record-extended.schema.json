@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/click-id-store-record-extended.schema.json",
+  "title": "ClickIdStoreRecord (extended)",
+  "description": "Backward-compatible superset of the /api/user/ad-click-ids body. Every current payload is valid here unchanged (same key names, same ms-epoch *_created_at numbers). Adds the ids OpenArt already sees but drops: gbraid/wbraid (Astro shim), rdt_cid (Reddit), twclid (X), li_fat_id (LinkedIn), oppref (OpenAI Ads), plus UTMs and landing/referrer context (research/01 T3, research/02 \u00a73.3). Value length is raised to 1,000 because TikTok documents ttclid values up to 1,000 characters (research/08 B3); the current client regex caps at 512.",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "properties": {
+    "gclid": {
+      "$ref": "#/$defs/value"
+    },
+    "gclid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "fbclid": {
+      "$ref": "#/$defs/value"
+    },
+    "fbclid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "msclkid": {
+      "$ref": "#/$defs/value"
+    },
+    "msclkid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "ttclid": {
+      "$ref": "#/$defs/value"
+    },
+    "ttclid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "gbraid": {
+      "$ref": "#/$defs/value"
+    },
+    "gbraid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "wbraid": {
+      "$ref": "#/$defs/value"
+    },
+    "wbraid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "rdt_cid": {
+      "$ref": "#/$defs/value"
+    },
+    "rdt_cid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "twclid": {
+      "$ref": "#/$defs/value"
+    },
+    "twclid_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "li_fat_id": {
+      "$ref": "#/$defs/value"
+    },
+    "li_fat_id_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "oppref": {
+      "$ref": "#/$defs/value"
+    },
+    "oppref_created_at": {
+      "$ref": "#/$defs/epochMs"
+    },
+    "utm_source": {
+      "$ref": "#/$defs/utmValue"
+    },
+    "utm_medium": {
+      "$ref": "#/$defs/utmValue"
+    },
+    "utm_campaign": {
+      "$ref": "#/$defs/utmValue"
+    },
+    "utm_term": {
+      "$ref": "#/$defs/utmValue"
+    },
+    "utm_content": {
+      "$ref": "#/$defs/utmValue"
+    },
+    "utm_id": {
+      "$ref": "#/$defs/utmValue"
+    },
+    "landing_url": {
+      "description": "First-party landing URL where the ids were captured (query string kept: Reddit and TikTok can parse ids from it).",
+      "type": "string",
+      "format": "uri",
+      "maxLength": 2048
+    },
+    "referrer": {
+      "description": "document.referrer at capture; empty string when none.",
+      "type": "string",
+      "maxLength": 2048
+    },
+    "context_captured_at": {
+      "description": "ms epoch when utm/landing/referrer were captured.",
+      "$ref": "#/$defs/epochMs"
+    }
+  },
+  "dependentRequired": {
+    "gclid": [
+      "gclid_created_at"
+    ],
+    "gclid_created_at": [
+      "gclid"
+    ],
+    "fbclid": [
+      "fbclid_created_at"
+    ],
+    "fbclid_created_at": [
+      "fbclid"
+    ],
+    "msclkid": [
+      "msclkid_created_at"
+    ],
+    "msclkid_created_at": [
+      "msclkid"
+    ],
+    "ttclid": [
+      "ttclid_created_at"
+    ],
+    "ttclid_created_at": [
+      "ttclid"
+    ],
+    "gbraid": [
+      "gbraid_created_at"
+    ],
+    "gbraid_created_at": [
+      "gbraid"
+    ],
+    "wbraid": [
+      "wbraid_created_at"
+    ],
+    "wbraid_created_at": [
+      "wbraid"
+    ],
+    "rdt_cid": [
+      "rdt_cid_created_at"
+    ],
+    "rdt_cid_created_at": [
+      "rdt_cid"
+    ],
+    "twclid": [
+      "twclid_created_at"
+    ],
+    "twclid_created_at": [
+      "twclid"
+    ],
+    "li_fat_id": [
+      "li_fat_id_created_at"
+    ],
+    "li_fat_id_created_at": [
+      "li_fat_id"
+    ],
+    "oppref": [
+      "oppref_created_at"
+    ],
+    "oppref_created_at": [
+      "oppref"
+    ],
+    "landing_url": [
+      "context_captured_at"
+    ],
+    "referrer": [
+      "context_captured_at"
+    ],
+    "utm_source": [
+      "context_captured_at"
+    ],
+    "utm_medium": [
+      "context_captured_at"
+    ],
+    "utm_campaign": [
+      "context_captured_at"
+    ],
+    "utm_term": [
+      "context_captured_at"
+    ],
+    "utm_content": [
+      "context_captured_at"
+    ],
+    "utm_id": [
+      "context_captured_at"
+    ]
+  },
+  "$defs": {
+    "value": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]{1,1000}$"
+    },
+    "epochMs": {
+      "type": "integer",
+      "minimum": 1000000000000,
+      "maximum": 99999999999999
+    },
+    "utmValue": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    }
+  }
+}

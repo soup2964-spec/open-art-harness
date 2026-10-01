@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/conversion-service/tiktok/event-track.schema.json",
+  "title": "TikTok Events API 2.0: POST https://business-api.tiktok.com/open_api/v1.3/event/track/",
+  "description": "Transcribed from business-api.tiktok.com/portal/docs ids 1771101303285761 (event/track), 1771101151059969 (parameters), 1771100965992450 (deduplication), 1771101204435970 (Limited Data Use), 1771100984456193 (test events), read 2026-09-29 through the portal's doc JSON endpoint. Header 'Access-Token' is added by the live transport.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_source", "event_source_id", "data"],
+  "properties": {
+    "event_source": { "const": "web" },
+    "event_source_id": { "description": "'When event_source is set to web, specify a Pixel Code'", "type": "string", "pattern": "^[A-Z0-9]{10,40}$" },
+    "test_event_code": { "type": "string", "minLength": 1 },
+    "data": {
+      "description": "'up to 1,000 events in one request. If a request contains more than 1,000 events, the entire request will be rejected.'",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1000,
+      "items": { "$ref": "#/$defs/Event" }
+    }
+  },
+  "$defs": {
+    "Sha256Hex": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "User": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "email": { "$ref": "#/$defs/Sha256Hex" },
+        "phone": { "$ref": "#/$defs/Sha256Hex" },
+        "external_id": { "description": "'SHA-256 hashing is required.'", "$ref": "#/$defs/Sha256Hex" },
+        "ttclid": { "description": "'can be up to 1,000 characters long'", "type": "string", "minLength": 1, "maxLength": 1000 },
+        "ttp": { "type": "string", "minLength": 1 },
+        "ip": { "type": "string", "minLength": 2 },
+        "user_agent": { "type": "string", "minLength": 1 },
+        "locale": { "type": "string" }
+      },
+      "anyOf": [{ "required": ["email"] }, { "required": ["phone"] }, { "required": ["external_id"] }]
+    },
+    "Properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "value": { "type": "number", "minimum": 0 },
+        "order_id": { "type": "string", "minLength": 1 },
+        "content_type": { "enum": ["product", "product_group"] },
+        "customer_type": { "enum": ["new", "returning"] }
+      },
+      "dependentRequired": { "value": ["currency"] }
+    },
+    "Event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event", "event_time", "user", "page"],
+      "properties": {
+        "event": { "description": "Standard (case-sensitive, e.g. CompleteRegistration, Purchase, InitiateCheckout) or custom event.", "type": "string", "minLength": 1 },
+        "event_time": { "description": "'Unix timestamp measured in seconds, and in UTC+0 time zone.'", "type": "integer", "minimum": 1000000000, "maximum": 9999999999 },
+        "event_id": { "type": "string", "minLength": 1 },
+        "user": { "$ref": "#/$defs/User" },
+        "properties": { "$ref": "#/$defs/Properties" },
+        "page": {
+          "description": "'Required for web events.'",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url"],
+          "properties": { "url": { "type": "string", "format": "uri" }, "referrer": { "type": "string" } }
+        },
+        "limited_data_use": { "type": "boolean" }
+      },
+      "allOf": [
+        {
+          "description": "'It is required to include IP address in the data sent to TikTok via the Events API to enable Limited Data Use.'",
+          "if": { "properties": { "limited_data_use": { "const": true } }, "required": ["limited_data_use"] },
+          "then": { "properties": { "user": { "required": ["ip"] } } }
+        }
+      ]
+    }
+  }
+}

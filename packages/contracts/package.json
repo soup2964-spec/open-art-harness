@@ -1,0 +1,24 @@
+{
+  "name": "@openart-signal/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Canonical contracts (JSON Schema 2020-12 + TypeScript types + zod validators), OpenArt source shapes, synthetic fixtures and a deterministic cohort generator for openart-signal.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema-registry": "./src/schema-registry.ts",
+    "./builders": "./src/builders/index.ts",
+    "./cohort": "./src/cohort/generate.ts",
+    "./cohort/params": "./src/cohort/params.ts",
+    "./schemas/*": "./src/schemas/*",
+    "./sources/*": "./src/sources/*",
+    "./fixtures/*": "./fixtures/*"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "generate:fixtures": "tsx src/fixtures/build-fixtures.ts",
+    "generate:cohort": "tsx src/cohort/cli.ts",
+    "derive:model-costs": "uv run python scripts/derive_model_costs.py"
+  }
+}

@@ -1,0 +1,11 @@
+click_id_key,platform,acquisition_channel,precedence
+gclid,google_ads,google_cpc,1
+gbraid,google_ads,google_cpc,2
+wbraid,google_ads,google_cpc,3
+fbclid,meta,meta_paid_social,1
+ttclid,tiktok,tiktok_paid_social,1
+msclkid,microsoft,microsoft_cpc,1
+rdt_cid,reddit,reddit_paid_social,1
+li_fat_id,linkedin,linkedin_paid_social,1
+twclid,x,x_paid_social,1
+oppref,openai_ads,openai_paid,1

@@ -1,0 +1,40 @@
+# ALTERNATIVE to adding a second Stripe webhook endpoint: OpenArt's EXISTING Stripe webhook handler keeps
+# doing what it does and, after verifying the event, also publishes it to Pub/Sub. A push subscription
+# delivers it to the conversion-service. Nothing is deployed here.
+#
+#   gcloud pubsub topics create stripe-events
+#   gcloud pubsub topics create stripe-events-dead-letter
+#   gcloud iam service-accounts create stripe-events-push
+#   gcloud pubsub subscriptions create stripe-events-conversion-service \
+#     --topic stripe-events --flags-file infra/conversion-service/pubsub-subscription.yaml
+#   # Dead-lettering needs the Pub/Sub service agent to publish to the DLQ and pull from this subscription:
+#   #   service-PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com
+#   #   roles/pubsub.publisher on stripe-events-dead-letter, roles/pubsub.subscriber on this subscription.
+#
+# What the existing handler publishes (see README "Pub/Sub alternative"):
+#   data        the RAW request body Stripe sent (bytes, unmodified)
+#   attributes  stripe_signature = the original Stripe-Signature header
+#               stripe_event_id, stripe_event_type (for filtering/debugging only)
+# The service re-verifies the forwarded signature with the endpoint secret (tolerance 4 days, covering
+# Stripe's 3-day retry horizon) and authenticates the push itself with the OIDC token below.
+# PUBSUB_REQUIRE_STRIPE_SIGNATURE defaults to true and live mode refuses false: without the forwarded
+# signature, anyone able to publish to the topic could inject purchases. With ingress
+# internal-and-cloud-load-balancing the push still reaches the service (Pub/Sub counts as internal).
+--push-endpoint: SERVICE_URL/pubsub/stripe
+--push-auth-service-account: stripe-events-push@PROJECT_ID.iam.gserviceaccount.com
+--push-auth-token-audience: SERVICE_URL
+--ack-deadline: 60
+--message-retention-duration: 7d
+--min-retry-delay: 10s
+--max-retry-delay: 600s
+--dead-letter-topic: stripe-events-dead-letter
+--max-delivery-attempts: 10
+# Only the event types the service maps (the handler may publish everything).
+--message-filter: >-
+  attributes.stripe_event_type = "checkout.session.completed" OR
+  attributes.stripe_event_type = "invoice.paid" OR
+  attributes.stripe_event_type = "invoice_payment.paid" OR
+  attributes.stripe_event_type = "customer.subscription.updated" OR
+  attributes.stripe_event_type = "customer.subscription.deleted" OR
+  attributes.stripe_event_type = "charge.refunded" OR
+  attributes.stripe_event_type = "charge.dispute.created"

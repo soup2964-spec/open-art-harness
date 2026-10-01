@@ -1,0 +1,286 @@
+{
+  "success": true,
+  "entries": [
+    {
+      "id": "019fc895-4a98-7168-9f21-e48601aee010",
+      "sequenceId": 0,
+      "type": "SUBSCRIPTION_ADJUSTMENT",
+      "amount": 175,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 3825,
+      "balanceAfter": 4000,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "subscription-refill",
+        "businessId": "in_1SynthU01Inv0003Cycle"
+      },
+      "idempotencyKey": "subscription-refill:SUBSCRIPTION_ADJUSTMENT:in_1SynthU01Inv0003Cycle",
+      "createdAt": "2026-08-03T17:04:15.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "reason": "Subscription Refill"
+    },
+    {
+      "id": "019f4b41-5280-7650-8e04-fabad3e4edf6",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -175,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 4000,
+      "balanceAfter": 3825,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "kling-v3:text2video",
+        "businessId": "SynthHistU01Gen00007"
+      },
+      "idempotencyKey": "kling-v3:text2video:REDUCE:SynthHistU01Gen00007",
+      "createdAt": "2026-07-10T09:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 175,
+          "subBusinessType": "kling-v3:text2video"
+        }
+      ]
+    },
+    {
+      "id": "019f28f0-2698-7465-853b-4e0f34e68739",
+      "sequenceId": 0,
+      "type": "SUBSCRIPTION_ADJUSTMENT",
+      "amount": 640,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 3360,
+      "balanceAfter": 4000,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "subscription-refill",
+        "businessId": "in_1SynthU01Inv0002Cycle"
+      },
+      "idempotencyKey": "subscription-refill:SUBSCRIPTION_ADJUSTMENT:in_1SynthU01Inv0002Cycle",
+      "createdAt": "2026-07-03T17:04:15.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "reason": "Subscription Refill"
+    },
+    {
+      "id": "019ea788-7b00-717d-866b-faeb87766007",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -20,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 3380,
+      "balanceAfter": 3360,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "nano-banana-2:text2image",
+        "businessId": "SynthHistU01Gen00006"
+      },
+      "idempotencyKey": "nano-banana-2:text2image:REDUCE:SynthHistU01Gen00006",
+      "createdAt": "2026-06-08T14:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 20,
+          "subBusinessType": "nano-banana-2:text2image"
+        }
+      ]
+    },
+    {
+      "id": "019ea22b-3080-7e96-b966-f6c043da8871",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -200,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 3580,
+      "balanceAfter": 3380,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "wan3-0:text2video",
+        "businessId": "SynthHistU01Gen00005"
+      },
+      "idempotencyKey": "wan3-0:text2video:REDUCE:SynthHistU01Gen00005",
+      "createdAt": "2026-06-07T13:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 200,
+          "subBusinessType": "wan3-0:text2video"
+        }
+      ]
+    },
+    {
+      "id": "019e9ccf-bac0-7d3d-b83d-94248a1ccb81",
+      "sequenceId": 0,
+      "type": "REFUND",
+      "amount": 650,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 2930,
+      "balanceAfter": 3580,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "byte-plus-seedance-2-5:text2video",
+        "businessId": "SynthHistU01Gen00004"
+      },
+      "idempotencyKey": "byte-plus-seedance-2-5:text2video:REFUND:SynthHistU01Gen00004",
+      "createdAt": "2026-06-06T12:02:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "reason": "Generation failed"
+    },
+    {
+      "id": "019e9ccd-e600-7f61-af91-2345539a96d3",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -650,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 3580,
+      "balanceAfter": 2930,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "byte-plus-seedance-2-5:text2video",
+        "businessId": "SynthHistU01Gen00004"
+      },
+      "idempotencyKey": "byte-plus-seedance-2-5:text2video:REDUCE:SynthHistU01Gen00004",
+      "createdAt": "2026-06-06T12:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 650,
+          "subBusinessType": "byte-plus-seedance-2-5:text2video"
+        }
+      ]
+    },
+    {
+      "id": "019e9770-9b80-7f3b-8ad0-5af780ce6d20",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -20,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 3600,
+      "balanceAfter": 3580,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "gpt-image-2-5-flare:text2image",
+        "businessId": "SynthHistU01Gen00003"
+      },
+      "idempotencyKey": "gpt-image-2-5-flare:text2image:REDUCE:SynthHistU01Gen00003",
+      "createdAt": "2026-06-05T11:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 4,
+          "unitCredits": 5,
+          "subBusinessType": "gpt-image-2-5-flare:text2image"
+        }
+      ]
+    },
+    {
+      "id": "019e9213-5100-77ac-8579-69064cabeac4",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -400,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 4000,
+      "balanceAfter": 3600,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "byte-plus-seedance-2:text2video",
+        "businessId": "SynthHistU01Gen00002"
+      },
+      "idempotencyKey": "byte-plus-seedance-2:text2video:REDUCE:SynthHistU01Gen00002",
+      "createdAt": "2026-06-04T10:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 400,
+          "subBusinessType": "byte-plus-seedance-2:text2video"
+        }
+      ]
+    },
+    {
+      "id": "019e8e71-5e98-7e9e-b2fc-2adc5f6b023e",
+      "sequenceId": 0,
+      "type": "SUBSCRIPTION_ADJUSTMENT",
+      "amount": 4000,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 0,
+      "balanceAfter": 4000,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "subscription-refill",
+        "businessId": "in_1SynthU01Inv0001First"
+      },
+      "idempotencyKey": "subscription-refill:SUBSCRIPTION_ADJUSTMENT:in_1SynthU01Inv0001First",
+      "createdAt": "2026-06-03T17:04:15.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "reason": "Subscription Refill"
+    },
+    {
+      "id": "019e88e2-6940-77ee-b613-17bd0bb926cb",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -40,
+      "creditField": "trial_credit_balance",
+      "balanceBefore": 40,
+      "balanceAfter": 0,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "nano-banana-pro:text2image",
+        "businessId": "SynthHistU01Gen00001"
+      },
+      "idempotencyKey": "nano-banana-pro:text2image:REDUCE:SynthHistU01Gen00001",
+      "createdAt": "2026-06-02T15:10:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU01Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 40,
+          "subBusinessType": "nano-banana-pro:text2image"
+        }
+      ]
+    },
+    {
+      "id": "019e88d9-4180-7056-9ea7-51a8c24a0503",
+      "sequenceId": 0,
+      "type": "ADD",
+      "amount": 40,
+      "creditField": "trial_credit_balance",
+      "balanceBefore": 0,
+      "balanceAfter": 40,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "USER_SIGNUP_TRIAL",
+        "businessId": "SynthU01StarterMonA1"
+      },
+      "idempotencyKey": "USER_SIGNUP_TRIAL:ADD:SynthU01StarterMonA1",
+      "createdAt": "2026-06-02T15:00:00.000Z",
+      "userId": "SynthU01StarterMonA1",
+      "reason": "New user trial grant"
+    }
+  ],
+  "hasMore": false,
+  "_synthetic_note": "SYNTHETIC. businessType values other than USER_SIGNUP_TRIAL and openart-sdxl:text2image are INFERRED from capability ids in shipped code; subscription-refill is an INFERRED name for SUBSCRIPTION_ADJUSTMENT \"Subscription Refill\" rows."
+}

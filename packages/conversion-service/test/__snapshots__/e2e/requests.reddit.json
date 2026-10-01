@@ -1,0 +1,261 @@
+[
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1782388800000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "CUSTOM",
+              "custom_event_name": "purchase_add_on"
+            },
+            "event_source_url": "https://openart.ai/suite/subscriptions",
+            "metadata": {
+              "conversion_id": "6b21a8a994c34d4ff0c437a03f6b4aaf5ca403c45ddbc2a489bed2a87b4eba98",
+              "order_id": "sub_in_1SynthU03Inv0002AddOn",
+              "currency": "USD",
+              "value": 10
+            },
+            "user": {
+              "email": "f1870fa5f0187c0c89cefb448f20348307c2e654d0809d4bca078b5b8b0791da",
+              "external_id": "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff",
+              "ip_address": "203.0.113.3",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1782900300000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "CUSTOM",
+              "custom_event_name": "activation_first_generation"
+            },
+            "event_source_url": "https://openart.ai/suite",
+            "metadata": {
+              "conversion_id": "5fb6f56bbccaec90e7af54389b824627265e84aa7295a08c8ccff5e7b075631d"
+            },
+            "user": {
+              "email": "6d9f0a004be0d6e8b9129df404b6e75af364aacafffc904bbe85780aa22ed3b6",
+              "external_id": "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3",
+              "ip_address": "203.0.113.5",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1783098251000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "CUSTOM",
+              "custom_event_name": "purchase_renewal"
+            },
+            "event_source_url": "https://openart.ai/suite/subscriptions",
+            "metadata": {
+              "conversion_id": "aa0b4a805c4df51d414c49e55e608d6c73326ad4757999a818d72f2185c71c47",
+              "order_id": "sub_in_1SynthU01Inv0002Cycle",
+              "currency": "USD",
+              "value": 14
+            },
+            "user": {
+              "email": "486409d40a96f15f35dacf9a4143574cc0fd7cdbefa24777f3f04b818c55a535",
+              "external_id": "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd",
+              "ip_address": "203.0.113.1",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1783245600000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "CUSTOM",
+              "custom_event_name": "purchase_one_time_pack"
+            },
+            "event_source_url": "https://openart.ai/suite/subscriptions",
+            "metadata": {
+              "conversion_id": "06ccb9ee9dab834f5fe694661c5cf8383b522b3da8093667db2e7d0e53ce3a46",
+              "order_id": "sub_cs_live_a1SynthU05Pack00000001",
+              "currency": "USD",
+              "value": 0.01
+            },
+            "user": {
+              "email": "6d9f0a004be0d6e8b9129df404b6e75af364aacafffc904bbe85780aa22ed3b6",
+              "external_id": "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3",
+              "ip_address": "203.0.113.5",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1783252800000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "CUSTOM",
+              "custom_event_name": "purchase_upgrade"
+            },
+            "event_source_url": "https://openart.ai/suite/subscriptions",
+            "metadata": {
+              "conversion_id": "2e58f94234c40499215eb76efaaf8afd2d5a80a567fe6e409cffbaf7c073673a",
+              "order_id": "sub_in_1SynthU03Inv0003Upgrade",
+              "currency": "USD",
+              "value": 7.34
+            },
+            "user": {
+              "email": "f1870fa5f0187c0c89cefb448f20348307c2e654d0809d4bca078b5b8b0791da",
+              "external_id": "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff",
+              "ip_address": "203.0.113.3",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1785776651000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "CUSTOM",
+              "custom_event_name": "purchase_renewal"
+            },
+            "event_source_url": "https://openart.ai/suite/subscriptions",
+            "metadata": {
+              "conversion_id": "eab2f2e18a419e15bd98788ecb4c484a1356b7240f40218fef5ed470eaf5f89a",
+              "order_id": "sub_in_1SynthU01Inv0003Cycle",
+              "currency": "USD",
+              "value": 14
+            },
+            "user": {
+              "email": "486409d40a96f15f35dacf9a4143574cc0fd7cdbefa24777f3f04b818c55a535",
+              "external_id": "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd",
+              "ip_address": "203.0.113.1",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "phase": "C",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.reddit.com/api/v3/pixels/a2_j6xo78gpljnf/conversion_events",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "server:openart-signal-conversion-service:0.1.0"
+    },
+    "auth": "reddit_bearer",
+    "body": {
+      "data": {
+        "events": [
+          {
+            "event_at": 1790337600000,
+            "action_source": "WEBSITE",
+            "type": {
+              "tracking_type": "SIGN_UP"
+            },
+            "event_source_url": "https://openart.ai/",
+            "metadata": {
+              "conversion_id": "9ea67948b25a569aa177a0330cb55950c349b5428216e3e5487a0fe3a26003dd"
+            },
+            "user": {
+              "email": "4bf9d9153d35411805d2e7c193438d80cec289d78b064f85915f53fa0969a722",
+              "external_id": "66ad45d89313b3adad3e86c41dd54d1408aebe816422fd28c3ee1b98e52e71cd",
+              "ip_address": "203.0.113.6",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          }
+        ]
+      }
+    }
+  }
+]

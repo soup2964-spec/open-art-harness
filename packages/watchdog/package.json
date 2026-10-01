@@ -1,0 +1,13 @@
+{
+  "name": "@openart-signal/watchdog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Daily conversion-contract + click-ID + consent + container watchdog for OpenArt's existing tag stack (GTM-56CMP8K, Google tag gateway /4vu8/, Meta CAPIG). Every collection request is failed locally; nothing is ever delivered.",
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "watchdog": "tsx src/cli.ts",
+    "build:fixtures": "tsx scripts/build-fixtures.ts"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@openart-signal/conversion-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloud Run service: Stripe webhooks + internal app events -> one canonical ConversionLedgerEvent per event -> per-platform outbox (Google Data Manager, Meta CAPI, TikTok, Reddit, LinkedIn, X, Microsoft UET) reusing the browser tags' dedup ids. Every sender is dry-run by default.",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "esbuild src/main.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/server.mjs --external:@google-cloud/bigquery --external:google-auth-library --external:stripe --legal-comments=none \"--banner:js=import { createRequire as __cr } from 'node:module'; const require = __cr(import.meta.url);\"",
+    "start": "node dist/server.mjs",
+    "dev": "tsx src/main.ts",
+    "dry-run:fixtures": "tsx scripts/dry-run-fixtures.ts",
+    "value-health": "tsx scripts/value-health.ts"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules/
+.wrangler/
+dist/
+coverage/
+*.duckdb
+*.duckdb.wal
+packages/warehouse/target/
+packages/warehouse/dbt_packages/
+packages/warehouse/logs/
+packages/watchdog/.profiles/
+packages/watchdog/reports/**/raw/
+# dry-run / sync outputs can contain hashed identifiers, uids and values — never commit
+packages/*/out/
+packages/*/snapshots/
+.env
+.env.*

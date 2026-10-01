@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/conversion-service/google/ingest-events.schema.json",
+  "title": "Google Data Manager API: IngestEventsRequest (POST https://datamanager.googleapis.com/v1/events:ingest)",
+  "description": "Transcribed from https://developers.google.com/data-manager/api/reference/rest/v1/events/ingest and the Google Ads online/offline send-events and conversion-adjustments guides (all fetched 2026-09-29, 'Last updated 2026-09-24'). Field names, enums and limits are verbatim. Stricter than the API where openart-signal is stricter: every event carries a transactionId ('Required for events sent as an additional data source for tag conversions'), eventSource is WEB when set (online multi-source: 'If set, must be WEB'), and only Google Ads destinations are allowed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["destinations", "events", "encoding"],
+  "properties": {
+    "destinations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/Destination" }
+    },
+    "events": {
+      "description": "'At most 2000 Event resources can be sent in a single request.'",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2000,
+      "items": { "$ref": "#/$defs/Event" }
+    },
+    "consent": { "$ref": "#/$defs/Consent" },
+    "validateOnly": { "type": "boolean" },
+    "encoding": {
+      "description": "'Must be provided for UserData uploads.' openart-signal hashes to hex.",
+      "enum": ["HEX", "BASE64"]
+    }
+  },
+  "$defs": {
+    "ProductAccount": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accountType", "accountId"],
+      "properties": {
+        "accountType": {
+          "enum": ["GOOGLE_ADS", "DISPLAY_VIDEO_PARTNER", "DISPLAY_VIDEO_ADVERTISER", "DATA_PARTNER", "GOOGLE_ANALYTICS_PROPERTY", "GOOGLE_AD_MANAGER_AUDIENCE_LINK", "FLOODLIGHT_CONFIG", "GOOGLE_AD_MANAGER"]
+        },
+        "accountId": { "type": "string", "pattern": "^[0-9]{1,20}$" }
+      }
+    },
+    "Destination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operatingAccount", "productDestinationId"],
+      "properties": {
+        "reference": { "type": "string", "minLength": 1 },
+        "loginAccount": { "$ref": "#/$defs/ProductAccount" },
+        "linkedAccount": { "$ref": "#/$defs/ProductAccount" },
+        "operatingAccount": {
+          "description": "'Set accountType to GOOGLE_ADS and accountId to your 10-digit Google Ads customer ID (without hyphens).'",
+          "allOf": [
+            { "$ref": "#/$defs/ProductAccount" },
+            { "properties": { "accountType": { "const": "GOOGLE_ADS" }, "accountId": { "pattern": "^[0-9]{10}$" } } }
+          ]
+        },
+        "productDestinationId": {
+          "description": "'the numeric ID of the conversion action. Don't use the resource name'",
+          "type": "string",
+          "pattern": "^[0-9]{1,20}$"
+        }
+      }
+    },
+    "ConsentStatus": { "enum": ["CONSENT_STATUS_UNSPECIFIED", "CONSENT_GRANTED", "CONSENT_DENIED"] },
+    "Consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "adUserData": { "$ref": "#/$defs/ConsentStatus" },
+        "adPersonalization": { "$ref": "#/$defs/ConsentStatus" }
+      }
+    },
+    "HexSha256": { "type": "string", "pattern": "^[0-9a-fA-F]{64}$" },
+    "AddressInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["givenName", "familyName", "regionCode", "postalCode"],
+      "properties": {
+        "givenName": { "$ref": "#/$defs/HexSha256" },
+        "familyName": { "$ref": "#/$defs/HexSha256" },
+        "regionCode": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "postalCode": { "type": "string", "minLength": 1 },
+        "addressLine": { "type": "string" },
+        "city": { "type": "string" },
+        "administrativeArea": { "type": "string" }
+      }
+    },
+    "UserIdentifier": {
+      "description": "'Exactly one must be specified' of emailAddress, phoneNumber, address.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "emailAddress": { "$ref": "#/$defs/HexSha256" },
+        "phoneNumber": { "$ref": "#/$defs/HexSha256" },
+        "address": { "$ref": "#/$defs/AddressInfo" }
+      }
+    },
+    "UserData": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["userIdentifiers"],
+      "properties": {
+        "userIdentifiers": { "type": "array", "minItems": 1, "maxItems": 10, "items": { "$ref": "#/$defs/UserIdentifier" } }
+      }
+    },
+    "DeviceInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "userAgent": { "type": "string", "minLength": 1 },
+        "ipAddress": { "type": "string", "minLength": 2 },
+        "category": { "type": "string" },
+        "languageCode": { "type": "string" },
+        "screenHeight": { "type": "integer" },
+        "screenWidth": { "type": "integer" },
+        "operatingSystem": { "type": "string" },
+        "operatingSystemVersion": { "type": "string" },
+        "model": { "type": "string" },
+        "brand": { "type": "string" },
+        "browser": { "type": "string" },
+        "browserVersion": { "type": "string" }
+      }
+    },
+    "AdIdentifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "sessionAttributes": { "type": "string", "minLength": 1 },
+        "gclid": { "type": "string", "minLength": 1 },
+        "gbraid": { "type": "string", "minLength": 1 },
+        "wbraid": { "type": "string", "minLength": 1 },
+        "landingPageDeviceInfo": { "$ref": "#/$defs/DeviceInfo" }
+      }
+    },
+    "UserProperties": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "customerType": { "enum": ["NEW", "RETURNING", "REENGAGED"] },
+        "customerValueBucket": { "enum": ["LOW", "MEDIUM", "HIGH"] }
+      }
+    },
+    "Event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eventTimestamp", "transactionId"],
+      "properties": {
+        "destinationReferences": { "type": "array", "items": { "type": "string" } },
+        "transactionId": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "eventTimestamp": {
+          "description": "RFC 3339 ('Offsets other than \"Z\" are also accepted').",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdatedTimestamp": { "type": "string", "format": "date-time" },
+        "userData": { "$ref": "#/$defs/UserData" },
+        "consent": { "$ref": "#/$defs/Consent" },
+        "adIdentifiers": { "$ref": "#/$defs/AdIdentifiers" },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "conversionValue": { "description": "'Set to the currency value, not the value in micros'", "type": "number", "minimum": 0 },
+        "eventSource": { "const": "WEB" },
+        "eventDeviceInfo": { "$ref": "#/$defs/DeviceInfo" },
+        "userProperties": { "$ref": "#/$defs/UserProperties" }
+      },
+      "dependentRequired": { "conversionValue": ["currency"] },
+      "anyOf": [
+        {
+          "description": "'You must set at least one of the following: adIdentifiers (gclid, gbraid or wbraid, landingPageDeviceInfo.ipAddress, session attributes), userData, eventDeviceInfo.ipAddress'",
+          "required": ["adIdentifiers"],
+          "properties": {
+            "adIdentifiers": {
+              "anyOf": [
+                { "required": ["gclid"] },
+                { "required": ["gbraid"] },
+                { "required": ["wbraid"] },
+                { "required": ["sessionAttributes"] },
+                { "required": ["landingPageDeviceInfo"], "properties": { "landingPageDeviceInfo": { "required": ["ipAddress"] } } }
+              ]
+            }
+          }
+        },
+        { "required": ["userData"] },
+        { "required": ["eventDeviceInfo"], "properties": { "eventDeviceInfo": { "required": ["ipAddress"] } } }
+      ]
+    }
+  }
+}

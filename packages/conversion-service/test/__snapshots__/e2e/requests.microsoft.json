@@ -1,0 +1,350 @@
+[
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "sub_in_1SynthU03Inv0002AddOn",
+          "eventName": "purchase_add_on",
+          "eventTime": 1782388800,
+          "eventSourceUrl": "https://openart.ai/suite/subscriptions",
+          "userData": {
+            "em": "f1870fa5f0187c0c89cefb448f20348307c2e654d0809d4bca078b5b8b0791da",
+            "externalId": "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff",
+            "clientIpAddress": "203.0.113.3",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "customData": {
+            "value": 10,
+            "currency": "USD",
+            "transactionId": "sub_in_1SynthU03Inv0002AddOn"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "reg_SynthU05FreeTrialE5x",
+          "eventName": "signup",
+          "eventTime": 1782900000,
+          "eventSourceUrl": "https://openart.ai/",
+          "userData": {
+            "em": "6d9f0a004be0d6e8b9129df404b6e75af364aacafffc904bbe85780aa22ed3b6",
+            "externalId": "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3",
+            "clientIpAddress": "203.0.113.5",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "sub_in_1SynthU01Inv0002Cycle",
+          "eventName": "purchase_renewal",
+          "eventTime": 1783098251,
+          "eventSourceUrl": "https://openart.ai/suite/subscriptions",
+          "userData": {
+            "em": "486409d40a96f15f35dacf9a4143574cc0fd7cdbefa24777f3f04b818c55a535",
+            "externalId": "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd",
+            "clientIpAddress": "203.0.113.1",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "customData": {
+            "value": 14,
+            "currency": "USD",
+            "transactionId": "sub_in_1SynthU01Inv0002Cycle"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "sub_cs_live_a1SynthU05Pack00000001",
+          "eventName": "purchase_one_time_pack",
+          "eventTime": 1783245600,
+          "eventSourceUrl": "https://openart.ai/suite/subscriptions",
+          "userData": {
+            "em": "6d9f0a004be0d6e8b9129df404b6e75af364aacafffc904bbe85780aa22ed3b6",
+            "externalId": "49240a4a175625430df2e71584549d1327de6a11c7dc5f50da4ba3b6e9f8ccd3",
+            "clientIpAddress": "203.0.113.5",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "customData": {
+            "value": 0.01,
+            "currency": "USD",
+            "transactionId": "sub_cs_live_a1SynthU05Pack00000001"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "sub_in_1SynthU03Inv0003Upgrade",
+          "eventName": "purchase_upgrade",
+          "eventTime": 1783252800,
+          "eventSourceUrl": "https://openart.ai/suite/subscriptions",
+          "userData": {
+            "em": "f1870fa5f0187c0c89cefb448f20348307c2e654d0809d4bca078b5b8b0791da",
+            "externalId": "d6d9a11a47f2caf41447beb8b2d498f5df82206f8c7bb4ff68578c9ebd7f64ff",
+            "clientIpAddress": "203.0.113.3",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "customData": {
+            "value": 7.34,
+            "currency": "USD",
+            "transactionId": "sub_in_1SynthU03Inv0003Upgrade"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "ADJUST",
+    "method": "POST",
+    "url": "https://campaign.api.bingads.microsoft.com/CampaignManagement/v13/OnlineConversionAdjustments/Apply",
+    "headers": {
+      "Content-Type": "application/json",
+      "CustomerId": "100000001",
+      "CustomerAccountId": "100000002"
+    },
+    "auth": "microsoft_ads_api",
+    "body": {
+      "OnlineConversionAdjustments": [
+        {
+          "AdjustmentType": "Retract",
+          "AdjustmentTime": "2026-08-02T10:00:00.000Z",
+          "ConversionName": "purchase",
+          "TransactionId": "sub_in_1SynthU04Inv0001First"
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "sub_in_1SynthU01Inv0003Cycle",
+          "eventName": "purchase_renewal",
+          "eventTime": 1785776651,
+          "eventSourceUrl": "https://openart.ai/suite/subscriptions",
+          "userData": {
+            "em": "486409d40a96f15f35dacf9a4143574cc0fd7cdbefa24777f3f04b818c55a535",
+            "externalId": "de8d191807593b6517c1a533ffa1c9be63a6ab64ed071af29266bc13a97583dd",
+            "clientIpAddress": "203.0.113.1",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          },
+          "customData": {
+            "value": 14,
+            "currency": "USD",
+            "transactionId": "sub_in_1SynthU01Inv0003Cycle"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "ADJUST",
+    "method": "POST",
+    "url": "https://campaign.api.bingads.microsoft.com/CampaignManagement/v13/OnlineConversionAdjustments/Apply",
+    "headers": {
+      "Content-Type": "application/json",
+      "CustomerId": "100000001",
+      "CustomerAccountId": "100000002"
+    },
+    "auth": "microsoft_ads_api",
+    "body": {
+      "OnlineConversionAdjustments": [
+        {
+          "AdjustmentType": "Retract",
+          "AdjustmentTime": "2026-08-05T09:12:40.000Z",
+          "ConversionName": "purchase_renewal",
+          "TransactionId": "sub_in_1SynthU01Inv0003Cycle"
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "lead_6f1d2c3b-0000-4000-8000-00000000a001",
+          "eventName": "enterprise_lead",
+          "eventTime": 1789748400,
+          "eventSourceUrl": "https://openart.ai/enterprise",
+          "userData": {
+            "em": "5326353503b9e5c1ab938025f0969870c0656b465295250f51a251483351506b",
+            "clientIpAddress": "203.0.113.21",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "lead_6f1d2c3b-0000-4000-8000-00000000a002",
+          "eventName": "enterprise_lead",
+          "eventTime": 1789897500,
+          "eventSourceUrl": "https://openart.ai/enterprise",
+          "userData": {
+            "em": "e4933506c9a060c4eade1e5368f6cf85c4782bf49876c42b3c081321f4eacd19",
+            "clientIpAddress": "203.0.113.22",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "reg_SynthU09FranceGranted",
+          "eventName": "signup",
+          "eventTime": 1790273400,
+          "eventSourceUrl": "https://openart.ai/",
+          "adStorageConsent": "G",
+          "userData": {
+            "em": "ea90d26f5b891bdc86dd6f8e54034fa58e6affab6fc2ca0f42407986da2c4ca1",
+            "externalId": "3c8c4e57cb145848cabf12170fd2af5fd0f88b5235fcbba0cbef9b2116f9724c",
+            "clientIpAddress": "203.0.113.9",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  },
+  {
+    "phase": "B",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://capi.uet.microsoft.com/v1/187107444/events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "microsoft_uet_bearer",
+    "body": {
+      "data": [
+        {
+          "eventType": "custom",
+          "eventId": "reg_SynthU06GmailSignupF6",
+          "eventName": "signup",
+          "eventTime": 1790337600,
+          "eventSourceUrl": "https://openart.ai/",
+          "userData": {
+            "em": "4bf9d9153d35411805d2e7c193438d80cec289d78b064f85915f53fa0969a722",
+            "externalId": "66ad45d89313b3adad3e86c41dd54d1408aebe816422fd28c3ee1b98e52e71cd",
+            "clientIpAddress": "203.0.113.6",
+            "clientUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+          }
+        }
+      ],
+      "continueOnValidationError": false
+    }
+  }
+]

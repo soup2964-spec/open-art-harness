@@ -1,0 +1,3 @@
+# The root .gitignore ignores every dist/. These bundles are deliverables (pasted into OpenArt's
+# pages and injected by the watchdog), so keep them tracked. Rebuild with `npm run build`.
+!dist/

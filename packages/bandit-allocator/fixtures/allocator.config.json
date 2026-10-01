@@ -1,0 +1,80 @@
+{
+  "_comment": "Allocator configuration. Guardrail values are sensible defaults, not tuned on OpenArt data. MDE and tau are in reward units (USD per exposed user for the profit rewards; set them in rate units, e.g. 0.01, for reward=conversion). Resets: add {date, flagKey|null, reason} when a default model or a promo changes; earlier exposure days are then ignored. The `country` LaunchDarkly context attribute in ruleTargets is an ASSUMPTION: if the Suite's LaunchDarkly context has no country attribute, delete ruleTargets and the allocator runs fallthrough-only (one global allocation), still with no app change.",
+  "projectKey": "default",
+  "environmentKey": "production",
+  "reward": "decomposed_profit",
+  "lookbackDays": 56,
+  "halfLifeDays": 14,
+  "sequentialWindowDays": 365,
+  "seed": "openart-signal/bandit-allocator/v1",
+  "prior": { "meanPseudoCount": 1, "variancePseudoCount": 2 },
+  "shrinkageStrength": 50,
+  "rewardModel": { "valuePerConversionUsd": null, "cuped": false },
+  "guardrails": {
+    "minExplorationShare": 0.05,
+    "warmStartShare": 0.1,
+    "maxDailyChange": 0.1,
+    "minSamplesPerArm": 300,
+    "minimumDetectableEffect": 2,
+    "mdeAlpha": 0.05,
+    "power": 0.8,
+    "minExpectedLossToMove": 0.02,
+    "minChangeToPatch": 0.005,
+    "thompsonDraws": 20000,
+    "stopLoss": { "enabled": true, "alpha": 0.05, "tau": 2, "control": { "kind": "holdout_mean" }, "minControlSamples": 500, "minArmSamples": 300 }
+  },
+  "guardrailMetrics": {
+    "enabled": true,
+    "requireData": true,
+    "alpha": 0.05,
+    "activationMargin": 0.05,
+    "refundMargin": 0.02,
+    "failedGenerationMargin": 0.01,
+    "minTreatmentN": 200,
+    "minControlN": 200
+  },
+  "srm": { "alpha": 0.001, "minHoldoutUsers": 100, "minTargetUsers": 100, "holdoutKeyAlphabet": "base62", "expectedHoldoutShare": null },
+  "coverage": { "maxSpread": 0.05, "minAgeDays": 3, "minExposed": 200 },
+  "resets": [],
+  "approvals": { "mode": "approval", "notifyMemberIds": [], "notifyTeamKeys": ["growth-data"] },
+  "flags": [
+    {
+      "flagKey": "suite-default-model-create-image",
+      "arms": ["nano-banana-pro", "gpt-image-2-5", "nano-banana-2", "gpt-image-2"],
+      "rolloutContextKind": "user",
+      "rolloutBucketBy": "key",
+      "holdout": { "clause": { "contextKind": "user", "attribute": "key", "op": "matches", "values": ["[0-5]$"], "negate": false } },
+      "ruleTargets": [
+        {
+          "name": "us",
+          "match": { "country_bucket": ["us"] },
+          "clauses": [{ "contextKind": "user", "attribute": "country", "op": "in", "values": ["US"], "negate": false }]
+        },
+        {
+          "name": "tier1",
+          "match": { "country_bucket": ["tier1"] },
+          "clauses": [{ "contextKind": "user", "attribute": "country", "op": "in", "values": ["CA", "GB", "IE", "DE", "FR", "NL", "BE", "LU", "AT", "CH", "SE", "NO", "DK", "FI", "IS", "IT", "ES", "AU", "NZ", "JP", "KR", "SG", "IL", "AE"], "negate": false }]
+        }
+      ]
+    },
+    {
+      "flagKey": "suite-default-model-create-video",
+      "arms": ["byte-plus-seedance-2", "byte-plus-seedance-2-5", "wan3-0"],
+      "rolloutContextKind": "user",
+      "rolloutBucketBy": "key",
+      "holdout": { "clause": { "contextKind": "user", "attribute": "key", "op": "matches", "values": ["[0-5]$"], "negate": false } },
+      "ruleTargets": [
+        {
+          "name": "us",
+          "match": { "country_bucket": ["us"] },
+          "clauses": [{ "contextKind": "user", "attribute": "country", "op": "in", "values": ["US"], "negate": false }]
+        },
+        {
+          "name": "tier1",
+          "match": { "country_bucket": ["tier1"] },
+          "clauses": [{ "contextKind": "user", "attribute": "country", "op": "in", "values": ["CA", "GB", "IE", "DE", "FR", "NL", "BE", "LU", "AT", "CH", "SE", "NO", "DK", "FI", "IS", "IT", "ES", "AU", "NZ", "JP", "KR", "SG", "IL", "AE"], "negate": false }]
+        }
+      ]
+    }
+  ]
+}

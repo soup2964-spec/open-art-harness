@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/predicted-profit.schema.json",
+  "title": "PredictedProfit",
+  "description": "One row of fct_predicted_profit_24h: a user's predicted 90-day contribution profit, scored from the first 24 hours of behaviour. Estimand: unconditional E[90d profit per exposed user] (payers and non-payers alike). Use it for experiment and bandit readouts, never as an ad conversion value; ad values come from purchase-value-score.schema.json. All money fields are USD in major units. Identity (enforced by validators.ts within 0.01): predicted_profit = predicted_revenue - predicted_generation_cost - predicted_fees - predicted_refund_risk.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "user_id",
+    "computed_at",
+    "horizon_days",
+    "feature_window_hours",
+    "currency",
+    "predicted_revenue",
+    "predicted_generation_cost",
+    "predicted_fees",
+    "predicted_refund_risk",
+    "refund_probability",
+    "predicted_profit",
+    "model_version",
+    "features"
+  ],
+  "properties": {
+    "user_id": {
+      "$ref": "common.schema.json#/$defs/userId"
+    },
+    "computed_at": {
+      "$ref": "common.schema.json#/$defs/utcTimestamp"
+    },
+    "horizon_days": {
+      "const": 90
+    },
+    "feature_window_hours": {
+      "const": 24
+    },
+    "currency": {
+      "const": "USD"
+    },
+    "predicted_revenue": {
+      "type": "number",
+      "minimum": 0
+    },
+    "predicted_generation_cost": {
+      "description": "Vendor list cost of predicted credit burn (seed: fixtures/seeds/model_costs.csv).",
+      "type": "number",
+      "minimum": 0
+    },
+    "predicted_fees": {
+      "description": "Payment processing and affiliate fees.",
+      "type": "number",
+      "minimum": 0
+    },
+    "predicted_refund_risk": {
+      "description": "Expected refund + chargeback loss in USD (not a probability).",
+      "type": "number",
+      "minimum": 0
+    },
+    "refund_probability": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "predicted_profit": {
+      "type": "number"
+    },
+    "model_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "features": {
+      "description": "Feature snapshot used for the score (flat scalars). Recommended keys are listed in types.ts FeatureSnapshot.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string",
+          "boolean",
+          "null"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+[
+  { "name": "run_id", "type": "STRING", "mode": "REQUIRED" },
+  { "name": "started_at", "type": "TIMESTAMP", "mode": "REQUIRED" },
+  { "name": "finished_at", "type": "TIMESTAMP", "mode": "NULLABLE" },
+  { "name": "target", "type": "STRING", "mode": "REQUIRED", "description": "live | patched" },
+  { "name": "pass", "type": "INTEGER", "mode": "REQUIRED" },
+  { "name": "fail", "type": "INTEGER", "mode": "REQUIRED" },
+  { "name": "error", "type": "INTEGER", "mode": "REQUIRED" },
+  { "name": "skip", "type": "INTEGER", "mode": "REQUIRED" },
+  { "name": "zero_leak", "type": "STRING", "mode": "REQUIRED", "description": "PROVEN | FAILED" },
+  { "name": "container_changed", "type": "BOOLEAN", "mode": "REQUIRED" },
+  { "name": "container_state", "type": "STRING", "mode": "NULLABLE", "description": "UNCHANGED | CHANGED | UNAVAILABLE (fail-closed: UNAVAILABLE also sets container_changed)" },
+  { "name": "run_errors", "type": "INTEGER", "mode": "NULLABLE", "description": "errors the run recorded (budget reached, journey crashed, ...)" },
+  { "name": "first_party_unlisted", "type": "INTEGER", "mode": "NULLABLE", "description": "distinct first-party request patterns failed for not being on the allowlist" },
+  { "name": "coverage_json", "type": "STRING", "mode": "NULLABLE", "description": "[{platform, standard %, blocker %}]" },
+  { "name": "page_loads", "type": "INTEGER", "mode": "NULLABLE" },
+  { "name": "gcs_prefix", "type": "STRING", "mode": "NULLABLE" }
+]

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/invoice-lookup-response.schema.json",
+  "title": "GET /legacy/api/stripe/checkout-session-invoice?session_id=… response",
+  "description": "Field names from shipped Suite code (research/02 §0 item 3, §3.2); no live success-path response was captured (research/10 §10). The Suite also reads amountMajor when present. ltvValueMajor/ltvCurrency feed Meta and TikTok first-purchase values.",
+  "type": "object",
+  "required": ["invoiceId", "isFirstPurchase", "isValidInvoice", "isBusiness", "amountMinor", "currency"],
+  "properties": {
+    "invoiceId": { "type": "string", "pattern": "^in_[A-Za-z0-9]+$" },
+    "isFirstPurchase": { "type": "boolean" },
+    "isValidInvoice": { "type": "boolean" },
+    "isBusiness": { "type": "boolean" },
+    "amountMinor": { "type": "integer", "minimum": 0 },
+    "amountMajor": { "type": "number", "minimum": 0 },
+    "currency": { "type": "string", "pattern": "^[A-Za-z]{3}$" },
+    "ltvValueMajor": { "type": ["number", "null"], "minimum": 0 },
+    "ltvCurrency": { "type": ["string", "null"], "pattern": "^[A-Za-z]{3}$" }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "_comment": "Audience-sync configuration. Every account and list id below is a PLACEHOLDER except the TikTok advertiser id, which appears in OpenArt's public pixel code (contracts OPENART.tiktok.advertiserId). The Google Ads customer id is NOT the AW- conversion id. Lists must be created once on each platform (see README) before their ids replace the placeholders. Nothing here is ever sent: the package is dry-run only.",
+  "select": { "topFraction": 0.1, "lowPredictedProfitMaxUsd": 0 },
+  "google_ads": {
+    "enabled": true,
+    "operatingAccountId": "0000000000",
+    "loginAccountId": null,
+    "userListIds": {
+      "oa_seed_top_decile_predicted_profit": "PLACEHOLDER-google-list-top-decile",
+      "oa_seed_positive_predicted_profit": "PLACEHOLDER-google-list-positive",
+      "oa_excl_active_subscribers": "PLACEHOLDER-google-list-subscribers",
+      "oa_excl_fraud_or_chargeback": "PLACEHOLDER-google-list-fraud",
+      "oa_excl_refunded": "PLACEHOLDER-google-list-refunded",
+      "oa_excl_low_predicted_profit": "PLACEHOLDER-google-list-low-profit"
+    },
+    "validateOnly": true,
+    "minListSize": 100,
+    "maxMembersPerRequest": 10000
+  },
+  "meta": {
+    "enabled": true,
+    "apiVersion": "v25.0",
+    "adAccountId": "act_PLACEHOLDER",
+    "audienceIds": {
+      "oa_seed_top_decile_predicted_profit": "PLACEHOLDER-meta-audience-top-decile",
+      "oa_seed_positive_predicted_profit": "PLACEHOLDER-meta-audience-positive-value-based",
+      "oa_excl_active_subscribers": "PLACEHOLDER-meta-audience-subscribers",
+      "oa_excl_fraud_or_chargeback": "PLACEHOLDER-meta-audience-fraud",
+      "oa_excl_refunded": "PLACEHOLDER-meta-audience-refunded",
+      "oa_excl_low_predicted_profit": "PLACEHOLDER-meta-audience-low-profit"
+    },
+    "valueBasedLists": ["oa_seed_positive_predicted_profit"],
+    "schemaMode": "multi_key",
+    "minListSize": 100,
+    "maxUsersPerRequest": 10000
+  },
+  "tiktok": {
+    "enabled": true,
+    "advertiserId": "7670743239628161042",
+    "audienceIds": {
+      "oa_seed_top_decile_predicted_profit": null,
+      "oa_seed_positive_predicted_profit": null,
+      "oa_excl_active_subscribers": null,
+      "oa_excl_fraud_or_chargeback": null,
+      "oa_excl_refunded": null,
+      "oa_excl_low_predicted_profit": null
+    },
+    "calculateType": "EMAIL_SHA256",
+    "minAudienceSize": 1000,
+    "maxLinesPerFile": 2000000,
+    "maxFilePathsPerCall": 50,
+    "retentionInDays": 180
+  }
+}

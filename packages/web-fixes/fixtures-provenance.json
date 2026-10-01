@@ -1,0 +1,149 @@
+[
+ {
+  "fixture": "shim/test/fixtures/original-click-id-shim.js",
+  "source": "openart_2026-09-29/raw/bundles/page_.html",
+  "sourceSha256": "9e2e697be5e8e0653ac87513d66a710a039e0dd5170e38f7a6ae46c12673433d",
+  "fixtureSha256": "45ffbeade5452935888dbbc66418a3da892d06a2ac96667cf8410998c472da6a",
+  "extraction": "inline <script> containing \"OpenArt Click ID Shim\", chars 1152-4788"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-module-162070.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai__suite___next__static__chunks__91db8069961c7577.js",
+  "sourceSha256": "9a74f6426e310ddc5f1ef6e66181d1f20e07d988365840c989d07ca59ed67984",
+  "fixtureSha256": "fdedf1620142b6faab865505c5b971e081c01edb046a7fe9c03044a0628e6a34",
+  "extraction": "Turbopack module 162070 factory, chars 3466-5211"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-module-764475.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai__suite___next__static__chunks__82a8baa61b72c9cd.js",
+  "sourceSha256": "28a4584432d0c0489c0f13fba5cfcfb3483673bbd423f5aec0a74fccc599dfb3",
+  "fixtureSha256": "7631c6f7629e77e4f922fe7a1b8503e8abba569ac467b5d385c5b7ff6665974c",
+  "extraction": "Turbopack module 764475 factory, chars 6047-6576"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-meta-pixel-code.js",
+  "source": "openart_2026-09-29/raw/bundles/page_suite_video.html",
+  "sourceSha256": "380ee28f13692d2a1bf0f2ca25237b50d40348ec80592810a0aa543e5b8dfb43",
+  "fixtureSha256": "e63db29614da153543dffc0301ce3b574691f7938f5aa96680aba82c90e40d0e",
+  "extraction": "next/script id=meta-pixel-code children (RSC payload, unescaped twice)"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/legacy-meta-pixel-code.js",
+  "source": "openart_2026-09-29/raw/bundles/page_legacy_home.html",
+  "sourceSha256": "fd59fcdaebc03679ed33ba7f9890c8a9edde0b9aabd57d996a414911d974e9f4",
+  "fixtureSha256": "6c122bbb25fbc43d83b6a3a5ea03dacd8400fb09f7315c6681edf392e80f5b0b",
+  "extraction": "__NEXT_DATA__/script children containing fbevents.js (JSON-unescaped once)"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/fbevents-spa-navigation-module.js",
+  "source": "openart_2026-09-29/raw/static/fbevents.js",
+  "sourceSha256": "2e134f31a30cf59dc2f2186166dbf42b456a596457e0faebc551f3631d2e12c7",
+  "fixtureSha256": "f2488f8abccb633fc38de9397f830dd433fad53f1d4d6562aff2ecf638014c4a",
+  "extraction": "module signalsFBEventsSPANavigationUtil factory (function(e,t,n,r){...}), chars 273417-274036; PageView once-per-pixel guard at char 383863, allowDuplicatePageViews read at char 391958"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-module-111958-purchase.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai__suite___next__static__chunks__d4f45453351837aa.js",
+  "sourceSha256": "35e66494f7ef5ccc484f4fda8fae272a505e1baf7e9c01480485a03e425b98d9",
+  "fixtureSha256": "ed2305012a8e6f44b405e05e39e12f24afe9a37516285d119a7f5588d5a08882",
+  "extraction": "functions ek..eR chars 18420-21455 and eA chars 21846-22684"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-module-399331-prices.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai__suite___next__static__chunks__91db8069961c7577.js",
+  "sourceSha256": "9a74f6426e310ddc5f1ef6e66181d1f20e07d988365840c989d07ca59ed67984",
+  "fixtureSha256": "be32ace0dd157d510a32d8d26781ea88793e7bfadfe73bcc575ca7c1c70a76e2",
+  "extraction": "PRICES object literal chars 13330-14061"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-module-825073-webview-detector.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai__suite___next__static__chunks__ea9b966c01d84c18.js",
+  "sourceSha256": "b9b9502ce2a979247d6410a10cc0c86429a223fa1db35ad056e817142624bda5",
+  "fixtureSha256": "22e0bdaccd77106baac6991425661cb36f567f45e99f244ab876dd058d56329e",
+  "extraction": "UA lists chars 113954-114243; detector chars 118408-118658"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/legacy-module-16585-init.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai___next__static__chunks__pages___app-a1820d4f2194dce7.js",
+  "sourceSha256": "8e83202e69818fda2167bef7554c0cca5d2425b52ab4d85049dd169b6dff8f7d",
+  "fixtureSha256": "d4f62922b9e7a68f155ed621de1659c7c866f56734d0f1ecf866a995460abf5c",
+  "extraction": "let il=… chars 2544442-2544914"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/legacy-amplitude-init-callsites.txt",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai___next__static__chunks__pages___app-a1820d4f2194dce7.js + openart_2026-09-29/raw/bundles/js_legacy/openart.ai___next__static__chunks__1545-e1d094c1b14e9241.js",
+  "sourceSha256": "8e83202e69818fda2167bef7554c0cca5d2425b52ab4d85049dd169b6dff8f7d / e1972fed6491ee2a8aeab83f26d9a106a1030247f7ea2bf213122b3e27015086",
+  "fixtureSha256": "b75b53d1da6273c72517adef43ff97e2101ef0b812430fe6cc55081a472000d3",
+  "extraction": "useEffect call sites of S1: module 78491 chars 2583547-2583855; module 41545 chars 7700-7800"
+ },
+ {
+  "fixture": "gtm/test/fixtures/uwt-module-510.js",
+  "source": "openart_2026-09-29/crawl/teardown2/bodies/2fc05e444c3d24850176d7fce234ef4bcb208fbd.js",
+  "sourceSha256": "8968e2907b8936778ed050dd55d8ef7232b3d32ee95b1f7122b4dfa9e22c4839",
+  "fixtureSha256": "784de13e808bec93203363046b579d16563278d3434b8b02ccd75d3f87fd7659",
+  "extraction": "webpack module 510 initializer, chars 12659-15163 (TypeScript AST)"
+ },
+ {
+  "fixture": "gtm/test/fixtures/uwt-module-9115.js",
+  "source": "openart_2026-09-29/crawl/teardown2/bodies/2fc05e444c3d24850176d7fce234ef4bcb208fbd.js",
+  "sourceSha256": "8968e2907b8936778ed050dd55d8ef7232b3d32ee95b1f7122b4dfa9e22c4839",
+  "fixtureSha256": "adaaa07ef97d9b25d70b63ba49d1854a8b7189e587cf454e3d65f45b772f2d13",
+  "extraction": "webpack module 9115 initializer, chars 20483-28192 (TypeScript AST)"
+ },
+ {
+  "fixture": "gtm/test/fixtures/uwt-module-2345.js",
+  "source": "openart_2026-09-29/crawl/teardown2/bodies/2fc05e444c3d24850176d7fce234ef4bcb208fbd.js",
+  "sourceSha256": "8968e2907b8936778ed050dd55d8ef7232b3d32ee95b1f7122b4dfa9e22c4839",
+  "fixtureSha256": "61127939b798da7c8dd06bfdcbe90373940b030f6c3a4e97c65d2c74cf654cfb",
+  "extraction": "webpack module 2345 initializer, chars 39140-39657 (TypeScript AST)"
+ },
+ {
+  "fixture": "app-patches/test/fixtures/suite-module-114607-purchase-call.js",
+  "source": "openart_2026-09-29/raw/bundles/js/openart.ai__suite___next__static__chunks__08d6e61a49e7dfba.js",
+  "sourceSha256": "08f11d03fac3aba5481b38136fe0a7031cbff3cf7b59b67b08cbf559ef0ae18e",
+  "fixtureSha256": "634cbd7c746b249ddf0ca8c3ffb26837a7c4b88181be3985e8ad2e47db74a94d",
+  "extraction": "module 114607 functions G, K, Z and its e.s() export call, chars 268730-269678"
+ },
+ {
+  "fixture": "gtm/test/fixtures/gtm_56CMP8K.js.json",
+  "source": "openart_2026-09-29/raw/gtm_56CMP8K.js.json",
+  "sourceSha256": "ade87cddb80a7ccb2904e102343ccd37357ef61fc10221655db5484e90a8f6b1",
+  "fixtureSha256": "ade87cddb80a7ccb2904e102343ccd37357ef61fc10221655db5484e90a8f6b1",
+  "extraction": "whole file: GTM-56CMP8K v25 compiled container data (resource/runtime/permissions/…) as parsed from gtm.js"
+ },
+ {
+  "fixture": "gtm/test/fixtures/gtm_56CMP8K_v25_executed.js",
+  "source": "openart_2026-09-29/crawl/sealed_evidence/script_bodies/a37163e5dee5ab668a4782ccd05faf0efac97e6bbc140b45a14de3a09d75408c.js",
+  "sourceSha256": "a37163e5dee5ab668a4782ccd05faf0efac97e6bbc140b45a14de3a09d75408c",
+  "fixtureSha256": "a37163e5dee5ab668a4782ccd05faf0efac97e6bbc140b45a14de3a09d75408c",
+  "extraction": "whole file: gtm.js?id=GTM-56CMP8K (v25) body exactly as the sealed replay executed it"
+ },
+ {
+  "fixture": "gtm/test/fixtures/gtag_AW-11252321380_v4_executed.js",
+  "source": "openart_2026-09-29/crawl/sealed_evidence/script_bodies/1ff9cc0d818bc9380539befbeb959e7bfb166638cf1f7651e23293b19fa5a7c5.js",
+  "sourceSha256": "1ff9cc0d818bc9380539befbeb959e7bfb166638cf1f7651e23293b19fa5a7c5",
+  "fixtureSha256": "1ff9cc0d818bc9380539befbeb959e7bfb166638cf1f7651e23293b19fa5a7c5",
+  "extraction": "whole file: Google tag config AW-11252321380 (v4) body exactly as the sealed replay executed it"
+ },
+ {
+  "fixture": "hubspot/test/fixtures/hs_form_render_definition.json",
+  "source": "openart_2026-09-29/raw/enterprise/hs_form_render_definition.json",
+  "sourceSha256": "a5693a567a160bf6d341ab84583b56b72a07916a44cda4f2a9bf5c7571d99780",
+  "fixtureSha256": "a5693a567a160bf6d341ab84583b56b72a07916a44cda4f2a9bf5c7571d99780",
+  "extraction": "whole file: HubSpot form 9f0b1fda-… render definition captured on /enterprise"
+ },
+ {
+  "fixture": "gtm/test/fixtures/tiktok-sdk-history-observer.js",
+  "source": "openart_2026-09-29/crawl/teardown2/bodies/854097695c4c8bbf8d446b4b504d51194b258766.js",
+  "sourceSha256": "aab6a662df923c04739f37c6a6d7f13fb91c8e3c6addd82fd5a6959e6f6241fb",
+  "fixtureSha256": "94a232c4a059a7c67ae23521ab37db6ff04f60df4acc6f5c743a815715305271",
+  "extraction": "HistoryObserver gate fe/fn/fo/fi, chars 430315-430987 of main.MWU2MzIzODM0MQ.js"
+ },
+ {
+  "fixture": "gtm/test/fixtures/tiktok-pixel-config-plugins.json",
+  "source": "openart_2026-09-29/crawl/teardown2/bodies/3761766b923b45a02c22b4d68e4bd45b954eb78f.js",
+  "sourceSha256": "02e85ee3e5e2e6661a73eea1a9cdabe0eab85b269ca82305411fb6a0b74bfa43",
+  "fixtureSha256": "0ecad83d19dbcef768674d3073d61b0a6a8d3b1354dfdd40abf1bc862183d6b1",
+  "extraction": "\"plugins\" object (chars 6695-7436) of events.js?sdkid=D9QOQ5JC77U6RO6J21IG&lib=ttq"
+ }
+]

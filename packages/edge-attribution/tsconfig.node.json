@@ -1,0 +1,11 @@
+{
+  // Node-side program: the edge-sim entry (node:crypto), the shared core it bundles,
+  // Node tests (built dist/edge-sim.js parity, blocklist provenance) and the vitest config.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["src/sim.ts", "src/core/**/*.ts", "test/node/**/*.ts", "test/fixtures/**/*.ts", "vitest.config.ts"]
+}

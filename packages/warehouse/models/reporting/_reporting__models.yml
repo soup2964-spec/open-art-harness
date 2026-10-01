@@ -1,0 +1,25 @@
+version: 2
+
+# Aggregate-only views for BI (database review 8). Metabase's service account gets Data Viewer on
+# openart_signal_reporting ONLY; the marts (user ids, device ids, click ids, HubSpot contact ids)
+# stay out of BI. Every view is grouped to at least (day or month) x a categorical dimension and
+# carries no identifier column. python_tests/test_docs_sql.py runs every Metabase question.
+models:
+  - name: rpt_reconciliation
+    description: "fct_reconciliation as is (already aggregate: month x platform x layer x step)."
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [period_month, platform, report_layer, step_order]
+  - name: rpt_experiment_profit_by_arm
+    description: "fct_experiment_profit_by_arm as is (flag x arm)."
+  - name: rpt_experiment_profit_daily
+    description: "fct_experiment_profit_by_arm_daily rolled up to day x flag x arm x slice (segments dropped; arms, not people, are the unit)."
+  - name: rpt_signal_coverage_daily
+    description: "fct_conversion_ledger signal coverage per event day and event name (shares, no ids)."
+  - name: rpt_purchase_value_by_channel_month
+    description: "fct_purchase_value_score by purchase month x acquisition channel x purchase kind."
+  - name: rpt_data_quality
+    description: "fct_data_quality_quarantine counts by issue, severity and day."
+  - name: rpt_model_parameters
+    description: "dim_model_parameters for the current fitted_params_ref (names, values, labels)."

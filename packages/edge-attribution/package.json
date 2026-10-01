@@ -1,0 +1,19 @@
+{
+  "name": "@openart-signal/edge-attribution",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Edge attribution module for an existing Cloudflare Worker: server-set, ITP-durable, consent-gated click-ID and UTM capture with an in-app-browser handoff.",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./edge-sim": "./dist/edge-sim.js"
+  },
+  "scripts": {
+    "build": "esbuild src/sim.ts --bundle --format=esm --platform=node --target=node18 --legal-comments=none --outfile=dist/edge-sim.js",
+    "pretest": "npm run build",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
+    "dev": "wrangler dev --local"
+  }
+}

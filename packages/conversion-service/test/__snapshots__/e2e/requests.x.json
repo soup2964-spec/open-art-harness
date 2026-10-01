@@ -1,0 +1,123 @@
+[
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.x.com/12/measurement/conversions/qwghh",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "x_oauth1",
+    "body": {
+      "conversions": [
+        {
+          "conversion_time": "2026-06-03T17:04:11.000Z",
+          "event_id": "tw-qwghh-13vj24",
+          "identifiers": [
+            {
+              "hashed_email": "c05a405e41cec0762f47d0340f37c0b60fe8654cedd35c2cac06f10f31bfeb4b"
+            },
+            {
+              "ip_address": "203.0.113.1",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          ],
+          "conversion_id": "sub_in_1SynthU01Inv0001First",
+          "value": 22.11,
+          "price_currency": "USD"
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.x.com/12/measurement/conversions/qwghh",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "x_oauth1",
+    "body": {
+      "conversions": [
+        {
+          "conversion_time": "2026-06-15T12:00:00.000Z",
+          "event_id": "tw-qwghh-13vj24",
+          "identifiers": [
+            {
+              "hashed_email": "3c95fb8f44093174b8f8151bfa4f8d3ce18c145d3daaa2aa3128221708563d27"
+            },
+            {
+              "ip_address": "203.0.113.3",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          ],
+          "conversion_id": "sub_in_1SynthU03Inv0001First",
+          "value": 34,
+          "price_currency": "USD"
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.x.com/12/measurement/conversions/qwghh",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "x_oauth1",
+    "body": {
+      "conversions": [
+        {
+          "conversion_time": "2026-07-20T08:00:00.000Z",
+          "event_id": "tw-qwghh-13vj24",
+          "identifiers": [
+            {
+              "twclid": "SYNTHtwclidU04"
+            },
+            {
+              "hashed_email": "78013d4c8cd3c3ce075d037ac6887c4a35cda84712a5a23b8946979e6da7a20f"
+            },
+            {
+              "ip_address": "203.0.113.4",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          ],
+          "conversion_id": "sub_in_1SynthU04Inv0001First",
+          "value": 56,
+          "price_currency": "USD"
+        }
+      ]
+    }
+  },
+  {
+    "phase": "B",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://ads-api.x.com/12/measurement/conversions/qwghh",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "auth": "x_oauth1",
+    "body": {
+      "conversions": [
+        {
+          "conversion_time": "2026-09-25T12:00:00.000Z",
+          "event_id": "tw-qwghh-13vj22",
+          "identifiers": [
+            {
+              "hashed_email": "046758cbe1fffc8c995b84dd17027507c122e20bfc39380ab6bfbb54de252d27"
+            },
+            {
+              "ip_address": "203.0.113.6",
+              "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 (synthetic)"
+            }
+          ],
+          "conversion_id": "reg_SynthU06GmailSignupF6"
+        }
+      ]
+    }
+  }
+]

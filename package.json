@@ -1,0 +1,32 @@
+{
+  "name": "open-art-harness",
+  "private": true,
+  "type": "module",
+  "description": "Tracking fixes + conversion ledger + profit signal, built to plug into OpenArt's existing stack (Cloudflare, GTM-56CMP8K, GCP/BigQuery, Stripe, Amplitude, LaunchDarkly). Proof-of-work by KJ.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.22.0",
+    "@cloudflare/workers-types": "^4.20250901.0",
+    "wrangler": "^4.144.0",
+    "vitest": "^4.1.11",
+    "typescript": "^5.9.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.23.15",
+    "zod": "^4.6.5",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "happy-dom": "^20.14.5",
+    "puppeteer-core": "^25.12.0"
+  },
+  "dependencies": {
+    "stripe": "22.6.2",
+    "@google-cloud/bigquery": "9.1.0",
+    "google-auth-library": "11.1.0"
+  }
+}

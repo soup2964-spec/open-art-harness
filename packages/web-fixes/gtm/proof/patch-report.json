@@ -1,0 +1,237 @@
+{
+  "addedMacros": [
+    {
+      "index": 40,
+      "for": "OA-FIX DLV - user_id"
+    },
+    {
+      "index": 41,
+      "for": "OA-FIX COOKIE - oa_signup_uid"
+    },
+    {
+      "index": 42,
+      "for": "OA-FIX CJS - reg event_id"
+    },
+    {
+      "index": 43,
+      "for": "OA-FIX UPD - user_data.email"
+    },
+    {
+      "index": 44,
+      "for": "OA-FIX CJS - purchase order_id"
+    },
+    {
+      "index": 45,
+      "for": "OA-FIX DLV - page_location"
+    },
+    {
+      "index": 46,
+      "for": "OA-FIX DLV - page_referrer"
+    },
+    {
+      "index": 47,
+      "for": "OA-FIX DLV - page_title"
+    }
+  ],
+  "reusedMacros": [
+    {
+      "index": 0,
+      "for": "Event"
+    },
+    {
+      "index": 5,
+      "for": "OA-FIX DLV - user_data.email"
+    },
+    {
+      "index": 1,
+      "for": "OA-FIX DLV - eventModel.transaction_id"
+    },
+    {
+      "index": 2,
+      "for": "OA-FIX DLV - eventModel.value"
+    },
+    {
+      "index": 3,
+      "for": "OA-FIX DLV - eventModel.currency"
+    }
+  ],
+  "addedPredicates": [
+    6,
+    7,
+    8
+  ],
+  "addedTags": [
+    {
+      "index": 18,
+      "tag_id": 1002,
+      "name": "OA-FIX Google Ads - signup conversion (rVk2) on signup"
+    },
+    {
+      "index": 19,
+      "tag_id": 1003,
+      "name": "OA-FIX Google Ads - business_subscription (secondary action)"
+    },
+    {
+      "index": 20,
+      "tag_id": 1004,
+      "name": "OA-FIX Google Ads - page_view on route change"
+    },
+    {
+      "index": 21,
+      "tag_id": 1005,
+      "name": "OA-FIX X - base pixel (no automatic gtm_purchase)"
+    },
+    {
+      "index": 22,
+      "tag_id": 1006,
+      "name": "OA-FIX X - signup tw-qwghh-13vj22 (conversion_id reg_<uid>)"
+    },
+    {
+      "index": 23,
+      "tag_id": 1007,
+      "name": "OA-FIX TikTok - CompleteRegistration (event_id reg_<uid>)"
+    },
+    {
+      "index": 24,
+      "tag_id": 1008,
+      "name": "OA-FIX UET - base (automatic SPA tracking off)"
+    },
+    {
+      "index": 25,
+      "tag_id": 1009,
+      "name": "OA-FIX UET - page_view on route change"
+    },
+    {
+      "index": 26,
+      "tag_id": 1010,
+      "name": "OA-FIX TikTok - base pixel (automatic SPA page views off)"
+    },
+    {
+      "index": 27,
+      "tag_id": 1011,
+      "name": "OA-FIX TikTok - page on route change"
+    }
+  ],
+  "paused": [
+    {
+      "index": 2,
+      "tag_id": 17,
+      "what": "Google Ads signup conversion on new_user_signed_up (never emitted)",
+      "replacedBy": "OA-FIX Google Ads - signup conversion (rVk2) on signup"
+    },
+    {
+      "index": 12,
+      "tag_id": 74,
+      "what": "X base pixel",
+      "replacedBy": "OA-FIX X - base pixel (no automatic gtm_purchase)"
+    },
+    {
+      "index": 14,
+      "tag_id": 76,
+      "what": "X signup event",
+      "replacedBy": "OA-FIX X - signup tw-qwghh-13vj22 (conversion_id reg_<uid>)"
+    },
+    {
+      "index": 17,
+      "tag_id": 79,
+      "what": "TikTok CompleteRegistration (empty event_id)",
+      "replacedBy": "OA-FIX TikTok - CompleteRegistration (event_id reg_<uid>)"
+    },
+    {
+      "index": 11,
+      "tag_id": 38,
+      "what": "UET base with enableAutoSpaTracking",
+      "replacedBy": "OA-FIX UET - base (automatic SPA tracking off)"
+    },
+    {
+      "index": 15,
+      "tag_id": 77,
+      "what": "TikTok base pixel (SDK HistoryObserver on)",
+      "replacedBy": "OA-FIX TikTok - base pixel (automatic SPA page views off)"
+    }
+  ],
+  "edited": [
+    {
+      "index": 9,
+      "tag_id": 58,
+      "what": "LinkedIn Insight Tag 2.0: LinkedIn purchase conversion 29290225",
+      "changes": [
+        "eventId = {{OA-FIX CJS - purchase order_id}}",
+        "trigger purchase -> OA-FIX CE - purchase (deterministic id)"
+      ]
+    },
+    {
+      "index": 10,
+      "tag_id": 72,
+      "what": "LinkedIn Insight Tag 2.0: LinkedIn signup conversion 29290241",
+      "changes": [
+        "eventId = {{OA-FIX CJS - reg event_id}}"
+      ]
+    },
+    {
+      "index": 7,
+      "tag_id": 52,
+      "what": "LinkedIn Insight Tag 2.0: LinkedIn base Insight Tag (page view)",
+      "changes": [
+        "+trigger OA-FIX CE - virtual_page_view"
+      ]
+    },
+    {
+      "index": 5,
+      "tag_id": 34,
+      "what": "Reddit Pixel: Reddit PageVisit",
+      "changes": [
+        "firing: once per event",
+        "+trigger OA-FIX CE - virtual_page_view"
+      ]
+    },
+    {
+      "index": 6,
+      "tag_id": 35,
+      "what": "Reddit Pixel: Reddit Purchase",
+      "changes": [
+        "trigger purchase -> OA-FIX CE - purchase (deterministic id)"
+      ]
+    },
+    {
+      "index": 8,
+      "tag_id": 57,
+      "what": "Reddit Pixel: Reddit SignUp",
+      "changes": [
+        "conversionId = {{OA-FIX CJS - reg event_id}}"
+      ]
+    },
+    {
+      "index": 1,
+      "tag_id": 15,
+      "what": "Google Ads purchase AW-11252321380",
+      "changes": [
+        "trigger purchase -> OA-FIX CE - purchase (deterministic id)"
+      ]
+    },
+    {
+      "index": 3,
+      "tag_id": 19,
+      "what": "Google Ads purchase AW-16854695811",
+      "changes": [
+        "trigger purchase -> OA-FIX CE - purchase (deterministic id)"
+      ]
+    },
+    {
+      "index": 13,
+      "tag_id": 75,
+      "what": "X purchase tw-qwghh-13vj24 (conversion_id = transaction id)",
+      "changes": [
+        "trigger purchase -> OA-FIX CE - purchase (deterministic id)"
+      ]
+    }
+  ],
+  "skippedNotInProof": [
+    "OA-FIX Consent Mode v2 - defaults (EEA/UK/CH denied)",
+    "OA-FIX LinkedIn - purchase 29290225 via lintrk (value variant, paused)",
+    "OA-FIX Route settler (History Change -> virtual_page_view)",
+    "OA-FIX LinkedIn - server-only purchases via conversion-service (option b, paused)"
+  ],
+  "addedRules": 4,
+  "droppedEmptyRules": 2
+}

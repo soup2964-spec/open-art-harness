@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/click-id-store-record.schema.json",
+  "title": "ClickIdStoreRecord (current)",
+  "description": "The body the Suite POSTs to /api/user/ad-click-ids after login, exactly as shipped (raw/bundles/js/…91db8069961c7577.js module 162070 buildMigrationPayload; research/02 §3.3). Values come from the oa_ad_clids cookie/localStorage entry {v, ts}; *_created_at is that ts: a millisecond epoch NUMBER. The client only posts when at least one id exists.",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 2,
+  "properties": {
+    "gclid": { "$ref": "#/$defs/value" },
+    "gclid_created_at": { "$ref": "#/$defs/epochMs" },
+    "fbclid": { "$ref": "#/$defs/value" },
+    "fbclid_created_at": { "$ref": "#/$defs/epochMs" },
+    "msclkid": { "$ref": "#/$defs/value" },
+    "msclkid_created_at": { "$ref": "#/$defs/epochMs" },
+    "ttclid": { "$ref": "#/$defs/value" },
+    "ttclid_created_at": { "$ref": "#/$defs/epochMs" }
+  },
+  "dependentRequired": {
+    "gclid": ["gclid_created_at"],
+    "gclid_created_at": ["gclid"],
+    "fbclid": ["fbclid_created_at"],
+    "fbclid_created_at": ["fbclid"],
+    "msclkid": ["msclkid_created_at"],
+    "msclkid_created_at": ["msclkid"],
+    "ttclid": ["ttclid_created_at"],
+    "ttclid_created_at": ["ttclid"]
+  },
+  "$defs": {
+    "value": {
+      "description": "Same regex the Suite applies before storing a click id.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]{1,512}$"
+    },
+    "epochMs": {
+      "description": "Date.now() at capture (ms since epoch).",
+      "type": "integer",
+      "minimum": 1000000000000,
+      "maximum": 99999999999999
+    }
+  }
+}

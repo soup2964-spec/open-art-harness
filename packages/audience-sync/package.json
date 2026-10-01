@@ -1,0 +1,15 @@
+{
+  "name": "@openart-signal/audience-sync",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Builds consent-filtered, per-platform hashed audience lists (predicted-profit seeds and suppression lists) and dry-run upload payloads for Google Data Manager API Customer Match, Meta Custom Audiences and TikTok customer files. Never sends anything.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "plan": "tsx src/cli.ts"
+  }
+}

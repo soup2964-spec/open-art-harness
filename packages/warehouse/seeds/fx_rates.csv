@@ -1,0 +1,27 @@
+currency,rate_date,usd_per_unit,source
+USD,2020-01-01,1.0,identity
+EUR,2020-01-01,1.08,ILLUSTRATIVE placeholder rate; replace with a daily reference-rate feed (e.g. ECB) before trusting non-USD revenue
+GBP,2020-01-01,1.27,ILLUSTRATIVE placeholder rate
+CAD,2020-01-01,0.73,ILLUSTRATIVE placeholder rate
+AUD,2020-01-01,0.66,ILLUSTRATIVE placeholder rate
+NZD,2020-01-01,0.60,ILLUSTRATIVE placeholder rate
+CHF,2020-01-01,1.12,ILLUSTRATIVE placeholder rate
+SEK,2020-01-01,0.095,ILLUSTRATIVE placeholder rate
+NOK,2020-01-01,0.093,ILLUSTRATIVE placeholder rate
+DKK,2020-01-01,0.145,ILLUSTRATIVE placeholder rate
+PLN,2020-01-01,0.25,ILLUSTRATIVE placeholder rate
+BRL,2020-01-01,0.18,ILLUSTRATIVE placeholder rate
+MXN,2020-01-01,0.055,ILLUSTRATIVE placeholder rate
+INR,2020-01-01,0.012,ILLUSTRATIVE placeholder rate
+SGD,2020-01-01,0.74,ILLUSTRATIVE placeholder rate
+HKD,2020-01-01,0.128,ILLUSTRATIVE placeholder rate
+AED,2020-01-01,0.2723,ILLUSTRATIVE placeholder rate (USD peg)
+ILS,2020-01-01,0.27,ILLUSTRATIVE placeholder rate
+JPY,2020-01-01,0.0067,ILLUSTRATIVE placeholder rate
+KRW,2020-01-01,0.00073,ILLUSTRATIVE placeholder rate
+VND,2020-01-01,0.00004,ILLUSTRATIVE placeholder rate
+CLP,2020-01-01,0.00105,ILLUSTRATIVE placeholder rate
+IDR,2020-01-01,0.000062,ILLUSTRATIVE placeholder rate
+KWD,2020-01-01,3.25,ILLUSTRATIVE placeholder rate
+BHD,2020-01-01,2.65,ILLUSTRATIVE placeholder rate (USD peg)
+EUR,2026-07-01,1.10,ILLUSTRATIVE second rate (shows the point-in-time lookup)

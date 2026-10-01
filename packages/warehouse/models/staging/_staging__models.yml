@@ -1,0 +1,274 @@
+version: 2
+
+models:
+  # ------------------------------------------------------------------ Stripe
+  - name: stg_stripe__events
+    description: >
+      One row per Stripe event id (first delivery wins; redeliveries dropped; deliveries after the
+      as-of instant ignored). event_object holds only whitelisted fields (no customer email, name,
+      address, billing details or hosted URLs). Event types the staging layer does not read are
+      kept (is_handled_type = false) and listed in fct_data_quality_quarantine: they never block
+      the build.
+    columns:
+      - name: stripe_event_id
+        data_tests: [unique, not_null]
+      - name: event_type
+        data_tests: [not_null]
+      - name: is_handled_type
+        description: FALSE = a Stripe event type no staging model reads (warned via the quarantine).
+        data_tests: [not_null]
+      - name: created_at
+        data_tests: [not_null]
+
+  - name: stg_stripe__invoices
+    description: One row per paid invoice (invoice.paid), deduplicated on the invoice id.
+    columns:
+      - name: invoice_id
+        data_tests:
+          - unique
+          - not_null
+          - matches_regex:
+              arguments:
+                pattern: '^in_[A-Za-z0-9]+$'
+      - name: user_id
+        description: Stripe customer id = OpenArt uid.
+        data_tests: [not_null]
+      - name: billing_reason
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [automatic_pending_invoice_item_invoice, manual, quote_accept, subscription, subscription_create, subscription_cycle, subscription_threshold, subscription_update, upcoming]
+      - name: amount_paid_minor
+        data_tests: [not_null, not_negative]
+      - name: paid_at
+        data_tests: [not_null]
+      - name: lines_has_more
+        description: TRUE would mean the webhook payload truncated the lines (fetch /v1/invoices/{id}/lines).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [false]
+
+  - name: stg_stripe__invoice_lines
+    columns:
+      - name: line_id
+        data_tests: [unique, not_null]
+      - name: invoice_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_stripe__invoices')
+                field: invoice_id
+      - name: price_id
+        description: >
+          Unknown price ids mean a new SKU that seeds/plan_catalog.csv must learn. Warned and listed
+          in fct_data_quality_quarantine (invoice_line_unknown_price), never a build-stopping error.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+          - relationships:
+              arguments:
+                to: ref('plan_catalog')
+                field: price_id
+              config:
+                severity: warn
+
+  - name: stg_stripe__invoice_payments
+    columns:
+      - name: invoice_payment_id
+        data_tests: [unique, not_null]
+      - name: invoice_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_stripe__invoices')
+                field: invoice_id
+
+  - name: stg_stripe__checkout_sessions
+    columns:
+      - name: checkout_session_id
+        data_tests:
+          - unique
+          - not_null
+          - matches_regex:
+              arguments:
+                pattern: '^cs_(live|test)_[A-Za-z0-9]+$'
+      - name: checkout_mode
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [subscription, payment, setup]
+
+  - name: stg_stripe__refunds
+    description: One row per refund step of a charge (charge.refunded carries cumulative amounts).
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [charge_id, amount_refunded_cumulative_minor]
+      - expression_is_true:
+          arguments:
+            expression: "previous_amount_refunded_minor is null or amount_refunded_cumulative_minor - previous_amount_refunded_minor = refund_step_minor"
+          config:
+            severity: warn
+    columns:
+      - name: refund_step_minor
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 1
+
+  - name: stg_stripe__disputes
+    description: One row per dispute with its state as of as-of (created, updated, closed, funds withdrawn / reinstated).
+    columns:
+      - name: dispute_id
+        data_tests: [unique, not_null]
+      - name: amount_minor
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 1
+      - name: is_money_lost
+        description: FALSE for won disputes (funds reinstated) and inquiries (warning_*), which take no money.
+        data_tests: [not_null]
+
+  - name: stg_stripe__subscription_events
+    columns:
+      - name: stripe_event_id
+        data_tests: [unique, not_null]
+      - name: subscription_id
+        data_tests: [not_null]
+
+  - name: stg_stripe__subscription_items
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [stripe_event_id, subscription_item_id]
+
+  # --------------------------------------------------------------- Amplitude
+  - name: stg_amplitude__events
+    description: >
+      Amplitude export rows deduplicated on uuid, reduced to typed extracts of the properties the
+      warehouse reads (the raw event/user property JSON is not persisted). BigQuery: incremental
+      insert_overwrite by event_time day, clustered (user_id, event_type), require_partition_filter.
+    columns:
+      - name: event_uuid
+        data_tests: [unique, not_null]
+      - name: event_time
+        data_tests: [not_null]
+      - name: device_id
+        data_tests: [not_null]
+
+  # --------------------------------------------------------------------- app
+  - name: stg_app__credit_ledger
+    description: Ledger entries in the API shape, typed; one row per entry id.
+    data_tests:
+      - expression_is_true:
+          arguments:
+            expression: "balance_after = balance_before + amount"
+      - expression_is_true:
+          arguments:
+            expression: "not is_generation or amount <= 0"
+    columns:
+      - name: ledger_entry_id
+        data_tests:
+          - unique
+          - not_null
+          - matches_regex:
+              arguments:
+                pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      - name: idempotency_key
+        data_tests:
+          - unique
+          - matches_regex:
+              arguments:
+                pattern: '^.+:(REDUCE|ADD|REFUND|SUBSCRIPTION_ADJUSTMENT|INTERNAL_ADJUSTMENT|CONVERT):.+$'
+      - name: entry_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ADD, CONSUME, REFUND, SUBSCRIPTION_ADJUSTMENT, INTERNAL_ADJUSTMENT]
+      - name: credit_field
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [trial_credit_balance, subscription_monthly_credit, one_time_pack_credit, subscription_sponsor_credit]
+      - name: created_at
+        data_tests: [not_null]
+
+  - name: stg_app__credit_ledger_details
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [ledger_entry_id, detail_position]
+    columns:
+      - name: quantity
+        data_tests: [not_null, not_negative]
+      - name: unit_credits
+        data_tests: [not_null, not_negative]
+
+  - name: stg_app__ad_click_ids
+    columns:
+      - name: click_id_value
+        data_tests:
+          - matches_regex:
+              arguments:
+                pattern: '^[A-Za-z0-9._-]{1,1000}$'
+      - name: click_id_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('click_id_platforms')
+                field: click_id_key
+
+  - name: stg_app__users
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+
+  - name: stg_app__invoice_lookups
+    columns:
+      - name: checkout_session_id
+        data_tests: [unique, not_null]
+
+  # ----------------------------------------------------------------- HubSpot
+  - name: stg_hubspot__form_submissions
+    columns:
+      - name: conversion_id
+        data_tests: [unique, not_null]
+  - name: stg_hubspot__lifecycle_changes
+    columns:
+      - name: hubspot_event_id
+        data_tests: [unique, not_null]
+
+  # --------------------------------------------------------------- platforms
+  - name: stg_platforms__daily_conversions
+    description: Platform-reported conversions (SYNTHETIC on the local target).
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [platform, account_id, report_layer, report_date]
+    columns:
+      - name: report_layer
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [tag_received, ads_attributed]
+      - name: date_basis
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [click, conversion]
+      - name: conversions
+        data_tests: [not_null, not_negative]
+      - name: conversion_value
+        data_tests: [not_null, not_negative]
+      - name: platform
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('platform_reporting_rules')
+                field: platform

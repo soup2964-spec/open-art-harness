@@ -1,0 +1,233 @@
+# openart-signal warehouse: BigQuery in production (target `prod`), DuckDB locally against
+# the contracts fixtures (target `local`). Every model compiles on both adapters; the SQL
+# that differs between engines lives in adapter-dispatched macros under macros/cross_db/.
+#
+# Labels used in comments below:
+#   OBSERVED     read from OpenArt's shipped code, a live capture or a platform's docs (research/…)
+#   ILLUSTRATIVE an assumption chosen for the v0 / the synthetic data. Replace with OpenArt data.
+name: openart_signal
+version: "0.1.0"
+config-version: 2
+profile: openart_signal
+require-dbt-version: [">=1.10.0", "<2.0.0"]
+
+model-paths: ["models"]
+test-paths: ["tests"]
+# model_costs.csv and platform_event_mapping.csv are read straight from packages/contracts
+# (single source of truth, no copies that can drift). Warehouse-owned seeds live in seeds/.
+seed-paths: ["seeds", "../contracts/fixtures/seeds"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages", "logs"]
+
+flags:
+  # Local-only project: never phone home.
+  send_anonymous_usage_stats: false
+
+on-run-start:
+  - "{{ assert_raw_sources_loaded() }}"
+
+vars:
+  # ---------------------------------------------------------------- run context
+  # UTC 'YYYY-MM-DD HH:MM:SS'. null => CURRENT_TIMESTAMP in prod. Fixture runs pin the
+  # cohort's simulationEnd so every output is deterministic.
+  as_of_timestamp: null
+  fixture_as_of_timestamp: "2026-09-28 00:00:00"
+  # null => true on target `local` (synthetic sources, ground-truth tests), false elsewhere.
+  fixture_mode: null
+  stripe_livemode_only: true
+
+  # ------------------------------------------------ source relations (see README)
+  # Point these at OpenArt's existing datasets/tables; nothing else changes.
+  raw_database: null
+  raw_stripe_schema: raw_stripe
+  raw_stripe_events_table: events
+  raw_amplitude_schema: raw_amplitude
+  raw_amplitude_events_table: events        # Amplitude export: EVENTS_<project_id>
+  raw_app_schema: raw_app
+  raw_hubspot_schema: raw_hubspot
+  raw_platforms_schema: raw_platforms
+  raw_synthetic_schema: raw_synthetic
+  ml_scores_schema: ml
+
+  # Amplitude staging on BigQuery (incremental insert_overwrite by event_time day)
+  amplitude_lookback_days: 3                # rebuild every event day that received rows in the last 3 days (server_upload_time)
+  amplitude_max_late_days: 30               # rows arriving later than this after their event_time need a --full-refresh
+  amplitude_history_start: "2020-01-01 00:00:00"  # explicit lower bound readers state (require_partition_filter)
+
+  # --------------------------------------------------------------- money
+  reporting_currency: USD                   # every *_reporting column; seeds/fx_rates.csv is expressed in USD
+
+  # ----------------------------------------------------------- identity & joins
+  experiment_flags:                         # OBSERVED LaunchDarkly default-model flags (research/12 V4)
+    - suite-default-model-create-image
+    - suite-default-model-create-video
+  click_id_keys: [gclid, gbraid, wbraid, fbclid, msclkid, ttclid, rdt_cid, twclid, li_fat_id, oppref]
+  utm_keys: [utm_source, utm_medium, utm_campaign, utm_term, utm_content, utm_id]
+  # The fixed LaunchDarkly holdout rule's key predicate (bandit-allocator launchdarkly.ts HOLDOUT_KEY_PATTERN).
+  holdout_key_pattern: "[0-5]$"
+  # ILLUSTRATIVE: Amplitude logs flag exposures and attribution props a few seconds after the
+  # page bootstrap that assigned them, so "known at event time" allows this much clock skew.
+  attribution_clock_skew_seconds: 300
+
+  # ------------------------------------------------------------- generation cost
+  # Cost = vendor LIST price of the generation (contracts seeds/model_costs.csv) x (1 - discount).
+  vendor_discount_pct: 0.0                  # ILLUSTRATIVE global negotiated discount (research/04: thesis flips at >= 40%)
+  vendor_discounts: {}                      # ILLUSTRATIVE per-vendor override, e.g. {fal: 0.2, google: 0.5}
+  failed_generation_cost_share: 0.0         # ILLUSTRATIVE share of list cost billed for a failed (credit-refunded) generation
+  default_cost_per_credit_usd: 0.0020       # research/04 median list $/credit; used only for unknown capability ids
+  trial_min_generation_credits: 5           # OBSERVED cheapest default image arm (GPT Image 2 / 2.5 low = 5 credits)
+
+  # ----------------------------------------------------------------- money & fees
+  payment_fee_pct: 0.036                    # ILLUSTRATIVE (research/04 §0: "about 3.6% plus $0.30 per charge")
+  payment_fee_fixed_usd: 0.30               # ILLUSTRATIVE
+  affiliate_commission_pct: 0.20            # OBSERVED Tolt default terms (research/12 A4), applied to affiliate-acquired revenue
+  dispute_fee_usd: 15.0                     # ILLUSTRATIVE per-dispute fee
+
+  # ------------------------------------------------- predicted profit v0 (fct_predicted_profit_24h)
+  # A transparent estimator: every coefficient below is ILLUSTRATIVE and listed in dim_model_parameters.
+  predicted_profit_source: v0_heuristic     # 'v0_heuristic' | 'external_scores' (swap-in trained model)
+  pp_model_version: "v0.2-heuristic-eb-xf"
+  pp_horizon_days: 90
+  pp_conversion_maturity_days: 30           # users this old have (mostly) finished converting
+  pp_crossfit_folds: 5                      # cross-fitting: every score uses parameters fit WITHOUT the user's fold
+  pp_backtest_max_weeks: 8                  # out-of-time backtest: the most recent complete signup weeks tested
+  oot_mae_cap_usd: 500                      # backtest: capped MAE clips predicted and realised profit to +/- this (heavy tails)
+  pp_cpc_prior_strength_credits: 20000      # EB weight (credits) of the pooled $/credit when measuring an arm's $/credit
+
+  # ------------------------------------------ purchase value score (fct_purchase_value_score)
+  # E[gross profit over 90 days | purchase], scored at the purchase. Every coefficient ILLUSTRATIVE.
+  pvs_model_version: "pvs-v0.1-structural-eb-xf"
+  pvs_interval_coverage: 0.8                # interval = 10th-90th percentile of the structural outcome distribution
+  pvs_renewal_prior_strength: 10            # pseudo-opportunities pulling a tier's renewal rate to pp_monthly_retention
+  pvs_renewal_country_prior_strength: 20    # pseudo-opportunities pulling a country bucket to its tier
+  pvs_prior_addon_revenue_per_month_usd: 1.0   # add-on + upgrade revenue per subscription month
+  pvs_addon_prior_strength_months: 50
+  pvs_util_prior_strength_credits: 40000    # pseudo-credits of capacity pulling utilization to pp_plan_utilization
+  pvs_prior_burn_cv: 0.6                    # between-subscriber CV of monthly credit burn (interval width)
+  pvs_prior_pack_future_revenue_usd: 5.0    # revenue in the 90 days after a one-time pack, beyond the pack
+  pvs_prior_pack_future_revenue_q90_usd: 30.0
+  pvs_pack_prior_strength: 10
+  pvs_rate_prior_strength_charges: 200      # pseudo-charges pulling refund/chargeback rates to their priors
+  pvs_cpc_prior_strength_credits: 2000      # pseudo-credits of the arms' $/credit against a user's own history
+  pvs_burn_prior_strength_months: 2         # pseudo-months of plan utilization against a subscriber's own burn
+  pp_prior_p_convert_not_activated: 0.005   # P(subscribe in horizon | no generation in 24h)
+  pp_prior_p_convert_activated: 0.05        # P(subscribe | generated, trial credits left)
+  pp_prior_p_convert_depleted: 0.08         # P(subscribe | generated and ran out of trial credits)
+  pp_prior_strength_users: 200              # empirical-Bayes weight of the priors above (pseudo-users)
+  pp_use_arm_calibration: false             # signals-only by default (ML review 4); true = cross-fitted EB arm multipliers
+  pp_prior_revenue_per_converter_usd: 110.0 # 90-day gross revenue of a new subscriber
+  pp_prior_paid_credits_per_converter: 8000 # credits a new subscriber burns in the horizon
+  pp_prior_charges_per_converter: 2.0       # Stripe charges per new subscriber in the horizon
+  pp_value_prior_strength_converters: 5     # empirical-Bayes weight of the three priors above (weak: they are guesses)
+  pp_monthly_retention: 0.80                # payer-within-24h renewal probability per month
+  pp_plan_utilization: 0.40                 # share of monthly plan credits a paid user burns
+  pp_video_credit_share: 0.85               # share of paid credits spent on video (videos cost 10-100x an image)
+  pp_trial_leftover_use_share: 0.50         # share of trial credits left at 24h that get used later
+  pp_refund_prob_per_charge: 0.02
+  pp_chargeback_prob_per_charge: 0.005
+
+  # -------------------------------------------------------------------- audiences
+  audience_seed_top_share: 0.20             # ILLUSTRATIVE: seeds = top 20% of predicted profit ...
+  audience_seed_min_profit_usd: 1.0         # ILLUSTRATIVE ... and at least $1 of predicted profit
+  audience_low_profit_threshold_usd: 1.0    # ILLUSTRATIVE: suppress users predicted to earn < $1 in 90 days (or lose money)
+
+  # ------------------------------------------------------------ experiment readout
+  ci_z: 1.96                                # 95% two-sided normal approximation
+  readout_bootstrap_replicates: null        # null => 200 on the fixture target, 0 (off) elsewhere; >0 adds percentile CIs
+  readout_min_matured_for_arm_error: 30     # fewer matured scored users in an arm => use the flag's pooled residual variance
+  cuped_prior_strength_users: 50            # EB pseudo-users pulling a segment's mean realised profit to the fold's mean
+  allocation_log_relation: null             # table of logged assignment probabilities (see int_experiment__allocation_log)
+  bandit_value_cap_usd: 500                 # the allocator's per-user value cap (bandit-allocator DEFAULT_VALUE_CAP_USD)
+
+models:
+  openart_signal:
+    +materialized: table
+    staging:
+      +schema: staging
+    intermediate:
+      +schema: intermediate
+    marts:
+      +schema: marts
+    reporting:
+      +schema: reporting
+      +materialized: view
+
+seeds:
+  openart_signal:
+    +schema: seeds
+    # Explicit types: identical on DuckDB and BigQuery, and required for header-only seeds.
+    model_costs:
+      +column_types:
+        model_id: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        business_type: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        setting: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        credits: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        list_cost_usd: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+        cost_per_credit_usd: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+        source_url: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        notes: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+    platform_event_mapping:
+      +column_types:
+        send: "{{ 'BOOL' if target.type == 'bigquery' else 'BOOLEAN' }}"
+        requires_web_fix: "{{ 'BOOL' if target.type == 'bigquery' else 'BOOLEAN' }}"
+        max_event_age_days: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        browser_twin: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+    plan_catalog:
+      +column_types:
+        unit_amount_minor: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        plan_tier_code: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        monthly_credits: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        credits_per_unit: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+    default_model_arms:
+      +column_types:
+        credits_per_generation: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+    platform_reporting_rules:
+      +column_types:
+        events_per_purchase: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        accepts_fallback_value: "{{ 'BOOL' if target.type == 'bigquery' else 'BOOLEAN' }}"
+        click_window_days: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+    fallback_price_table:
+      +column_types:
+        fallback_value_usd: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+    country_codes:
+      +column_types:
+        is_eea_uk_ch: "{{ 'BOOL' if target.type == 'bigquery' else 'BOOLEAN' }}"
+    click_id_platforms:
+      +column_types:
+        precedence: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+    fx_rates:
+      +column_types:
+        currency: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        rate_date: "DATE"
+        usd_per_unit: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+        source: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+    currency_minor_units:
+      +column_types:
+        currency: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        minor_unit_digits: "{{ 'INT64' if target.type == 'bigquery' else 'BIGINT' }}"
+        source: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+    segment_country_buckets:
+      +column_types:
+        country_key: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        iso2: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        country_bucket: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+    allocation_log_synthetic:
+      +column_types:
+        valid_from: "DATE"
+        valid_to: "DATE"
+        assignment_probability: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+    generation_cost_overrides:
+      +column_types:
+        override_id: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        business_type: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        setting: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        route: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        vendor: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        unit_cost_usd: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+        cost_per_credit_usd: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+        discount_pct: "{{ 'FLOAT64' if target.type == 'bigquery' else 'DOUBLE' }}"
+        valid_from: "DATE"
+        valid_to: "DATE"
+        source: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"
+        notes: "{{ 'STRING' if target.type == 'bigquery' else 'VARCHAR' }}"

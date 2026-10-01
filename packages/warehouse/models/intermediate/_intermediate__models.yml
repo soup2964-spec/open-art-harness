@@ -1,0 +1,404 @@
+version: 2
+
+models:
+  - name: int_stripe__purchases
+    description: Every paid invoice and paid payment-mode Checkout, classified into canonical purchase events.
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+      - name: event_name
+        description: >
+          NULL means a billing_reason the classifier does not know. It is kept out of the ledger and
+          listed in fct_data_quality_quarantine (purchase_unclassified): warned, never silent, never
+          a build-stopping error.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+          - accepted_values:
+              arguments:
+                values: [purchase_first, purchase_renewal, purchase_upgrade, purchase_add_on, purchase_one_time_pack]
+      - name: revenue_minor
+        description: Tax-exclusive part of cash_value_minor (charge currency, minor units).
+        data_tests: [not_null, not_negative]
+      - name: cash_value_reporting
+        description: cash_value_minor in major units of var reporting_currency at the purchase date's FX rate; NULL = no rate (quarantined).
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: has_unknown_price_lines
+        description: TRUE = a price id missing from seeds/plan_catalog.csv (tier/interval may be wrong).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [false]
+              config:
+                severity: warn
+      - name: user_id
+        data_tests: [not_null]
+
+  - name: int_stripe__adjustments
+    description: >
+      Refunds and disputes linked to the purchase they take money back from (through any key the
+      purchase holds), disputes netted against earlier refunds, won disputes taking nothing.
+    data_tests:
+      - expression_is_true:
+          arguments:
+            expression: "ledger_cash_value_minor <= 0 and ledger_cash_value_minor >= cash_value_minor"
+      - expression_is_true:
+          arguments:
+            expression: "is_ledger_event = (ledger_cash_value_minor < 0)"
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+      - name: adjusts_event_id
+        description: >
+          A refund or chargeback no key links cannot be sent as a value restatement. It stays in the
+          ledger (the money left Stripe) and is listed in fct_data_quality_quarantine; warned only.
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+          - relationships:
+              arguments:
+                to: ref('int_stripe__purchases')
+                field: event_id
+              config:
+                severity: warn
+      - name: restated_order_value_minor
+        description: The purchase's value after this adjustment, clamped at 0 (NULL when unlinked).
+        data_tests: [not_negative]
+      - name: disposition
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [refund, chargeback, dispute_after_full_refund, dispute_won_or_inquiry]
+
+  - name: int_stripe__subscription_status
+    columns:
+      - name: subscription_id
+        data_tests: [unique, not_null]
+      - name: status_as_of
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [active, canceled, lapsed]
+
+  - name: int_user__click_ids
+    description: Every click id seen per user, key, value and source, with click time and known-at time.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, click_id_key, click_id_value, click_id_source]
+      - expression_is_true:
+          arguments:
+            expression: "known_at is not null and click_id_created_at is not null"
+    columns:
+      - name: click_id_source
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [ad_click_id_store, amplitude_initial_user_property]
+
+  - name: int_user__utm
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, utm_key, utm_source_system]
+
+  - name: int_user__profile
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+      - name: is_qa_account
+        data_tests: [not_null]
+
+  - name: int_user__acquisition
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+      - name: acquisition_channel
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [google_cpc, meta_paid_social, tiktok_paid_social, microsoft_cpc, reddit_paid_social, linkedin_paid_social, x_paid_social, openai_paid, affiliate, paid_other, referral_other, organic]
+
+  - name: int_experiment__exposures
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, flag_key]
+
+  - name: int_conversion_ledger__events
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+
+  - name: int_model_costs__priced
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [business_type, setting]
+    columns:
+      - name: vendor_discount_pct
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+
+  - name: int_pp__user_outcomes
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+      - name: cf_fold
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 9
+
+  - name: int_pp__oot_weeks
+    description: Out-of-time backtest folds (complete signup weeks with an earlier week to learn from).
+    columns:
+      - name: fit_id
+        data_tests: [unique, not_null]
+
+  - name: int_pp__fit_sets
+    description: Training membership of every fit (all, xf<k>, oot_<week>, oot_<week>_xf<k>).
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [fit_id, user_id]
+    columns:
+      - name: fit_kind
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [all, crossfit, out_of_time, out_of_time_crossfit]
+
+  - name: int_pp__segment_rates
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [fit_id, segment]
+    columns:
+      - name: segment
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [not_activated, activated, activated_depleted]
+      - name: p_convert
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+
+  - name: int_pp__arm_multipliers
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [fit_id, flag_key, arm]
+    columns:
+      - name: conversion_multiplier
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0
+      - name: value_multiplier
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0
+      - name: shrinkage_weight
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+      - name: tau2
+        data_tests: [not_null, not_negative]
+
+  - name: int_pp__converter_value
+    data_tests:
+      - expression_is_true:
+          arguments:
+            expression: "revenue_per_converter_usd >= 0 and charges_per_converter >= 0 and paid_credits_per_converter >= 0"
+      - expression_is_true:
+          arguments:
+            expression: "paid_video_credit_share between 0 and 1 and trial_cost_per_credit_usd > 0"
+    columns:
+      - name: fit_id
+        data_tests: [unique, not_null]
+
+  - name: int_pp__cost_per_credit
+    description: Measured serving $/credit per fit and default-model arm (paid generations), EB-shrunk to the pooled media rate.
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [fit_id, flag_key, arm]
+    columns:
+      - name: cost_per_credit_usd
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0.000001
+
+  - name: int_pp__scores
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [purpose, fit_id, user_id]
+      - expression_is_true:
+          arguments:
+            expression: "abs(predicted_profit - (predicted_revenue - predicted_generation_cost - predicted_fees - predicted_refund_risk)) <= 0.01"
+      - expression_is_true:
+          arguments:
+            expression: "abs(p_convert * value_if_converted - unconditional_cost - predicted_profit) <= 0.01"
+            where_clause: "p_convert > 0"
+    columns:
+      - name: purpose
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [serve, oot_test, oot_train_crossfit]
+      - name: predicted_profit
+        data_tests: [not_null]
+
+  - name: int_pvs__features
+    description: Point-in-time features at each purchase (anchor = occurred_at, inclusive).
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+      - name: purchase_kind
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [monthly, annual, pack]
+      - name: country_bucket
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [us, tier1, rest, unknown]
+
+  - name: int_pvs__outcomes
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+
+  - name: int_pvs__renewal_rates
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [fit_id, plan_tier, country_bucket]
+    columns:
+      - name: renewal_prob
+        data_tests:
+          - not_null
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+
+  - name: int_pvs__params
+    data_tests:
+      - expression_is_true:
+          arguments:
+            expression: "refund_rate_per_charge between 0 and 1 and chargeback_rate_per_charge between 0 and 1 and plan_utilization >= 0 and pack_utilization >= 0 and burn_cv >= 0"
+    columns:
+      - name: fit_id
+        data_tests: [unique, not_null]
+
+  - name: int_pvs__scores
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [purpose, fit_id, event_id]
+      - expression_is_true:
+          arguments:
+            expression: "interval_low <= predicted_profit_90d + 0.01 and predicted_profit_90d <= interval_high + 0.01"
+            where_clause: "predicted_profit_90d is not null"
+
+  - name: int_experiment__user_readout
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, flag_key]
+    columns:
+      - name: country_bucket
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [us, tier1, rest, unknown]
+      - name: device
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [desktop, mobile, tablet, unknown]
+      - name: acquisition_channel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [google_cpc, meta_paid_social, tiktok_paid_social, affiliate, other_paid, organic, unknown]
+      - name: allocation_slice
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [holdout, bandit]
+      - name: propensity
+        data_tests:
+          - accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1
+
+  - name: int_amplitude__user_first_seen
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+
+  - name: int_fx__rates
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [currency, valid_from]
+    columns:
+      - name: reporting_per_unit
+        data_tests: [not_null, not_negative]
+
+  - name: int_model_parameters__current
+    columns:
+      - name: parameter_name
+        data_tests: [unique, not_null]
+      - name: fitted_params_ref
+        data_tests:
+          - not_null
+          - matches_regex:
+              arguments:
+                pattern: '^dim_model_parameters@[0-9a-f]{64}$'
+
+  - name: int_reconciliation__wide
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [period_month, platform]
+
+  - name: int_reconciliation__purchase_platform
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [event_id, platform]
+    columns:
+      - name: sent_value_usd
+        data_tests: [not_null, not_negative]
+      - name: rule_value_usd
+        data_tests: [not_null, not_negative]

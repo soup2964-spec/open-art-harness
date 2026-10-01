@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/experiment-exposure.schema.json",
+  "title": "ExperimentExposure",
+  "description": "First exposure of a user to a flag arm. Sources: Amplitude `$exposure` events {flag_key, variant} and, for LaunchDarkly default-model flags, the first Amplitude row whose user_properties carry ab_<flag_key> (the Suite identifies ab_* props and fires experiment_flags_ready).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["user_id", "flag_key", "arm", "first_exposed_at"],
+  "properties": {
+    "user_id": { "$ref": "common.schema.json#/$defs/userId" },
+    "flag_key": { "$ref": "common.schema.json#/$defs/flagKey" },
+    "arm": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "first_exposed_at": { "$ref": "common.schema.json#/$defs/utcTimestamp" },
+    "source": { "enum": ["amplitude_exposure_event", "amplitude_user_property", "launchdarkly"] },
+    "device_id": { "type": ["string", "null"] }
+  }
+}

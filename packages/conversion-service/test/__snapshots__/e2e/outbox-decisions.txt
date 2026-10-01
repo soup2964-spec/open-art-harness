@@ -1,0 +1,147 @@
+google_ads:ADJUST:chargeback_dp_1SynthU04Dispute0001 -> dry_run
+google_ads:ADJUST:refund_ch_3SynthU01Chg0003_1400 -> dry_run
+google_ads:SEND:activation_SynthU05FreeTrialE5x -> dry_run
+google_ads:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> dry_run
+google_ads:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> dry_run
+google_ads:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> dry_run
+google_ads:SEND:leadstage_90000000001_salesqualifiedlead -> dry_run
+google_ads:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> dry_run
+google_ads:SEND:purchase_in_1SynthU01Inv0001First -> dry_run
+google_ads:SEND:purchase_in_1SynthU01Inv0002Cycle -> dry_run
+google_ads:SEND:purchase_in_1SynthU01Inv0003Cycle -> dry_run
+google_ads:SEND:purchase_in_1SynthU02Inv0001First -> skipped (twin_window_expired)
+google_ads:SEND:purchase_in_1SynthU03Inv0001First -> dry_run
+google_ads:SEND:purchase_in_1SynthU03Inv0002AddOn -> dry_run
+google_ads:SEND:purchase_in_1SynthU03Inv0003Upgrade -> dry_run
+google_ads:SEND:purchase_in_1SynthU04Inv0001First -> dry_run
+google_ads:SEND:reg_SynthU05FreeTrialE5x -> dry_run
+google_ads:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+google_ads:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+google_ads:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+google_ads:SEND:reg_SynthU09FranceGranted -> dry_run
+linkedin:SEND:activation_SynthU05FreeTrialE5x -> skipped (not_sent_by_mapping)
+linkedin:SEND:chargeback_dp_1SynthU04Dispute0001 -> skipped (no_adjustment_api)
+linkedin:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> skipped (not_sent_by_mapping)
+linkedin:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> dry_run
+linkedin:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> dry_run
+linkedin:SEND:leadstage_90000000001_salesqualifiedlead -> dry_run
+linkedin:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> skipped (not_sent_by_mapping)
+linkedin:SEND:purchase_in_1SynthU01Inv0001First -> skipped (window_expired_while_held)
+linkedin:SEND:purchase_in_1SynthU01Inv0002Cycle -> skipped (not_sent_by_mapping)
+linkedin:SEND:purchase_in_1SynthU01Inv0003Cycle -> skipped (not_sent_by_mapping)
+linkedin:SEND:purchase_in_1SynthU02Inv0001First -> skipped (window_expired_while_held)
+linkedin:SEND:purchase_in_1SynthU03Inv0001First -> skipped (window_expired_while_held)
+linkedin:SEND:purchase_in_1SynthU03Inv0002AddOn -> skipped (not_sent_by_mapping)
+linkedin:SEND:purchase_in_1SynthU03Inv0003Upgrade -> skipped (not_sent_by_mapping)
+linkedin:SEND:purchase_in_1SynthU04Inv0001First -> skipped (predates_web_fix)
+linkedin:SEND:refund_ch_3SynthU01Chg0003_1400 -> skipped (no_adjustment_api)
+linkedin:SEND:reg_SynthU05FreeTrialE5x -> skipped (predates_web_fix)
+linkedin:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+linkedin:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+linkedin:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+linkedin:SEND:reg_SynthU09FranceGranted -> skipped (predates_web_fix)
+meta:SEND:activation_SynthU05FreeTrialE5x -> dry_run
+meta:SEND:chargeback_dp_1SynthU04Dispute0001 -> skipped (no_adjustment_api)
+meta:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> dry_run
+meta:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> dry_run
+meta:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> dry_run
+meta:SEND:leadstage_90000000001_salesqualifiedlead -> skipped (not_sent_by_mapping)
+meta:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> dry_run
+meta:SEND:purchase_in_1SynthU01Inv0001First -> dry_run
+meta:SEND:purchase_in_1SynthU01Inv0002Cycle -> dry_run
+meta:SEND:purchase_in_1SynthU01Inv0003Cycle -> dry_run
+meta:SEND:purchase_in_1SynthU02Inv0001First -> skipped (window_expired)
+meta:SEND:purchase_in_1SynthU03Inv0001First -> dry_run
+meta:SEND:purchase_in_1SynthU03Inv0002AddOn -> dry_run
+meta:SEND:purchase_in_1SynthU03Inv0003Upgrade -> dry_run
+meta:SEND:purchase_in_1SynthU04Inv0001First -> dry_run
+meta:SEND:refund_ch_3SynthU01Chg0003_1400 -> skipped (no_adjustment_api)
+meta:SEND:reg_SynthU05FreeTrialE5x -> dry_run
+meta:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+meta:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+meta:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+meta:SEND:reg_SynthU09FranceGranted -> dry_run
+microsoft:ADJUST:chargeback_dp_1SynthU04Dispute0001 -> dry_run
+microsoft:ADJUST:refund_ch_3SynthU01Chg0003_1400 -> dry_run
+microsoft:SEND:activation_SynthU05FreeTrialE5x -> skipped (not_sent_by_mapping)
+microsoft:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> skipped (not_sent_by_mapping)
+microsoft:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> dry_run
+microsoft:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> dry_run
+microsoft:SEND:leadstage_90000000001_salesqualifiedlead -> skipped (not_sent_by_mapping)
+microsoft:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> dry_run
+microsoft:SEND:purchase_in_1SynthU01Inv0001First -> skipped (window_expired_while_held)
+microsoft:SEND:purchase_in_1SynthU01Inv0002Cycle -> dry_run
+microsoft:SEND:purchase_in_1SynthU01Inv0003Cycle -> dry_run
+microsoft:SEND:purchase_in_1SynthU02Inv0001First -> skipped (window_expired)
+microsoft:SEND:purchase_in_1SynthU03Inv0001First -> skipped (window_expired_while_held)
+microsoft:SEND:purchase_in_1SynthU03Inv0002AddOn -> dry_run
+microsoft:SEND:purchase_in_1SynthU03Inv0003Upgrade -> dry_run
+microsoft:SEND:purchase_in_1SynthU04Inv0001First -> skipped (window_expired_while_held)
+microsoft:SEND:reg_SynthU05FreeTrialE5x -> dry_run
+microsoft:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+microsoft:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+microsoft:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+microsoft:SEND:reg_SynthU09FranceGranted -> dry_run
+reddit:SEND:activation_SynthU05FreeTrialE5x -> dry_run
+reddit:SEND:chargeback_dp_1SynthU04Dispute0001 -> skipped (no_adjustment_api)
+reddit:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> skipped (not_sent_by_mapping)
+reddit:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> skipped (not_sent_by_mapping)
+reddit:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> skipped (not_sent_by_mapping)
+reddit:SEND:leadstage_90000000001_salesqualifiedlead -> skipped (not_sent_by_mapping)
+reddit:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> dry_run
+reddit:SEND:purchase_in_1SynthU01Inv0001First -> skipped (window_expired_while_held)
+reddit:SEND:purchase_in_1SynthU01Inv0002Cycle -> dry_run
+reddit:SEND:purchase_in_1SynthU01Inv0003Cycle -> dry_run
+reddit:SEND:purchase_in_1SynthU02Inv0001First -> skipped (window_expired)
+reddit:SEND:purchase_in_1SynthU03Inv0001First -> skipped (window_expired_while_held)
+reddit:SEND:purchase_in_1SynthU03Inv0002AddOn -> dry_run
+reddit:SEND:purchase_in_1SynthU03Inv0003Upgrade -> dry_run
+reddit:SEND:purchase_in_1SynthU04Inv0001First -> skipped (window_expired_while_held)
+reddit:SEND:refund_ch_3SynthU01Chg0003_1400 -> skipped (no_adjustment_api)
+reddit:SEND:reg_SynthU05FreeTrialE5x -> skipped (window_expired_while_held)
+reddit:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+reddit:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+reddit:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+reddit:SEND:reg_SynthU09FranceGranted -> skipped (predates_web_fix)
+tiktok:SEND:activation_SynthU05FreeTrialE5x -> dry_run
+tiktok:SEND:chargeback_dp_1SynthU04Dispute0001 -> skipped (no_adjustment_api)
+tiktok:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> dry_run
+tiktok:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> skipped (not_sent_by_mapping)
+tiktok:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> skipped (not_sent_by_mapping)
+tiktok:SEND:leadstage_90000000001_salesqualifiedlead -> skipped (not_sent_by_mapping)
+tiktok:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> dry_run
+tiktok:SEND:purchase_in_1SynthU01Inv0001First -> dry_run
+tiktok:SEND:purchase_in_1SynthU01Inv0002Cycle -> dry_run
+tiktok:SEND:purchase_in_1SynthU01Inv0003Cycle -> dry_run
+tiktok:SEND:purchase_in_1SynthU02Inv0001First -> skipped (window_expired)
+tiktok:SEND:purchase_in_1SynthU03Inv0001First -> dry_run
+tiktok:SEND:purchase_in_1SynthU03Inv0002AddOn -> dry_run
+tiktok:SEND:purchase_in_1SynthU03Inv0003Upgrade -> dry_run
+tiktok:SEND:purchase_in_1SynthU04Inv0001First -> dry_run
+tiktok:SEND:refund_ch_3SynthU01Chg0003_1400 -> skipped (no_adjustment_api)
+tiktok:SEND:reg_SynthU05FreeTrialE5x -> skipped (window_expired_while_held)
+tiktok:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+tiktok:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+tiktok:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+tiktok:SEND:reg_SynthU09FranceGranted -> skipped (predates_web_fix)
+x:SEND:activation_SynthU05FreeTrialE5x -> skipped (not_sent_by_mapping)
+x:SEND:chargeback_dp_1SynthU04Dispute0001 -> skipped (no_adjustment_api)
+x:SEND:checkout_0d01ae90-ee71-409f-ab0f-9e1a642e0dce -> skipped (not_sent_by_mapping)
+x:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a001 -> skipped (not_sent_by_mapping)
+x:SEND:lead_6f1d2c3b-0000-4000-8000-00000000a002 -> skipped (not_sent_by_mapping)
+x:SEND:leadstage_90000000001_salesqualifiedlead -> skipped (not_sent_by_mapping)
+x:SEND:purchase_cs_live_a1SynthU05Pack00000001 -> skipped (not_sent_by_mapping)
+x:SEND:purchase_in_1SynthU01Inv0001First -> dry_run
+x:SEND:purchase_in_1SynthU01Inv0002Cycle -> skipped (not_sent_by_mapping)
+x:SEND:purchase_in_1SynthU01Inv0003Cycle -> skipped (not_sent_by_mapping)
+x:SEND:purchase_in_1SynthU02Inv0001First -> skipped (window_expired)
+x:SEND:purchase_in_1SynthU03Inv0001First -> dry_run
+x:SEND:purchase_in_1SynthU03Inv0002AddOn -> skipped (not_sent_by_mapping)
+x:SEND:purchase_in_1SynthU03Inv0003Upgrade -> skipped (not_sent_by_mapping)
+x:SEND:purchase_in_1SynthU04Inv0001First -> dry_run
+x:SEND:refund_ch_3SynthU01Chg0003_1400 -> skipped (no_adjustment_api)
+x:SEND:reg_SynthU05FreeTrialE5x -> skipped (window_expired_while_held)
+x:SEND:reg_SynthU06GmailSignupF6 -> dry_run
+x:SEND:reg_SynthU07GermanyNoCmp -> skipped (consent_required_regulated_region)
+x:SEND:reg_SynthU08CaliforniaOpt -> skipped (consent_denied)
+x:SEND:reg_SynthU09FranceGranted -> skipped (predates_web_fix)

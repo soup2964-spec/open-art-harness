@@ -1,0 +1,11 @@
+# dbt build artefacts and the local DuckDB file (rebuilt from fixtures by scripts/build.sh)
+target/
+dbt_packages/
+logs/
+*.duckdb
+*.duckdb.wal
+.user.yml
+# Python tooling
+.venv/
+__pycache__/
+.pytest_cache/

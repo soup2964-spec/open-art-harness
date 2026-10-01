@@ -1,0 +1,137 @@
+[
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://api.linkedin.com/rest/conversionEvents",
+    "headers": {
+      "Content-Type": "application/json",
+      "Linkedin-Version": "202609",
+      "X-Restli-Protocol-Version": "2.0.0",
+      "X-RestLi-Method": "BATCH_CREATE"
+    },
+    "auth": "linkedin_bearer",
+    "body": {
+      "elements": [
+        {
+          "conversion": "urn:lla:llaPartnerConversion:9000003",
+          "conversionHappenedAt": 1789748400000,
+          "eventId": "lead_6f1d2c3b-0000-4000-8000-00000000a001",
+          "user": {
+            "userIds": [
+              {
+                "idType": "SHA256_EMAIL",
+                "idValue": "697905fe72d9f83abc6577cc99a103721a931a888ef7c1403597a76f1e743d2b"
+              },
+              {
+                "idType": "PLAINTEXT_IP_ADDRESS",
+                "idValue": "203.0.113.21"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://api.linkedin.com/rest/conversionEvents",
+    "headers": {
+      "Content-Type": "application/json",
+      "Linkedin-Version": "202609",
+      "X-Restli-Protocol-Version": "2.0.0",
+      "X-RestLi-Method": "BATCH_CREATE"
+    },
+    "auth": "linkedin_bearer",
+    "body": {
+      "elements": [
+        {
+          "conversion": "urn:lla:llaPartnerConversion:9000003",
+          "conversionHappenedAt": 1789897500000,
+          "eventId": "lead_6f1d2c3b-0000-4000-8000-00000000a002",
+          "user": {
+            "userIds": [
+              {
+                "idType": "SHA256_EMAIL",
+                "idValue": "9f4493eea76d699493584d1de0df28bfec17097f8bbe3394b7dc4e6616e06b86"
+              },
+              {
+                "idType": "PLAINTEXT_IP_ADDRESS",
+                "idValue": "203.0.113.22"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "phase": "A",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://api.linkedin.com/rest/conversionEvents",
+    "headers": {
+      "Content-Type": "application/json",
+      "Linkedin-Version": "202609",
+      "X-Restli-Protocol-Version": "2.0.0",
+      "X-RestLi-Method": "BATCH_CREATE"
+    },
+    "auth": "linkedin_bearer",
+    "body": {
+      "elements": [
+        {
+          "conversion": "urn:lla:llaPartnerConversion:9000004",
+          "conversionHappenedAt": 1790262000000,
+          "eventId": "leadstage_90000000001_salesqualifiedlead",
+          "user": {
+            "userIds": [
+              {
+                "idType": "SHA256_EMAIL",
+                "idValue": "697905fe72d9f83abc6577cc99a103721a931a888ef7c1403597a76f1e743d2b"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "phase": "B",
+    "action": "SEND",
+    "method": "POST",
+    "url": "https://api.linkedin.com/rest/conversionEvents",
+    "headers": {
+      "Content-Type": "application/json",
+      "Linkedin-Version": "202609",
+      "X-Restli-Protocol-Version": "2.0.0",
+      "X-RestLi-Method": "BATCH_CREATE"
+    },
+    "auth": "linkedin_bearer",
+    "body": {
+      "elements": [
+        {
+          "conversion": "urn:lla:llaPartnerConversion:9000001",
+          "conversionHappenedAt": 1790337600000,
+          "eventId": "reg_SynthU06GmailSignupF6",
+          "user": {
+            "userIds": [
+              {
+                "idType": "SHA256_EMAIL",
+                "idValue": "046758cbe1fffc8c995b84dd17027507c122e20bfc39380ab6bfbb54de252d27"
+              },
+              {
+                "idType": "PLAINTEXT_IP_ADDRESS",
+                "idValue": "203.0.113.6"
+              }
+            ],
+            "externalIds": [
+              "66ad45d89313b3adad3e86c41dd54d1408aebe816422fd28c3ee1b98e52e71cd"
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

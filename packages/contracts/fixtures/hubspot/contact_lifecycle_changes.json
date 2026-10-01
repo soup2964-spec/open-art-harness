@@ -1,0 +1,30 @@
+[
+  {
+    "subscriptionId": 2100001,
+    "portalId": 244977254,
+    "appId": 3100001,
+    "subscriptionType": "contact.propertyChange",
+    "attemptNumber": 0,
+    "objectId": 90000000001,
+    "propertyName": "lifecyclestage",
+    "changeSource": "CRM_UI",
+    "sourceId": "userId:0",
+    "eventId": 4100001,
+    "occurredAt": 1789815600000,
+    "propertyValue": "marketingqualifiedlead"
+  },
+  {
+    "subscriptionId": 2100001,
+    "portalId": 244977254,
+    "appId": 3100001,
+    "subscriptionType": "contact.propertyChange",
+    "attemptNumber": 0,
+    "objectId": 90000000001,
+    "propertyName": "lifecyclestage",
+    "changeSource": "CRM_UI",
+    "sourceId": "userId:0",
+    "eventId": 4100002,
+    "occurredAt": 1790262000000,
+    "propertyValue": "salesqualifiedlead"
+  }
+]

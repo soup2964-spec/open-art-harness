@@ -1,0 +1,126 @@
+{
+  "_comment": "Composite indexes, index exemptions and TTL policies for the conversion-service Firestore database (conversion-service). Deploy with: firebase deploy --only firestore:indexes --project PROJECT_ID (the ttl:true overrides create the TTL policies), or per collection group: gcloud firestore fields ttls update expire_at --collection-group=GROUP --enable-ttl --database=conversion-service. Collection ids carry FIRESTORE_COLLECTION_PREFIX (default conversion_service_). Every document carries expire_at (a Timestamp: FirestoreDocumentStore writes it as timestampValue); src/retention.ts sets it: outbox 30 days after terminal (100 for purchase sends a refund may still adjust, and never before the send-by deadline), inbox 35, parked 7, dead letters 30, value decisions 100, Stripe join state and HubSpot contact state 400 days refreshed on every write. TTL deletion runs within about 24 h of expiry. Erasure by user id is immediate (POST /tasks/erase). The (status, next_attempt_at_ms) index also serves the held-record cursor (status == held AND next_attempt_at_ms <= now). Single-field indexes (user_id for erasure, invoice_id IN for erasure, occurred_at_ms for the value-health report, parked.dependency, parked.parked_at_ms) are automatic.",
+  "indexes": [
+    {
+      "collectionGroup": "conversion_service_outbox",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "next_attempt_at_ms",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "conversion_service_outbox",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lease_until_ms",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "conversion_service_outbox",
+      "fieldPath": "__json",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_inbox",
+      "fieldPath": "__json",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_parked",
+      "fieldPath": "__json",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_value_decisions",
+      "fieldPath": "__json",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_dead_letters",
+      "fieldPath": "__json",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_outbox",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_inbox",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_parked",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_dead_letters",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_value_decisions",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_stripe_payment_intents",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_stripe_charges",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_stripe_invoice_checkout",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_stripe_subscriptions",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_stripe_charge_refunds",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "conversion_service_hubspot_contacts",
+      "fieldPath": "expire_at",
+      "ttl": true,
+      "indexes": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Dry-run outputs hold per-platform identifier hashes (unsalted SHA-256 of emails and phones),
+# uids and predicted-profit values: never commit them.
+out/
+out-*/
+snapshots/
+snapshot*/
+# CLI output files wherever --out points inside the package.
+plan-*.md
+requests-*.json
+changes-*.jsonl
+snapshot-*.jsonl
+audience-ids-*.json

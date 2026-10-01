@@ -1,0 +1,274 @@
+unit_tests:
+  - name: generation_cost_override_precedence_and_discount
+    description: >
+      Cost basis precedence and the discount hook. Five generations of one capability:
+        g1 exact setting at list price minus the vendor discount (25% for byteplus via vars)
+        g2 setting-specific override with a realised unit cost (no further discount)
+        g3 "Unlimited" promo (unitCredits 0) costed at originalUnitCredits' setting
+        g4 failed generation (credits refunded) billed at failed_generation_cost_share (0.5 here)
+        g5 unknown capability at default_cost_per_credit_usd
+    model: fct_generation_cost
+    overrides:
+      vars:
+        vendor_discounts: {byteplus: 0.25}
+        failed_generation_cost_share: 0.5
+        default_cost_per_credit_usd: 0.002
+    given:
+      - input: ref('stg_app__credit_ledger')
+        format: dict
+        rows:
+          - {ledger_entry_id: g1, user_id: u1, created_at: '2026-07-01 10:00:00', entry_type: CONSUME, business_type: 'byte-plus-seedance-2:text2video', business_id: h1, amount: -400, credit_field: subscription_monthly_credit, is_generation: true, model_id: byte-plus-seedance-2, generation_mode: text2video, media_type: video}
+          - {ledger_entry_id: g2, user_id: u1, created_at: '2026-07-02 10:00:00', entry_type: CONSUME, business_type: 'byte-plus-seedance-2:text2video', business_id: h2, amount: -1000, credit_field: subscription_monthly_credit, is_generation: true, model_id: byte-plus-seedance-2, generation_mode: text2video, media_type: video}
+          - {ledger_entry_id: g3, user_id: u1, created_at: '2026-07-03 10:00:00', entry_type: CONSUME, business_type: 'byte-plus-seedance-2:text2video', business_id: h3, amount: 0, credit_field: subscription_monthly_credit, is_generation: true, model_id: byte-plus-seedance-2, generation_mode: text2video, media_type: video}
+          - {ledger_entry_id: g4, user_id: u1, created_at: '2026-07-04 10:00:00', entry_type: CONSUME, business_type: 'byte-plus-seedance-2:text2video', business_id: h4, amount: -400, credit_field: subscription_monthly_credit, is_generation: true, model_id: byte-plus-seedance-2, generation_mode: text2video, media_type: video}
+          - {ledger_entry_id: r4, user_id: u1, created_at: '2026-07-04 10:02:00', entry_type: REFUND, business_type: 'byte-plus-seedance-2:text2video', business_id: h4, amount: 400, credit_field: subscription_monthly_credit, is_generation: false, model_id: byte-plus-seedance-2, generation_mode: text2video, media_type: video}
+          - {ledger_entry_id: g5, user_id: u1, created_at: '2026-07-05 10:00:00', entry_type: CONSUME, business_type: 'mystery-model:text2video', business_id: h5, amount: -300, credit_field: subscription_monthly_credit, is_generation: true, model_id: mystery-model, generation_mode: text2video, media_type: video}
+      - input: ref('stg_app__credit_ledger_details')
+        format: dict
+        rows:
+          - {ledger_entry_id: g1, detail_position: 0, quantity: 1, unit_credits: 400, sub_business_type: 'byte-plus-seedance-2:text2video', original_unit_credits: null, discount_pct: null, generation_source: null}
+          - {ledger_entry_id: g2, detail_position: 0, quantity: 1, unit_credits: 1000, sub_business_type: 'byte-plus-seedance-2:text2video', original_unit_credits: null, discount_pct: null, generation_source: null}
+          - {ledger_entry_id: g3, detail_position: 0, quantity: 1, unit_credits: 0, sub_business_type: 'byte-plus-seedance-2:text2video', original_unit_credits: 400, discount_pct: null, generation_source: null}
+          - {ledger_entry_id: g4, detail_position: 0, quantity: 1, unit_credits: 400, sub_business_type: 'byte-plus-seedance-2:text2video', original_unit_credits: null, discount_pct: null, generation_source: null}
+          - {ledger_entry_id: g5, detail_position: 0, quantity: 1, unit_credits: 300, sub_business_type: 'mystery-model:text2video', original_unit_credits: null, discount_pct: null, generation_source: null}
+      - input: ref('int_model_costs__priced')
+        format: dict
+        rows:
+          - {business_type: 'byte-plus-seedance-2:text2video', setting: 720p 5s, credits: 400, list_cost_usd: 0.76, list_cost_per_credit_usd: 0.0019, vendor: byteplus, vendor_discount_pct: 0.25}
+          - {business_type: 'byte-plus-seedance-2:text2video', setting: 1080p 5s, credits: 1000, list_cost_usd: 1.87, list_cost_per_credit_usd: 0.00187, vendor: byteplus, vendor_discount_pct: 0.25}
+      - input: ref('generation_cost_overrides')
+        format: dict
+        rows:
+          - {override_id: ov1, business_type: 'byte-plus-seedance-2:text2video', setting: 1080p 5s, route: byteplus-enterprise, vendor: byteplus, unit_cost_usd: 1.2, cost_per_credit_usd: null, discount_pct: null, valid_from: '2026-06-01', valid_to: null, source: ILLUSTRATIVE unit test, notes: realised per-route cost}
+      - input: ref('qa_accounts')
+        format: dict
+        rows:
+          - {user_id: SynthQA, reason: qa}
+    expect:
+      format: dict
+      rows:
+        - {generation_id: 'g1:0', cost_basis: exact_setting, setting: 720p 5s, vendor: byteplus, override_id: null, route: null, discount_pct_applied: 0.25, is_failed_generation: false, billable_share: 1.0, credits_charged: 400, credits_costed: 400, cost_usd: 0.57}
+        - {generation_id: 'g2:0', cost_basis: override_setting, setting: 1080p 5s, vendor: byteplus, override_id: ov1, route: byteplus-enterprise, discount_pct_applied: 0.0, is_failed_generation: false, billable_share: 1.0, credits_charged: 1000, credits_costed: 1000, cost_usd: 1.2}
+        - {generation_id: 'g3:0', cost_basis: unlimited_original_credits, setting: 720p 5s, vendor: byteplus, override_id: null, route: null, discount_pct_applied: 0.25, is_failed_generation: false, billable_share: 1.0, credits_charged: 0, credits_costed: 400, cost_usd: 0.57}
+        - {generation_id: 'g4:0', cost_basis: exact_setting, setting: 720p 5s, vendor: byteplus, override_id: null, route: null, discount_pct_applied: 0.25, is_failed_generation: true, billable_share: 0.5, credits_charged: 400, credits_costed: 400, cost_usd: 0.285}
+        - {generation_id: 'g5:0', cost_basis: default_per_credit, setting: null, vendor: unknown, override_id: null, route: null, discount_pct_applied: 0.0, is_failed_generation: false, billable_share: 1.0, credits_charged: 300, credits_costed: 300, cost_usd: 0.6}
+
+  - name: predicted_profit_components_for_a_monthly_payer_and_an_unpaid_user
+    description: >
+      Hand-computed v0 arithmetic of the 24h score (int_pp__scores), both users in fold 0, so both
+      are scored with the xf0 fit (cross-fitting). u_paid bought Starter monthly ($14) within 24h:
+      revenue 14 x (1 + 0.8 + 0.64) = 34.16; charges 2.44; credits 4000 x 0.5 x 2.44 = 4880 at the
+      MEASURED arm mix (0.5 x 0.003 video + 0.5 x 0.001 image = 0.002 $/credit) = 9.76 (+ 0.10
+      realised). u_free (affiliate) generated but kept trial credits: signals-only P = 0.1; with
+      the arm terms (cal, the main variant here) P = 0.1 x 1.2 = 0.12 -> revenue 0.12 x 300 x 1.5 = 54.
+      p * value_if_converted - unconditional_cost = predicted_profit for both.
+    model: int_pp__scores
+    overrides:
+      vars:
+        pp_monthly_retention: 0.8
+        pp_use_arm_calibration: true
+        pp_plan_utilization: 0.5
+        pp_trial_leftover_use_share: 0.0
+        payment_fee_pct: 0.03
+        payment_fee_fixed_usd: 0.3
+        affiliate_commission_pct: 0.2
+        pp_refund_prob_per_charge: 0.02
+        pp_chargeback_prob_per_charge: 0.0
+        dispute_fee_usd: 15.0
+        default_cost_per_credit_usd: 0.002
+        as_of_timestamp: '2026-09-28 00:00:00'
+    given:
+      - input: ref('fct_user_features_24h')
+        format: dict
+        rows:
+          - {user_id: u_paid, signup_at: '2026-07-01 00:00:00', feature_window_end: '2026-07-02 00:00:00', is_window_complete: true, cf_fold: 0, signup_week: '2026-06-29', paid_within_24h: true, activated_24h: true, trial_depleted_24h: false, first_purchase_event_name: purchase_first, plan_tier: essential, billing_interval: month, first_purchase_value_usd: 14.0, generation_cost_24h_usd: 0.1, trial_credits_remaining_24h: 0, arm_create_image: img_a, arm_create_video: vid_a, acquisition_channel: organic, is_qa_account: false}
+          - {user_id: u_free, signup_at: '2026-07-01 00:00:00', feature_window_end: '2026-07-02 00:00:00', is_window_complete: true, cf_fold: 0, signup_week: '2026-06-29', paid_within_24h: false, activated_24h: true, trial_depleted_24h: false, first_purchase_event_name: null, plan_tier: null, billing_interval: null, first_purchase_value_usd: null, generation_cost_24h_usd: 0.02, trial_credits_remaining_24h: 20, arm_create_image: img_a, arm_create_video: vid_a, acquisition_channel: affiliate, is_qa_account: false}
+      - input: ref('int_pp__oot_weeks')
+        format: dict
+        rows: []
+      - input: ref('int_pp__segment_rates')
+        format: dict
+        rows:
+          - {fit_id: xf0, segment: activated, p_convert: 0.1}
+          - {fit_id: xf0, segment: activated_depleted, p_convert: 0.2}
+          - {fit_id: xf0, segment: not_activated, p_convert: 0.01}
+          - {fit_id: xf1, segment: activated, p_convert: 0.9}
+      - input: ref('int_pp__arm_multipliers')
+        format: dict
+        rows:
+          - {fit_id: xf0, flag_key: suite-default-model-create-image, arm: img_a, conversion_multiplier: 1.2, value_multiplier: 1.5}
+          - {fit_id: xf0, flag_key: suite-default-model-create-video, arm: vid_a, conversion_multiplier: 1.0, value_multiplier: 1.0}
+      - input: ref('int_pp__converter_value')
+        format: dict
+        rows:
+          - {fit_id: xf0, revenue_per_converter_usd: 300.0, charges_per_converter: 2.0, paid_credits_per_converter: 10000.0, paid_video_credit_share: 0.5, trial_cost_per_credit_usd: 0.002}
+          - {fit_id: xf1, revenue_per_converter_usd: 9999.0, charges_per_converter: 9.0, paid_credits_per_converter: 1.0, paid_video_credit_share: 0.5, trial_cost_per_credit_usd: 0.002}
+      - input: ref('int_pp__cost_per_credit')
+        format: dict
+        rows:
+          - {fit_id: xf0, flag_key: suite-default-model-create-image, arm: img_a, media_type: image, pooled_cost_per_credit_usd: 0.004, cost_per_credit_usd: 0.001}
+          - {fit_id: xf0, flag_key: suite-default-model-create-video, arm: vid_a, media_type: video, pooled_cost_per_credit_usd: 0.004, cost_per_credit_usd: 0.003}
+      - input: ref('plan_catalog')
+        format: dict
+        rows:
+          - {price_id: p1, item_type: plan, plan_tier: essential, billing_interval: month, monthly_credits: 4000, credits_per_unit: null}
+          - {price_id: p2, item_type: one_time_pack, plan_tier: null, billing_interval: null, monthly_credits: null, credits_per_unit: 800}
+    expect:
+      format: dict
+      rows:
+        # u_paid: fees 34.16 x 0.03 + 2.44 x 0.3 = 1.7568; risk 34.16 x 0.02 = 0.6832; V = (21.86 + 0.1) / 1
+        - {purpose: serve, fit_id: xf0, user_id: u_paid, predicted_revenue: 34.16, predicted_generation_cost: 9.86, predicted_fees: 1.7568, predicted_refund_risk: 0.6832, predicted_profit: 21.86, p_convert: 1.0, sig_predicted_profit: 21.86, unconditional_cost: 0.1, value_if_converted: 21.96}
+        # u_free (cal): credits 0.12 x 10000 x 1.5 = 1800 x 0.002 = 3.6 (+0.02); fees 54 x 0.03 + 0.24 x 0.3 + 54 x 0.2 = 12.492;
+        #   risk 1.08; V = (36.808 + 0.02) / 0.12 = 306.9. sig: p 0.1 -> 30 - 2.02 - 6.96 - 0.6 = 20.42
+        - {purpose: serve, fit_id: xf0, user_id: u_free, predicted_revenue: 54.0, predicted_generation_cost: 3.62, predicted_fees: 12.492, predicted_refund_risk: 1.08, predicted_profit: 36.808, p_convert: 0.12, sig_predicted_profit: 20.42, unconditional_cost: 0.02, value_if_converted: 306.9}
+
+  - name: ledger_attribution_is_what_was_known_at_event_time
+    description: >
+      Every attribution field on a ledger event is bounded by the event time (+ the
+      attribution_clock_skew_seconds allowance, 300 s): u1 buys at 2026-06-10 12:00.
+        device      d_old (from 06-01), d_new (from 06-09) -> d_new; d_future (06-11) never
+        gclid       A clicked 06-01, C clicked 06-05, B clicked 06-15 (a re-click AFTER the purchase)
+                    -> C (the latest click BEFORE the event), not A (first touch), not {} and not B
+        fbclid      first seen 06-11 (after the purchase)   -> absent
+        utm         utm_source captured 06-01 -> kept; utm_campaign captured 06-20 -> absent
+        arms        image exposed 06-01 -> kept; video exposed 06-20 -> absent
+      (database review 6 and 7: these bounds had no test; mutations M01-M03b, M19 survived)
+    model: fct_conversion_ledger
+    overrides:
+      vars:
+        attribution_clock_skew_seconds: 300
+    given:
+      - input: ref('int_conversion_ledger__events')
+        format: dict
+        rows:
+          - {event_id: purchase_in_1, event_name: purchase_first, occurred_at: '2026-06-10 12:00:00', source_system: stripe, source_event_id: evt_1, user_id: u1, order_id: sub_in_1, cash_value_minor: 1400, currency: USD, invoice_id: in_1, subscription_id: sub_1, plan_tier: essential, plan_tier_code: 1000, billing_interval: month, is_first_purchase: true, is_business: false, cash_value_reporting: 14.0, revenue_reporting: 14.0}
+      - input: ref('int_user__profile')
+        format: dict
+        rows:
+          - {user_id: u1, first_device_id: d_first, country_code: US, is_qa_account: false}
+      - input: ref('int_user__device_timeline')
+        format: dict
+        rows:
+          - {user_id: u1, device_id: d_old, device_since: '2026-06-01 00:00:00'}
+          - {user_id: u1, device_id: d_new, device_since: '2026-06-09 00:00:00'}
+          - {user_id: u1, device_id: d_future, device_since: '2026-06-11 00:00:00'}
+      - input: ref('int_user__click_ids')
+        format: dict
+        rows:
+          - {user_id: u1, click_id_key: gclid, click_id_value: A, click_id_created_at: '2026-06-01 00:00:00', known_at: '2026-06-01 00:00:05', click_id_source: ad_click_id_store, source_priority: 1, platform: google_ads, acquisition_channel: google_cpc, precedence: 1}
+          - {user_id: u1, click_id_key: gclid, click_id_value: B, click_id_created_at: '2026-06-15 00:00:00', known_at: '2026-06-15 00:00:05', click_id_source: ad_click_id_store, source_priority: 1, platform: google_ads, acquisition_channel: google_cpc, precedence: 1}
+          - {user_id: u1, click_id_key: gclid, click_id_value: C, click_id_created_at: '2026-06-05 00:00:00', known_at: '2026-06-05 00:00:05', click_id_source: ad_click_id_store, source_priority: 1, platform: google_ads, acquisition_channel: google_cpc, precedence: 1}
+          - {user_id: u1, click_id_key: fbclid, click_id_value: F, click_id_created_at: '2026-06-11 00:00:00', known_at: '2026-06-11 00:00:00', click_id_source: amplitude_initial_user_property, source_priority: 2, platform: meta, acquisition_channel: meta_paid_social, precedence: 1}
+      - input: ref('int_user__utm')
+        format: dict
+        rows:
+          - {user_id: u1, utm_key: utm_source, utm_value: google, captured_at: '2026-06-01 00:00:00', known_at: '2026-06-01 00:00:05', utm_source_system: ad_click_id_store, source_priority: 1}
+          - {user_id: u1, utm_key: utm_campaign, utm_value: late, captured_at: '2026-06-20 00:00:00', known_at: '2026-06-20 00:00:05', utm_source_system: ad_click_id_store, source_priority: 1}
+      - input: ref('int_experiment__exposures')
+        format: dict
+        rows:
+          - {user_id: u1, flag_key: suite-default-model-create-image, arm: gpt-image-2, first_exposed_at: '2026-06-01 00:00:00'}
+          - {user_id: u1, flag_key: suite-default-model-create-video, arm: wan3-0, first_exposed_at: '2026-06-20 00:00:00'}
+      - input: ref('platform_event_mapping')
+        format: dict
+        rows: []
+      - input: ref('qa_accounts')
+        format: dict
+        rows: []
+    expect:
+      format: dict
+      rows:
+        - {event_id: purchase_in_1, device_id: d_new, click_ids: '{"gclid":{"value":"C","created_at":"2026-06-05T00:00:00.000Z"}}', utm: '{"utm_source":"google"}', experiment_arms: '{"suite-default-model-create-image":"gpt-image-2"}', has_google_click_id: true, has_meta_fbclid: false}
+
+  - name: features_24h_only_use_what_was_known_before_the_window_end
+    description: >
+      u1 signs up 2026-06-01 00:00; the window ends 2026-06-02 00:00. Everything dated at or after
+      the window end must be invisible (ML review 3, database review 6: M07-M09 survived):
+        generation 06-02 02:00, trial balance row 06-02 02:00, first purchase 06-05, checkout
+        06-03, video-arm exposure 06-03, device class first seen 06-02 05:00, fbclid known 06-03.
+      The 24h generation (gpt-image-2, the image arm's default, AFTER the exposure) counts as a
+      default-model generation; the pre-exposure one does not.
+    model: fct_user_features_24h
+    overrides:
+      vars:
+        pp_crossfit_folds: 5
+    given:
+      - input: ref('int_user__profile')
+        format: dict
+        rows:
+          - {user_id: u1, signup_at: '2026-06-01 00:00:00', is_qa_account: false}
+      - input: ref('fct_generation_cost')
+        format: dict
+        rows:
+          - {generation_id: 'g0:0', user_id: u1, created_at: '2026-06-01 00:00:02', business_type: 'gpt-image-2:text2image', model_id: gpt-image-2, media_type: image, credits_charged: 5, cost_usd: 0.01, is_failed_generation: false, refunded_at: null}
+          - {generation_id: 'g1:0', user_id: u1, created_at: '2026-06-01 01:00:00', business_type: 'gpt-image-2:text2image', model_id: gpt-image-2, media_type: image, credits_charged: 5, cost_usd: 0.01, is_failed_generation: false, refunded_at: null}
+          - {generation_id: 'g2:0', user_id: u1, created_at: '2026-06-02 02:00:00', business_type: 'wan3-0:text2video', model_id: wan3-0, media_type: video, credits_charged: 200, cost_usd: 0.5, is_failed_generation: false, refunded_at: null}
+      - input: ref('int_experiment__exposures')
+        format: dict
+        rows:
+          - {user_id: u1, flag_key: suite-default-model-create-image, arm: gpt-image-2, first_exposed_at: '2026-06-01 00:00:05'}
+          - {user_id: u1, flag_key: suite-default-model-create-video, arm: wan3-0, first_exposed_at: '2026-06-03 00:00:00'}
+      - input: ref('default_model_arms')
+        format: dict
+        rows:
+          - {flag_key: suite-default-model-create-image, arm: gpt-image-2, business_type: 'gpt-image-2:text2image', default_setting: 1024x1024 low, credits_per_generation: 5, media_type: image}
+          - {flag_key: suite-default-model-create-video, arm: wan3-0, business_type: 'wan3-0:text2video', default_setting: 720p 5s, credits_per_generation: 200, media_type: video}
+      - input: ref('stg_app__credit_ledger')
+        format: dict
+        rows:
+          - {ledger_entry_id: l1, user_id: u1, created_at: '2026-06-01 01:00:00', credit_field: trial_credit_balance, balance_after: 30}
+          - {ledger_entry_id: l2, user_id: u1, created_at: '2026-06-02 02:00:00', credit_field: trial_credit_balance, balance_after: 0}
+      - input: ref('fct_conversion_ledger')
+        format: dict
+        rows:
+          - {event_id: checkout_x, event_name: checkout_started, occurred_at: '2026-06-03 00:00:00', user_id: u1}
+          - {event_id: purchase_in_1, event_name: purchase_first, occurred_at: '2026-06-05 00:00:00', user_id: u1, plan_tier: essential, billing_interval: month, revenue_reporting: 14.0}
+      - input: ref('int_amplitude__user_first_seen')
+        format: dict
+        rows:
+          - {user_id: u1, first_event_at: '2026-06-01 00:00:01', first_country: Germany, first_country_at: '2026-06-01 00:00:01', first_device_class: pc, first_device_class_at: '2026-06-02 05:00:00', first_device_type: Mac, first_os_name: Chrome, first_platform: Web}
+      - input: ref('country_codes')
+        format: dict
+        rows:
+          - {country_name: Germany, iso2: DE, is_eea_uk_ch: true}
+      - input: ref('int_user__click_ids')
+        format: dict
+        rows:
+          - {user_id: u1, click_id_key: gclid, click_id_value: G, click_id_created_at: '2026-05-31 23:59:00', known_at: '2026-06-01 00:00:05', click_id_source: ad_click_id_store, source_priority: 1, platform: google_ads, acquisition_channel: google_cpc, precedence: 1}
+          - {user_id: u1, click_id_key: fbclid, click_id_value: F, click_id_created_at: '2026-06-03 00:00:00', known_at: '2026-06-03 00:00:00', click_id_source: ad_click_id_store, source_priority: 1, platform: meta, acquisition_channel: meta_paid_social, precedence: 1}
+      - input: ref('int_user__utm')
+        format: dict
+        rows: []
+    expect:
+      format: dict
+      rows:
+        - {user_id: u1, generations_24h: 2, credits_consumed_24h: 10, video_generations_24h: 0, trial_credits_remaining_24h: 30, trial_depleted_24h: false, paid_within_24h: false, checkout_started_24h: false, arm_create_image: gpt-image-2, arm_create_video: null, arm_default_share_24h: 0.5, country: Germany, country_code: DE, device_class: null, has_amplitude_events: true, acquisition_channel: google_cpc, has_gclid: true, has_fbclid: false}
+
+  - name: arm_readout_counts_everyone_and_widens_for_model_error
+    description: >
+      ML review 5 and 6 on a toy flag. Arm A: 4 exposed (one contaminated, kept), 3 scored, 2 matured.
+      Predicted mean (100 + 2 + 4) / 3 = 35.333; realised mean over matured users only (80 + 0) / 2 =
+      40; mean residual -11 -> prediction-powered estimate 24.333. Fewer than 30 matured users in the
+      arm, so the model-error variance is the flag's pooled residual variance / its count =
+      99.583 / 4 -> SE 4.989572. Stratified on early payers (flag share 1 of 5 = 0.2):
+      0.2 x 100 + 0.8 x 3 = 22.4. Arm B has no early payer: stratified = plain mean.
+    model: fct_experiment_profit_by_arm
+    overrides:
+      vars:
+        readout_bootstrap_replicates: 0
+        readout_min_matured_for_arm_error: 30
+    given:
+      - input: ref('int_experiment__user_readout')
+        format: dict
+        rows:
+          - {user_id: a1, flag_key: F, arm: A, is_contaminated: true, is_scored: true, paid_within_24h: true, predicted_profit: 100.0, predicted_revenue: 100.0, predicted_generation_cost: 0.0, predicted_fees: 0.0, predicted_refund_risk: 0.0, p_convert: 1.0, expected_value_if_converted: 100.0, unconditional_cost: 0.0, converted_in_horizon_observed: true, is_matured: true, realised_converted_90d: true, realised_net_revenue_90d: 80.0, realised_generation_cost_90d: 0.0, realised_fees_90d: 0.0, realised_profit_90d: 80.0, residual_90d: -20.0, cuped_covariate: 1.0}
+          - {user_id: a2, flag_key: F, arm: A, is_contaminated: false, is_scored: true, paid_within_24h: false, predicted_profit: 2.0, predicted_revenue: 2.0, predicted_generation_cost: 0.0, predicted_fees: 0.0, predicted_refund_risk: 0.0, p_convert: 0.02, expected_value_if_converted: 2.0, unconditional_cost: 0.0, converted_in_horizon_observed: false, is_matured: true, realised_converted_90d: false, realised_net_revenue_90d: 0.0, realised_generation_cost_90d: 0.0, realised_fees_90d: 0.0, realised_profit_90d: 0.0, residual_90d: -2.0, cuped_covariate: 1.0}
+          - {user_id: a3, flag_key: F, arm: A, is_contaminated: false, is_scored: true, paid_within_24h: false, predicted_profit: 4.0, predicted_revenue: 4.0, predicted_generation_cost: 0.0, predicted_fees: 0.0, predicted_refund_risk: 0.0, p_convert: 0.04, expected_value_if_converted: 4.0, unconditional_cost: 0.0, converted_in_horizon_observed: false, is_matured: false, realised_converted_90d: null, realised_net_revenue_90d: null, realised_generation_cost_90d: null, realised_fees_90d: null, realised_profit_90d: null, residual_90d: null, cuped_covariate: 1.0}
+          - {user_id: a4, flag_key: F, arm: A, is_contaminated: false, is_scored: false, paid_within_24h: false, predicted_profit: null, converted_in_horizon_observed: false, is_matured: false, realised_converted_90d: null, realised_profit_90d: null, residual_90d: null, cuped_covariate: 1.0}
+          - {user_id: b1, flag_key: F, arm: B, is_contaminated: false, is_scored: true, paid_within_24h: false, predicted_profit: 3.0, predicted_revenue: 3.0, predicted_generation_cost: 0.0, predicted_fees: 0.0, predicted_refund_risk: 0.0, p_convert: 0.03, expected_value_if_converted: 3.0, unconditional_cost: 0.0, converted_in_horizon_observed: true, is_matured: true, realised_converted_90d: true, realised_net_revenue_90d: 5.0, realised_generation_cost_90d: 0.0, realised_fees_90d: 0.0, realised_profit_90d: 5.0, residual_90d: 2.0, cuped_covariate: 1.0}
+          - {user_id: b2, flag_key: F, arm: B, is_contaminated: false, is_scored: true, paid_within_24h: false, predicted_profit: 1.0, predicted_revenue: 1.0, predicted_generation_cost: 0.0, predicted_fees: 0.0, predicted_refund_risk: 0.0, p_convert: 0.01, expected_value_if_converted: 1.0, unconditional_cost: 0.0, converted_in_horizon_observed: false, is_matured: true, realised_converted_90d: false, realised_net_revenue_90d: 0.0, realised_generation_cost_90d: 0.0, realised_fees_90d: 0.0, realised_profit_90d: 0.0, residual_90d: -1.0, cuped_covariate: 1.0}
+    expect:
+      format: dict
+      rows:
+        - {flag_key: F, arm: A, exposed_users: 4, contaminated_users: 1, scored_users: 3, matured_users: 2, converters: 1, predicted_profit_per_exposed_usd: 35.333333, realised_profit_per_exposed_usd: 40.0, model_bias_usd: -11.0, ppi_profit_per_exposed_usd: 24.333333, predicted_profit_stratified_per_exposed_usd: 22.4, model_error_se_usd: 4.989572}
+        - {flag_key: F, arm: B, exposed_users: 2, contaminated_users: 0, scored_users: 2, matured_users: 2, converters: 1, predicted_profit_per_exposed_usd: 2.0, realised_profit_per_exposed_usd: 2.5, model_bias_usd: 0.5, ppi_profit_per_exposed_usd: 2.5, predicted_profit_stratified_per_exposed_usd: 2.0, model_error_se_usd: 4.989572}

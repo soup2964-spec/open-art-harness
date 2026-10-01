@@ -1,0 +1,79 @@
+version: 2
+
+# Every seed's key is unique (database review 6): a duplicated price id, arm, rate or rule row would
+# silently fan out every join that reads it.
+seeds:
+  - name: plan_catalog
+    columns:
+      - name: price_id
+        data_tests: [unique, not_null]
+  - name: click_id_platforms
+    columns:
+      - name: click_id_key
+        data_tests: [unique, not_null]
+  - name: country_codes
+    columns:
+      - name: country_name
+        data_tests: [unique, not_null]
+  - name: default_model_arms
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [flag_key, arm]
+  - name: fallback_price_table
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [plan_tier, billing_interval]
+  - name: platform_reporting_rules
+    columns:
+      - name: platform
+        data_tests: [unique, not_null]
+  - name: qa_accounts
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+  - name: generation_cost_overrides
+    columns:
+      - name: override_id
+        data_tests: [unique]
+  - name: fx_rates
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [currency, rate_date]
+    columns:
+      - name: usd_per_unit
+        data_tests: [not_null, not_negative]
+  - name: currency_minor_units
+    columns:
+      - name: currency
+        data_tests: [unique, not_null]
+  - name: segment_country_buckets
+    columns:
+      - name: country_key
+        data_tests: [unique, not_null]
+      - name: country_bucket
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [us, tier1, rest, unknown]
+  - name: consent_required_regions
+    columns:
+      - name: iso2
+        data_tests: [unique, not_null]
+  - name: allocation_log_synthetic
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [flag_key, arm, allocation_slice, valid_from]
+  - name: model_costs
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [business_type, setting]
+  - name: platform_event_mapping
+    data_tests:
+      - unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [canonical_event, platform]

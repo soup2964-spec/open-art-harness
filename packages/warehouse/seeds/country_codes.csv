@@ -1,0 +1,68 @@
+country_name,iso2,is_eea_uk_ch
+United States,US,false
+Canada,CA,false
+Mexico,MX,false
+Brazil,BR,false
+Argentina,AR,false
+Chile,CL,false
+Colombia,CO,false
+Peru,PE,false
+United Kingdom,GB,true
+Switzerland,CH,true
+Iceland,IS,true
+Liechtenstein,LI,true
+Norway,NO,true
+Austria,AT,true
+Belgium,BE,true
+Bulgaria,BG,true
+Croatia,HR,true
+Cyprus,CY,true
+Czech Republic,CZ,true
+Czechia,CZ,true
+Denmark,DK,true
+Estonia,EE,true
+Finland,FI,true
+France,FR,true
+Germany,DE,true
+Greece,GR,true
+Hungary,HU,true
+Ireland,IE,true
+Italy,IT,true
+Latvia,LV,true
+Lithuania,LT,true
+Luxembourg,LU,true
+Malta,MT,true
+Netherlands,NL,true
+Poland,PL,true
+Portugal,PT,true
+Romania,RO,true
+Slovakia,SK,true
+Slovenia,SI,true
+Spain,ES,true
+Sweden,SE,true
+Turkey,TR,false
+Russia,RU,false
+Ukraine,UA,false
+Israel,IL,false
+United Arab Emirates,AE,false
+Saudi Arabia,SA,false
+Egypt,EG,false
+Nigeria,NG,false
+South Africa,ZA,false
+India,IN,false
+Pakistan,PK,false
+Bangladesh,BD,false
+China,CN,false
+Hong Kong,HK,false
+Taiwan,TW,false
+Japan,JP,false
+South Korea,KR,false
+"Korea, Republic of",KR,false
+Singapore,SG,false
+Malaysia,MY,false
+Indonesia,ID,false
+Philippines,PH,false
+Thailand,TH,false
+Vietnam,VN,false
+Australia,AU,false
+New Zealand,NZ,false

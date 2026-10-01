@@ -1,0 +1,87 @@
+{
+  "_comment": "SYNTHETIC LaunchDarkly flag snapshot in the shape of GET /api/v2/flags/{projectKey}/{flagKey}?env=production. OBSERVED: the flag key, the three arm values, that it is a LaunchDarkly A/B flag (research/12 V4) and ~27 hand edits. INVENTED: every _id, the salt, the fallthrough weights (the real split is not visible from outside) and the rules, which show the flag AFTER the one-time setup (holdout rule first, then two ASSUMED country rules; see README).",
+  "key": "suite-default-model-create-video",
+  "_version": 27,
+  "variations": [
+    { "_id": "6c2f1d4b-7a3e-4d2c-8f8b-0b0000000001", "value": "byte-plus-seedance-2", "name": "Seedance 2.0" },
+    { "_id": "6c2f1d4b-7a3e-4d2c-8f8b-0b0000000002", "value": "byte-plus-seedance-2-5", "name": "Seedance 2.5" },
+    { "_id": "6c2f1d4b-7a3e-4d2c-8f8b-0b0000000003", "value": "wan3-0", "name": "Wan 3.0" }
+  ],
+  "environments": {
+    "production": {
+      "on": true,
+      "archived": false,
+      "salt": "SYNTHETIC-salt-create-video",
+      "version": 27,
+      "lastModified": 1790000000000,
+      "offVariation": 0,
+      "targets": [],
+      "contextTargets": [],
+      "prerequisites": [],
+      "fallthrough": {
+        "rollout": {
+          "variations": [
+            { "variation": 0, "weight": 40000 },
+            { "variation": 1, "weight": 40000 },
+            { "variation": 2, "weight": 20000 }
+          ],
+          "bucketBy": "key",
+          "contextKind": "user"
+        }
+      },
+      "rules": [
+        {
+          "_id": "8e6b2c31-1c5f-4a7b-9d22-2a0000000001",
+          "description": "openart-signal holdout: fixed uniform split for clean measurement. The allocator never edits this rule.",
+          "clauses": [
+            { "_id": "8e6b2c31-1c5f-4a7b-9d22-2c0000000001", "contextKind": "user", "attribute": "key", "op": "matches", "values": ["[0-5]$"], "negate": false }
+          ],
+          "rollout": {
+            "variations": [
+              { "variation": 0, "weight": 33334 },
+              { "variation": 1, "weight": 33333 },
+              { "variation": 2, "weight": 33333 }
+            ],
+            "bucketBy": "key",
+            "contextKind": "user"
+          },
+          "trackEvents": false
+        },
+        {
+          "_id": "8e6b2c31-1c5f-4a7b-9d22-2a0000000002",
+          "description": "openart-signal allocation: country bucket us (ASSUMED context attribute `country`)",
+          "clauses": [
+            { "_id": "8e6b2c31-1c5f-4a7b-9d22-2c0000000002", "contextKind": "user", "attribute": "country", "op": "in", "values": ["US"], "negate": false }
+          ],
+          "rollout": {
+            "variations": [
+              { "variation": 0, "weight": 40000 },
+              { "variation": 1, "weight": 40000 },
+              { "variation": 2, "weight": 20000 }
+            ],
+            "bucketBy": "key",
+            "contextKind": "user"
+          },
+          "trackEvents": false
+        },
+        {
+          "_id": "8e6b2c31-1c5f-4a7b-9d22-2a0000000003",
+          "description": "openart-signal allocation: country bucket tier1 (ASSUMED context attribute `country`)",
+          "clauses": [
+            { "_id": "8e6b2c31-1c5f-4a7b-9d22-2c0000000003", "contextKind": "user", "attribute": "country", "op": "in", "values": ["CA", "GB", "IE", "DE", "FR", "NL", "BE", "LU", "AT", "CH", "SE", "NO", "DK", "FI", "IS", "IT", "ES", "AU", "NZ", "JP", "KR", "SG", "IL", "AE"], "negate": false }
+          ],
+          "rollout": {
+            "variations": [
+              { "variation": 0, "weight": 40000 },
+              { "variation": 1, "weight": 40000 },
+              { "variation": 2, "weight": 20000 }
+            ],
+            "bucketBy": "key",
+            "contextKind": "user"
+          },
+          "trackEvents": false
+        }
+      ]
+    }
+  }
+}

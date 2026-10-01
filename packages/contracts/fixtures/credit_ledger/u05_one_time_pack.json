@@ -1,0 +1,79 @@
+{
+  "success": true,
+  "entries": [
+    {
+      "id": "019f31c4-5be0-7bf3-bbf6-4f5d5ae742f0",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -20,
+      "creditField": "one_time_pack_credit",
+      "balanceBefore": 780,
+      "balanceAfter": 760,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "nano-banana-2:text2image",
+        "businessId": "SynthHistU05Nb2A002"
+      },
+      "idempotencyKey": "nano-banana-2:text2image:REDUCE:SynthHistU05Nb2A002",
+      "createdAt": "2026-07-05T10:13:00.000Z",
+      "userId": "SynthU05FreeTrialE5x",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU05Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 20,
+          "subBusinessType": "nano-banana-2:text2image"
+        }
+      ]
+    },
+    {
+      "id": "019f31c3-7180-7656-8de8-a3b20a955d1a",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -20,
+      "creditField": "one_time_pack_credit",
+      "balanceBefore": 800,
+      "balanceAfter": 780,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "nano-banana-2:text2image",
+        "businessId": "SynthHistU05Nb2A001"
+      },
+      "idempotencyKey": "nano-banana-2:text2image:REDUCE:SynthHistU05Nb2A001",
+      "createdAt": "2026-07-05T10:12:00.000Z",
+      "userId": "SynthU05FreeTrialE5x",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU05Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 20,
+          "subBusinessType": "nano-banana-2:text2image"
+        }
+      ]
+    },
+    {
+      "id": "019f31b8-84a0-77cc-87a3-50818c16abdc",
+      "sequenceId": 0,
+      "type": "ADD",
+      "amount": 800,
+      "creditField": "one_time_pack_credit",
+      "balanceBefore": 0,
+      "balanceAfter": 800,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "one-time-pack-purchase",
+        "businessId": "cs_live_a1SynthU05Pack00000001"
+      },
+      "idempotencyKey": "one-time-pack-purchase:ADD:cs_live_a1SynthU05Pack00000001",
+      "createdAt": "2026-07-05T10:00:04.000Z",
+      "userId": "SynthU05FreeTrialE5x",
+      "reason": "One-time pack purchase"
+    }
+  ],
+  "hasMore": false,
+  "_synthetic_note": "SYNTHETIC. businessType values other than USER_SIGNUP_TRIAL and openart-sdxl:text2image are INFERRED from capability ids in shipped code; subscription-refill is an INFERRED name for SUBSCRIPTION_ADJUSTMENT \"Subscription Refill\" rows."
+}

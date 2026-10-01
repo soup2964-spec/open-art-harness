@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/hubspot-form-submission.schema.json",
+  "title": "HubSpot form submission (Form Integrations API: GET /form-integrations/v1/submissions/forms/{formGuid} → results[])",
+  "description": "One submission of OpenArt's /enterprise form (portal 244977254, form 9f0b1fda-34f1-4364-93d5-bdc196c44004). Field names come from the public render definition (raw/enterprise/hs_form_render_definition.json, last updated 2026-09-16T17:13:26Z): firstname, lastname, company, jobtitle, company_size, email, message (visible) and lead_source ('Event'), lead_source_detail ('Brandweek'), latest_form_submit_url, gclid, gbraid, wbraid (hidden). There is no UTM or li_fat_id field and no hubspotutk on the page (research/00 B1-B3). Values contain personal data in production; fixtures are synthetic.",
+  "type": "object",
+  "required": ["conversionId", "submittedAt", "values", "pageUrl"],
+  "properties": {
+    "conversionId": { "type": "string", "minLength": 1 },
+    "submittedAt": { "description": "ms epoch", "type": "integer", "minimum": 1000000000000 },
+    "pageUrl": { "type": "string" },
+    "values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "value"],
+        "properties": {
+          "name": {
+            "description": "HubSpot contact (0-1) property name.",
+            "type": "string",
+            "minLength": 1
+          },
+          "value": { "type": "string" },
+          "objectTypeId": { "type": "string", "pattern": "^\\d+-\\d+$" }
+        }
+      }
+    }
+  }
+}

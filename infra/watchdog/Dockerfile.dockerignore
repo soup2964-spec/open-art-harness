@@ -1,0 +1,16 @@
+# BuildKit picks up <Dockerfile>.dockerignore automatically (docker build -f infra/watchdog/Dockerfile .)
+**/node_modules
+**/.wrangler
+**/dist
+**/coverage
+**/.env
+**/.env.*
+.git
+packages/watchdog/.profiles
+packages/watchdog/reports
+packages/watchdog/blocklists
+packages/warehouse/target
+packages/warehouse/dbt_packages
+packages/warehouse/logs
+**/*.duckdb
+**/*.duckdb.wal

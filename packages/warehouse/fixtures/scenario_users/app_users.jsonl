@@ -1,0 +1,5 @@
+{"id":"SynthU01StarterMonA1","email":"scenario.u01@example.test","account_created_at":"2026-06-02T15:00:00.000Z","provider":"email","data_origin":"synthetic"}
+{"id":"SynthU02WonderYearB2","email":"scenario.u02@example.test","account_created_at":"2026-06-10T21:20:00.000Z","provider":"google","data_origin":"synthetic"}
+{"id":"SynthU03PlusAddUpgC3","email":"scenario.u03@example.test","account_created_at":"2026-06-14T09:00:00.000Z","provider":"email","data_origin":"synthetic"}
+{"id":"SynthU04ChargebackD4","email":"scenario.u04@example.test","account_created_at":"2026-07-20T07:50:00.000Z","provider":"google","data_origin":"synthetic"}
+{"id":"SynthU05FreeTrialE5x","email":"scenario.u05@example.test","account_created_at":"2026-07-01T10:00:00.000Z","provider":"email","data_origin":"synthetic"}

@@ -1,0 +1,1245 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2026-09-29 00:00:00",
+    "containerVersion": {
+        "path": "accounts/6000000000/containers/92263201/versions/0",
+        "accountId": "6000000000",
+        "containerId": "92263201",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/6000000000/containers/92263201",
+            "accountId": "6000000000",
+            "containerId": "92263201",
+            "name": "openart.ai",
+            "publicId": "GTM-56CMP8K",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1721878726418",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6000000000/containers/92263201/workspaces?apiLink=container",
+            "tagIds": [
+                "GTM-56CMP8K"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1001",
+                "name": "OA-FIX Consent Mode v2 - defaults (EEA/UK/CH denied)",
+                "type": "cvt_92263201_1001",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "regulatedRegions",
+                        "value": "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO,RE,GF,GP,MQ,YT,MF,AX,IC,EA,GB,CH"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "waitForUpdateMs",
+                        "value": "500"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "adsDataRedaction",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "urlPassthrough",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "respectOptOut",
+                        "value": "true"
+                    }
+                ],
+                "firingTriggerId": [
+                    "2147479572"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "Custom template (setDefaultConsentState + gtagSet). The v25 runtime has no template code for it; the proof injects consent/dist/openart-consent-defaults.min.js instead.",
+                "parentFolderId": "1001",
+                "fingerprint": "1780758212519"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1002",
+                "name": "OA-FIX Google Ads - signup conversion (rVk2) on signup",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "orderId",
+                        "value": "{{OA-FIX CJS - reg event_id}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEnhancedConversion",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "cssProvidedEnhancedConversionValue",
+                        "value": "{{OA-FIX UPD - user_data.email}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionCookiePrefix",
+                        "value": "_gcl"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "11252321380"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "rVk2CJ7Ot8EZEOSYw_Up"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReportingCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReportingCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEnhancedConversionsCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableRdpCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableTransportUrl",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableCustomParams",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEventParameters",
+                        "value": "true"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1001"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "Fires on the event the app actually pushes; order id reg_<uid> dedups repeats and matches a server twin; user-provided data from user_data.email. Replaces compiled tag_id 17 (Google Ads signup conversion on new_user_signed_up (never emitted)): pause the original.",
+                "parentFolderId": "1001",
+                "fingerprint": "1717848037995"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1003",
+                "name": "OA-FIX Google Ads - business_subscription (secondary action)",
+                "type": "awct",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableConversionLinker",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "orderId",
+                        "value": "{{OA-FIX DLV - eventModel.transaction_id}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReporting",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionValue",
+                        "value": "{{OA-FIX DLV - eventModel.value}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEnhancedConversion",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "cssProvidedEnhancedConversionValue",
+                        "value": "{{OA-FIX UPD - user_data.email}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionCookiePrefix",
+                        "value": "_gcl"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableShippingData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionId",
+                        "value": "11252321380"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "currencyCode",
+                        "value": "{{OA-FIX DLV - eventModel.currency}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "conversionLabel",
+                        "value": "OAFIX_BUSINESS_LABEL_TBD"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "rdp",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableProductReportingCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableNewCustomerReportingCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEnhancedConversionsCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableRdpCheckbox",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableTransportUrl",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableCustomParams",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEventParameters",
+                        "value": "true"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1003"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "Separate \"Business subscription\" conversion (set as Secondary in Google Ads). Business sales already fire the purchase conversions, so re-firing those would double count.",
+                "parentFolderId": "1001",
+                "fingerprint": "1749348708687"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1004",
+                "name": "OA-FIX Google Ads - page_view on route change",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n(function () {\n  window.dataLayer = window.dataLayer || [];\n  var gtag = window.gtag || function () { window.dataLayer.push(arguments); };\n  gtag('event', 'page_view', {\n    send_to: ['AW-11252321380', 'AW-16854695811'],\n    page_location: {{OA-FIX DLV - page_location}},\n    page_referrer: {{OA-FIX DLV - page_referrer}},\n    page_title: {{OA-FIX DLV - page_title}}\n  });\n})();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1004"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "Remarketing page_view for both Ads destinations of the Google tag on SPA routes (Suite/legacy soft navigations send none today).",
+                "parentFolderId": "1001",
+                "fingerprint": "1756851294871"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1005",
+                "name": "OA-FIX X - base pixel (no automatic gtm_purchase)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>!function(d,e,f,a,b,c){d.twq||(a=d.twq=function(){a.exe?a.exe.apply(a,arguments):a.queue.push(arguments)},a.version=\"1.1\",a.queue=[],b=e.createElement(f),b.async=!0,b.src=\"https://static.ads-twitter.com/uwt.js\",c=e.getElementsByTagName(f)[0],c.parentNode.insertBefore(b,c))}(window,document,\"script\");twq.integration=\"gtm-ad-manager\";twq(\"set\",\"dataLayerTracking\",\"false\",\"qwghh\");twq(\"config\",\"qwghh\");</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "2147479553",
+                    "1004"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_storage"
+                            }
+                        ]
+                    }
+                },
+                "notes": "uwt.js 2.4.11 turns dataLayer ecommerce events into automatic `gtm_<event>` events (module 9115) unless twq('set','dataLayerTracking','false',pixel) runs before config. Re-running config on virtual_page_view is X's page view for SPA routes. The purchase event itself stays on the existing tag (conversion_id = transaction id sub_<invoiceId>), now on the deterministic purchase trigger. Replaces compiled tag_id 74 (X base pixel): pause the original.",
+                "parentFolderId": "1001",
+                "fingerprint": "1720322262747"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1006",
+                "name": "OA-FIX X - signup tw-qwghh-13vj22 (conversion_id reg_<uid>)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>twq(\"event\",\"tw-qwghh-13vj22\",{email_address:{{OA-FIX DLV - user_data.email}},conversion_id:{{OA-FIX CJS - reg event_id}}});</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1001"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_storage"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_user_data"
+                            }
+                        ]
+                    }
+                },
+                "notes": "Adds the reg_<uid> dedup key for a future X Conversions API twin. Replaces compiled tag_id 76 (X signup event): pause the original.",
+                "parentFolderId": "1001",
+                "fingerprint": "1778062219973"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1007",
+                "name": "OA-FIX TikTok - CompleteRegistration (event_id reg_<uid>)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n(function () {\n  if (typeof ttq === 'undefined') { return; }\n  var email = {{OA-FIX DLV - user_data.email}};\n  var eventId = {{OA-FIX CJS - reg event_id}};\n  if (typeof email === 'string' && email.indexOf('@') > -1) { ttq.identify({ email: email.toLowerCase() }); }\n  if (typeof eventId === 'string' && eventId) { ttq.track('CompleteRegistration', {}, { event_id: eventId }); }\n  else { ttq.track('CompleteRegistration'); }\n})();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1001"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_storage"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_user_data"
+                            }
+                        ]
+                    }
+                },
+                "notes": "TikTok dedups pixel vs Events API on event_source_id + event + event_id. Replaces compiled tag_id 79 (TikTok CompleteRegistration (empty event_id)): pause the original.",
+                "parentFolderId": "1001",
+                "fingerprint": "1730056421987"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1008",
+                "name": "OA-FIX UET - base (automatic SPA tracking off)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>(function(c,d,f,g,e){c[e]=c[e]||[];var h=function(){var b={ti:\"187107444\",enableAutoSpaTracking:!1};b.q=c[e];c[e]=new UET(b);c[e].push(\"pageLoad\")};var a=d.createElement(f);a.src=g;a.async=1;a.onload=a.onreadystatechange=function(){var b=this.readyState;b&&b!==\"loaded\"&&b!==\"complete\"||(h(),a.onload=a.onreadystatechange=null)};d=d.getElementsByTagName(f)[0];d.parentNode.insertBefore(a,d)})(window,document,\"script\",\"https://bat.bing.net/bat.js\",\"uetq\");</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "2147479553"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "bat.js auto-SPA tracking sends one page_view per URL change (3 for one create-image navigation in P07); page views now come from virtual_page_view. Replaces compiled tag_id 38 (UET base with enableAutoSpaTracking): pause the original.",
+                "parentFolderId": "1001",
+                "fingerprint": "1794847285256"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1009",
+                "name": "OA-FIX UET - page_view on route change",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n(function () {\n  window.uetq = window.uetq || [];\n  window.uetq.push('event', 'page_view', {\n    page_path: window.location.pathname + window.location.search,\n    page_title: {{OA-FIX DLV - page_title}}\n  });\n})();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1004"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "Same call bat.js makes internally for SPA page views: uetq.push('event','page_view',{page_path}).",
+                "parentFolderId": "1001",
+                "fingerprint": "1748010818841"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1010",
+                "name": "OA-FIX TikTok - base pixel (automatic SPA page views off)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>!function(d,h,e){d.TiktokAnalyticsObject=e;var a=d[e]=d[e]||[];a.methods=\"page track identify instances debug on off once ready alias group enableCookie disableCookie holdConsent revokeConsent grantConsent\".split(\" \");a.setAndDefer=function(b,c){b[c]=function(){b.push([c].concat(Array.prototype.slice.call(arguments,0)))}};for(d=0;d<a.methods.length;d++)a.setAndDefer(a,a.methods[d]);a.instance=function(b){b=a._i[b]||[];for(var c=0;c<a.methods.length;c++)a.setAndDefer(b,a.methods[c]);return b};a.load=\nfunction(b,c){var f=\"https://analytics.tiktok.com/i18n/pixel/events.js\",g=c&&c.partner;a._i=a._i||{};a._i[b]=[];a._i[b]._u=f;a._i[b]._partner=g||\"GoogleTagManagerClient\";a._t=a._t||{};a._t[b]=+new Date;a._o=a._o||{};a._o[b]=c||{};a._partner=a._partner||\"GoogleTagManagerClient\";c=document.createElement(\"script\");c.type=\"text/javascript\";c.async=!0;c.src=f+\"?sdkid\\x3d\"+b+\"\\x26lib\\x3d\"+e;b=document.getElementsByTagName(\"script\")[0];b.parentNode.insertBefore(c,b)};a.load(\"D9QOQ5JC77U6RO6J21IG\",{historyObserver:!1});a.page()}(window,\ndocument,\"ttq\");</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "2147479553"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_storage"
+                            }
+                        ]
+                    }
+                },
+                "notes": "The SDK HistoryObserver sends one Pageview per URL change (2 for one create-image navigation in the 2026-09-30 watchdog baseline); page views now come from virtual_page_view. Replaces compiled tag_id 77 (TikTok base pixel (SDK HistoryObserver on)): pause the original.",
+                "parentFolderId": "1001",
+                "fingerprint": "1756782598114"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1011",
+                "name": "OA-FIX TikTok - page on route change",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n(function () {\n  if (typeof ttq === 'undefined' || typeof ttq.page !== 'function') { return; }\n  ttq.page();\n})();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1004"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_storage"
+                            }
+                        ]
+                    }
+                },
+                "notes": "ttq.page() is the call the base code makes on load and the SDK makes per URL change.",
+                "parentFolderId": "1001",
+                "fingerprint": "1765829527609"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1012",
+                "name": "OA-FIX LinkedIn - purchase 29290225 via lintrk (value variant, paused)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n(function () {\n  var eventId = {{OA-FIX CJS - purchase order_id}};\n  var value = parseFloat({{OA-FIX DLV - eventModel.value}});\n  var currency = {{OA-FIX DLV - eventModel.currency}};\n  var payload = { conversion_id: 29290225 };\n  if (typeof eventId === 'string' && eventId) { payload.event_id = eventId; }\n  if (!isNaN(value) && isFinite(value)) { payload.conversion_value = value; }\n  if (typeof currency === 'string' && /^[A-Za-z]{3}$/.test(currency)) { payload.conversion_currency = currency.toUpperCase(); }\n  if (typeof window.lintrk === 'function') { window.lintrk('track', payload); return; }\n  var img = new Image(1, 1);\n  img.src = 'https://px.ads.linkedin.com/collect/?pid=10481401&conversionId=29290225&fmt=gif' + (payload.event_id ? '&eventId=' + encodeURIComponent(payload.event_id) : '');\n})();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1002"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NEEDED",
+                    "consentType": {
+                        "type": "LIST",
+                        "list": [
+                            {
+                                "type": "TEMPLATE",
+                                "value": "ad_storage"
+                            }
+                        ]
+                    }
+                },
+                "paused": true,
+                "notes": "OPTIONAL. LinkedIn's documented event call (lintrk('track',{conversion_id,event_id}), dedup guide) plus conversion_value/conversion_currency, which the Insight library OpenArt loads (insight.beta.min.js) maps to val/cur but LinkedIn does not document publicly. Unpause only after confirming values in Campaign Manager; pause the template tag 29290225 at the same time.",
+                "parentFolderId": "1001",
+                "fingerprint": "1723294296905"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1013",
+                "name": "OA-FIX Route settler (History Change -> virtual_page_view)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n(function (w, d) {\n  // OA-FIX route settler: History Change events -> exactly one virtual_page_view per settled route.\n  // Same algorithm as app-patches/src/page-view-contract.ts; stands down when the app emits it.\n  var S = w.__oaRouteSettler = w.__oaRouteSettler || { last: null, lastHref: null, timer: null, firstAt: 0, hooked: false };\n  function routeKey() {\n    var p = w.location.pathname || '/';\n    if (p.length > 1) { p = p.replace(/\\/+$/, '') || '/'; }\n    return p;\n  }\n  function pageViewId() {\n    var b = [], i, h = '', c = w.crypto;\n    for (i = 0; i < 16; i++) { b[i] = Math.floor(Math.random() * 256); }\n    if (c && typeof c.getRandomValues === 'function') {\n      var a = new Uint8Array(16);\n      c.getRandomValues(a);\n      for (i = 0; i < 16; i++) { b[i] = a[i]; }\n    }\n    b[6] = (b[6] & 15) | 64;\n    b[8] = (b[8] & 63) | 128;\n    for (i = 0; i < 16; i++) {\n      h += (b[i] < 16 ? '0' : '') + b[i].toString(16);\n      if (i === 3 || i === 5 || i === 7 || i === 9) { h += '-'; }\n    }\n    return h;\n  }\n  function flush() {\n    S.timer = null;\n    S.firstAt = 0;\n    if (w.__oaPageViewContract === 'app') { return; }\n    var k = routeKey();\n    if (k === S.last) { return; }\n    var referrer = S.lastHref;\n    S.last = k;\n    S.lastHref = w.location.href;\n    w.dataLayer = w.dataLayer || [];\n    w.dataLayer.push({\n      event: 'virtual_page_view',\n      page_view_id: pageViewId(),\n      page_location: w.location.href,\n      page_path: k,\n      page_title: d.title,\n      page_referrer: referrer,\n      page_view_source: 'gtm_history'\n    });\n  }\n  if (S.last === null) { S.last = routeKey(); S.lastHref = w.location.href; }\n  if (!S.hooked) {\n    S.hooked = true;\n    w.addEventListener('pagehide', function () { if (S.timer) { clearTimeout(S.timer); flush(); } });\n  }\n  if ({{Event}} === 'gtm.js') { return; }\n  if (w.__oaPageViewContract === 'app') { return; }\n  var now = new Date().getTime();\n  if (!S.firstAt) { S.firstAt = now; }\n  if (S.timer) { clearTimeout(S.timer); }\n  S.timer = setTimeout(flush, Math.max(0, Math.min(500, S.firstAt + 2000 - now)));\n})(window, document);\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "2147479553",
+                    "1005"
+                ],
+                "tagFiringOption": "UNLIMITED",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "notes": "Needs the History Change listener (__hl), which the v25 runtime does not contain; the proof pushes virtual_page_view directly.",
+                "parentFolderId": "1001",
+                "fingerprint": "1718313108551"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "tagId": "1014",
+                "name": "OA-FIX LinkedIn - server-only purchases via conversion-service (option b, paused)",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\n/* OA-FIX LinkedIn option (b): LinkedIn purchases are reported server-side only, by conversion-service\n   (Conversions API, eventId sub_<invoiceId>, conversionValue). Tag 58 is paused in this set-up.\n   This tag sends nothing. */\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "firingTriggerId": [
+                    "1002"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                },
+                "paused": true,
+                "notes": "OPTIONAL option (b) of CHANGES.md B3: LinkedIn purchases server-only, with value. Choosing it = pause tag_id 58 (LinkedIn purchase conversion 29290225) and unpause this tag in the same version; conversion-service's LinkedIn Conversions API purchase (eventId sub_<invoiceId>, conversionValue) then becomes the only copy. Why: when a browser and a CAPI event share an eventId, LinkedIn keeps the Insight Tag event and discards the CAPI one, so with tag 58 live the server value never counts for browser-seen purchases. This tag sends nothing to LinkedIn: it records the choice in the container and fires on the deterministic purchase trigger for Tag Assistant QA. Needs conversion-service live for LinkedIn; only CAPI-matched purchases count.",
+                "parentFolderId": "1001",
+                "fingerprint": "1787787355623"
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "triggerId": "1001",
+                "name": "OA-FIX CE - signup",
+                "type": "CUSTOM_EVENT",
+                "notes": "Pushed by Suite module 764475 (SignUpDataLayerEvent).",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "signup"
+                            }
+                        ]
+                    }
+                ],
+                "parentFolderId": "1001",
+                "fingerprint": "1797199904912"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "triggerId": "1002",
+                "name": "OA-FIX CE - purchase (deterministic id)",
+                "type": "CUSTOM_EVENT",
+                "notes": "gtag purchase from Suite module 114607 / legacy 49808, only when the id is invoice-derived.",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "purchase"
+                            }
+                        ]
+                    }
+                ],
+                "filter": [
+                    {
+                        "type": "MATCH_REGEX",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{OA-FIX CJS - purchase order_id}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "^sub_"
+                            }
+                        ]
+                    }
+                ],
+                "parentFolderId": "1001",
+                "fingerprint": "1756822756681"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "triggerId": "1003",
+                "name": "OA-FIX CE - business_subscription",
+                "type": "CUSTOM_EVENT",
+                "notes": "Pushed by Suite module 111958 eA() for first business purchases (in addition to purchase/first_purchase).",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "business_subscription"
+                            }
+                        ]
+                    }
+                ],
+                "filter": [
+                    {
+                        "type": "MATCH_REGEX",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{OA-FIX CJS - purchase order_id}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "^sub_"
+                            }
+                        ]
+                    }
+                ],
+                "parentFolderId": "1001",
+                "fingerprint": "1706240913614"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "triggerId": "1004",
+                "name": "OA-FIX CE - virtual_page_view",
+                "type": "CUSTOM_EVENT",
+                "notes": "Exactly one per settled route change (app contract or the route settler).",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "virtual_page_view"
+                            }
+                        ]
+                    }
+                ],
+                "parentFolderId": "1001",
+                "fingerprint": "1780362060329"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "triggerId": "1005",
+                "name": "OA-FIX HC - route change",
+                "type": "HISTORY_CHANGE",
+                "notes": "Feeds the route settler; never fires a platform tag directly.",
+                "parentFolderId": "1001",
+                "fingerprint": "1700535452836"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1001",
+                "name": "OA-FIX DLV - user_data.email",
+                "type": "v",
+                "notes": "Same key as existing macro 5 (used by the Reddit/X/TikTok signup tags).",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "user_data.email"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1721801773019"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1002",
+                "name": "OA-FIX DLV - user_id",
+                "type": "v",
+                "notes": "New key pushed with `signup` by app-patches/src/signup-push.ts.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "user_id"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1792180757708"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1003",
+                "name": "OA-FIX COOKIE - oa_signup_uid",
+                "type": "k",
+                "notes": "Fallback until the app patch ships: the one-shot \"<uid>:<email>\" cookie is still present while GTM processes the signup push (module 764475 removes it after dataLayer.push returns).",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "decodeCookie",
+                        "value": "true"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "oa_signup_uid"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1756513966333"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1004",
+                "name": "OA-FIX DLV - eventModel.transaction_id",
+                "type": "v",
+                "notes": "Same key as existing macro 1.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "eventModel.transaction_id"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1725327894339"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1005",
+                "name": "OA-FIX DLV - eventModel.value",
+                "type": "v",
+                "notes": "Same key as existing macro 2.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "eventModel.value"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1728516618040"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1006",
+                "name": "OA-FIX DLV - eventModel.currency",
+                "type": "v",
+                "notes": "Same key as existing macro 3.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "eventModel.currency"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1726933548857"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1007",
+                "name": "OA-FIX DLV - page_location",
+                "type": "v",
+                "notes": "From the virtual_page_view contract.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "page_location"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1749900665263"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1008",
+                "name": "OA-FIX DLV - page_referrer",
+                "type": "v",
+                "notes": "From the virtual_page_view contract.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "page_referrer"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1700553298424"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1009",
+                "name": "OA-FIX DLV - page_title",
+                "type": "v",
+                "notes": "From the virtual_page_view contract.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "page_title"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1770664037251"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1010",
+                "name": "OA-FIX DLV - page_path",
+                "type": "v",
+                "notes": "From the virtual_page_view contract.",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "page_path"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1715092472984"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1011",
+                "name": "OA-FIX CJS - reg event_id",
+                "type": "jsm",
+                "notes": "reg_<uid> — the id Meta (CompleteRegistration eventID) and OpenAI Ads (registration_completed event_id) already use. user_id from the push; else the uid part of oa_signup_uid.",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "javascript",
+                        "value": "function() {\n  var re = /^[A-Za-z0-9_-]{1,128}$/;\n  var uid = {{OA-FIX DLV - user_id}};\n  if (typeof uid !== 'string' || !re.test(uid)) {\n    var raw = {{OA-FIX COOKIE - oa_signup_uid}};\n    var sep = typeof raw === 'string' ? raw.indexOf(':') : -1;\n    uid = sep > 0 ? raw.slice(0, sep) : undefined;\n  }\n  if (typeof uid !== 'string' || !re.test(uid)) { return undefined; }\n  return 'reg_' + uid;\n}"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1718826444669"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1012",
+                "name": "OA-FIX CJS - purchase order_id",
+                "type": "jsm",
+                "notes": "sub_<invoiceId>: the transaction id itself when it is invoice-derived, undefined for the unstable fallback ids (sub_<tier>_<n>_<uid>_<Date.now()>). It is the purchase dedup key Google Ads, Reddit, TikTok, X and UET already receive and the LinkedIn eventId (packages/contracts: dedup_key_template sub_{invoice_id}).",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "javascript",
+                        "value": "function() {\n  var t = {{OA-FIX DLV - eventModel.transaction_id}};\n  if (typeof t !== 'string') { return undefined; }\n  var m = /^sub_([A-Za-z0-9_-]{4,128})$/.exec(t);\n  if (!m) { return undefined; }\n  var id = m[1];\n  if (/_\\d{13}$/.test(id) || /^[A-Za-z0-9]+_\\d+_[^_]*_\\d{12,}$/.test(id)) { return undefined; }\n  return t;\n}"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1708901546783"
+            },
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "variableId": "1013",
+                "name": "OA-FIX UPD - user_data.email",
+                "type": "awec",
+                "notes": "User-Provided Data, manual mode: email from the signup / purchase push.",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "mode",
+                        "value": "MANUAL"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "email",
+                        "value": "{{OA-FIX DLV - user_data.email}}"
+                    }
+                ],
+                "formatValue": {},
+                "parentFolderId": "1001",
+                "fingerprint": "1731602580020"
+            }
+        ],
+        "folder": [
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "folderId": "1001",
+                "name": "OA-FIX openart-signal",
+                "fingerprint": "1739307313186"
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "type": "EVENT",
+                "name": "Event"
+            }
+        ],
+        "customTemplate": [
+            {
+                "accountId": "6000000000",
+                "containerId": "92263201",
+                "templateId": "1001",
+                "name": "OA-FIX Consent Mode v2 defaults (region-scoped)",
+                "fingerprint": "1751199124159",
+                "templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"TAG\",\n  \"id\": \"cvt_temp_public_id\",\n  \"version\": 1,\n  \"securityGroups\": [],\n  \"displayName\": \"OA-FIX Consent Mode v2 defaults (region-scoped)\",\n  \"categories\": [\n    \"UTILITY\"\n  ],\n  \"brand\": {\n    \"id\": \"brand_dummy\",\n    \"displayName\": \"\"\n  },\n  \"description\": \"Consent Mode v2 defaults for OpenArt: denied in the EEA, UK, CH and the EU territories geolocated separately (packages/contracts CONSENT_REQUIRED_REGIONS) with wait_for_update, granted elsewhere; ad signals denied everywhere when the browser sends Global Privacy Control or a US sale/sharing opt-out is recorded; ads_data_redaction and url_passthrough. Fire on Consent Initialization - All Pages. A certified CMP then calls consent update.\",\n  \"containerContexts\": [\n    \"WEB\"\n  ]\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[\n  {\n    \"type\": \"TEXT\",\n    \"name\": \"regulatedRegions\",\n    \"displayName\": \"Regions defaulting to denied (ISO 3166 codes, comma-separated)\",\n    \"simpleValueType\": true,\n    \"defaultValue\": \"AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO,RE,GF,GP,MQ,YT,MF,AX,IC,EA,GB,CH\",\n    \"valueValidators\": [\n      {\n        \"type\": \"NON_EMPTY\"\n      }\n    ]\n  },\n  {\n    \"type\": \"TEXT\",\n    \"name\": \"waitForUpdateMs\",\n    \"displayName\": \"wait_for_update (ms) for the regulated regions\",\n    \"simpleValueType\": true,\n    \"defaultValue\": \"500\",\n    \"valueValidators\": [\n      {\n        \"type\": \"POSITIVE_NUMBER\"\n      }\n    ]\n  },\n  {\n    \"type\": \"CHECKBOX\",\n    \"name\": \"adsDataRedaction\",\n    \"checkboxText\": \"ads_data_redaction (redact ad click ids when ad_storage is denied)\",\n    \"simpleValueType\": true,\n    \"defaultValue\": true\n  },\n  {\n    \"type\": \"CHECKBOX\",\n    \"name\": \"urlPassthrough\",\n    \"checkboxText\": \"url_passthrough (pass gclid/dclid/wbraid via links when storage is denied)\",\n    \"simpleValueType\": true,\n    \"defaultValue\": true\n  },\n  {\n    \"type\": \"CHECKBOX\",\n    \"name\": \"respectOptOut\",\n    \"checkboxText\": \"Deny ad_storage, ad_user_data and ad_personalization everywhere when the browser sends Global Privacy Control, or oa_consent / usprivacy record a US sale/sharing opt-out or an ad_storage denial\",\n    \"simpleValueType\": true,\n    \"defaultValue\": true\n  }\n]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\nconst setDefaultConsentState = require('setDefaultConsentState');\nconst gtagSet = require('gtagSet');\nconst makeNumber = require('makeNumber');\nconst copyFromWindow = require('copyFromWindow');\nconst getCookieValues = require('getCookieValues');\nconst JSON = require('JSON');\n\n// Regulated regions (EEA, UK, CH, EU outermost regions, Aland): denied until the CMP updates.\nconst raw = data.regulatedRegions ? data.regulatedRegions.split(',') : [];\nconst regions = [];\nfor (let i = 0; i < raw.length; i++) {\n  const code = raw[i].trim();\n  if (code) regions.push(code);\n}\nconst waitMs = makeNumber(data.waitForUpdateMs);\n\nconst regulated = {\n    \"ad_storage\": \"denied\",\n    \"ad_user_data\": \"denied\",\n    \"ad_personalization\": \"denied\",\n    \"analytics_storage\": \"denied\",\n    \"functionality_storage\": \"denied\",\n    \"personalization_storage\": \"denied\",\n    \"security_storage\": \"granted\"\n  };\nregulated.region = regions;\nregulated.wait_for_update = waitMs > 0 ? waitMs : 500;\nsetDefaultConsentState(regulated);\n\n// Browser opt-out, decided in the order of consent/src/privacy-signals.ts adConsentDecision: an\n// explicit ad_storage denial or a US \"do not sell or share\" opt-out (oa_consent\n// opt_out_sale_sharing, IAB usprivacy 1?Y?), or Global Privacy Control without an\n// explicit grant.\nlet adOptOut = false;\nif (data.respectOptOut) {\n  let stored = {};\n  const consentCookie = getCookieValues('oa_consent');\n  if (consentCookie && consentCookie.length) {\n    const parsed = JSON.parse(consentCookie[0]);\n    if (parsed && typeof parsed === 'object') {\n      stored = parsed;\n    }\n  }\n  let adStorage = copyFromWindow('__oaConsent.ad_storage');\n  if (adStorage !== 'granted' && adStorage !== 'denied') {\n    adStorage = stored.ad_storage;\n  }\n  let saleOptOut = stored.opt_out_sale_sharing === true;\n  const usPrivacy = getCookieValues('usprivacy');\n  if (usPrivacy && usPrivacy.length && typeof usPrivacy[0] === 'string') {\n    const usp = usPrivacy[0].trim().toUpperCase();\n    const flags = 'YN-';\n    if (usp.length === 4 && usp.charAt(0) === '1' && flags.indexOf(usp.charAt(1)) > -1 && flags.indexOf(usp.charAt(2)) > -1 && flags.indexOf(usp.charAt(3)) > -1 && usp.charAt(2) === 'Y') {\n      saleOptOut = true;\n    }\n  }\n  const gpc = copyFromWindow('navigator.globalPrivacyControl') === true;\n  if (adStorage === 'denied' || saleOptOut) {\n    adOptOut = true;\n  } else if (adStorage !== 'granted' && gpc) {\n    adOptOut = true;\n  }\n}\n\nif (adOptOut) {\n  // The browser opted out: the ad signals are denied everywhere until the CMP updates.\n  setDefaultConsentState({\n      \"ad_storage\": \"denied\",\n      \"ad_user_data\": \"denied\",\n      \"ad_personalization\": \"denied\",\n      \"analytics_storage\": \"granted\",\n      \"functionality_storage\": \"granted\",\n      \"personalization_storage\": \"granted\",\n      \"security_storage\": \"granted\"\n    });\n} else {\n  // Everywhere else: granted (explicit, so Consent Mode reports a state instead of \"not set\").\n  setDefaultConsentState({\n    \"ad_storage\": \"granted\",\n    \"ad_user_data\": \"granted\",\n    \"ad_personalization\": \"granted\",\n    \"analytics_storage\": \"granted\",\n    \"functionality_storage\": \"granted\",\n    \"personalization_storage\": \"granted\",\n    \"security_storage\": \"granted\"\n  });\n}\n\nconst settings = {};\nlet hasSettings = false;\nif (data.adsDataRedaction) {\n  settings.ads_data_redaction = true;\n  hasSettings = true;\n}\nif (data.urlPassthrough) {\n  settings.url_passthrough = true;\n  hasSettings = true;\n}\nif (hasSettings) {\n  gtagSet(settings);\n}\n\ndata.gtmOnSuccess();\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_consent\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"consentTypes\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"ad_storage\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"ad_user_data\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"ad_personalization\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"analytics_storage\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"functionality_storage\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"personalization_storage\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"consentType\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"security_storage\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"write_data_layer\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keyPatterns\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 1,\n                \"string\": \"ads_data_redaction\"\n              },\n              {\n                \"type\": 1,\n                \"string\": \"url_passthrough\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"access_globals\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keys\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"execute\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"navigator.globalPrivacyControl\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  }\n                ]\n              },\n              {\n                \"type\": 3,\n                \"mapKey\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"key\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"read\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"write\"\n                  },\n                  {\n                    \"type\": 1,\n                    \"string\": \"execute\"\n                  }\n                ],\n                \"mapValue\": [\n                  {\n                    \"type\": 1,\n                    \"string\": \"__oaConsent.ad_storage\"\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": true\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  },\n                  {\n                    \"type\": 8,\n                    \"boolean\": false\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  },\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"get_cookies\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"cookieAccess\",\n          \"value\": {\n            \"type\": 1,\n            \"string\": \"specific\"\n          }\n        },\n        {\n          \"key\": \"cookieNames\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 1,\n                \"string\": \"oa_consent\"\n              },\n              {\n                \"type\": 1,\n                \"string\": \"usprivacy\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nGenerated by openart-signal/packages/web-fixes (consent/src/consent-defaults.ts).\n"
+            }
+        ],
+        "fingerprint": "1797797650915",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6000000000/containers/92263201/versions/0?apiLink=version"
+    }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/credit-ledger-entry.schema.json",
+  "title": "OpenArt credit-ledger entry (GET /suite/api/credits/logs → entries[])",
+  "description": "Exact shape observed live (crawl/loggedin/generation/ledger_pre.json + ledger_post.json; research/10 §3.3) with enums from shipped code. Observed: an ADD row (USER_SIGNUP_TRIAL, reason present, no businessDetails) and a CONSUME row (businessType openart-sdxl:text2image, amount -1, businessDetails present, no reason). On BOTH rows sequenceId was 0 and previousSequenceId null, so do not rely on them for ordering: order by id (UUIDv7) then createdAt. createdAt is truncated to whole seconds. idempotencyKey = <businessType>:<ACTION>:<businessId> where ACTION is REDUCE for consumption (observed) or ADD, REFUND, SUBSCRIPTION_ADJUSTMENT, INTERNAL_ADJUSTMENT, CONVERT (code enum). Unknown extra properties are tolerated.",
+  "type": "object",
+  "required": [
+    "id",
+    "sequenceId",
+    "type",
+    "amount",
+    "creditField",
+    "balanceBefore",
+    "balanceAfter",
+    "previousSequenceId",
+    "reference",
+    "idempotencyKey",
+    "createdAt",
+    "userId"
+  ],
+  "properties": {
+    "id": {
+      "description": "UUIDv7 (time-ordered).",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sequenceId": { "type": "integer", "minimum": 0 },
+    "previousSequenceId": { "type": ["integer", "null"], "minimum": 0 },
+    "type": { "enum": ["ADD", "CONSUME", "REFUND", "SUBSCRIPTION_ADJUSTMENT", "INTERNAL_ADJUSTMENT"] },
+    "amount": { "description": "Signed: CONSUME < 0, ADD/REFUND > 0.", "type": "integer" },
+    "creditField": {
+      "enum": ["trial_credit_balance", "subscription_monthly_credit", "one_time_pack_credit", "subscription_sponsor_credit"]
+    },
+    "balanceBefore": { "type": "integer" },
+    "balanceAfter": { "type": "integer" },
+    "reference": {
+      "type": "object",
+      "required": ["businessType", "businessId"],
+      "properties": {
+        "businessType": {
+          "description": "USER_SIGNUP_TRIAL, credit-pack, social-follow, one-time-pack-* or a model capability id <model-id>:<mode> (observed: openart-sdxl:text2image).",
+          "type": "string",
+          "minLength": 1
+        },
+        "businessId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "pattern": "^.+:(REDUCE|ADD|REFUND|SUBSCRIPTION_ADJUSTMENT|INTERNAL_ADJUSTMENT|CONVERT):.+$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.000Z$"
+    },
+    "userId": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string" },
+    "teamMemberUserId": { "type": "string" },
+    "businessDetails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["quantity", "unitCredits", "subBusinessType"],
+        "properties": {
+          "quantity": { "type": "integer", "minimum": 0 },
+          "unitCredits": { "description": "0 means an Unlimited campaign.", "type": "integer", "minimum": 0 },
+          "subBusinessType": { "type": "string", "minLength": 1 },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "projectId": { "type": "string" },
+              "mediaType": { "type": "string" },
+              "source": { "enum": ["director", "general-agent", "mcp", "cli"] },
+              "discountPct": { "type": "number" },
+              "originalUnitCredits": { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "CONSUME" } } },
+      "then": {
+        "required": ["businessDetails"],
+        "properties": {
+          "amount": { "type": "integer", "maximum": 0 },
+          "reference": { "properties": { "businessType": { "pattern": "^[A-Za-z0-9.-]+:[A-Za-z0-9-]+$" } } },
+          "idempotencyKey": { "pattern": ":REDUCE:" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "enum": ["ADD", "REFUND"] } } },
+      "then": { "properties": { "amount": { "type": "integer", "minimum": 0 } } }
+    }
+  ]
+}

@@ -1,0 +1,805 @@
+{
+ "meta": {
+  "scenario": "T2a_gbraid",
+  "source": "crawl/teardown2/T2a_gbraid.json",
+  "opts": {
+   "mobile": false,
+   "ua": null,
+   "blockedURLs": null
+  }
+ },
+ "steps": [
+  {
+   "label": "landing",
+   "href": "https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB",
+   "referrer": "",
+   "cookies": [
+    {
+     "name": "oa_device_id",
+     "value": "d8d0a481-915c-4a4d-8a97-cab626cace7d",
+     "domain": "openart.ai"
+    },
+    {
+     "name": "gbraid",
+     "value": "KJAUDIT_GB",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "oa_ad_clids",
+     "value": "%7B%22gbraid%22%3A%7B%22v%22%3A%22KJAUDIT_GB%22%2C%22ts%22%3A1790702260860%7D%7D",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "_gcl_au",
+     "value": "1.1.408988760.1790702262",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "_gcl_ag",
+     "value": "2.1.kKJAUDIT_GB$i1790702262",
+     "domain": ".openart.ai"
+    }
+   ],
+   "ls": {
+    "oa_ad_clids": "{\"gbraid\":{\"v\":\"KJAUDIT_GB\",\"ts\":1790702260860}}",
+    "_gcl_ls": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1790702262067},\"expires\":1798478262067},\"gsid_dc\":{\"value\":{\"joinId\":\"Ay9fj1mFqUYCVeW5ZVz-ssLbwEHluLCneg\",\"lastJoinedTimeMs\":1790702262072},\"expires\":1790702562072},\"gtg_load_status\":{\"status\":2,\"expires\":1790788662273}}"
+   },
+   "overlay": null,
+   "handoff": null,
+   "click": null
+  },
+  {
+   "label": "app_after_cta",
+   "href": "https://openart.ai/home",
+   "referrer": "https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB",
+   "cookies": [
+    {
+     "name": "oa_device_id",
+     "value": "d8d0a481-915c-4a4d-8a97-cab626cace7d",
+     "domain": "openart.ai"
+    },
+    {
+     "name": "gbraid",
+     "value": "KJAUDIT_GB",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "oa_ad_clids",
+     "value": "%7B%22gbraid%22%3A%7B%22v%22%3A%22KJAUDIT_GB%22%2C%22ts%22%3A1790702260860%7D%7D",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "_gcl_au",
+     "value": "1.1.408988760.1790702262",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "country_code",
+     "value": "US",
+     "domain": "openart.ai"
+    },
+    {
+     "name": "_gcl_ag",
+     "value": "2.1.kKJAUDIT_GB$i1790702278",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "__obref",
+     "value": "8eb5501f-a616-47ea-9eb4-8219b204f330",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "_fbp",
+     "value": "fb.1.1790702280612.726723150348486539",
+     "domain": ".openart.ai"
+    }
+   ],
+   "ls": {
+    "_gcl_ls": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1790702262067},\"expires\":1798478262067},\"gsid_dc\":{\"value\":{\"joinId\":\"Ay9fj1mFqUYCVeW5ZVz-ssLbwEHluLCneg\",\"lastJoinedTimeMs\":1790702262072},\"expires\":1790702562072},\"gtg_load_status\":{\"status\":2,\"expires\":1790788662273}}",
+    "oa_ad_clids": "{\"gbraid\":{\"v\":\"KJAUDIT_GB\",\"ts\":1790702260860}}"
+   },
+   "overlay": null,
+   "handoff": null,
+   "click": {
+    "found": true,
+    "nav": "nav",
+    "after": "https://openart.ai/home"
+   }
+  },
+  {
+   "label": "app_late",
+   "href": "https://openart.ai/home",
+   "referrer": "https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB",
+   "cookies": [
+    {
+     "name": "oa_device_id",
+     "value": "d8d0a481-915c-4a4d-8a97-cab626cace7d",
+     "domain": "openart.ai"
+    },
+    {
+     "name": "gbraid",
+     "value": "KJAUDIT_GB",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "oa_ad_clids",
+     "value": "%7B%22gbraid%22%3A%7B%22v%22%3A%22KJAUDIT_GB%22%2C%22ts%22%3A1790702260860%7D%7D",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "_gcl_au",
+     "value": "1.1.408988760.1790702262",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "country_code",
+     "value": "US",
+     "domain": "openart.ai"
+    },
+    {
+     "name": "_gcl_ag",
+     "value": "2.1.kKJAUDIT_GB$i1790702278",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "__obref",
+     "value": "8eb5501f-a616-47ea-9eb4-8219b204f330",
+     "domain": ".openart.ai"
+    },
+    {
+     "name": "_fbp",
+     "value": "fb.1.1790702280612.726723150348486539",
+     "domain": ".openart.ai"
+    }
+   ],
+   "ls": {
+    "_gcl_ls": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":0,\"timeouts\":0,\"errors\":0,\"eopCount\":0,\"creationTimeMs\":1790702262067},\"expires\":1798478262067},\"gsid_dc\":{\"value\":{\"joinId\":\"Ay9fj1mFqUYCVeW5ZVz-ssLbwEHluLCneg\",\"lastJoinedTimeMs\":1790702262072},\"expires\":1790702562072},\"gtg_load_status\":{\"status\":2,\"expires\":1790788662273}}",
+    "oa_ad_clids": "{\"gbraid\":{\"v\":\"KJAUDIT_GB\",\"ts\":1790702260860}}"
+   },
+   "overlay": null,
+   "handoff": null,
+   "click": null
+  }
+ ],
+ "requests": [
+  {
+   "step": "landing",
+   "t": 1578,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2122,
+   "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&apvc=1&ae=g&auid=408988760.1790702262&dt=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&en=page_view&gbraid=KJAUDIT_GB&dl=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&scrsrc=openart.ai&lps=1&rnd=1537020487.1790702262&gclgb=KJAUDIT_GB&navt=n&npa=0&ep.ads_data_redaction=0&gdid=dYzg1YT.dNzQzZD&gtm=45E92e69p1v892263201za204zd892263201xeaxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~119317810~120385423~120469145~120469153&tft=1790702262078&tfd=1350&gap.gtb=1&fmt=8",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2122,
+   "url": "https://www.googleadservices.com/pagead/set_partitioned_cookie?rcb=18&frm=0&apvc=1&ae=g&auid=408988760.1790702262&dt=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&en=page_view&gbraid=KJAUDIT_GB&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&scrsrc=openart.ai&lps=1&rnd=1537020487.1790702262&gclgb=KJAUDIT_GB&navt=n&npa=0&ep.ads_data_redaction=0&gdid=dYzg1YT.dNzQzZD&gtm=45E92e69p1v892263201za204zd892263201xeaxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~119317810~120385423~120469145~120469153&tft=1790702262078&tfd=1350&gap.gtb=1&fmt=8",
+   "method": "GET",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2122,
+   "url": "https://ad.doubleclick.net/ccm/s/collect?auid=408988760.1790702262&gtm=45E92e69p1v892263201za204zd892263201xeaxf4&fmt=8",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2175,
+   "url": "https://alb.reddit.com/rp?id=a2_j6xo78gpljnf&event=PageVisit",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "ts=1790702262130&id=a2_j6xo78gpljnf&event=PageVisit&m.value=&m.transactionId=&m.orderId=&m.customEventName=&m.products=&m.conversionId=&uuid=2ff057c8-9333-40b6-8a68-58026e046060&aaid=&external_id=&idfa=&integration=gtm&partner=&partner_version=1.0.4&opt_out=0&sh=1440&sw=900&v=rdt_d3960254&dpm=&dpcc=&dprc=&esurl=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929&db=tsc-0.isc-0.pp-0.fetch-1.mo-1.iframe-0.ww-0.qsa-1.srv_cfg-1.src_pid-1.pms-1&mthd=POST&pm=%7B%22meta%22%3A%7B%22title%22%3A%22AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator%22%2C%22description%22%3A%22Create%20AI%20art%2C%20images%2C%20videos%20and%20music%20online%20for%20free.%20100%2B%20models%20from%20Google%2C%20OpenAI%2C%20Seedance%20%26%20more.%20%E2%80%94%20all%20in%20one%20place.%20Trusted%20by%208M%2B%20creators.%20Start%20in%20seconds.%22%2C%22keywords%22%3A%22%22%7D%2C%22og%22%3A%7B%22og%3Atype%22%3A%22website%22%2C%22og%3Aurl%22%3A%22https%3A%2F%2Fopenart.ai%2F%22%2C%22og%3Atitle%22%3A%22AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator%22%2C%22og%3Adescription%22%3A%22Create%20AI%20art%2C%20images%2C%20videos%20and%20music%20online%20for%20free.%20100%2B%20models%20from%20Google%2C%20OpenAI%2C%20Seedance%20%26%20more.%20%E2%80%94%20all%20in%20one%20place.%20Trusted%20by%208M%2B%20creators.%20Start%20in%20seconds.%22%2C%22og%3Aimage%22%3A%5B%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%3Fv%3D20260521-1549%22%5D%2C%22og%3Aimage%3Aurl%22%3A%5B%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%3Fv%3D20260521-1549%22%5D%2C%22og%3Aimage%3Asecure_url%22%3A%5B%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%3Fv%3D20260521-1549%22%5D%2C%22og%3Aimage%3Atype%22%3A%22image%2Fwebp%22%2C%22og%3Aimage%3Aalt%22%3A%22AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator%22%2C%22og%3Aimage%3Awidth%22%3A%221200%22%2C%22og%3Aimage%3Aheight%22%3A%22630%22%2C%22og%3Asite_name%22%3A%22OpenArt%22%2C%22twitter%3Acard%22%3A%22summary_large_image%22%2C%22twitter%3Aurl%22%3A%22https%3A%2F%2Fopenart.ai%2F%22%2C%22twitter%3Atitle%22%3A%22AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator%22%2C%22twitter%3Adescription%22%3A%22Create%20AI%20art%2C%20images%2C%20videos%20and%20music%20online%20for%20free.%20100%2B%20models%20from%20Google%2C%20OpenAI%2C%20Seedance%20%26%20more.%20%E2%80%94%20all%20in%20one%20place.%20Trusted%20by%208M%2B%20creators.%20Start%20in%20seconds.%22%2C%22twitter%3Aimage%22%3A%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%3Fv%3D20260521-1549%22%2C%22twitter%3Aimage%3Aalt%22%3A%22AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator%22%7D%2C%22ld%22%3A%5B%7B%22%40context%22%3A%22https%3A%2F%2Fschema.org%22%2C%22%40type%22%3A%22WebPage%22%2C%22name%22%3A%22AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator%22%2C%22description%22%3A%22Create%20AI%20art%2C%20images%2C%20videos%20and%20music%20online%20for%20free.%20100%2B%20models%20from%20Google%2C%20OpenAI%2C%20Seedance%20%26%20more.%20%E2%80%94%20all%20in%20one%20place.%20Trusted%20by%208M%2B%20creators.%20Start%20in%20seconds.%22%2C%22url%22%3A%22https%3A%2F%2Fopenart.ai%2F%22%2C%22image%22%3A%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%3Fv%3D20260521-1549%22%2C%22isPartOf%22%3A%7B%22%40type%22%3A%22WebSite%22%2C%22name%22%3A%22OpenArt%22%2C%22url%22%3A%22https%3A%2F%2Fopenart.ai%22%7D%7D%2C%7B%22%40context%22%3A%22https%3A%2F%2Fschema.org%22%2C%22%40type%22%3A%22BreadcrumbList%22%2C%22itemListElement%22%3A%5B%7B%22%40type%22%3A%22ListItem%22%2C%22position%22%3A1%2C%22name%22%3A%22Home%22%2C%22item%22%3A%22https%3A%2F%2Fopenart.ai%2F%22%7D%5D%7D%2C%7B%22%40context%22%3A%22https%3A%2F%2Fschema.org%22%2C%22%40type%22%3A%22FAQPage%22%2C%22mainEntity%22%3A%5B%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22What%20is%20OpenArt%20AI%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22OpenArt%20is%20an%20all-in-one%20platform%20for%20creating%20AI%20images%20and%20videos.%20Whether%20you%20want%20a%20product%20ad%2C%20a%20TikTok%20reel%2C%20a%20short%20film%2C%20or%20a%20virtual%20character%20that%20posts%20content%20for%20you%2C%20you%20can%20make%20it%20all%20on%20OpenArt%2C%20without%20specialized%20editing%20software%2C%20design%20background%2C%20or%20technical%20skills.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Is%20OpenArt%20free%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Yes.%20You%20can%20start%20creating%20on%20OpenArt%20for%20free%20with%20a%20trial%20plan%2C%20with%20daily%20credits%20and%20no%20credit%20card%20required.%20Paid%20plans%20unlock%20the%20most%20powerful%20AI%20models%2C%20longer%20video%20generation%2C%20and%20higher%20quality%20exports.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Can%20I%20use%20what%20I%20create%20on%20OpenArt%20for%20my%20business%20or%20brand%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Yes.%20You%20fully%20own%20what%20you%20create%20and%20can%20use%20it%20however%20you%20like%2C%20in%20ads%2C%20on%20social%20media%2C%20in%20client%20work%2C%20on%20merchandise%2C%20or%20anywhere%20else.%20No%20royalties%2C%20no%20attribution%20required.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Which%20AI%20models%20does%20OpenArt%20use%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22OpenArt%20brings%20together%20the%20best%20AI%20models%20in%20one%20place%2C%20including%20Seedream%205.0%2C%20Seedance%202.0%2C%20Google%20Veo%203%2C%20GPT%20Image%202%2C%20Nano%20Banana%20Pro%2C%20Sora%202%2C%20Kling%203.0%2C%20Grok%20Imagine%2C%20MiniMax%20Hailuo%2C%20and%20HappyHorse.%20Instead%20of%20paying%20for%20several%20separate%20tools%2C%20you%20get%20them%20all%20under%20one%20subscription%20and%20can%20pick%20whichever%20one%20fits%20the%20content%20you're%20making.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Can%20I%20create%20the%20same%20character%20across%20different%20scenes%20and%20videos%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Yes!%20This%20is%20one%20of%20OpenArt's%20most-loved%20features.%20Create%20a%20character%20once%2C%20and%20you%20can%20place%20them%20in%20any%20outfit%2C%20scene%2C%20or%20video%20with%20the%20same%20face%20and%20look%20every%20time.%20It's%20how%20creators%20build%20AI%20influencers%2C%20recurring%20brand%20mascots%2C%20and%20full%20stories%20with%20consistent%20characters.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Can%20OpenArt%20make%20videos%20with%20talking%2C%20music%2C%20and%20sound%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Yes.%20You%20can%20make%20videos%20where%20characters%20speak%20with%20synced%20lip%20movements%2C%20add%20original%20AI-generated%20music%2C%20and%20include%20realistic%20sound%20effects%2C%20all%20inside%20OpenArt.%20Great%20for%20everything%20from%20quick%20social%20clips%20to%20full%20cinematic%20videos.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Will%20my%20videos%20fit%20TikTok%2C%20Reels%2C%20and%20YouTube%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Yes.%20OpenArt%20exports%20in%20every%20format%20and%20aspect%20ratio%20you%20need%3A%20vertical%20for%20TikTok%2C%20Reels%2C%20and%20Shorts%3B%20widescreen%20for%20YouTube%20and%20ads%3B%20square%20for%20Instagram%20feeds%3B%20and%20cinematic%20ratios%20for%20film.%20Just%20pick%20the%20platform%20and%20your%20video%20comes%20out%20ready%20to%20post.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22How%20is%20OpenArt%20different%20from%20tools%20like%20Midjourney%2C%20Runway%2C%20or%20Sora%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Most%20AI%20tools%20specialize%20in%20one%20thing.%20Midjourney%20is%20mainly%20for%20images%2C%20Sora%20and%20Runway%20are%20built%20for%20video.%20But%20OpenArt%20brings%20images%2C%20videos%2C%20characters%2C%20music%2C%20and%20editing%20into%20one%20place%2C%20with%20every%20leading%20AI%20model%20built%20in.%20You%20don't%20need%20five%20different%20subscriptions%20or%20constantly%20move%20files%20between%20separate%20apps.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Do%20I%20need%20to%20know%20how%20to%20use%20AI%20or%20edit%20videos%20to%20get%20good%20results%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Not%20at%20all.%20OpenArt%20is%20built%20for%20everyday%20creators.%20You%20describe%20what%20you%20want%20in%20plain%20words%2C%20pick%20a%20style%2C%20and%20the%20platform%20handles%20the%20rest.%20If%20you%20want%20more%20control%2C%20advanced%20tools%20are%20there%20when%20you're%20ready%20and%20you%20can%20always%20refine%20your%20prompts%2C%20but%20you%20can%20still%20make%20great%20content%20from%20your%20very%20first%20try.%22%7D%7D%2C%7B%22%40type%22%3A%22Question%22%2C%22name%22%3A%22Is%20my%20work%20private%20and%20safe%20on%20OpenArt%3F%22%2C%22acceptedAnswer%22%3A%7B%22%40type%22%3A%22Answer%22%2C%22text%22%3A%22Yes.%20Your%20creations%20stay%20private%2C%20payments%20are%20handled%20securely%2C%20and%20OpenArt%20has%20safeguards%20in%20place%20to%20keep%20the%20platform%20safe%20and%20responsible%2C%20so%20you%20can%20create%20with%20confidence%20whether%20you're%20creating%20for%20personal%20or%20professional%20use.%22%7D%7D%5D%7D%5D%7D",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2261,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11252321380/?random=1790702262183&cv=11&fst=1790702262183&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=3&frm=0&tiba=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=1&ept=9&rfmt=3&fmt=4",
+   "method": "GET",
+   "type": "Script",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2262,
+   "url": "https://www.google.com/rmkt/collect/11252321380/?random=1790702262183&cv=11&fst=1790702262183&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=3&frm=0&tiba=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=1&ept=68&gcp=5",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2262,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16854695811/?random=1790702262207&cv=11&fst=1790702262207&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=3&frm=0&tiba=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=1&ept=9&rfmt=3&fmt=4",
+   "method": "GET",
+   "type": "Script",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2262,
+   "url": "https://www.google.com/rmkt/collect/16854695811/?random=1790702262207&cv=11&fst=1790702262207&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=3&frm=0&tiba=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=1&ept=68&gcp=5",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2262,
+   "url": "https://www.google.com/ccm/collect?rcb=3&frm=0&apvc=0&auid=408988760.1790702262&dt=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&tid=AW-11252321380&en=page_view&gbraid=KJAUDIT_GB&dl=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&scrsrc=openart.ai&lps=1&rnd=1537020487.1790702262&gclgb=KJAUDIT_GB&navt=n&npa=0&did=dYzg1YT&gdid=dYzg1YT&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&tft=1790702262218&tfd=1491&gap.gtb=1&tids=AW-11252321380~AW-16854695811&fmt=8",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2294,
+   "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "H4sIAAAAAAAAE0WQQW/bMAyF/4rBQ07SKjmObAkIBg9bA289DEuWyzAElEWnWm3Zs2QMQ9H/XiQZ1uNHPj4+8hkm7yKYH1IUlSyE/MkgtrOf0pHm6McARgohRK4YJD8QGFlqUYo8V3leFAzcOKAPYGCcKOCc3qEHBsvcg4HHlKZo7u7eWnfvlzSc4rjMLW2ffp1wcT6tLrWBnF+GbaJ44xaHCf05bK+SUy5yJXSuV2c7o3fbL5/r7x+bw2n3ARj8IRt9or0/B+y/0e+FYmocGJCbQq+lsrzslOSlzhWXstScKmsxR6s2rgIGE57pYUR3nWmtI4Wq4xuJmhdKSa4tItdrVZVOVLJzGhj4eJgxxB4TOTAd9pEY9P4eb5vhAjuPId1g8LEF8wxTtPuEicDw4uXi8uDDE7km1NP03+aS5+BTT2CgbrJ6TtmOAs2Yxtlk9zNRVjdZM+CZWHb0jsZsldWL8+ObDhg80gAmLH3PIF5fc/g7XSy/1rtPp2Ozbw7/bm9CTBhauibPO2Wryna8KgvNpcaOF0qseWXXomvXZblBBS+vvvfbHjgCAAA=",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2295,
+   "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=10481401&time=1790702262252&li_adsId=c028e359-4875-4c55-80fa-a4e9ce794bbf&pageLoadId=cbde6a6f-51a9-4661-9baa-93687d081fd9&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tm=gtmv2",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2305,
+   "url": "https://t.co/1/i/adsct?bci=4&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=3&event=%7B%7D&event_id=5b1fed80-5b07-4a99-bc80-05b7bc356c50&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=0a3be168-bf38-4401-90c7-80b8c8178e67&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=1&tw_session_count=1&tw_session_id=1790702262261-187044959&tw_session_start=1&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2305,
+   "url": "https://analytics.twitter.com/1/i/adsct?bci=4&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=3&event=%7B%7D&event_id=5b1fed80-5b07-4a99-bc80-05b7bc356c50&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=0a3be168-bf38-4401-90c7-80b8c8178e67&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=1&tw_session_count=1&tw_session_id=1790702262261-187044959&tw_session_start=1&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2331,
+   "url": "https://www.google.com/pagead/1p-user-list/11252321380/?random=1790702262183&cv=11&fst=1790701200000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=3&frm=0&tiba=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=1&ept=9&rfmt=3&fmt=3&is_vtc=1&cid=CAQS0wEAQM4h3O-1RzeGyOYz9pHWLsryiNzycesA9pDaBWdKXUFO3sx_SjCbpEIvgO7Cese83vhVow3XaOItICPJBvmDLN_M8F_FdiYJUcqtN4a2Fi648SC_TSGgsKSFtQ0TpFq6kMv5ebQw1nCnEb9yo-9-63eWLVh-rVZXrwkZsdfqEy8U_AOZqKczX5Rc6U8ozpw9kHN-B__NkIOuBBBzZsHcpmgDZYM4bZOGKAwzNp1WTS4sZNH2ITw5bHbb5j_UxDS3WSsLEzrD48_K3YjdzJi8DdQY&random=3097271690&rmt_tld=0&ipr=y",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2331,
+   "url": "https://www.google.com/pagead/1p-user-list/16854695811/?random=1790702262207&cv=11&fst=1790701200000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119317810~120213116~120385423~120412527~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=3&frm=0&tiba=AI%20Art%20Generator%3A%20Free%20AI%20Image%2C%20Video%20%26%20Audio%20Generator&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=1&ept=9&rfmt=3&fmt=3&is_vtc=1&cid=CAQS0wEAQM4h3GRWXOc28OvmAtDck0lDgTUga7SahUQONshULGMZYtsQamZPoIVtW22zQBI-6a08hAH3ETScFe64htGSFJ2DWJOCSIJmZYDiiyLtt4lUJJushz8JpbRVLovNM7C9Nln7oyKm0zF2t4A4qNOM-5hwdtJKA1U8t43fmR82zo_YIvxRjUbTN1PY2wM9mIfDX7MIMjLnGz7iQ4CddtbqBDTLWQO8i7lEvclEVym9EibHcCRA_huJX8mc-mtwH7JVAgOZEgJZluizgRQRIAe9KG58&random=874096912&rmt_tld=0&ipr=y",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2428,
+   "url": "https://analytics-ipv6.tiktokw.us/ipv6/enrich_ipv6",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event\":\"EnrichIpv6\",\"event_id\":\"\",\"message_id\":\"messageId-1790702262382-9637162318965-D9QOQ5JC77U6RO6J21IG#source=2\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:42.382Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\"},\"page\":{\"url\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referrer\":\"\",\"load_progress\":\"1\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs-D9QOQ5JC77U6RO6J21IG\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-kgnpk.0.0::add82aea-bc29-11f1-89c3-5210c55533eb-D9QOQ5JC77U6RO6J21IG\",\"variation_id\":\"default\",\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"css\":1,\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},\"_inspection\":{\"vids\":\"77125429\",\"inter_id\":\"1.-1652.0::0.0.0.0::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}},\"trigger_event\":\"Pageview\"}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2428,
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event\":\"LandingPageView\",\"event_id\":\"\",\"message_id\":\"messageId-1790702262384-7749796133360-D9QOQ5JC77U6RO6J21IG\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:42.384Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\"},\"page\":{\"url\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referrer\":\"\",\"load_progress\":\"1\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs-D9QOQ5JC77U6RO6J21IG\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-kgnpk.0.0::add82aea-bc29-11f1-89c3-5210c55533eb-D9QOQ5JC77U6RO6J21IG\",\"variation_id\":\"default\",\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},\"_inspection\":{\"trigger_source\":\"pixel_self\",\"vids\":\"77125429\",\"inter_id\":\"1.-1652.0::0.0.0.0::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2428,
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1790702262382-9637162318965-D9QOQ5JC77U6RO6J21IG\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:42.382Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\"},\"page\":{\"url\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referrer\":\"\",\"load_progress\":\"1\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs-D9QOQ5JC77U6RO6J21IG\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-kgnpk.0.0::add82aea-bc29-11f1-89c3-5210c55533eb-D9QOQ5JC77U6RO6J21IG\",\"variation_id\":\"default\",\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"css\":1,\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},\"_inspection\":{\"vids\":\"77125429\",\"inter_id\":\"1.-1652.0::0.0.0.0::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2429,
+   "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=10481401&time=1790702262252&li_adsId=c028e359-4875-4c55-80fa-a4e9ce794bbf&pageLoadId=cbde6a6f-51a9-4661-9baa-93687d081fd9&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tm=gtmv2&cookiesTest=true",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2455,
+   "url": "https://api2.amplitude.com/2/httpapi",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"api_key\":\"3e2fda7a5cbcc867099904a028486db4\",\"events\":[{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702261379,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"9503ecc6-d735-48e3-a87b-c91d399bd069\",\"event_type\":\"$identify\",\"user_properties\":{\"$setOnce\":{\"initial_utm_campaign\":\"audit_20260929\",\"initial_utm_content\":\"EMPTY\",\"initial_utm_id\":\"EMPTY\",\"initial_utm_medium\":\"test\",\"initial_utm_source\":\"kj_audit\",\"initial_utm_term\":\"EMPTY\",\"initial_referrer\":\"EMPTY\",\"initial_referring_domain\":\"EMPTY\",\"initial_dclid\":\"EMPTY\",\"initial_gbraid\":\"KJAUDIT_GB\",\"initial_gclid\":\"EMPTY\",\"initial_fbclid\":\"EMPTY\",\"initial_ko_click_id\":\"EMPTY\",\"initial_li_fat_id\":\"EMPTY\",\"initial_msclkid\":\"EMPTY\",\"initial_rdt_cid\":\"EMPTY\",\"initial_ttclid\":\"EMPTY\",\"initial_twclid\":\"EMPTY\",\"initial_wbraid\":\"EMPTY\"},\"$set\":{\"utm_campaign\":\"audit_20260929\",\"utm_medium\":\"test\",\"utm_source\":\"kj_audit\",\"gbraid\":\"KJAUDIT_GB\"},\"$unset\":{\"utm_content\":\"-\",\"utm_id\":\"-\",\"utm_term\":\"-\",\"referrer\":\"-\",\"referring_domain\":\"-\",\"dclid\":\"-\",\"gclid\":\"-\",\"fbclid\":\"-\",\"ko_click_id\":\"-\",\"li_fat_id\":\"-\",\"msclkid\":\"-\",\"rdt_cid\":\"-\",\"ttclid\":\"-\",\"twclid\":\"-\",\"wbraid\":\"-\"}},\"event_id\":0,\"library\":\"amplitude-ts/2.42.4\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702261386,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"b2d036ce-9997-4019-82df-c24aff25c183\",\"event_type\":\"[Amplitude] Page Viewed\",\"event_properties\":{\"utm_campaign\":\"audit_20260929\",\"utm_medium\":\"test\",\"utm_source\":\"kj_audit\",\"gbraid\":\"KJAUDIT_GB\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"[Amplitude] Page Path\":\"/\",\"[Amplitude] Page Title\":\"AI Art Generator: Free AI Image, Video & Audio Generator\",\"[Amplitude] Page URL\":\"https://openart.ai/\",\"[Amplitude] Page View ID\":\"e381da0b-d433-4b2c-a7c2-f77881579331\",\"[Amplitude] Page Counter\":1,\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":1,\"library\":\"amplitude-ts/2.42.4\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702261393,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"922839fe-a7fa-4f11-a869-0a7477e72f5d\",\"event_type\":\"openforge_page_viewed\",\"event_properties\":{\"device\":\"pc\",\"source_surface\":\"pageforge\",\"page\":\"/\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"[Amplitude] Page Path\":\"/\",\"[Amplitude] Page Title\":\"AI Art Generator: Free AI Image, Video & Audio Generator\",\"[Amplitude] Page URL\":\"https://openart.ai/\",\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":2,\"library\":\"amplitude-ts/2.42.4\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"}],\"options\":{},\"client_upload_time\":\"2026-09-29T17:17:42.408Z\"}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2460,
+   "url": "https://bat.bing.com/action/0?ti=187107444&Ver=2&mid=3b4545fe-e553-4b8b-8479-d024107e2a34&bo=1&sid=ae00d150bc2911f1b6740de8eb6d4cc1&vid=ae00eda0bc2911f1b81b2bf76f51434b&vids=1&msclkid=N&pi=918639831&lg=en-US&sw=1440&sh=900&sc=24&tl=AI%20Art%20Generator%3A%20Free%20AI%20Image,%20Video%20%26%20Audio%20Generator&p=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&r=&lt=453&evt=pageLoad&sv=2&cdb=AQAQ&rn=753210",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2477,
+   "url": "https://www.linkedin.com/px/li_sync?redirect=https%3A%2F%2Fpx.ads.linkedin.com%2Fcollect%3Fv%3D2%26fmt%3Djs%26pid%3D10481401%26time%3D1790702262252%26li_adsId%3Dc028e359-4875-4c55-80fa-a4e9ce794bbf%26pageLoadId%3Dcbde6a6f-51a9-4661-9baa-93687d081fd9%26url%3Dhttps%253A%252F%252Fopenart.ai%252F%253Futm_source%253Dkj_audit%2526utm_medium%253Dtest%2526utm_campaign%253Daudit_20260929%2526gbraid%253DKJAUDIT_GB%26tm%3Dgtmv2%26cookiesTest%3Dtrue%26liSync%3Dtrue",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2543,
+   "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=10481401&time=1790702262252&li_adsId=c028e359-4875-4c55-80fa-a4e9ce794bbf&pageLoadId=cbde6a6f-51a9-4661-9baa-93687d081fd9&url=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tm=gtmv2&cookiesTest=true&liSync=true",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2567,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013í\\mÛ¸\u0011þ+\u0000\u001bIAiÉá»\u0017Âa ´w×\u001e.w_¶\u0005-Ñ¶.¶äJò¾¤è/(JÞ\u0017o/«^×µÓb\u0013¯EQä<3Ãy8¤\u000fm89\u000fq¬bC\u0004\u0010\b&\u0004·Ë²JÓÏÅF(,ÙB5!\n\u0017¿òÙõ4D\u0004áö'\\4Íºk[ªM~òÍ¦Y]Öå¦Jmòé×K³ÉòfìÊV6Ë7«¤±µ¿NÍjmòy´U.\u0001À\u001aôx>­L%úãÙÏï>|¼üöMxB\u0013NÎÏx\f\u0011D\u0018ÃpÂ±ÿª1Fý\u000fÁ\u0002aTlËßýqÎ\t\u00010\u0002¤k(\u0002í$#Â(\u00028ï«Q\u0004:' f\b¨FZ#Ê\u0005\"\u0018#&»ä\u0012RH(pm\"-v\bÞ@R\\\\\\ pÝ¢\u0005\u0004Ò\u0004#\u0015ÒX£ðÝ_B\u0014¦KS×Ii\u0016QW6mÊ*j*~\nQÆD»w\u0010us»´ÉÒÎI\u0010©õÍiè¤\b\u0018nå\u0014è_<Ùxjª,ÊWfnû\u001eLú»M½¶i\u0013U¦ÉËI\u0000Àb\u0015ÓÓð\u0002uX@jD\u0004C Õ.¹i\u0016Öw\u0016<ºHßqÝôSTM\u0012\u0011ö°ðs\u0002}Á´FÙ¦J\u0004Æø~¹MÈÃ\u0004o\u00114)êYY­&Aûui\u001aû\n¯oP c­µTë×AU6mqfç¯:5Kû¼>\rÊµIóæv\u0012Ó\u0010Â\u001dLýX§¿\u0005\u0012vAªÇ\u0010écr\u0017¢\nC^|\u0019\u0019>&â1)<\u0004\u0013ÝÅ\u001fczh\u0012\u0007ó\u001dPâÙÄo-¢1\u0017\u0014s\u0007Å\n$ÓÏG\n\u001dR2\u0004){ÊEw°\u001d\u0017m¡\u0003Aþ¶ÉXL9ÃÂ!xÌ1\u0001\u000eI;H0\u0004\u0012ß$v·ã\u001e\u0010ÁèY>\u0018éX1Ê\u0007@a\u001d\u0014:\u0004xÂ:°c\u001d\u0019¢s(|Ñ\u0016\u0011\u0015åuÆ\u0004@>\u001f\u0001ï\u0010°!\bä.\u0002\u0002\u0001°{÷z5h¥\u0006ö|,¢ÃÂ`Q»X`\u0007\u000bcÑ3FFcÎ9fÒ\u00075-øsáÉcÙw<K¥\u0011p÷íxÝCsÌ<+\tù\ny\u0016·Áâk¥Z&±\u001dÕjF¾\u0002ª\u0005%aKµZHúP­\u0004j5e²7zÀõ\u0016b\r\u000fÀr LË\u0004×tL+¹znXsäÄÅQ­îKhÁ}Û)¿hA±ø>c&ZB\u0007LYh)×\\|½DK¥èVsÍ\u0007Ì\u000ehÒ¼íJ\rI£\u000ehR\u0003¦A\u0007A´\u0010cJÝ*7\u0006c\u0003ò&Z)¤8>¢¥R\u0000g\u001dÑ*\u0006ÏEàÈIÒ#Ú=æ´ü©5jD(\"ìâKÏÂ=M\u001c1M+\u0018²6v44M\u001c\u001c\u001bM\"¢%5\u001ec x@òx¨4Mæ´_í~%ù°Æj\u001f\u001e\bM\u0013\ndKÓX\rÇ\u001f4O\u000b¬ùñ-=\u0012Ì\r\u0019kÕsÃµc'¥_§\tÞ[F\f÷À\u001c1ÕJ<dïX¨\u0016\u0004\fÙÏ96ª%\u0003tT«Ø`~¨T¥Æ=Õ*!¤\u0007Mµ Äõ\u0003¡Z\u0000­{cpa@8hªe\u001c\u000fYj9\u0010ª%ZpÕïòê!»¼_néàmJüò¯Sõp|s=k\ta\u0003\"Ä±q-V\n¨çZÂØ×@µXê.¸kN\u00078äA\u0013-\u00036 ´\u001f\bÑR\u0010\fz¢¥X\fð®&ZÐxÈ\fîP\u0016K ¢'Úç¯8j\u0002x9¦%{[z\u0016÷À\u001c1ÏR\u0007¤cáYÂ\u001cK\u001c\u0017ÏB¬U·ØÊcÀíRßq\u0013-5å´}g$\u00121¦¶F\u000fj¹\u0018²Iz TË\u0000¶»¼Li<À\u0018\u0007Mµ\u0004qù\u0018\u0013\t\nxÏµZ\u000fÉj©[r}´Äû¯éöw-òÒ'÷b\u0005_Úõ¶¯K=\"î\u0017ÔQ·ô=\n\u0004\u0012D\u0013D8¥(üÃÇ\u0010\u001fÛ[\u0012ö¦6ÿZ6hÜöø@}/\u0002_Æºë\u0011<|x\u0000\u0013z³\u000btNñþ¬¢Úø¢ÿ8\u0015ò\u0016\u0010\u0005Ø\nU×#÷*¤\u000fUX^¯\u000e©Ú\u000e½ii7öá¾¢ëQyM°G(B¯N\u0015íË\u0016ûPþ7ì\u0003Uû\u000b]x\u0015òÇ*\fB¯Y¯CÖ\rÉ}¸¹7.ë\u0006Ö\u001e¬æV/\u0011åÊi¸>Õ³\u0000¥¤s}Ö\u000fI±£ÅUèµÛ©ó\u0016Ô®^\u0002\u0014%]´páÛ&wE»\r½ÌlúêÞ\u001bdW·ë¼ûáý÷\u001aÖO\tW^îNºnú±\u000fé¼¯rÎt[n§(|óóÇþ¡o¯(·S«»\u0016×e7yYLY~c³Ó Êçf\u0012¸õÓàs\u0017½\u0004@d\n´Ö§ÁÂú*î/,OU^D×yÖ,úµÉ²¼O\u0002¼¾\tÚ}ö`ZV­¢Êdù¦\u0004Z»÷Ñ,¯×Ks;\tòb\u00176-íÍi`ù¼òÆ®êIÚ¢±Õi07ëIÀÛ¦Lúi^\"\u0004Õ|j^B\u0001%( \u0014\u00058VüõiË²jo¿\u0002ÎQÐ¼î%\u0004d}\u0013Ôå2ÏºFîWsí\u0010õú4E3\t\u0004Æ[Z\tN\u0002\u0012Ô·ucWÑ&GAm:ªmÏNtSÕ®Ëu{§åMT/LV^wbb\u0014tÿbÊ_·ºaN?Ìë§iÊU¯ôí4ÖýáÞiè\fJ¼UÃúj>©¯æ!\n['ÄåáÞ\u001eþûUn¯ß7\t\u000ep\u0000,\u00008Ìòå2)ÊÂ¶F¯ÊO6I7Ueæ­SÔ¶Ô±]pé\nYR³NZ}?,þµÌm¹©r\u0013-ò,³EÒT\u001b»õ.gÒïZ\u0000Î7\u001dð§¿ý°­·u\u0005W×C¦]=\u00079Í«téZMo|rÞúßU»È \u0000³­¨ÄÉ\u0018¢ð´xn¯\u0003>!¹öZ\u0000æÛ\u0007pm\u001b1É÷\u0004\u00020Ç4h?JIÀ\u0002GÑÓÑnaà\n?·cÕOÀÝÎÛS¤\f}éBI7%ßG(ñóIî'Èn'íIñÐËîå\u0013°?ù|ÊÐ\u0011áDP}Äó\u0012þÕ\u000b¦û?/\u0000Òi[ß´än´%mjo(ü¹\u000f\u0012èÞzô¯!)Ø\u001feú,\\1²¯\u001e}Â\u001bx\u0007v§µ|øþ[÷h&ý,M'ä$?1Y6ßLÓ<aãì*9[Ù*OÍ\bÞWÖgÅÜ.m=\u0002aèçFðÖ\u0016#\u0010ßå|iG?\u0014i<\u0002ñ½I?\u0014]@\u0010î1<\u0002¡±û$î\u0003Øãb÷¿0cæ\t\u001dÛ+[4ÉH¾\u0019Éwþâ2Ï\u0012>%3)\u001cñ)\u00113ZGÓTá\bó©¦ã±ãy«\"7«ÈdÑÊ\u0014fn«ñÚ5òñ:oöbSÛÊàñzÙþ6tjPÑtFUÄ\u0018&Æ©\u0014ªT\u0011©¬ãæú2]\\Î®É\u0016õÛEU®ì\bÞ\u0013Îb\u001c+LeÌÕ\bÞ¶7òÍê[?M|6÷o*Sd#x¯uÝO×þú*!<\u0016þ:+ÓÍÊ©`QÙ·ØºGðþî \u001dwMßß\u001d¦3¢ïúãtF î\u000eÔ\u0019ÑwîH®¬?TgDß=<Vg\u0004Â\u001f¬3¢ïîÖqâØbnæ6»\\ÕI+^>«ÌÊ^Öi6]Ñ:Ï.w\u0011wQÛºÎËâ2-7Eó°(Ï\u0012\"5\u0018ÜkgDDIÌæú~­º1pgIs\u001d?x&VØ=E¤dÀAH\"Ä¸¹iÛþÛõ|±\u00187·küj®LVùº\u0019_ÙÊ5@ÌbBîM\u0017î&\u0011n`t±®ò²ÊÛdÏ\u0017¿ÁÍö#¬]\u001b¼?°La·MÖqã\u001d/NËÕÿGÚÿGÚÿàH;H!\bv\u000b%}nFº_´çÀ<K¦¦ycMZ\u0016\u001a+B\u00119Ý¿.¹j\u0013©>õÂ\u000fò§v`\u0006WyOóe9ø¹¸ñ\u0018C×%÷Ýwtx¿_\u000eXj¥$P¡¶a\u0001ßÅ\nü>§¦§y1o\u0007·IÝ8Áß4yB$X2ÆÆ¿Ø*ñ*Ï\u0012:eñ,ç4bS5\u0014:Ê00¥\u0005CÙxZ&d\\çYb,Æ\u0019áx&dF¦B2Ye§\"ciJÆW]%»JLa:bÆ\t£lê*Õ\t\u0019¯êtù)Ï\u001fÆë<ÑD\tª\u0015%ãå<iÃÌ¸¾N\\¨\u0018×Dc<®Ó\u0004Ø¸Y&g\u001fFÏªf\u0004ø[[ØÊ4eÕ\fü¾²nd¶\u0015>¸I\t\u001a\u0001þ%Ïl9\u0002\u0017hÜ½M÷\u001c¯ÿËc«JÆË&aÜ¿&Y¹ý®4Ù¸¾J`fÓäìÇ³\u001fÇUHNàÿã]üãGq?\u0000?O\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE+1cbY/buBH+K4IAG0lBacnhuxfCYZMgh7R31x4ud1+2iwUt0bYutuRK8r6k6H8vKEreF28vq17XtdNiE69FUeQ8M8N5OKSWfw9tODkPcaxiiUMEiBCFCCYEhbfLskrTz8VGhygsi9lCNSEKF7/y2fU0RATh9idcNM26npyclGtbmKqJTX7yzaZZXdblpkpt8unXS7PJ8mbsylY2yzerpLG1v07Nam3yeZG0VS4Bg8Aa9Hg+rUyeJX/649nP7z58vPz2TXiBQhNOzs+deAwRRBjDiHDCsf+qMUb9D8ECYVRslsvf/XGBzgkBjTACpIBrjigC7SSQiCPCKAKOOO+rUYEEOiegkGYIqEZaI8oFIhgjJoi75BKQUkgoioRwbSItkXYInN6ZQFJcXFygcN2iBYUE0gQjjhXSWKPw3YdfQhSmS1PXSWkWUZZXNm3KKmoqk34KUZiZxkS7d5IQhXVzu7TJ0s6aSRCp9c1p6KSTCBhu5RTonF882XhqqizKV2Zu+x5MlfqCu4ZNvbZpE1WmyctJAMCCk4BiFdPT8AJ1WEBqRARDINUulrlpFtZ3Fjy6jkjfcd2Y9FNUlU0SEfaw8HMCfcG0nEbZpkoExvh+mblNyMOCmwRvETSVKepZWa0mQft1aRr7Cq9vUKBjrbVU65vXQVU2bXFm56+DOjVL+4q8Pg3KtUnz5nYSkNMQgcIdTP1Yp78FEnZBqscQ6WOIcheiCp1DXnwZlowZfz4m4jEpPAQT3cWEH2N6aBIHivMdUOKR2cRvmy2iMRcUcweTxQok089HCh1SMgQpe8pFd7CKHRdtoZ4DQZT+tslYTDnDwiGKeMwxgwEOSTtIMAQS34Ukdoy345AeEMHoWT4Y6VgxygdAYR0UOgSKeMI6sGMdGaJzjSh80RYRiRXlknXGkARAPh8B7xCwIQjkLgICjwGwnZGEe/d6njVojKUG9nwsosPCh2BRu1hgB4sLY4DRM0ZGhGPOOWbSBzUt+HON4ZiJyZdj2Zh3PEulmxFw9+2FeJbdQ3PMPCsJ+Qp5FrfB4mulWiaxkh3Vaka+AqoFJWFLtVpI+pVQrZAEjo5qNWWyN4aQesCc9YCZFmINjA/AciBMywTXknRMK7l6blhz5MTFi1Gt7oiWg0towX3biSm/n2hBsfg+lmMmWkIHTFmPhWgp11x8vURLpeiJVnPNB8yUDpZoidK8j+1KDUmjDppolVIDpkEHQbQQY0rdKpc3BmMDkvKDJloppDg+oqVSAGcd0SoGz0XgyEnSlyPaPea0/Kk1akQoIuziS8/CPU0cMU0rGLI2djQ0TYgckIccG02DIqIlNR5joHhA8nioNE2Y5rRf7ZSKfiX5sMZqiB8eCE0TCmRL01gNmccfNE8LrPnxLT2DEsyPDRlrjdVzw7VjJ6VfjKcJ3ltGDPfAHDHVSjxkme9YqBYEDNnPOTaqJYoDdFSr2JBgfqhUi6XGPdUqIYakkQdNtSDEgPWKA6FaAK17Y3CJYUCAOGiqZRwPWWo5EKolWnDV7/LqIbu8gF9u6ZngbUr88q9T9XCOfJuXcz2AlI6GawlhAyLEsXEtVgqo51rC2NdAtVjqLrhrTgc45EETLQM2ILQfCNFSEAx6oqVYDPCugyZa0HjIDO5QiBZLIKIn2uevkThqAng5piV7W3oW98AcMc9ShQeMpGPhWcKVHJBLHBfPQqxVt9jKY8DtUt9xEy2NNeW0fWckEjGmg7ZGD5pquRiySXogVMsAtru8TGk8wBgHTbUEjnH5GBMJCnjPtVoPyWqpW3J9tMT7r+n2dy3y0if3YgWSX9qJ9ZK2r0s9Iu4XkNRRt/Q9CowEEkQTRDilKPzDxxCFH9tbEvamNv9aNmjc9vhAfS8CX8a66xE8fHgAfxN6lZyziwt0TvH+rKKe2oz4ov84FfIWEAXYmwpV1yP3KqQPVViFXq+dDqnamw69aWk3lvbhvqLrUXlNsEeaKEKvn04V7csW+1CF/jeDkeyCA1X7C5xdj5p4FfLHKgxCr1mvQ9YNyX24uTcu6wbWHqzmVi8R5cppnbg+1bOCAKWkc33WD0mxo8VV6LXbqZHzFtSDrl4CFCVdtHB/4duKJndFuw29zJ1smvqa6oma3htkV5W367z7geH9lPca1k8JV4de7k66bvqxD+m8r3LOnHSAW26nKHzz88ePf/6hb68ot1OruxbXZZ03eVlMgll+Y7PToMrni2YSuPWN0+BzlBeZvZkEQJhkCrTWp8HC+iruLyxPg1VeRNd51iz6grXJsryYTwK8vgnaffZgWlaZraLKZPmmngRau/fRgyyv10tzOwnyYpkXNpot7c1pYJb5vIjyxq7qSZDaorHVaTA360nA26ZM+mlelZsimwTVfGpegUIBJSigFAU4Vvz1aZCWy7Jqb78CzlHQf7zuJZkEZH0T1OUyz7pG7ldz7RD1+jSYlUUzCQTGgVtaCU4CEtS3dWNX0SZHQW2KOqptlc9Og3RT1a7LdZl7gaflTVQvTFZed2JiFHT/Yspft7phTj/M66dpylWv9O001v3h3mnoDEq8VcP6aj6pr+YhCluVJ8Tl4d4e/vtVbq/flDcJDnAALACXOMzy5TIpysK2Rq/KTzZJN1Vli+atU9S21JuxXXDpCpxZUrNOWn0/LP61zIttualyEy3yLLNF0lQbu/UuZ9KJ71oAhs43HZ7wp7+c/bCtt3UFV9dDpl09BznNq3TpWk1vfHKU3vrfVbvIIACzrZaof8TJGKLwhrR4bomvfwM+IbmF9loA5tsHmX9wbZqFGzHJ9wQCMITHNGg/nEpJwAKCg0eF0dOF0W5h4Ao/t2PVT8DdzttTkaQMfZTpQkk3Jd9HKPHzSe4nyG4n7UnxitDL7uUTsD/5fMrQnhHhRFB9xPMS/tULpvubjj8vkADSaVvflbSE5G60JW2bam8o/LkPEujeevSvISnYH2X6LFwxsq8efX/CG594B3antXz4/lv3aJUm/YEsTZyWJ+QkPzFZnTbfTNM8YePsKjlb2SpPzQjef1fWl2fF3C5tPQJhi+jnn0bw1hYjEN+W5XxpR4A/FGk8AvG9ST8UjV2OQBCQ7pMxPAKhsfsk7gPY42L3vzBjm+YJHdsrWzTJSL4ZyXf+4jLPEj4lM5spHPEplhEzWkfTVOEI86mcppSLlOOx45t5q4gimTeryGTRyhRmbqvx2jXy8TpvmvZiU9vKleDxetn+NnRqiVDRdEZVxBgmkcapjBSeqlQRqayQ4+b6Ml1czq6WyRb120VVruwI3hPOYhwrTGXM1QjetjfyzeqJWz+UTXw2gvdvKlNkI3ivdYzdT9f++iohPBb+OivTzcqpYFHZmbfYiLqHR/D+7iAdd03f3x2mM6Lv+uN0RiDuDtQZ0XfuSJ2urD9UZ0TfPTxWZwTCH6wzou/ujtZx4thibuY2u1zVSStePqvMyl7WjWk2XdE6zy6ddxF3Udu6zsviMi03RfOwKM8SIjWWGNxrZ4JEREnMmOb6fq26MZV/cJ1nSXMdP3gmVtg9RaRkwEFIIsS4uWnb/tv1fLEYN7drm/xqrkydVvm6GV/ZyjWbQMxiQu5NF+4mEW6OYJt0sa7yssqb22SRzxe/wc2E9iOsXRu8P7BMYZa3TZ7WceMdL07L1f9H2v9H2v/gSDuXSCGNCHaTCyV9bka6X7TnwDxLpqZ5Y01aFhorkEIRjTndjr8uuWoTqT71wg/yp3ZgBld5nU/zZZs5+Lm4f/EYQ9cl9913dHi/Xw5YaqUkUKG2YQHfxQr8iD6npomneTFvB7dJ3ZA4wd80eUKUJFgyxsa/2CqB8SrPEjplnPGZjSznNGJTNY0UkzrKMDCCpQVD2XhaJmRc51liLMYZ4XiagiZkRqZCMpxZZaciY2lKxlddJZuZu0qKTGE6k2LGCaNs6irVCRmv6nT5Kc+SH8brPNFECaoVJePlPGnDzLi+TlyoGNeLRGM8rtME2LhZJmcfRoDPqmYE+Ftb2Mo0ZdWODPy+sm5kthU+uEkJGgH+Jc9sOQIXaNy9TZaX958cr//LY6tKxssmYdyFvyZZm7n9rjTZuL5KYJxm0+Tsx7Mfx1WRSE6B4P+M4138459HcT8AP08AAA=="
+  },
+  {
+   "step": "landing",
+   "t": 2616,
+   "url": "https://c.clarity.ms/c.gif",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2617,
+   "url": "https://openart.ai/cdn-cgi/rum?",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "{\"startTime\":1790702260728,\"pageloadId\":\"df96b70c-8cdf-437b-8568-4716916889a1\",\"eventType\":1,\"nt\":\"navigate\",\"location\":\"https://openart.ai/\",\"versions\":{\"fl\":\"2024.11.0\",\"js\":\"2026.9.1\",\"timings\":2},\"bi\":{\"be\":\"Blink\",\"bev\":\"154\",\"bv\":\"154\",\"ov\":\"15.6\"},\"memory\":{\"totalJSHeapSize\":31008172,\"usedJSHeapSize\":20807252,\"jsHeapSizeLimit\":4395630592},\"firstPaint\":360,\"firstContentfulPaint\":360,\"timingsV2\":{\"nextHopProtocol\":\"h2\",\"domainLookupStart\":2,\"domainLookupEnd\":8,\"connectStart\":8,\"connectEnd\":46,\"secureConnectionStart\":33,\"requestStart\":46,\"responseStart\":109,\"responseEnd\":120,\"domInteractive\":416,\"domComplete\":1844,\"loadEventStart\":1845,\"loadEventEnd\":1845,\"finalResponseHeadersStart\":109,\"firstInterimResponseStart\":0,\"transferSize\":59011,\"decodedBodySize\":393528},\"siteToken\":\"84629b38239e48b6aae523f50f86e18d\",\"st\":2}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2677,
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event_id\":\"\",\"message_id\":\"messageId-1790702262634-6814250336591\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:42.634Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\",\"codes\":\"D9QOQ5JC77U6RO6J21IG\"},\"page\":{\"url\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referrer\":\"\",\"load_progress\":\"2\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-kgnpk.0.0::add82aea-bc29-11f1-89c3-5210c55533eb\",\"variation_id\":\"default\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\",\"index\":0,\"sessions\":[{\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"pixel_code\":\"D9QOQ5JC77U6RO6J21IG\"}]},\"_inspection\":{\"vids\":\"77125429\",\"inter_id\":\"1.-1652.0::0.0.0.0::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}},\"action\":\"Metadata\",\"auto_collected_properties\":{\"page_trigger\":\"PageView\",\"content_data\":{\"open_graph\":\"{\\\"og:type\\\":\\\"website\\\",\\\"og:url\\\":\\\"https://openart.ai/\\\",\\\"og:title\\\":\\\"AI Art Generator: Free AI Image, Video & Audio Generator\\\",\\\"og:description\\\":\\\"Create AI art, images, videos and music online for free. 100+ models from Google, OpenAI, Seedance & more. — all in one place. Trusted by 8M+ creators. Start in seconds.\\\",\\\"og:image\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp?v=20260521-1549\\\",\\\"og:image:url\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp?v=20260521-1549\\\",\\\"og:image:secure_url\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp?v=20260521-1549\\\",\\\"og:image:type\\\":\\\"image/webp\\\",\\\"og:image:alt\\\":\\\"AI Art Generator: Free AI Image, Video & Audio Generator\\\",\\\"og:image:width\\\":\\\"1200\\\",\\\"og:image:height\\\":\\\"630\\\",\\\"og:site_name\\\":\\\"OpenArt\\\",\\\"twitter:card\\\":\\\"summary_large_image\\\",\\\"twitter:url\\\":\\\"https://openart.ai/\\\",\\\"twitter:title\\\":\\\"AI Art Generator: Free AI Image, Video & Audio Generator\\\",\\\"twitter:description\\\":\\\"Create AI art, images, videos and music online for free. 100+ models from Google, OpenAI, Seedance & more. — all in one place. Trusted by 8M+ creators. Start in seconds.\\\",\\\"twitter:image\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp?v=20260521-1549\\\",\\\"twitter:image:alt\\\":\\\"AI Art Generator: Free AI Image, Video & Audio Generator\\\"}\",\"microdata\":\"[]\",\"json_ld\":\"[{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"WebPage\\\",\\\"name\\\":\\\"AI Art Generator: Free AI Image, Video & Audio Generator\\\",\\\"description\\\":\\\"Create AI art, images, videos and music online for free. 100+ models from Google, OpenAI, Seedance & more. — all in one place. Trusted by 8M+ creators. Start in seconds.\\\",\\\"url\\\":\\\"https://openart.ai/\\\",\\\"image\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp?v=20260521-1549\\\",\\\"isPartOf\\\":{\\\"@type\\\":\\\"WebSite\\\",\\\"name\\\":\\\"OpenArt\\\",\\\"url\\\":\\\"https://openart.ai\\\"}},{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"BreadcrumbList\\\",\\\"itemListElement\\\":[{\\\"@type\\\":\\\"ListItem\\\",\\\"position\\\":1,\\\"name\\\":\\\"Home\\\",\\\"item\\\":\\\"https://openart.ai/\\\"}]},{\\\"@context\\\":\\\"https://schema.org\\\",\\\"@type\\\":\\\"FAQPage\\\",\\\"mainEntity\\\":[{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"What is OpenArt AI?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"OpenArt is an all-in-one platform for creating AI images and videos. Whether you want a product ad, a TikTok reel, a short film, or a virtual character that posts content for you, you can make it all on OpenArt, without specialized editing software, design background, or technical skills.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Is OpenArt free?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Yes. You can start creating on OpenArt for free with a trial plan, with daily credits and no credit card required. Paid plans unlock the most powerful AI models, longer video generation, and higher quality exports.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Can I use what I create on OpenArt for my business or brand?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Yes. You fully own what you create and can use it however you like, in ads, on social media, in client work, on merchandise, or anywhere else. No royalties, no attribution required.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Which AI models does OpenArt use?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"OpenArt brings together the best AI models in one place, including Seedream 5.0, Seedance 2.0, Google Veo 3, GPT Image 2, Nano Banana Pro, Sora 2, Kling 3.0, Grok Imagine, MiniMax Hailuo, and HappyHorse. Instead of paying for several separate tools, you get them all under one subscription and can pick whichever one fits the content you're making.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Can I create the same character across different scenes and videos?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Yes! This is one of OpenArt's most-loved features. Create a character once, and you can place them in any outfit, scene, or video with the same face and look every time. It's how creators build AI influencers, recurring brand mascots, and full stories with consistent characters.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Can OpenArt make videos with talking, music, and sound?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Yes. You can make videos where characters speak with synced lip movements, add original AI-generated music, and include realistic sound effects, all inside OpenArt. Great for everything from quick social clips to full cinematic videos.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Will my videos fit TikTok, Reels, and YouTube?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Yes. OpenArt exports in every format and aspect ratio you need: vertical for TikTok, Reels, and Shorts; widescreen for YouTube and ads; square for Instagram feeds; and cinematic ratios for film. Just pick the platform and your video comes out ready to post.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"How is OpenArt different from tools like Midjourney, Runway, or Sora?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Most AI tools specialize in one thing. Midjourney is mainly for images, Sora and Runway are built for video. But OpenArt brings images, videos, characters, music, and editing into one place, with every leading AI model built in. You don't need five different subscriptions or constantly move files between separate apps.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Do I need to know how to use AI or edit videos to get good results?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Not at all. OpenArt is built for everyday creators. You describe what you want in plain words, pick a style, and the platform handles the rest. If you want more control, advanced tools are there when you're ready and you can always refine your prompts, but you can still make great content from your very first try.\\\"}},{\\\"@type\\\":\\\"Question\\\",\\\"name\\\":\\\"Is my work private and safe on OpenArt?\\\",\\\"acceptedAnswer\\\":{\\\"@type\\\":\\\"Answer\\\",\\\"text\\\":\\\"Yes. Your creations stay private, payments are handled securely, and OpenArt has safeguards in place to keep the platform safe and responsible, so you can create with confidence whether you're creating for personal or professional use.\\\"}}]}]\",\"meta\":\"{\\\"title\\\":\\\"AI Art Generator: Free AI Image, Video & Audio Generator\\\",\\\"meta:description\\\":\\\"Create AI art, images, videos and music online for free. 100+ models from Google, OpenAI, Seedance & more. — all in one place. Trusted by 8M+ creators. Start in seconds.\\\"}\"}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2681,
+   "url": "https://c.bing.com/c.gif?ctsa=mr&CtsSyncId=C1B51394E90C4BAF9E10CD4BFC603513&RedC=c.clarity.ms&MXFR=2F8A8E64B1AF6E510AEC9987B5AF6030",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 2712,
+   "url": "https://bat.bing.com/p/conversions/c/u",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013½SÛnÔ0\u0010ý\u0015Ë\u000f\u0015H³YcçRT¡PDYÚÂC[@¢ÈI¼[³¹¬\u0012§H\\úíhv· ÞxB¬¹\u001cñÌ|çæ\\\u0004I\u0010\u000b\u000e\b\u0002P$ÀÛFú´ë·çÀ±Û¶}ú$m\u0015x\u0000Òá÷Þï¦ÓårØÙÞ>0nùrö]9\róXÛ³íÒÌó'dëlãæîÌÛé ×¦Û\u0019·éÏöR\n\u0019T¦'j4®9»|Ý½^Ý\u0017¯x\u0001ÜðÓ<W\u0000*%\u00005jQ@®\u0001ñ`IÅA\t`\u00019U\u0011*àçåêCÎQPúÇ«\u0000^ÎÖ?¸\\Æ\na\u001b#ªZ¦k¬\u0012¬dµ£µF\u0015ªê\tÞ\u001dàa¥´Òk»°Z\u000bU%Õ\"QqºhT(b+M¨8ü\u001b'\"uýä6÷~:\u001fú\u0007;Nnè§CØ}îI\"VêK7ýeýA\u0015\u001dK¦¾äüzøæÚÖ,u Ø³kS»Þ\u000fÓý\u000b¶ê½mÙµ©Ù\u001bö¡(Qñsív­ýd«Kç:0bÏ.ßÞ^_\u0001kÝÖ²\u000b[oçìü~\u001c:»D­\u0002AÝµ\u0019Ýñ\t/\u0000!ÿo\u0003\u0011BÎ³\u0015ËFÏ.loGãñ½\u0019­eÙ­:³±À>ºÆ\u000eìesã?8^@\n9·ýâîÒÖóÔoq®Iö.^óÎÔ\u001f\b$) ê \nh~¤_\fÃ¦µÇoyDMmß+nîêûÁ\u0007ÙòÕhúæ1Mé!±#\t\tä|O\u001e8³Î®6Ë«a*³~c[K\u0010RJîQO\u0004!\u0011¬M;ÙßÝ§Ä8\u0015±2:ûyP A\u0003­ÉÓîÐ²PR$@A@\u0010JB@A9aDáÅ1\"\u0014\u0002\u0016ÅÏ_\u0015Lóé<\u0004\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE71T227UMBD9FcsPFUizWY9j51JUoVBEWdrCQ1tAiqLISbxbs7msEqdIXPrtaHa3IN54QpasuRyfmfHMfOeWn+ZcBEkQCw4IAlAkwNtG+rTrt53nwLHbtn36lSRtnBV4ANLh997vptPlctjZ3ow+MG75cvZdOQ3zWNuz7ZfSzI3zJ2TrbOPm7szb6aDXptsZt+nP9pBSChmJVKYnm2o0rjm7fJfdvV7dlheveAHc8NM8V5AAKiUANWpRQK4B8WBJxUGXCWABOVURKuDn5eqGQ85RUPrHqwBeztY/uIZcxgphGyOqWqaIa6wSrGS1jqO1RhWq6gneHeBhpbTSa7uwWocLVSXVIlFxumiEVChiK02oOPwbjJgnInX95Db3fjof+gc7Tm7op0PYfe5JjCJW6oCfSzf9Zf1BFR1Lpr7k/Hr45trWLHUg2LNrU7veD9P9C7bqvW3ZtanZhxv2maEoUZfxc5btdq39ZKtL55c6jIMwYs8u395eXwFr3dayC1tvh+fs/H4cOrtErQJBh92YtRnd8QkvACH/bwMRQs6zFctGzy5sb0fjh/GUvRmtZdmKrTqzscA+usYO7IRlc+OGPzheQAo5t/3i7obS1pDz1G9xrkmL9i5egJSQ887UHwgkKSDqIApofqSCnF8Mw6a1x295RE1t3ytu7o7q+8EH2fLVaPrmMU3pIbEjCQnkfE+VHoWQOLPOjq42y6thKrN+Y1tLgxBShkruUU8EIRGsTTvZ392njcQ4FbGQMpI6kvt5UKBBA63J0+7QslCdUoEkn4xAgIxBQIiAEEqSQkBBOWFE4cUxhCIUAhbFz18VTPPpPAQAAA=="
+  },
+  {
+   "step": "landing",
+   "t": 2728,
+   "url": "https://c.clarity.ms/c.gif?ctsa=mr&CtsSyncId=C1B51394E90C4BAF9E10CD4BFC603513&MUID=33708FB7C3E9667732649854C2D667B5",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 4620,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013¥SÁÓ0\u0010ý\u0017\u001f8M½\u001e'Ní*\u0004BBÀ\u0015NUT¹zë8Qâ´,GnÒe¹!GÖÌèÍ73ÎObÉã0*é\u0011È\u0000+àL\b Ï¾íù\u0011FE´áp\u00009>ÃeO\u0000]\u000f9ÆØ\r\u000f\u000fmgî#Õîáí\u0018ÝÐ½±ÓÓNoR¬±\u001bM´Ãä\u001bÝtÚÕasì8ã\u0005S\\½©÷½vÕæËçwß>|úºûø@4yÜn\u0011%\u0007®\u0000a\ry>d\u0012\u0010\u0015ä(\u0000eß.\u0001\fb@>»ZGôs\u0002B®\u0011!Sà²íµç\u001c\u00100Ï\u0019 @Á&S1\u0006ËAÆs`\u0010Fïÿû*a¡L\u0015sØ\u00122Ð?Ó#@\u000em\u0003­Û¶öVwn ¦mÒ\u000eî1¦ú+i::CoÇêàuo]\u0018\\}Köår¡ÆëÞÅgÚ\f3Cl}¤®½§¡²Þ{\u001alZõÐ¯w6Ä9ÔT7wq¬ìÌ7Þuýs|é¦S\u001bQ×\u000eº¶ýÞVð5èzÔL½tïB½hÀº\u001aVñâb¼ñé ýstf Ñb{º+3)x\u0015ÐÕ`û³3v®hÕ{owæ4\u0017Ô~?ëQ·dZÿ\u0003Þ}OÚ¨wád+·4r_j|¡ýÖã¬£süÕ¸o¹+×¹É\u000b\u001d¯¼z¹¼.\u0006\u001c2¦\u00102Þ·\u0004\u0001\\HX\u0003\u0007\t¢ÈA%Ha\t9Ã%3+ H¿E¦@f<ç\u0001fBLF¾#BÊÉ(¤\u0002¥\u0000%!#È\u001c8ã\u0013c6A9Yx¶ \u000b\u001b_Øxb»\u001a\u000b\u001dW¬¸\u001a\u0019ã8\u0019I]ÆË²üõ\u001bd\u0013®Å\u0004\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE6VTwY7TMBD9Fx84Tb0eJ07tlSoEQkLAFU5VVLmOm3rrOFHitCyIf0duktJluSFH1szozZs3M85PYsnjljAq6ZoRyACRK+BMCCDPvu2N+RFGRYC04XCUkQA5PonDZU8AgV0POcbYDY8PD21ng+4j1e7h7Rib3dCOvbGb09NOj5WLb1KssZUbm020w+Qb3XTa1WFzhew44wVTXL2p97121ebL53ffPnz6uvv4npRANHncbhElB64AYQ15kT5kEhAV5CgAZZ7fLgEMhGKIQII+u1pHm/RzAkKuESFTmeCyhO215xwQMM8ZoEDBJlMxBstBxnNgEEbv//sqYZuhTBVz2BKHMtA/0yNADm2IA63btvZWd26gpm3SDu4xpvoraYg6OkONb8fq4HVvXRhcfYxL9uVyocbr3sVn2gwzQ2x9pK6dvaehst6dexpsWvXQr4x3NsSVOdRUN513cazszDeY3nWJ/Z5zfOmmmlMbUdeNDrq2/Z2c3laVi4vwiTXojnqX1EyBvY5070K9aJrAuhpW8eJivPHpoP1zdGag0Z1ie7orMyl4FdDVYPuzM3aZkK5o1Y57b4135jQX1H4/65xRt2Ra/wPefU/aqHfhZCu3NJFyX2p8of3W46yjc/zVuG+5K9edi7nJCx2vm7yferm8LgYcMqYQMpjetwQBXEhYAwcJoshBJZBIYQk5wyUzK6BIv0WmQGaAPOeAjAFmQkxGvp4jQsrJKKQCpQAlmyGKI8gcOOMTlGM2QTmfWXi2niALG1/YeGK7GgsdV6y4GhnjOBlJXcbLsvz1G5JkE67FBAAA"
+  },
+  {
+   "step": "landing",
+   "t": 8847,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013¥Ý\u001b1\fßÅ\u0017{Q\u000e,K²\u001d\b¥¥PÚÒ»íU\u0018Âl2»É6$3¶ôÝË'X\fF>\u001dä¿®s£YEr\u0010\u0004\u0004Â\u001cá~\u001fÎ×ÍæÏiÈ\u000eî|zÞ¥ÞÁí^õù×\u0007MÇíúþr[ÌççKwj¯ý¬ÝÏß\u000fýq};\u000f×M·üùºní¾\u0018sÇn»\u001fË¾»÷¦=^ÚýËi9IÖLl9?¼<]Ûývùíë\u001f¾<®?t\r\\ë\u0016«Uñ\u0007\u000f/BðêJp?X@8\rÃ¯\u0006«(~¤2Ì'\u0004h\u001c÷dPhÌ`Ü5Á`\u0018-&x\"@Z\u0002!CN\bJµbì\u0012Bd.ÄUC\b\t#\u001bÄk©\bG_Pù¢/æ\u00199Cî8I!b\\Ô¦$\u001e9B½ÄQ©¬R\n!úQ©\u0012'jbdZ\u001d¢1å©ë0#:ÌóÔa\\gX¨NMªSÓXü¥¤°X©v§E*è+%r¥ÄÑY¦ià.ã×PÁØ\u001b¼\u0000÷îÑÁ}wMóï?\u0002\u001bN³È\u0002\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE6WR3YobMQyF38UXe1EOiSxLsh0IpaVQ2tK77VUYwmwyu8k2fyQzlLb03cuMnSdYDEaWjj4d5L+uc4uVo1maRXIQBJ8Ewhzhfh/O183mz2nIDu58et6l3sHtXvX515ODB03H7fr+clvM5+dLd2qv/azdz98P/XF9Ow/XTbf8+bpuh+2+fxhzx267H47LvruV96Y9Xtr9y2k5SdZMbJQ5P7w8Xdv9dvnt64cfn748rj9/dA1c6xarVfEHDy9C8OqVSpiJcD+eWEA4DYfDm68Gqyh+pDLMJwRoHPdkUGjMYIXcNcFgGC0meCKEQFoCIUNOCEq1YuyREkJkLonEVZpDkQgJIxvEa6kIR1+CUPmilS/mGTlD7jhJIWJc1J2mJB45Qr3EUamsUgoh+lGpEieEamJkglodojHlqZDrMCOeOszz1GFcZ1ioTk2qU9NY/JiliKSwWKl2p0UqlOgrJXKlxNFZkKZp4C7j14tQhsHYG7yGAPfu0cF9d03z7z8CG06zyAIAAA=="
+  },
+  {
+   "step": "landing",
+   "t": 12305,
+   "url": "https://t.co/i/adsct?bci=4&cv=83%260&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=2&event_id=50a4ace7-f49d-42df-b4c1-3e96f7fd6599&events=%5B%5B%22auto_long_site_dwell%22%2C%7B%7D%5D%5D&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=0a3be168-bf38-4401-90c7-80b8c8178e67&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=1&tw_session_count=1&tw_session_id=1790702262261-187044959&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 12305,
+   "url": "https://analytics.twitter.com/i/adsct?bci=4&cv=83%260&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=2&event_id=50a4ace7-f49d-42df-b4c1-3e96f7fd6599&events=%5B%5B%22auto_long_site_dwell%22%2C%7B%7D%5D%5D&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=0a3be168-bf38-4401-90c7-80b8c8178e67&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=1&tw_session_count=1&tw_session_id=1790702262261-187044959&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 12430,
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event\":\"EngagedSession\",\"event_id\":\"\",\"message_id\":\"messageId-1790702272388-6718396774660-D9QOQ5JC77U6RO6J21IG\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:52.388Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\"},\"page\":{\"url\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referrer\":\"\",\"load_progress\":\"2\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs-D9QOQ5JC77U6RO6J21IG\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-kgnpk.0.0::add82aea-bc29-11f1-89c3-5210c55533eb-D9QOQ5JC77U6RO6J21IG\",\"variation_id\":\"default\",\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},\"_inspection\":{\"trigger_source\":\"pixel_self\",\"vids\":\"77125429\",\"inter_id\":\"1.-1652.0::0.0.0.0::0.0.0\"},\"properties\":{\"lpv_trigger_type\":\"duration_10s\"},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "landing",
+   "t": 14043,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013íWKoã6\u0010þ+\u0000ùPP\ngøÎB(ò@\u0016i»½4ÛK`\u0018DÛÜÊ+ÑvÓ¢ÿ½ \u001eI³è­O\u000bÊäp8ú¾Ñ#þJ\\rõÐ\\ç&D\u0010Å\u0001\u0000ÃHòR·]YþÙ\u001cLB¶YouHH²ý\"Ö§ç\u0000¡CK¶!ìû«ËËvï\u001aÛÜúËï\u000fa·êÛCWºâ·/+{¨|XDÝÎUþ°+ëÇyiw{ë7M1¬¢¤\u0006ÍbóÜY_\u0015?þpýùîáqõñ&YÄ&WOO\u0003%\u0000\u0001Î)\u0001\u0001¢¡Ìsj\b%Í¡®ÿw·$OrB\t\u0012f\u0014aD\u001aÂ\t\u0018-\u0004\u0005\u0001ùjÅ$äIq\u0004¢9Q\u0002\u0018CdH\f%J1F´!J3I´\"Ê0\u0015GM&@)Ñ\u0010*\n(Ä(0£À£¡ ZèÉVÑÉDS\u001dY´\u0019ÙÌf@°A1\u0019¦`\u0014¸\u001aMg0£(\u001e\u001b=\u001a£)Ð\bg\f\u0001\nb°\u0001\u001añ\u0006MÄÓ\u0000å@#â°6!\u0002!¾bÂì\"@\u0004\u001d¥\u0019\u0015f/\u0001¸Íä\f\u0002\nD%Æ\u0018\u0004\u0002ð\n\u0014Ù$ÁL8yl\u0002 \tPhEør¹$É>\u001e/-LÜ@ \b\bÆHòÝcBÇ$nððØ0a\u0014A,J$w\u000f¿&$)kÛ÷Ek·Yå;W¶ËJÛUßÙKHRÙ`3Û£¢HHÒÚ\u0015¶ß»2d\r¾½º@ä\u0017\u0017An>LZSOSÍ\nÎÆ)'NNÏ·bæ\u0014ül|æ<ã\u0019b\u0013§`æl8s*<\u001b'Lò|ghbÔÒ¯(=\u000e$\u000f>Æ»²ÿC^¶þÒV}\u0019¾.}Á\u0017å±Ð,EI\u0017Õ±¸Þ¹Î6ÅûÚ~uÝl\\íú\u0014¥k²Ï¿¤xë\u0014åÇ¶ÝÔ.EúÐyò-\u001fàê\u0014% =ç4Eihì!vÈ¿VÇ_c\u0017®ô\u0005.ÜÑ5aå«BPËméT¶æ¦Ê8Vëì1gäZ­+)\u0019­û\"\u00157ñB´Ð®ê¶Ù¬z\u001fÜª:¹ºN\u0011S¼MÕMªîR\u0011¯oÛ\fÁkMØe¶Êv¶±\u001b×-öûñäC\u0018&ÞuQC\u0017ûz\u0018-{v uö¼f:ãBfh©2Mu©Ai'Õ\"Våvµ>ÖÅk|n·]»s)Þà9Í5e*\u0017:ÅÛaÁ\u001fvÿ±ôs\u001bòë\u0014ïo:ÛT)Þ\u001bÓØ&üý±\u0000Ëq^µåa\u0017#·íÜzÜãÅS¼«»âÝ¿Õ^)»«¯\u0014å[ý²»XMº¹\u0006KÙÝû*,E9Öa)»{«Ä¢;®ÙØ«V»¾\u0018ÜóëÎîÜª\u000f6\u001c&ÕÞW«x\u001e!Nz×÷¾mVe{hÂ{¯\nP*(\u0011%d \u0015åÜ\b³\b§½¯pÊß\u0019äF\u0013P£@©@ÊEøc\u0000úý´Ùn\u0017áeï/öhû²óû°8º.2\u0015ó\u001c V°Îo¶¡âÉWa;Hk\u0017Êí¾ómçÃK±õík6V¾ß×öåê¢i\u001b÷!)÷Obù>ïlcëàË>\u000fã)ËËv÷-\u0011¿%â·Dü:\u0011\u0014Ñ$~(,¯'npÈ*¤ÿ®¼oåòï\u0000£9ô_¦\u000e\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE+1XS2/jNhD+K4EA+VBQCmf4zkIo8kAWabu9NNtLYBiMRNvcypIr0XbTov+9oB5Js+itgE8LyuRwOPq+0ZAjj/5KXHL1lNBc54omRBDFAYgAw0jyUrddWf7ZHExCkrZZb3VISLL9Itan54QAoUNLtiHs+6vLy3bvGtuF3PrL7w9ht+rbQ1e64rcvK3uofFhE3c5V/rArguvHeWl3e+s3TTGYrJCipAbNYvPcWV8VP/5w/fnu4XH18SZZksQmV09PigMlnAABzikBAYKOoqGUzI1zagglzaGu/3e3JE+AknJCCRJmFGFEGsIJhxgtlAQFAflqxSSR5ElxBKI5UQKRGEOUZEgMJUoxRrQhSjNJtCLKMBVHTZkmQCnREJ8qCijEKDCFo8CjoSBa6MlW0clEUx1ZtBnZzIxmQLBBMYMZpmAUuBpNZzCjKI8eGz2BGoOjKdAIZwwBCmKwARrxBk3E04wA5ZOXQCPisDYhAp0hgb5iwuwiQAQdpRkVZi8BuJ7N5AwCCkSMJYDGGAQC8AqLFNkkwUyAOHmNbIoCIJ8JUGhF+HK5JMk+Hi8tTNxAiaAICMZI8t1jQpLHJG7w8NiSMGEUQY4sSpIkdw+/JiQpa9v3RWu3WeU7V4a2y0rbVZnf2Y1LSFLZYDPblaOiSEjSh5faFbbfuzJknQ2+vbpA5BeXF4xBbj5MnFqfjVNPnIydj1PNnArOxiknTk7Pt59i5hT8bJx85jzjGWITp2DmbJw4cyo8GydMnPJ8Z2hi1NKMryg9DpwkD58+xpu7spj/jUNetpf+0lZ9Gb5/Ln3BF+Wx0CxFSRfVsbjeuc6XNsX7n9p+dd1sXO36FKVrss+/pHjrmhTlx7bd1C5F+tCUeYryky0fmuDqFCWgij3nNEVpaOwhdsi/VsdfYxeu9AUu3NE1YeWrQlDLbelUtuamyjhW6+yZl5AxZ+RarSspjBmt+yIVN/FCtIfQruq22ax6H9yqOrm6ThFTvE3VTaruUhGvhW+C2wzBa4pN2GW2yna2sRvXLfaR+/HkQxgmh951UUMX+3oYLXt2IHX2vGY645xCZmipMk2fdalBaSfVIpxW5Xa1PtbFa3xut127cyneg+A5zTVlKhc6xdthwR92/7H0cxvy6xTvbzrbVCneG5PT2Cb8/bEAkctxXrXlYRcjt+3cetzjlMWbU7x/q7vinN2/1V4pu5urrxTlW/2VsrtYgU26uQZL2d37KixFOdZhKbt7q8SiO67Z2I2rVru+GNzz687u3KoPNhwm1d5Xq3geIU561/e+bVZle2jCe5WvClCGKoooESVkoBXl3AizCKe9r4pwyt8Z5JpGE1CKo0CpQMpF+GMA+v202W4X4WXvii/2aPuy8/uwOLouMhWY8xwgVrDOb7ahiOLJV2E7SGsXyu2+823nw0ux9ZvtazZWvt/X9uXqomkb9yGJKfeagE9i+T7vbGPrl+DLPg/jKcvLdvctEb8l4rdE/DoRnxTRJH4oLIevJ25wyCqk/668b5Pl8u9/AKM59F+mDgAA"
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17142,
+   "url": "https://api2.amplitude.com/2/httpapi",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"api_key\":\"3e2fda7a5cbcc867099904a028486db4\",\"events\":[{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702277072,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"3c650d00-0336-4e98-9b0a-2880708b7c8b\",\"event_type\":\"pageforge_engaged\",\"event_properties\":{\"device\":\"pc\",\"source_surface\":\"pageforge\",\"source\":\"start_for_free\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"[Amplitude] Page Path\":\"/\",\"[Amplitude] Page Title\":\"AI Art Generator: Free AI Image, Video & Audio Generator\",\"[Amplitude] Page URL\":\"https://openart.ai/\",\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":3,\"library\":\"amplitude-ts/2.42.4\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"}],\"options\":{},\"client_upload_time\":\"2026-09-29T17:17:57.073Z\",\"request_metadata\":{\"sdk\":{\"metrics\":{\"histogram\":{}}}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17143,
+   "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "H4sIAAAAAAAAE6VV227jNhD9FWMWyJPYUL7IsYCg8KabwN20D42bF8MwRuJI5poiVZJynC787wUlr53LJr29cYYzZ85cOPwKtRQO0kXMhxfxkMfLCFxuZe3vyTppNKQx55z3kwi8rAjSeDzhY97vj8d8PIxAmAqlhhRMTRqt/wElRNBYBSmsva9den5+ujr/sfHVypnG5nS5+bLCRkh/FnQVCdlUl55cJ+dY1ShLfdmarPq8n/BJf3JWZhaluPz88/T3n2bz1c1HiOCBMic93clSo/qN/mjI+ZmAFIZZX4zFIGHZmHI2pFHOBpPkgo14nmCRZTwRMURQY0m3BkXrk2eCEkwKNopxwoZJErNJhsgmg+RiLPhFXIgJRCDd3KJ2Cj0JSAtUjiJQ8hq7yBCEG4nad0IlXQ7pV6hddufRE6RsuA8ot1JvSMz0tK6PMIHPXHpFkMJ01pta37shTRa9sWnv2hL1prPerMKSot69FGR6Z71pI6Q52UEEa6og1Y1SEbi2NPPHOkBe3c6uPod7SwWkcL42FUHbyan3VmaNJxe4kqKKtL+jCrWXeefd4R2u7lE1L3VPzTyWv2LVpgERZJhvSmsaLVrqdzb/Zie/J0+VP8pak53TLhTzzqP1vcLYthBwitsVrHPIG+uMhRRqI7UnC/sDyKfOOEz8GwnC7JfpzSf4Dzm6bfm/svxniSyPhle2qTI3D1UI2ZyICLmFCLRfX62lEpDyCHKFzoW2LsB5mW8eIQJvasYhgj/ZiMMyAnzWfYEemcbtdsAOHu0gv1KzLdrDnFdoN+SlLmG/j54S0vicUPyMkCWFXm7pXQ7WGP+KwfdCPzPwRof4SpZr//wm75jAdsDepP1+HSvcsQe2iMcJr3fL8MZFWu9YPAzHHcPGm7BbdiyB5b/BLRTtIIISaxagpKfKsZza7kfwwIpGqb9D7L+FOHqNWKlvXN3aSr1h/CU6vsMW89C61OWoiE0CfFayh7X04WkWRnvmqJKZUeLAYDHqqrVmi8HwcDRbsmlWssUHygpejIJSaiU1sQP3l5xFGvwvnhZ+EZ/E9v2RYIu4f9R52nm2iA8xW4fD5cn60MljISLovD7wCUeOy6MiHnSWPnwC0kujGYa2vJzglzv2yQB6fDLPYeUXxpbEus8xrJOw6FaFsauiW3St4eYLa3/Eg38M+7ARpLuWypMl8fHxSkkKb6L9TPZ/ASqzUNnhBwAA",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17282,
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event_id\":\"\",\"message_id\":\"messageId-1790702277232-1774148849140\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:57.232Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\",\"codes\":\"D9QOQ5JC77U6RO6J21IG\"},\"page\":{\"url\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referrer\":\"\",\"load_progress\":\"2\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-kgnpk.0.0::add82aea-bc29-11f1-89c3-5210c55533eb\",\"variation_id\":\"default\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\",\"index\":0,\"sessions\":[{\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"pixel_code\":\"D9QOQ5JC77U6RO6J21IG\"}]},\"_inspection\":{\"vids\":\"77125429\",\"inter_id\":\"1.-1652.0::14843.1.1312.79::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}},\"action\":\"Click\",\"auto_collected_properties\":{\"page_trigger\":\"Click\",\"trigger_element\":{\"tag\":\"A\",\"attributes\":{\"class\":\"inline-flex items-center gap-[5px]h-[34px] md:h-[38px] px-[12px]md:px-[18px] bg-<#RACE_ETHNIC#> rounded-[10px]md:rounded-[12px] text-[#090a0a]text-[13px] md:text-[14px]font-semiboldshrink-0 hover:bg-[#ebf0f5]active:scale-95 <#SEXUAL_ORIENTATION#>ition-all\",\"destination\":\"/home\"},\"inner_text\":\"Start for Free\",\"xpath\":\"/HTML/body[1]/div[1]/nav[1]/div[1]/div[1]/div[2]/a[1]\",\"num_child_buttons\":0,\"timestamp\":\"2026-09-29T17:17:57.225Z\",\"position\":{\"x\":1243.655517578125,\"y\":60.920387268066406},\"filter_version\":\"v1\"},\"intent_data\":[{\"destination\":\"https://openart.ai/home\",\"inner_text\":\"Start for Free\",\"from\":\"composedPath\"}]}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17932,
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&apvc=1&ae=g&auid=408988760.1790702262&dt=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&en=page_view&dl=https%3A%2F%2Fopenart.ai%2Fhome&dr=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&scrsrc=openart.ai&rnd=1851607723.1790702278&gclgb=KJAUDIT_GB&navt=n&npa=0&ep.ads_data_redaction=0&gdid=dYzg1YT.dNzQzZD&gtm=45E92e69p1v892263201za204zd892263201xeaxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118897920~118897930~119317810~120385422~120469145~120469153&tft=1790702277776&tfd=542&gap.gtb=2&fmt=8",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17942,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11252321380/?random=1790702277784&cv=11&fst=1790702277784&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2Fhome&ref=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=16&frm=0&tiba=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=2&ept=9&rfmt=3&fmt=4",
+   "method": "GET",
+   "type": "Script",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17942,
+   "url": "https://www.google.com/rmkt/collect/11252321380/?random=1790702277784&cv=11&fst=1790702277784&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2Fhome&ref=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=16&frm=0&tiba=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=2&ept=68&gcp=5",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17942,
+   "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16854695811/?random=1790702277797&cv=11&fst=1790702277797&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2Fhome&ref=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=16&frm=0&tiba=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=2&ept=9&rfmt=3&fmt=4",
+   "method": "GET",
+   "type": "Script",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17943,
+   "url": "https://www.google.com/rmkt/collect/16854695811/?random=1790702277797&cv=11&fst=1790702277797&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2Fhome&ref=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=16&frm=0&tiba=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=2&ept=68&gcp=5",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17943,
+   "url": "https://www.google.com/ccm/collect?rcb=16&frm=0&apvc=0&auid=408988760.1790702262&dt=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&tid=AW-11252321380&en=page_view&dl=https%3A%2F%2Fopenart.ai%2Fhome&dr=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&scrsrc=openart.ai&rnd=1851607723.1790702278&gclgb=KJAUDIT_GB&navt=n&npa=0&did=dYzg1YT&gdid=dYzg1YT&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&tft=1790702277806&tfd=571&gap.gtb=2&tids=AW-11252321380~AW-16854695811&fmt=8",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17954,
+   "url": "https://alb.reddit.com/rp?id=a2_j6xo78gpljnf&event=PageVisit",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "ts=1790702277822&id=a2_j6xo78gpljnf&event=PageVisit&m.value=&m.transactionId=&m.orderId=&m.customEventName=&m.products=&m.conversionId=&uuid=2ff057c8-9333-40b6-8a68-58026e046060&aaid=&external_id=&idfa=&integration=gtm&partner=&partner_version=1.0.4&opt_out=0&sh=1440&sw=900&v=rdt_d3960254&dpm=&dpcc=&dprc=&esurl=https%3A%2F%2Fopenart.ai%2Fhome&drfr=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929&db=tsc-0.isc-0.pp-0.fetch-1.mo-1.iframe-0.ww-0.qsa-1.srv_cfg-1.src_pid-1.pms-1&mthd=POST&pm=%7B%22meta%22%3A%7B%22title%22%3A%22AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt%22%2C%22description%22%3A%22OpenArt%20Suite%20is%20your%20all-in-one%20AI%20creator%20studio.%20Create%20images%2C%20videos%2C%20characters%2C%20and%20audio%20in%20one%20place.%20Keep%20your%20characters%2C%20worlds%2C%20and%20style%20consistent%20across%20creations.%20Powered%20by%20the%20world%E2%80%99s%20top%20models%20like%20Google%20Veo%2C%20Kling%2C%20Nano%20Banana%20Pro%2C%20Seedance%2C%20and%20more.%22%2C%22keywords%22%3A%22%22%7D%2C%22og%22%3A%7B%22og%3Atitle%22%3A%22AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt%22%2C%22og%3Adescription%22%3A%22OpenArt%20Suite%20is%20your%20all-in-one%20AI%20creator%20studio.%20Create%20images%2C%20videos%2C%20characters%2C%20and%20audio%20in%20one%20place.%20Keep%20your%20characters%2C%20worlds%2C%20and%20style%20consistent%20across%20creations.%20Powered%20by%20the%20world%E2%80%99s%20top%20models%20like%20Google%20Veo%2C%20Kling%2C%20Nano%20Banana%20Pro%2C%20Seedance%2C%20and%20more.%22%2C%22og%3Aurl%22%3A%22https%3A%2F%2Fopenart.ai%2Fsuite%22%2C%22og%3Asite_name%22%3A%22OpenArt%22%2C%22og%3Alocale%22%3A%22en_US%22%2C%22og%3Aimage%22%3A%5B%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%22%5D%2C%22og%3Aimage%3Awidth%22%3A%221200%22%2C%22og%3Aimage%3Aheight%22%3A%22630%22%2C%22og%3Aimage%3Aalt%22%3A%22AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt%22%2C%22og%3Aimage%3Atype%22%3A%22image%2Fpng%22%2C%22og%3Atype%22%3A%22website%22%2C%22twitter%3Acard%22%3A%22summary_large_image%22%2C%22twitter%3Asite%22%3A%22%40openart_ai%22%2C%22twitter%3Acreator%22%3A%22%40openart_ai%22%2C%22twitter%3Atitle%22%3A%22AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt%22%2C%22twitter%3Adescription%22%3A%22OpenArt%20Suite%20is%20your%20all-in-one%20AI%20creator%20studio.%20Create%20images%2C%20videos%2C%20characters%2C%20and%20audio%20in%20one%20place.%20Keep%20your%20characters%2C%20worlds%2C%20and%20style%20consistent%20across%20creations.%20Powered%20by%20the%20world%E2%80%99s%20top%20models%20like%20Google%20Veo%2C%20Kling%2C%20Nano%20Banana%20Pro%2C%20Seedance%2C%20and%20more.%22%2C%22twitter%3Aimage%22%3A%22https%3A%2F%2Fcdn.openart.ai%2Fassets%2Finternal%2Fuploads%2Fimage_PGRJom1C_1200x630_1776245286893.webp%22%2C%22twitter%3Aimage%3Aalt%22%3A%22AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt%22%7D%2C%22ld%22%3A%5B%5D%7D",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17959,
+   "url": "https://t.co/1/i/adsct?bci=4&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=3&event=%7B%7D&event_id=b3023b61-12f8-4edc-8e96-32fd933d54e1&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=a83c1907-c1b3-4b94-a2f9-6026db571350&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2Fhome&tw_document_referrer=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=2&tw_session_count=1&tw_session_id=1790702262261-187044959&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17959,
+   "url": "https://analytics.twitter.com/1/i/adsct?bci=4&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=3&event=%7B%7D&event_id=b3023b61-12f8-4edc-8e96-32fd933d54e1&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=a83c1907-c1b3-4b94-a2f9-6026db571350&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2Fhome&tw_document_referrer=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=2&tw_session_count=1&tw_session_id=1790702262261-187044959&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17961,
+   "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "H4sIAAAAAAAAE0WQzYobMRCEX2XoQ05SLM2fZnQzy2YZWEiIjS8hhB6pZYvMSMpIJoTNvnuwNyTHouivqusFkrcZ9Bcp2kG2Qn5lkM3mUznRln0MoKUQQtQ9g+JXAi3VKJSoa6WGpmNg44o+gIaYKOBW3qMHBtdtAQ2XUlLWu91/a3eJKwGDnzRnX+jgzwGXz/TjSrlMFjSMtZ2NQceNc5I3RjbcCdFzZQeFRrrBdhIYJDzTc0R7v7HdMHadMVw1hLydG8dHrB0frSJT1/MgxAAMfD5uGPKChSxoh0smBov/gG/JcBNPHkN5E6vPBvQLpDwfChYCzdvXG+XZh+9kp7BP6R/m1ufoy0KgYT9VDxthiVt1KFfrY+XiVp28pVi9q6YVz5Sr39XHRGG/FWBwoRV0uC4Lg3wf5Pgr3UCf9k+P307TYTr+/XgKuWAwdO8rqR1kL3pOpkNuur7m/TBarqyw/WwsKurh9Q+qfuF24AEAAA==",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 17962,
+   "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=10481401&time=1790702277838&li_adsId=c028e359-4875-4c55-80fa-a4e9ce794bbf&pageLoadId=d58955cc-73ea-4b3f-9a2f-9d7ec22b8008&url=https%3A%2F%2Fopenart.ai%2Fhome&tm=gtmv2",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 18063,
+   "url": "https://bat.bing.com/action/0?ti=187107444&Ver=2&mid=cee9cd30-d16d-4619-99ea-e5a5fd4d9516&bo=1&sid=ae00d150bc2911f1b6740de8eb6d4cc1&vid=ae00eda0bc2911f1b81b2bf76f51434b&vids=0&msclkid=N&pi=918639831&lg=en-US&sw=1440&sh=900&sc=24&tl=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&p=https%3A%2F%2Fopenart.ai%2Fhome&r=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&lt=640&evt=pageLoad&sv=2&cdb=AQAQ&rn=48688",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 18208,
+   "url": "https://www.google.com/pagead/1p-user-list/11252321380/?random=1790702277784&cv=11&fst=1790701200000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2Fhome&ref=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=16&frm=0&tiba=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=2&ept=9&rfmt=3&fmt=3&is_vtc=1&cid=CAQS4QEAQM4h3O1mrqV6XLnnSFg_O65GgKwplpDfPiZHGiYMQUeSLr_CX0fU4DlMopQx84XzqbL4RCbFTpQdRPFPAWBEzQ3kUv_fysrjAEusNHVHE-6M3zZchsKeYeLsnvjjBKQ_jRxTS65ppBWDcO_CgNKYmaHW7Dt4SwZJU9elE4NKa_dPX-3OS_wlQVFQ9Q_FwcrLyzZphdaPY57YSCrdfWJcNTIyFQ4XjPhlRNr9E_6Yr-xc5MJaxxpHVXv0WrhebeHrq-58RfCjxlcxuvXqk9oW60YyIVeAY09fUa9qjS7bY8I&random=499552340&rmt_tld=0&ipr=y",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 18222,
+   "url": "https://www.google.com/pagead/1p-user-list/16854695811/?random=1790702277797&cv=11&fst=1790701200000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45892e69p1v9138760444z8892263201za20kzb892263201zd892263201xecxf4&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118897920~118897930~119317810~120213116~120385422~120469145~120469153&u_w=1440&u_h=900&url=https%3A%2F%2Fopenart.ai%2Fhome&ref=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&rcb=16&frm=0&tiba=AI%20Creator%20Studio%20for%20Video%20%26%20Images%20%7C%20OpenArt&did=dYzg1YT&gdid=dYzg1YT&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=408988760.1790702262&uaa=arm&uab=64&uafvl=Google%2520Chrome%3B154.0.8037.58%7CChromium%3B154.0.8037.58%7CNot.A%252FBrand%3B99.0.0.0&uamb=0&uam=&uap=macOS&uapv=15.6.0&uaw=0&data=event%3Dgtag.config&gap.gtb=2&ept=9&rfmt=3&fmt=3&is_vtc=1&cid=CAQS4QEAQM4h3MY6Vqenv5zJXsnpYJIincRZc3ehgHJXlOgQdFbwoyZn8v7p2RwyygRfAnxPROgHrDe_9m5-olx7-CfWBZBi0xIhznujUwLVoev1cZ78uBo0QYo_QP9OWZ8fcvDemfa4Ge3v5cSri9EqSBVA-sD1X25exR6iNtDBIN5pSd3a9GEP1K9d8z-JLA2pECS-bCzUlozLCunHRZSX0ansRVpsEBWQ_7mCdbVai8riVWBxP5-wNAUNRBn8FfluwMQd4H0-LW87e7jySpXqUONxEOu0I0ENEvD89AK6MAyZ9L4&random=2960260160&rmt_tld=0&ipr=y",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 19190,
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1790702279137-9792610676555-D9QOQ5JC77U6RO6J21IG\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:59.137Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\"},\"page\":{\"url\":\"https://openart.ai/home\",\"referrer\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"load_progress\":\"1\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs-D9QOQ5JC77U6RO6J21IG\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-LjSSv.1.0::b72ed715-bc29-11f1-a47a-56fc4a9bba5e-D9QOQ5JC77U6RO6J21IG\",\"variation_id\":\"default\",\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},\"_inspection\":{\"vids\":\"77125429\",\"inter_id\":\"1.14856.16757::14843.1.1312.79::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 19497,
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "method": "POST",
+   "type": "Ping",
+   "postData": "{\"event_id\":\"\",\"message_id\":\"messageId-1790702279375-3181612082188\",\"is_onsite\":false,\"timestamp\":\"2026-09-29T17:17:59.375Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01M3Q2R6362FCVEFPTYNWNASMQ_.tt.1.1790702262374\"},\"pixel\":{\"code\":\"D9QOQ5JC77U6RO6J21IG\",\"runtime\":\"1\",\"codes\":\"D9QOQ5JC77U6RO6J21IG\"},\"page\":{\"url\":\"https://openart.ai/home\",\"referrer\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"load_progress\":\"1\"},\"library\":{\"name\":\"pixel.js\",\"version\":\"2.2.1\"},\"session_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb::9RMeepSt7rM2ueV8aCTs\",\"pageview_id\":\"add83e99-bc29-11f1-89c3-5210c55533eb-LjSSv.1.0::b72ed715-bc29-11f1-a47a-56fc4a9bba5e\",\"variation_id\":\"default\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\",\"index\":1,\"sessions\":[{\"csid\":\"1790702262380::beBTRUf28_G_T0MJZZqP\",\"page_csid\":\"1790702262380::tRTRzAN_50GBP-8VrZ8R\",\"csct\":1,\"pixel_code\":\"D9QOQ5JC77U6RO6J21IG\"}]},\"_inspection\":{\"vids\":\"77125429\",\"inter_id\":\"1.14856.16757::14843.1.1312.79::0.0.0\"},\"properties\":{},\"partner\":\"GoogleTagManagerClient\",\"signal_diagnostic_labels\":{\"raw_email\":{\"label\":\"missing\"},\"raw_auto_email\":{\"label\":\"missing\"},\"raw_phone\":{\"label\":\"missing\"},\"raw_auto_phone\":{\"label\":\"missing\"},\"hashed_email\":{\"label\":\"missing\"},\"hashed_phone\":{\"label\":\"missing\"},\"raw_eb_email\":{\"label\":\"missing\"},\"raw_eb_phone\":{\"label\":\"missing\"},\"hashed_eb_email\":{\"label\":\"missing\"},\"hashed_eb_phone\":{\"label\":\"missing\"}},\"action\":\"Metadata\",\"auto_collected_properties\":{\"page_trigger\":\"PageView\",\"content_data\":{\"open_graph\":\"{\\\"og:title\\\":\\\"AI Creator Studio for Video & Images | OpenArt\\\",\\\"og:description\\\":\\\"OpenArt Suite is your all-in-one AI creator studio. Create images, videos, characters, and audio in one place. Keep your characters, worlds, and style consistent across creations. Powered by the world’s top models like Google Veo, Kling, Nano Banana Pro, Seedance, and more.\\\",\\\"og:url\\\":\\\"https://openart.ai/suite\\\",\\\"og:site_name\\\":\\\"OpenArt\\\",\\\"og:locale\\\":\\\"en_US\\\",\\\"og:image\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp\\\",\\\"og:image:width\\\":\\\"1200\\\",\\\"og:image:height\\\":\\\"630\\\",\\\"og:image:alt\\\":\\\"AI Creator Studio for Video & Images | OpenArt\\\",\\\"og:image:type\\\":\\\"image/png\\\",\\\"og:type\\\":\\\"website\\\",\\\"twitter:card\\\":\\\"summary_large_image\\\",\\\"twitter:site\\\":\\\"@openart_ai\\\",\\\"twitter:creator\\\":\\\"@openart_ai\\\",\\\"twitter:title\\\":\\\"AI Creator Studio for Video & Images | OpenArt\\\",\\\"twitter:description\\\":\\\"OpenArt Suite is your all-in-one AI creator studio. Create images, videos, characters, and audio in one place. Keep your characters, worlds, and style consistent across creations. Powered by the world’s top models like Google Veo, Kling, Nano Banana Pro, Seedance, and more.\\\",\\\"twitter:image\\\":\\\"https://cdn.openart.ai/assets/internal/uploads/image_PGRJom1C_1200x630_1776245286893.webp\\\",\\\"twitter:image:alt\\\":\\\"AI Creator Studio for Video & Images | OpenArt\\\"}\",\"microdata\":\"[]\",\"json_ld\":\"[]\",\"meta\":\"{\\\"title\\\":\\\"AI Creator Studio for Video & Images | OpenArt\\\",\\\"meta:description\\\":\\\"OpenArt Suite is your all-in-one AI creator studio. Create images, videos, characters, and audio in one place. Keep your characters, worlds, and style consistent across creations. Powered by the world’s top models like Google Veo, Kling, Nano Banana Pro, Seedance, and more.\\\"}\"}}}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 20291,
+   "url": "https://bat.bing.com/p/conversions/c/u",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013Smã6\u0010þ+B\u001f;Ø\u001aY¶£=#·mº·Ý\u000f¹k\u000f1­$jl+Øò\u0016Z÷~{$Ûrp\"0\u0017ÍóÌx?¹å·\u0005\u0017Ñ2Ê\u0005\u0007\u0004\u0001(\u0014ð¶Awý±\u000b\u001c8vÇ¶×¿Ó-5Î\nä A\u000f?p\u001aoãØlo\u0010\u0019\u0017\u001f|gy\tÜðÛ¢°\u0004TJ\u0016¢B\u0002â·¶\\\u0002P\u0010j¢ßWë\r£ ¸ë§\u0004^M6¼¸BÆ\na\u001b#¶µÔ;Ü.q+·»<Û¥¨\u0012µ¯,gÌµÈÌ3=ãóÖhëú}Tû.>Åµï_ì0:ßq\u001dOgº­g\u0002¦g9ïõË,f©²äHw!R[«ë&\u0011\u0006³f¡2Ô\u000b­­YØÔ¤»F5:ÅÃÿK£Ê#\u0015uýèö0ÞÿËí\u0002{&µÌQäJ©«rã7Þfu\u001d&ýÊ?ù?\\Û8\u0004{ódj×\u0007?\u001eÞ±u\u001flËLÍ7ì\u000bCQaZåoÙêtjí¯vûèB&ydìÍã>\u0002kÝÑ²\u0007[\u001fý[v\u0018|gcLU$è°ÙÁ]ð\u0012\u0010ÿX\rùýèû)tÕè§¡¶wÇß*35.Ü¯³º»`Ç]îdÜ¾¿;§TRÈLh©oöÛÁ¸æîñ§Õç\u001fÖª\u000f¼\u0004\n¾Z³ûÁà\u0007¶\tSã<Ûùýâ\u001aëÙ\r[wfoG6³çíWCà%h(¸í\u00177ÔJ\n\u0005×áSMVv\u000eQ\u0013ÔEgêgJ\u0004iE´­RAÁ\u001f¼ß·ö:ª¯*\u000eül¸©»?û\u0010­â\u000fé¯ZÓCªtYBÁ¯+'¤V¨ìª³«MüÑÕªßÛÖÒ~$DRI\u0002O^k$TcgÚÑþ³\u0014$ÙWU,\u0005ªä¼&\n$¤@º¼H\u0013SR'µ*\u0015È\u0014Râ%@æ  A@HHþI\u0002(\u0013f\u0004/®\u0010²\u0010°,ÿú\u001b[¬`]\u0004\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE41TbYvjNhD+K0IfljuY2BpZtqM9liO3hW26t90PuWsPjDGKrSRqbCvY8hZa9357mSTbcnCUIjCaF83zzHieP7nltwUX0TLKBQcEASgU8LaRQXf9sQscOHbHtte/0y01zgrkIEGcDz+EcBpv49ifbG+GEBkXH3xneQnc8NuikLAEVEqAFqKEQgLit7ZcApZQEGqigN9X6w2HgqMguOunBF5NNry4hkLGCmEbI7a11Ig73C5xK7e7PNulqBK1na8sZ8y1yIWUmcwzPeOM89aEaOv6fVT7Lj7Fte9f7DA6349xHU9nnLqtj2cCl6ZnOe/1yyxmqbLklUh3IVJbq+smEYsGs2ahMtQLra1Z2NSku0Y1OsWMw/9Lo8ojFXX96PaHMN7/y+0Ceya1zFHkSqmLq3LjN96ZZnUdJv3Kgj/5P1zbmjiNBHvzZGrXBz8e3rF1H2zLnkzNnjfsC0NRYVrlb9nqdGrtr3b76EKcJnmUZOzN44+fnj4Ca93RsgdbH/1bdn8YfGdjTFUk6LCN2ZnBXZ/wEhCK/1gN+f3o+yl01einobZ3x98qMzUu3JCvs42burtgx4tdm+5k3L6/O6dUUshMaKlv9tvBuObu8afV5x/Wn6qHD7yEBAq+WrP7wZrgB7YJU+M82/mB/eIa69kNW3dmb0c2s+eT7VdD4CVoKLjtF5831EoKBdfhiFNNVnYOURPURWfqZ0qSBINplEW0rVJBwR+837f2OqqvmCoO/Gy4qbuaP/sQreIPg+mbr1rTQ6qOdFlCwa8rJ4mNpFao7Kqzg6tN/NGP1arf29bSfiREUkkCT15rJFRjZ9rR/rMUJNlXVSwFquS8JgokpEC6vEgTU1IntSoVyBRS4iVA5iAgQUBISP5JAiiIE2YEL64QirIQsCz/+htbrJdgXQQAAA=="
+  },
+  {
+   "step": "app_after_cta",
+   "t": 20678,
+   "url": "https://m6-211026f8a25b42c08fc190458268b30e.ecs.us-east-2.on.aws/events?cee=no",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "{\"event_name\":\"PageView\",\"smart_setup\":{\"auto_web_details_data\":\"{\\\"availability\\\":[{\\\"rid\\\":\\\"1391797933120431\\\",\\\"v\\\":[\\\"in stock\\\"]}],\\\"page_type\\\":[{\\\"rid\\\":\\\"1118800260685423\\\",\\\"v\\\":[\\\"Until October 4, get up to 30% Off on Minimax H3, H3 Max, and H3 Max Turbo when you upgrade your plan.\\\\nUpgrade Now\\\\nHome\\\\nAGENTS\\\\nChat Mode\\\\nChat to create anything\\\\nDirector Mode\\\\nFull film / long video\\\\nTOOLS\\\\nVideo\\\\nImage\\\\nWorld\\\\nCharacter\\\\nAudio\\\\nMCP / CLI\\\\n10% Off\\\\nASSETS\\\\nDirector Projects\\\\nCharacter & World\\\\nBrand kit\\\\nMedia\\\\nINSPIRE\\\\nTemplates\\\\nArena\\\\nNew\\\\nTutorials\\\\nBlog\\\\nPINNED TOOLS\\\\nHelp\\\\nEnterprise\\\\nPricing\\\\nLogin\\\\nStart for Free\\\\nWhat are we making today?\\\\nYour studio, your controls\\\\nAgents\\\\nTools\\\\nFilm my perfu\\\\n\\\\n\\\\n\\\\n\\\\n\\\"]}],\\\"publisher\\\":[{\\\"rid\\\":\\\"4039414403021881\\\",\\\"v\\\":[\\\"AI Creator Studio for Video & Images | OpenArt\\\"]}],\\\"entity_name\\\":[{\\\"rid\\\":\\\"1038635105828400\\\",\\\"v\\\":[\\\"AI Creator Studio for Video & Images | OpenArt\\\"]}],\\\"page_url\\\":[{\\\"rid\\\":\\\"1038062169236527\\\",\\\"v\\\":[\\\"Home\\\"]}],\\\"event_name\\\":[{\\\"rid\\\":\\\"1663709341991702\\\",\\\"v\\\":[\\\"What's New - September 2026\\\"]}],\\\"event_date\\\":[{\\\"rid\\\":\\\"1103280975491708\\\",\\\"v\\\":[\\\"What's New - September 2026\\\"]},{\\\"rid\\\":\\\"1840439463487303\\\",\\\"v\\\":[\\\"What's New - September 2026\\\"]}]}\",\"is_auto_web_details\":true,\"auto_web_details_filtered_fields\":\"{\\\"currency\\\":{\\\"tv\\\":1,\\\"rules\\\":{\\\"1109167735364990\\\":1}}}\"},\"event_id\":\"ob3_plugin-set_ed8080dc2ee5eab8c8c143b6ac69ff5e52e5eac582bd902039ee96ca8d9c8c38\",\"fb.pixel_id\":\"843671884361709\",\"website_context\":{\"location\":\"https://openart.ai/home\",\"referrer\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"isInIFrame\":false},\"fb.fbp\":\"fb.1.1790702280612.726723150348486539\"}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 20707,
+   "url": "https://www.facebook.com/tr/",
+   "method": "POST",
+   "type": "Document",
+   "postData": "id=843671884361709&ev=PageView&dl=https%3A%2F%2Fopenart.ai%2Fhome&rl=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&if=false&ts=1790702280623&iw=false&sw=1440&sh=900&v=2.9.410&r=stable&ec=0&o=12318&aems=0%3B0&fbp=fb.1.1790702280612.726723150348486539&eid=ob3_plugin-set_ed8080dc2ee5eab8c8c143b6ac69ff5e52e5eac582bd902039ee96ca8d9c8c38&cdl=API_unavailable&pmd%5Btitle%5D=AI+Creator+Studio+for+Video+%26+Images+%7C+OpenArt&pmd%5Blocale%5D=en_US&pmd%5Bdescription%5D=OpenArt+Suite+is+your+all-in-one+AI+creator+studio.+Create+images%2C+videos%2C+characters%2C+and+audio+in+one+place.+Keep+your+characters%2C+worlds%2C+and+style+consistent+across+creations.+Powered+by+the+world%E2%80%99s+top+models+like+Google+Veo%2C+Kling%2C+Nano+Banana+Pro%2C+Seedance%2C+and+more.&plt=640.1000000238419&iss=1&imft=1&tz=-420&it=1790702280210&coo=false&ss=%7B%22availability%22%3A%5B%7B%22rid%22%3A%221391797933120431%22%2C%22v%22%3A%5B%22in+stock%22%5D%7D%5D%2C%22page_type%22%3A%5B%7B%22rid%22%3A%221118800260685423%22%2C%22v%22%3A%5B%22Until+October+4%2C+get+up+to+30%25+Off+on+Minimax+H3%2C+H3+Max%2C+and+H3+Max+Turbo+when+you+upgrade+your+plan.%5CnUpgrade+Now%5CnHome%5CnAGENTS%5CnChat+Mode%5CnChat+to+create+anything%5CnDirector+Mode%5CnFull+film+%2F+long+video%5CnTOOLS%5CnVideo%5CnImage%5CnWorld%5CnCharacter%5CnAudio%5CnMCP+%2F+CLI%5Cn10%25+Off%5CnASSETS%5CnDirector+Projects%5CnCharacter+%26+World%5CnBrand+kit%5CnMedia%5CnINSPIRE%5CnTemplates%5CnArena%5CnNew%5CnTutorials%5CnBlog%5CnPINNED+TOOLS%5CnHelp%5CnEnterprise%5CnPricing%5CnLogin%5CnStart+for+Free%5CnWhat+are+we+making+today%3F%5CnYour+studio%2C+your+controls%5CnAgents%5CnTools%5CnFilm+my+perfu%5Cn%5Cn%5Cn%5Cn%5Cn%22%5D%7D%5D%2C%22publisher%22%3A%5B%7B%22rid%22%3A%224039414403021881%22%2C%22v%22%3A%5B%22AI+Creator+Studio+for+Video+%26+Images+%7C+OpenArt%22%5D%7D%5D%2C%22entity_name%22%3A%5B%7B%22rid%22%3A%221038635105828400%22%2C%22v%22%3A%5B%22AI+Creator+Studio+for+Video+%26+Images+%7C+OpenArt%22%5D%7D%5D%2C%22page_url%22%3A%5B%7B%22rid%22%3A%221038062169236527%22%2C%22v%22%3A%5B%22Home%22%5D%7D%5D%2C%22event_name%22%3A%5B%7B%22rid%22%3A%221663709341991702%22%2C%22v%22%3A%5B%22What%27s+New+-+September+2026%22%5D%7D%5D%2C%22event_date%22%3A%5B%7B%22rid%22%3A%221103280975491708%22%2C%22v%22%3A%5B%22What%27s+New+-+September+2026%22%5D%7D%2C%7B%22rid%22%3A%221840439463487303%22%2C%22v%22%3A%5B%22What%27s+New+-+September+2026%22%5D%7D%5D%7D&ss_rks=%7B%22currency%22%3A%7B%22tv%22%3A1%2C%22rules%22%3A%7B%221109167735364990%22%3A1%7D%7D%7D&cf=1&expv2%5B0%5D=pl0&expv2%5B1%5D=el2&expv2%5B2%5D=bc1&expv2%5B3%5D=ra2&expv2%5B4%5D=rp2&expv2%5B5%5D=ct2&expv2%5B6%5D=hf1&expv2%5B7%5D=sd1&expv2%5B8%5D=sp1&expv2%5B9%5D=ek1&expv2%5B10%5D=pc1&expv2%5B11%5D=gs1&expv2%5B12%5D=zs1&expv2%5B13%5D=cp1&expv2%5B14%5D=es1&expv2%5B15%5D=ac1&expv2%5B16%5D=so1&expv2%5B17%5D=wc1&expv2%5B18%5D=la1&expv2%5B19%5D=sf1&expv2%5B20%5D=da1&expv2%5B21%5D=io1&expv2%5B22%5D=ae1&expv2%5B23%5D=sx1&expv2%5B24%5D=if1&expv2%5B25%5D=fd1&expv2%5B26%5D=bg1&expv2%5B27%5D=mg1&expv2%5B28%5D=kl1&expv2%5B29%5D=sg1&expv2%5B30%5D=mk1&expv2%5B31%5D=sn1&expv2%5B32%5D=ec1&expv2%5B33%5D=mp1&expv2%5B34%5D=ps1&expv2%5B35%5D=fx1&expv2%5B36%5D=vt1&expv2%5B37%5D=dp1&expv2%5B38%5D=fw1&expv2%5B39%5D=cn1&expv2%5B40%5D=tz1&expv2%5B41%5D=pe1&expv2%5B42%5D=ee1&expv2%5B43%5D=bu1&expv2%5B44%5D=ta1&expv2%5B45%5D=ot1&expv2%5B46%5D=hv1&expv2%5B47%5D=ep1&rqm=formPOST",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 21146,
+   "url": "https://api2.amplitude.com/2/httpapi",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "{\"api_key\":\"3e2fda7a5cbcc867099904a028486db4\",\"events\":[{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702280100,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"a6ecb348-7151-4ee1-8498-92079b0b7f3c\",\"event_type\":\"[Amplitude] Page Viewed\",\"event_properties\":{\"referrer\":\"https://openart.ai/?utm_source=kj_audit&utm_medium=test&utm_campaign=audit_20260929&gbraid=KJAUDIT_GB\",\"referring_domain\":\"openart.ai\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/home\",\"[Amplitude] Page Path\":\"/home\",\"[Amplitude] Page Title\":\"AI Creator Studio for Video & Images | OpenArt\",\"[Amplitude] Page URL\":\"https://openart.ai/home\",\"[Amplitude] Page Counter\":2,\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":4,\"library\":\"amplitude-ts/2.34.0\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702280113,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"1a5fdb59-6505-421e-a5c7-3b76e7e4b830\",\"event_type\":\"$identify\",\"user_properties\":{\"$set\":{\"ab_feed-curation-internal-access\":false,\"ab_feed-submission-access\":false,\"ab_flux3-general-access-enabled\":true,\"ab_home-page-smart-shot-banner-copy\":true,\"ab_mcp-discount-personal-enabled\":true,\"ab_mcp-integration-sidebar\":true,\"ab_subscription-redirect-to-v2\":true,\"ab_suite-default-model-animate-video\":\"byte-plus-seedance-2\",\"ab_suite-default-model-create-image\":\"nano-banana-2\",\"ab_suite-default-model-create-video\":\"byte-plus-seedance-2-5\",\"ab_suite-default-model-image-variations\":\"grok-imagine\",\"ab_unified-login-enabled\":true,\"ab_video-copyright-check-enabled\":true,\"ab_viggle-v4-enabled\":false,\"ab_image-copyright-check-enabled\":false,\"ab_cinder-pre-generation-moderation-dry-run\":false,\"ab_amplitude_pricing_page_desktop_redesign_v2\":\"desktop_group_default\",\"ab_amplitude_pricing_page_mobile_redesign_v2\":\"mobile_group_default\",\"ab_cancel-flow-ab-testing-20-80\":\"control\",\"ab_director-pre-reminder-v2\":\"control\",\"ab_video-form-experiment-2\":\"treatment\"}},\"event_id\":5,\"library\":\"amplitude-ts/2.34.0\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702280121,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"cbfcefd0-685d-4644-b79a-ed08eab4ea5d\",\"event_type\":\"experiment_flags_ready\",\"event_properties\":{\"device\":\"pc\",\"creation_panel_version\":\"v2\",\"ab_feed-curation-internal-access\":false,\"ab_feed-submission-access\":false,\"ab_flux3-general-access-enabled\":true,\"ab_home-page-smart-shot-banner-copy\":true,\"ab_mcp-discount-personal-enabled\":true,\"ab_mcp-integration-sidebar\":true,\"ab_subscription-redirect-to-v2\":true,\"ab_suite-default-model-animate-video\":\"byte-plus-seedance-2\",\"ab_suite-default-model-create-image\":\"nano-banana-2\",\"ab_suite-default-model-create-video\":\"byte-plus-seedance-2-5\",\"ab_suite-default-model-image-variations\":\"grok-imagine\",\"ab_unified-login-enabled\":true,\"ab_video-copyright-check-enabled\":true,\"ab_viggle-v4-enabled\":false,\"ab_image-copyright-check-enabled\":false,\"ab_cinder-pre-generation-moderation-dry-run\":false,\"ab_amplitude_pricing_page_desktop_redesign_v2\":\"desktop_group_default\",\"ab_amplitude_pricing_page_mobile_redesign_v2\":\"mobile_group_default\",\"ab_cancel-flow-ab-testing-20-80\":\"control\",\"ab_director-pre-reminder-v2\":\"control\",\"ab_video-form-experiment-2\":\"treatment\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/home\",\"[Amplitude] Page Path\":\"/home\",\"[Amplitude] Page Title\":\"AI Creator Studio for Video & Images | OpenArt\",\"[Amplitude] Page URL\":\"https://openart.ai/home\",\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":6,\"library\":\"amplitude-ts/2.34.0\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702280129,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"55417f61-48f3-4607-93ad-ca25a4624ea4\",\"event_type\":\"section_exposed\",\"event_properties\":{\"device\":\"pc\",\"creation_panel_version\":\"v2\",\"section_name\":\"hero\",\"source\":\"/home\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/home\",\"[Amplitude] Page Path\":\"/home\",\"[Amplitude] Page Title\":\"AI Creator Studio for Video & Images | OpenArt\",\"[Amplitude] Page URL\":\"https://openart.ai/home\",\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":7,\"library\":\"amplitude-ts/2.34.0\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702280135,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"b2c691b9-4ed4-439b-b499-0e1930687008\",\"event_type\":\"section_exposed\",\"event_properties\":{\"device\":\"pc\",\"creation_panel_version\":\"v2\",\"section_name\":\"quick_start\",\"source\":\"/home\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/home\",\"[Amplitude] Page Path\":\"/home\",\"[Amplitude] Page Title\":\"AI Creator Studio for Video & Images | OpenArt\",\"[Amplitude] Page URL\":\"https://openart.ai/home\",\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":8,\"library\":\"amplitude-ts/2.34.0\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"},{\"device_id\":\"d8d0a481-915c-4a4d-8a97-cab626cace7d\",\"session_id\":1790702261376,\"time\":1790702280142,\"platform\":\"Web\",\"language\":\"en-US\",\"ip\":\"$remote\",\"insert_id\":\"efd4f33c-2748-47a4-b492-679a2f964d98\",\"event_type\":\"section_exposed\",\"event_properties\":{\"device\":\"pc\",\"creation_panel_version\":\"v2\",\"section_name\":\"mcp_promo\",\"source\":\"/home\",\"[Amplitude] Page Domain\":\"openart.ai\",\"[Amplitude] Page Location\":\"https://openart.ai/home\",\"[Amplitude] Page Path\":\"/home\",\"[Amplitude] Page Title\":\"AI Creator Studio for Video & Images | OpenArt\",\"[Amplitude] Page URL\":\"https://openart.ai/home\",\"[Amplitude] Previous Page Location\":\"\",\"[Amplitude] Previous Page Type\":\"direct\"},\"event_id\":9,\"library\":\"amplitude-ts/2.34.0\",\"user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36\"}],\"options\":{},\"client_upload_time\":\"2026-09-29T17:18:01.103Z\"}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 21147,
+   "url": "https://api2.amplitude.com/2/httpapi",
+   "method": "OPTIONS",
+   "type": "Other",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 21496,
+   "url": "https://bzr.openai.com/v1/sdk/events?pid=MCEntnyMVfgRfepXXsrQLE&st=oaiq-web&sv=0.1.41&t=1790702281426&ec=2",
+   "method": "POST",
+   "type": "Fetch",
+   "postData": "{\"obref\":\"8eb5501f-a616-47ea-9eb4-8219b204f330\",\"events\":[{\"type\":\"openai::sdk_init\",\"timestamp_ms\":1790702280164,\"id\":\"c04670bf-85c5-4439-958a-f711f069e3b8\",\"source_url\":\"https://openart.ai/home\",\"referrer_url\":\"https://openart.ai/\",\"data\":{\"type\":\"sdk_lifecycle\"}},{\"type\":\"oai::diagnostic\",\"timestamp_ms\":1790702280164,\"id\":\"450e7737-68de-41b7-9ff2-5c3bdf12b510\",\"data\":{\"type\":\"diagnostic\",\"schema_version\":1,\"dropped_event_count\":0,\"dropped_event_reason_counts\":{},\"dropped_event_name_counts\":{},\"dropped_event_phase_counts\":{},\"consent\":true,\"is_first_visit_in_session\":true,\"is_first_consent_grant_in_session\":true,\"config\":{\"automatic_advanced_matching\":\"enabled\"}}}]}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 21733,
+   "url": "https://openart.ai/cdn-cgi/rum?",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "{\"startTime\":1790702277236,\"pageloadId\":\"9f8317e5-8c03-4d82-9e2d-a9050b66f040\",\"eventType\":1,\"nt\":\"navigate\",\"location\":\"https://openart.ai/home\",\"referrer\":\"https://openart.ai/\",\"versions\":{\"fl\":\"2024.11.0\",\"js\":\"2026.9.1\",\"timings\":2},\"bi\":{\"be\":\"Blink\",\"bev\":\"154\",\"bv\":\"154\",\"ov\":\"15.6\"},\"memory\":{\"totalJSHeapSize\":198800851,\"usedJSHeapSize\":132798823,\"jsHeapSizeLimit\":4395630592},\"firstPaint\":628,\"firstContentfulPaint\":784,\"timingsV2\":{\"nextHopProtocol\":\"h2\",\"domainLookupStart\":5,\"domainLookupEnd\":5,\"connectStart\":5,\"connectEnd\":5,\"secureConnectionStart\":5,\"requestStart\":6,\"responseStart\":475,\"responseEnd\":480,\"domInteractive\":640,\"domComplete\":4450,\"loadEventStart\":4451,\"loadEventEnd\":4452,\"finalResponseHeadersStart\":475,\"firstInterimResponseStart\":0,\"transferSize\":54454,\"decodedBodySize\":329090},\"siteToken\":\"84629b38239e48b6aae523f50f86e18d\",\"st\":2}",
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 22365,
+   "url": "https://vc.hotjar.io/sessions/3111505?s=0.25&r=0.06493203254561941",
+   "method": "GET",
+   "type": "XHR",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 22415,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 24770,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013¥ÍjÃ0\u0010_Åì±\fVÖó\u0000}Þ\u000evpj\u0017ÿaË)ié»\u0017ÛÜc\u0016¤AÌ|¬æ*:ç$\u0017N\u0012\u0014X¦P©õ nü\u0019Çº\u001c>o\u0004\u001aúkí#ê/sý.W§Üê\u0018Çù|:\rcÕ\u0017S\u0014Esª®¢\u0000*èç,\u00154\u0018¬µD&åS<ÆZHôKÛ\u001e>\u0002r¥\u0004C#§E\\Úbjâ]t3n\u0017Q\u000fñ«D3PxX%\u0014lªÙ\"E¶.Á@;(\u0003¶P\u001eú7µ°ÈyÞ3Ûm\u0007¯\u001fsÙEÆ\f¯¡$«íA±Ú,!\u0004Ð¸µ²B,Ø;\u0006;çAo\u001f\u0004zoÚ.éîÉXM×¥«r±­¡O¤¬K\u00141~®¢\u0010\u0014Öe¼;ÈÙ0Fc¢Ô!Ê\u000eÑÙ\u0019æH+;Â\u001dhd'd¯\u00136åëÜóÊ¿_ãJ=ãk2¿Ï­â.\u0004\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE6WQzWrDMBCEX8XssQyKVtaf8wB9gt6MDnZwahf/Ycspaem7F9uE3GMWpEHMfKzmlyo65ySFF04SFFimUKn1oG78Gce6HD5vBBr6a+0jgeovc/0uV6fchuoYx/l8Og1j1RdTFEVzqoeuogAq6JznLBU0GKy1RCblUzzGWkj0S9sePgJypZ0EQyOnRVzaYmriXXQzgW4XUQ/xq5hEM1B4WCUUbKrZIkW2LprBQDsoA7ZQHpz6hze1sMh5ld6BjTPbbZ0Hrx9zmdlFxgyvoSSr7UGx2iwhBNC4tbJCLNg7BjvnQW8fBHpv2i7p7slYTdelq5JyiLGtkqFPiqSsikudFDGZl36uohAU1mW8O8jZMEaaY5idotQhyg7Rh5rZGeZIKzvCHWhkJ2SvEzaA5Zfr3PPKv5hf40o942syhL9/gc+t4i4EAAA="
+  },
+  {
+   "step": "app_after_cta",
+   "t": 26884,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013¥ÝJÄ@\fß%rØN~f2Ó;ßÁ»2\u0017]ØµÊî¶hUP|w­\u000f \u0007Â|\tù¢\u0003õ\u0003]Þy (Ä!Ì\u0006:/Ë2íçÇw\u0002ÍãW\u0002MÏñø±'\bÂU4­ëòÚwÝ¼\u001c.ãËº\u001bºi>\u001f¨FêAÌ\u0003\f\f6\u000b(!üD$#àòv:ý»T\f\u0016slT¨F(¸­WADÊ\b»E4!aè\u0005\u001c\u0002ÄY6Í6S<µ!\rî(\u0019*!_\u001bª¶EÕ<n&1£8Ôá\fm6R<\"%Ø/Â\u001a\"9LY¼Ö\nZ®ojg$H\u0005ìAw\u000f\u0004º§Z¿\u0000ô¦\u0001\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE6WQ3UrEQAyF3yWXcthOfmYy0zvfwbsyF13YtcrutmhVUHx3ma2LDyAHwoGcfAn5ogP1A4Vd3nkgKMScIcwGOi+fyzLt58d3As2X45RXAk3P8fixJwjCVTSt6/Lad928HC7jy7obn7ppPh+ogkbqh0HMAwwMNgsoIfyZm0QkI+Dydjr9u1QMFnNsVKhGKLitV0FEypAIu0U0IWGQ6AUcAsRZNpPNNlM8tSEN7igZKiFfG6q2RdU8biYxozjUjeEMbYw2UjwiJdgvwhoiOUxZkLzWClqub2pnJEiIBeyeQXcPBLqnWr9/AJf0nJymAQAA"
+  },
+  {
+   "step": "app_after_cta",
+   "t": 27894,
+   "url": "https://t.co/i/adsct?bci=4&cv=83%260&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=2&event_id=e88ba1a1-c13f-496e-be18-3780c4c163e4&events=%5B%5B%22auto_long_site_dwell%22%2C%7B%7D%5D%5D&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=a83c1907-c1b3-4b94-a2f9-6026db571350&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2Fhome&tw_document_referrer=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=2&tw_session_count=1&tw_session_id=1790702262261-187044959&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 27894,
+   "url": "https://analytics.twitter.com/i/adsct?bci=4&cv=83%260&dv=America%2FLos_Angeles%26en-US%2Cen%26Google%20Inc.%26MacIntel%26127%261440%26900%2610%2624%261440%26900%260%26na&eci=2&event_id=e88ba1a1-c13f-496e-be18-3780c4c163e4&events=%5B%5B%22auto_long_site_dwell%22%2C%7B%7D%5D%5D&integration=gtm-ad-manager&p_id=Twitter&p_user_id=0&pl_id=a83c1907-c1b3-4b94-a2f9-6026db571350&tw_ch_fvl=Google%20Chrome%2F154.0.8037.58%2CChromium%2F154.0.8037.58%2CNot.A%2FBrand%2F99.0.0.0&tw_ch_pv=15.6.0&tw_document_href=https%3A%2F%2Fopenart.ai%2Fhome&tw_document_referrer=https%3A%2F%2Fopenart.ai%2F%3Futm_source%3Dkj_audit%26utm_medium%3Dtest%26utm_campaign%3Daudit_20260929%26gbraid%3DKJAUDIT_GB&tw_engaged_ms=0&tw_iframe_status=0&tw_pid_src=2&tw_session_count=1&tw_session_id=1790702262261-187044959&twpid=tw.1790702262261.801870177425267166&txn_id=qwghh&type=javascript&version=2.4.11",
+   "method": "GET",
+   "type": "Image",
+   "postData": null,
+   "postDataB64Raw": null
+  },
+  {
+   "step": "app_after_cta",
+   "t": 30894,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013íU[ë4\u0010þ+(û¦Y{âë¢\bíE=Z`yaÏSUEnâ&^r#qÛ³ þ;rzÃ\"Ä\u000b<®ìL<ß\\lOüÅ¿%.¹Þ&4Õ©¢\tpàB\u000bàjHºñ×qlöC}J \u0019úC£C\u0002Ió,\u000eç}\u0002\btiI\u0013Â8__]\r£ëí\u0014Rë¯¡sÉ\u000e\u0012\\o·ÀqNÁPúeðÚP(\u0003\u0014úcÛþg±­\u0016&Y\u0001¹\f\u0010ã¾\u0018\b`\u0001\n¯>\u0004\t[!´\u0004\n2Ó\u001a4\u0007É\r\u0005­A\n#Q\nR1\\\fe %HÃäbP4Ë¢§b\u0001m@!ç \u0015()30\u00062\u001c\u0006ePD]S¡@Í\f\u0003EA£á\u0017£\u0004©A\u000bT ån·dÅ[Ö&\u0001©¤ \u0000©à<<~H §2-}HËáÊ_Ùj.Ã·ûÒç|Ur\u0011tUòÎM¾´\u00047?\fsqÓ×®u3AéúõÇ\bÞ¹ ü0\fuë\bÒ¾L\tÊG[>ôÁµ\u0004%C\u0015%ç 44J\u0016\u0005ò¿ÃñéíÊ>Ç;¹>\u0014¾ÊÖ{Ë,[,;¬¹n½wL¯3¥iÉK&3Ç/ÞsNÄmìö\u0018¢\u001dúº}pEuvmK\u0010\tÞ\u0011uKÔ=\u0011±¯|\u001f\\=Ùà>¯C·¶Õº³½­Ý´\u001aãÜOg\u001fÂ¢\u001cg7E®Æ6¾­ÎJf¨Zl­ùÞðµÅYK²Ú\u000bÅ2AWá\\Mq8µùõ¹k¦¡s\u00047Lð¦f*\u0015àÝbðÇî\u001fL?\u000e!½!¸¹l_\u0011Ü\u0018ÒØ>ç\u001fO9\u0013©¼èÕP\u001e»X¹frË7&Y\f&¸ùB2H³7\u0001;¸irÓ¿\u0005ls\f]1\u000fÇ©t$»ÿù¹°ÇÊ\u00072â«â\u000e²ûàæW¬´Ýh}Ýì~q-¢¤\u0006\rAYï'ë+ÝÿÝÍÇû§âÃm\\ëk[»ªèæ|Ù?L¶sÅ\u001cl8~F_\u0015ñ\u0010cTf7Ï~èr8ö!g|3e¨¢\u0012Q²5ÓrnYóè«<Ó7\u000e©¦Ñ)ÅQ TLÊUø´$úå\\7Í*¼.¶';\u001fÃêä¦8S)O\u0019ÿ8çë&äqxöUhÑÁ²\u0019'?L>¼ä¯ÈÂðÒº¼òóØÚë¯ú¡wß$®l¡«¤°\u0015»·dµ½m_/ç4\\fZ\u000eÝ;{ßÙûÎÞÿ½[\u0005\u001a\f0ºÛÁVe-÷§0|ýD(ÞÎËÀÒ\u000b\u000eÉc²Ûýþ\u0007\u0004)7\u000f\t\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE+1VW4/rNBD+KyiS+4CmWXvi66II7UU9WmB5Yc9TVUVu4iZeciNx27Mg/jtyepbDIsQLPK7sTDzfXGxP/MW/JS653iY01amiCXDgQgvglGpIuvHXcWz2Q31KIBn6Q6NDAknzLA7nfQIIdGlJE8I4X19dDaPr7RRS66+aoXPJDhKbXG+3l4zAgHFOwVD6ZfDaUCgDFPpj2/5nsYOtFiaLWQG5gQwQ474YCGCcAQqQrz6ZBAlbIbQECjLTGjQHyQ0FrUEKI4BRClIxXAyaZaAlSMPkYlA0y6KnYpkBbUAh5yAVKCkzMAaUMhyMBmVQRF1ToZZAzQwDRUGj4ReAowSpQQtUIOVut4NkjMVb1iYBqaQgAKngkDw8fkggmacyfy19SMvhyl/Zai7Dt/vS53xVnnKdEZR0VZ3ym85NvrQENz8Mc3HT1651M0Hp+vXHnwjeuZ6g/DAMdesI0oe+TAnKR1s+9MG1BCVDFSXnlKA0NEoWBfK/w/Hp7cqVPseVO7k+FL7KndZ7yyxblyw7rLmRbr13TK8zpWnJSyYzxy/ec07EbeyI9hiGoh36uph9cEV1dm1LEAneEXVL1D0Rsa98H1w92eCHPq9Dt7bVurO9rd20GuPcT2cfwqIcZzdFhK7GNr6tzkpmqFqXbJ+t+d7wtcWDWUuKstoLxTJBV+FclE1xOLX5n/W5a6ahcwQ3TPCUpppmKhWa4N1i8MfuH0w/DiG9Ibi5nWxfEdwYk9LYPucfTzkTqbzo1VAeu1i5ZnKHyzcmWQwmuPlCMoKbSLM3AZM7uGly078FkWxzDF0xD8epdCS7//m5sMfKB4Iy4p2r4g6y++DmV6y03Wh93ZPsfnEtkKKkBg1BWe8n6yuS3X//3c3H+4en4sNtXJLra1u7qujmfNmTP0y2c8UcbDh+hkZfFfEQY1RmN89+6ItyOPYhZ3+FfJUzZaiiiBJRsjXTinJuhFmF8+irPJzTNw6pptGFKcVRoFRMylX4tCT65Vw3zSq8jC5/tic7l5Mfw+rkpjhTjilPGYv/OOfrJuRxePZVaJbRwYWyGSc/TD685I2vm8jC8NK6vPLz2NqX66/6oXffJJGubKGrpLAVu7dktb1tX4Iv5zRcjmZaDt07e9/Z+87e/4W9WwUaDDC628FWZYwt96cwkHz9lEQo3s7LlYrAlNILDsljstv9/gcEKTeADwkAAA=="
+  },
+  {
+   "step": "app_after_cta",
+   "t": 38463,
+   "url": "https://u.clarity.ms/collect",
+   "method": "POST",
+   "type": "XHR",
+   "postData": "\u001f\b\u0000\u0000\u0000\u0000\u0000\u0000\u0013¥Ñ\u00131\fEÿÅèªÍu\u001cÛéwìÛh\u001eºR\u0001í¶#( øw.|\u0000²X>7ÎuòK.r¤\u001cò\u0010EÐ­WD\u0002y[®ëò|ûø] ·ëËw,ÛËg¢l!Ëý¾~=\u001d·õr=¹\u001fÎËíí\"3ä,§iÚ:\u001a\b\u0015ôRþ%ï\u0011î\u0015\u0005×o¯¯ÿ½ÌèÜú):\u000b*Ì`\bEºAÛH\u0012löW[\u001d)]\u001d=Ñ\u0012ÞÙ:<Ý\u000bz¢Nô®jà\u0018U\u001dÙ@æ@d3C\u001aH·ö\u0010ëÎ2òQêý\u0001$\u001aAm¬JÝ\u001eÝ5ÂÇýÔ\u0018ÆXKUZÙXUã0ËZM÷Ä¬îê\u0016\u0015A°z¼\u001fK\u0012\u0005lc\u001fÆ[gÝ\u0017ícJ:ç\u0019²\u001f¤Ò\u0015\u000e-®\u000fO2Þmó»Õ*\u0018\u001b<É<ÿþ\u0003JFiV\u0002\u0000\u0000",
+   "postDataB64Raw": "H4sIAAAAAAAAE6WR0Y4TMQxF/8WP6KrNdRzb6Xfs22geulKXAe22Iygggfh3lJkufACylFg+N8518ksucpqkHPIQRdCQrVdEiwJ5W3+u6/J8+/hdILfry5J3gSyf28uPZ4GibCHL/b5+PR2Pt/VyPX+5H86fjsvt7SIz5Cynado6GgiaFfRS/iXvEe4VBddvr6//vcyY6Nz6KToLKsxgCEWDukHbSBJs9ldbHY4pXR09kNES3pHZOjyR3Qt6opdO9I6uauAYhFUd2UCa5kBkM0MaSLf2EIXrzjLyUer9AZUkGkFtrJtK3R7dNcLH/dSMGMZYS4mdVVrZWFXjMMtaTffErO7qFhVBsHq8H0sSBWxjH8ZbZ92RF+1jSjqHgZjnGbKOH6TSFQ4trpAPTzLebfO71SoYkRuAPMk8//4DSkaZaVYCAAA="
+  }
+ ]
+}

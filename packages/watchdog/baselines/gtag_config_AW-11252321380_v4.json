@@ -1,0 +1,360 @@
+{
+ "containerId": "AW-11252321380",
+ "version": "4",
+ "resourceSha256": "1c5fb8429a88db0f5653177d1e096670484bf6dd3860dd63f941026d543bbf96",
+ "capturedAt": "2026-09-29",
+ "loaders": [
+  "https://www.googletagmanager.com/gtag/js?id=AW-11252321380",
+  "https://openart.ai/4vu8/C_… (first-party config path)"
+ ],
+ "source": "openart_2026-09-29/raw/static/gtg_4vu8_C.js (identical resource to raw/static/gtag_AW-11252321380.js)",
+ "hashMethod": "sha256 of canonical JSON (keys sorted recursively) of data.resource",
+ "resource": {
+  "version": "4",
+  "macros": [
+   {
+    "function": "__c",
+    "vtp_value": true
+   },
+   {
+    "function": "__e"
+   },
+   {
+    "function": "__actids"
+   },
+   {
+    "function": "__v",
+    "vtp_name": "gtm.configContainerId",
+    "vtp_dataLayerVersion": 1
+   }
+  ],
+  "tags": [
+   {
+    "function": "__ogt_auto_events",
+    "priority": 18,
+    "vtp_enableOutboundClick": true,
+    "vtp_enableScroll": true,
+    "vtp_enableDownload": true,
+    "vtp_enableHistoryEvents": true,
+    "vtp_enableForm": true,
+    "vtp_enableVideo": true,
+    "vtp_enablePageView": true,
+    "vtp_enableInPageEventsHidden": false,
+    "tag_id": 19
+   },
+   {
+    "function": "__ogt_ads_datatos",
+    "priority": 18,
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 26
+   },
+   {
+    "function": "__ogt_ads_datatos",
+    "priority": 18,
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 34
+   },
+   {
+    "function": "__ogt_cps",
+    "priority": 8,
+    "vtp_cpsMode": "ALL",
+    "tag_id": 15
+   },
+   {
+    "function": "__ogt_1p_data_v2",
+    "priority": 8,
+    "vtp_isAutoEnabled": true,
+    "vtp_isManualEnabled": false,
+    "vtp_autoPhoneEnabled": false,
+    "vtp_autoCollectExclusionSelectors": [
+     "list",
+     [
+      "map",
+      "exclusionSelector",
+      ""
+     ]
+    ],
+    "vtp_isEnabled": true,
+    "vtp_autoAddressEnabled": false,
+    "vtp_autoEmailEnabled": true,
+    "vtp_isAutoCollectPiiEnabledFlag": true,
+    "tag_id": 17
+   },
+   {
+    "function": "__ccd_ads_first",
+    "priority": 7,
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 27
+   },
+   {
+    "function": "__ccd_ads_first",
+    "priority": 7,
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 35
+   },
+   {
+    "function": "__ccd_pre_auto_pii",
+    "priority": 5,
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 25
+   },
+   {
+    "function": "__ccd_pre_auto_pii",
+    "priority": 5,
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 33
+   },
+   {
+    "function": "__ccd_em_form",
+    "priority": 4,
+    "vtp_includeParams": false,
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 24
+   },
+   {
+    "function": "__ccd_em_form",
+    "priority": 4,
+    "vtp_includeParams": false,
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 32
+   },
+   {
+    "function": "__ccd_enable_cm",
+    "priority": 3,
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 23
+   },
+   {
+    "function": "__ccd_enable_cm",
+    "priority": 3,
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 31
+   },
+   {
+    "function": "__ccd_add_1p_data",
+    "priority": 2,
+    "vtp_acceptAutomatic": true,
+    "vtp_acceptCode": true,
+    "vtp_acceptManualSelector": true,
+    "vtp_acceptUserData": true,
+    "vtp_matchingRules": "{\"type\":2,\"args\":[{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"user_data_lead\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"metadata\",\"hit_type\"]}}]}},{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"form_submit\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"eventName\"]}}]}}]}",
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 22
+   },
+   {
+    "function": "__ccd_add_1p_data",
+    "priority": 2,
+    "vtp_acceptAutomatic": true,
+    "vtp_acceptCode": true,
+    "vtp_acceptManualSelector": true,
+    "vtp_acceptUserData": true,
+    "vtp_matchingRules": "{\"type\":2,\"args\":[{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"user_data_lead\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"metadata\",\"hit_type\"]}}]}},{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"form_submit\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"eventName\"]}}]}}]}",
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 30
+   },
+   {
+    "function": "__ccd_add_1p_data",
+    "priority": 1,
+    "vtp_acceptAutomatic": true,
+    "vtp_acceptCode": true,
+    "vtp_acceptManualSelector": true,
+    "vtp_acceptUserData": true,
+    "vtp_matchingRules": "{\"type\":1,\"args\":[{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"conversion\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"metadata\",\"hit_type\"]}}]}},{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"user_data_web\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"metadata\",\"hit_type\"]}}]}}]}",
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 21
+   },
+   {
+    "function": "__ccd_add_1p_data",
+    "priority": 1,
+    "vtp_acceptAutomatic": true,
+    "vtp_acceptCode": true,
+    "vtp_acceptManualSelector": true,
+    "vtp_acceptUserData": true,
+    "vtp_matchingRules": "{\"type\":1,\"args\":[{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"conversion\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"metadata\",\"hit_type\"]}}]}},{\"booleanExpressionValue\":{\"type\":5,\"args\":[{\"stringValue\":\"user_data_web\"},{\"contextValue\":{\"namespaceType\":1,\"keyParts\":[\"metadata\",\"hit_type\"]}}]}}]}",
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 29
+   },
+   {
+    "function": "__dest_aw",
+    "vtp_ignoreDupeGtagConfigCalls": true,
+    "vtp_destinationId": "AW-11252321380",
+    "vtp_enableVariablesInDestinationId": false,
+    "tag_id": 7
+   },
+   {
+    "function": "__dest_aw",
+    "vtp_ignoreDupeGtagConfigCalls": true,
+    "vtp_destinationId": "AW-16854695811",
+    "vtp_enableVariablesInDestinationId": false,
+    "tag_id": 10
+   },
+   {
+    "function": "__rep",
+    "vtp_containerId": "AW-11252321380",
+    "vtp_remoteConfig": [
+     "map"
+    ],
+    "tag_id": 11
+   },
+   {
+    "function": "__rep",
+    "vtp_containerId": "AW-16854695811",
+    "vtp_remoteConfig": [
+     "map"
+    ],
+    "tag_id": 13
+   },
+   {
+    "function": "__ccd_ads_last",
+    "priority": 0,
+    "vtp_instanceDestinationId": "AW-11252321380",
+    "tag_id": 20
+   },
+   {
+    "function": "__ccd_ads_last",
+    "priority": 0,
+    "vtp_instanceDestinationId": "AW-16854695811",
+    "tag_id": 28
+   }
+  ],
+  "predicates": [
+   {
+    "function": "_eq",
+    "arg0": [
+     "macro",
+     0
+    ],
+    "arg1": false
+   },
+   {
+    "function": "_eq",
+    "arg0": [
+     "macro",
+     1
+    ],
+    "arg1": "gtm.init"
+   },
+   {
+    "function": "_eq",
+    "arg0": [
+     "macro",
+     0
+    ],
+    "arg1": true
+   },
+   {
+    "function": "_lc",
+    "arg0": [
+     "list",
+     [
+      "macro",
+      2
+     ]
+    ],
+    "arg1": [
+     "macro",
+     3
+    ]
+   },
+   {
+    "function": "_eq",
+    "arg0": [
+     "macro",
+     1
+    ],
+    "arg1": "gtag.config"
+   },
+   {
+    "function": "_eq",
+    "arg0": [
+     "macro",
+     1
+    ],
+    "arg1": "gtm.js"
+   },
+   {
+    "function": "_eq",
+    "arg0": [
+     "macro",
+     1
+    ],
+    "arg1": "gtm.init_consent"
+   }
+  ],
+  "rules": [
+   [
+    [
+     "if",
+     0,
+     1
+    ],
+    [
+     "add",
+     17,
+     18
+    ]
+   ],
+   [
+    [
+     "if",
+     2,
+     3,
+     4
+    ],
+    [
+     "add",
+     17,
+     18
+    ]
+   ],
+   [
+    [
+     "if",
+     5
+    ],
+    [
+     "add",
+     19,
+     20
+    ]
+   ],
+   [
+    [
+     "if",
+     6
+    ],
+    [
+     "add",
+     3
+    ]
+   ],
+   [
+    [
+     "if",
+     1
+    ],
+    [
+     "add",
+     4,
+     0,
+     21,
+     15,
+     13,
+     11,
+     9,
+     7,
+     1,
+     5,
+     22,
+     16,
+     14,
+     12,
+     10,
+     8,
+     2,
+     6
+    ]
+   ]
+  ]
+ }
+}

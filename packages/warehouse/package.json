@@ -1,0 +1,12 @@
+{
+  "name": "@openart-signal/warehouse",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "dbt project (BigQuery in production, DuckDB on fixtures): conversion ledger, generation cost, 24h features, predicted profit v0, experiment readout, audiences and reconciliation.",
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}

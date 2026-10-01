@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/amplitude-export-row.schema.json",
+  "title": "Amplitude → BigQuery export row (EVENTS_<project_id>)",
+  "description": "Column names and types follow Amplitude's documented BigQuery export (amplitude.com/docs/data/destination-catalog/google-bigquery, fetched 2026-09-29): event_properties, user_properties, groups, group_properties and data are JSON columns; uuid is the per-row unique id; the table is partitioned by event_time date and may contain duplicates (dedupe on uuid or the deduplicated_<appid> table function). The documented export has NO insert_id column; insert_id is accepted as optional for exports that carry it. OpenArt facts: user_id = OpenArt uid, device_id = oa_device_id cookie, library amplitude-ts/2.34.0 (Suite) or 2.42.4 (Astro) (research/01 T4). Event-property contracts are enforced for the event types openart-signal reads.",
+  "type": "object",
+  "required": [
+    "uuid",
+    "event_type",
+    "event_time",
+    "user_id",
+    "device_id",
+    "event_properties",
+    "user_properties",
+    "platform",
+    "os_name",
+    "device_type",
+    "country",
+    "library",
+    "session_id"
+  ],
+  "properties": {
+    "uuid": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" },
+    "insert_id": { "type": ["string", "null"] },
+    "event_id": { "type": ["integer", "null"] },
+    "amplitude_id": { "type": ["integer", "string", "null"] },
+    "app": { "type": ["integer", "null"] },
+    "event_type": { "type": "string", "minLength": 1 },
+    "event_time": { "type": "string", "format": "date-time" },
+    "client_event_time": { "type": ["string", "null"], "format": "date-time" },
+    "server_upload_time": { "type": ["string", "null"], "format": "date-time" },
+    "user_id": { "type": ["string", "null"], "minLength": 1 },
+    "device_id": { "type": "string", "minLength": 1 },
+    "session_id": { "description": "Session start in ms epoch (-1 when none).", "type": ["integer", "string", "null"] },
+    "event_properties": { "type": "object" },
+    "user_properties": { "type": "object" },
+    "groups": { "type": ["object", "null"] },
+    "group_properties": { "type": ["object", "null"] },
+    "data": { "type": ["object", "null"] },
+    "platform": { "type": ["string", "null"] },
+    "os_name": { "type": ["string", "null"] },
+    "os_version": { "type": ["string", "null"] },
+    "device_type": { "type": ["string", "null"] },
+    "device_family": { "type": ["string", "null"] },
+    "country": { "type": ["string", "null"] },
+    "region": { "type": ["string", "null"] },
+    "city": { "type": ["string", "null"] },
+    "language": { "type": ["string", "null"] },
+    "library": { "type": ["string", "null"] },
+    "ip_address": { "type": ["string", "null"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "event_type": { "const": "asset_created" } } },
+      "then": {
+        "properties": {
+          "event_properties": {
+            "required": ["device", "creation_panel_version", "model", "creation_mode", "create_source", "feature_name", "asset_num", "credits_num", "reference_assets"],
+            "properties": {
+              "device": { "type": "string" },
+              "creation_panel_version": { "type": "string" },
+              "model": { "type": "string", "minLength": 1 },
+              "creation_mode": { "type": "string" },
+              "create_source": { "type": "string" },
+              "feature_name": { "type": "string" },
+              "asset_num": { "type": "integer", "minimum": 0 },
+              "credits_num": { "type": "integer", "minimum": 0 },
+              "reference_assets": {
+                "type": "object",
+                "additionalProperties": { "type": "integer", "minimum": 0 }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "$exposure" } } },
+      "then": {
+        "properties": {
+          "event_properties": {
+            "required": ["flag_key", "variant"],
+            "properties": {
+              "flag_key": { "type": "string", "minLength": 1 },
+              "variant": { "type": "string", "minLength": 1 },
+              "experiment_key": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "conversion_reported" } } },
+      "then": {
+        "properties": {
+          "event_properties": {
+            "required": ["report_layer", "channel", "conversion_type", "environment", "fired", "outcome"],
+            "properties": {
+              "report_layer": { "const": "client" },
+              "channel": { "type": "string" },
+              "conversion_type": { "type": "string" },
+              "environment": { "type": "string" },
+              "fired": { "type": "boolean" },
+              "outcome": { "type": "string" },
+              "gclid": { "type": "string" },
+              "fbclid": { "type": "string" },
+              "msclkid": { "type": "string" },
+              "ttclid": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_type": { "const": "subscription_started" } } },
+      "then": {
+        "properties": {
+          "event_properties": {
+            "required": ["subscription_tier", "subscription_interval", "click_source"],
+            "properties": {
+              "subscription_tier": { "type": "string" },
+              "subscription_interval": { "enum": ["month", "year"] },
+              "click_source": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

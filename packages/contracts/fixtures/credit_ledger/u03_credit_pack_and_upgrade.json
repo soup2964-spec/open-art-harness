@@ -1,0 +1,106 @@
+{
+  "success": true,
+  "entries": [
+    {
+      "id": "019f3226-61a0-7b9c-9613-cff8ce44177e",
+      "sequenceId": 0,
+      "type": "SUBSCRIPTION_ADJUSTMENT",
+      "amount": 12000,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 16840,
+      "balanceAfter": 28840,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "subscription-refill",
+        "businessId": "in_1SynthU03Inv0003Upgrade"
+      },
+      "idempotencyKey": "subscription-refill:SUBSCRIPTION_ADJUSTMENT:in_1SynthU03Inv0003Upgrade",
+      "createdAt": "2026-07-05T12:00:04.000Z",
+      "userId": "SynthU03PlusAddUpgC3",
+      "reason": "Subscription Refill"
+    },
+    {
+      "id": "019f04a8-d000-7047-8194-522e6919d8c4",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -160,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 17000,
+      "balanceAfter": 16840,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "veo3-1:text2video",
+        "businessId": "SynthHistU03Veo00001"
+      },
+      "idempotencyKey": "veo3-1:text2video:REDUCE:SynthHistU03Veo00001",
+      "createdAt": "2026-06-26T16:00:00.000Z",
+      "userId": "SynthU03PlusAddUpgC3",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU03Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 160,
+          "subBusinessType": "veo3-1:text2video"
+        }
+      ]
+    },
+    {
+      "id": "019efea6-c9a0-7f17-9c97-5d3ac7115f3f",
+      "sequenceId": 0,
+      "type": "ADD",
+      "amount": 5000,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 12000,
+      "balanceAfter": 17000,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "credit-pack",
+        "businessId": "in_1SynthU03Inv0002AddOn"
+      },
+      "idempotencyKey": "credit-pack:ADD:in_1SynthU03Inv0002AddOn",
+      "createdAt": "2026-06-25T12:00:04.000Z",
+      "userId": "SynthU03PlusAddUpgC3",
+      "reason": "Credit pack purchase"
+    },
+    {
+      "id": "019ecb27-31a0-74ca-8afb-7ee527c99116",
+      "sequenceId": 0,
+      "type": "SUBSCRIPTION_ADJUSTMENT",
+      "amount": 12000,
+      "creditField": "subscription_monthly_credit",
+      "balanceBefore": 0,
+      "balanceAfter": 12000,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "subscription-refill",
+        "businessId": "in_1SynthU03Inv0001First"
+      },
+      "idempotencyKey": "subscription-refill:SUBSCRIPTION_ADJUSTMENT:in_1SynthU03Inv0001First",
+      "createdAt": "2026-06-15T12:00:04.000Z",
+      "userId": "SynthU03PlusAddUpgC3",
+      "reason": "Subscription Refill"
+    },
+    {
+      "id": "019ec55b-fa80-7163-be96-68b1255fe062",
+      "sequenceId": 0,
+      "type": "ADD",
+      "amount": 40,
+      "creditField": "trial_credit_balance",
+      "balanceBefore": 0,
+      "balanceAfter": 40,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "USER_SIGNUP_TRIAL",
+        "businessId": "SynthU03PlusAddUpgC3"
+      },
+      "idempotencyKey": "USER_SIGNUP_TRIAL:ADD:SynthU03PlusAddUpgC3",
+      "createdAt": "2026-06-14T09:00:00.000Z",
+      "userId": "SynthU03PlusAddUpgC3",
+      "reason": "New user trial grant"
+    }
+  ],
+  "hasMore": false,
+  "_synthetic_note": "SYNTHETIC. businessType values other than USER_SIGNUP_TRIAL and openart-sdxl:text2image are INFERRED from capability ids in shipped code; subscription-refill is an INFERRED name for SUBSCRIPTION_ADJUSTMENT \"Subscription Refill\" rows. Upgrade grant of the allowance difference is INFERRED."
+}

@@ -1,0 +1,92 @@
+{
+  "_comment": "SYNTHETIC LaunchDarkly flag snapshot in the shape of GET /api/v2/flags/{projectKey}/{flagKey}?env=production. OBSERVED: the flag key, the four arm values, that the default model is a LaunchDarkly A/B flag (research/12 V4) and that it has been hand-edited ~28 times. INVENTED: every _id, the salt, the fallthrough weights (the real hand-tuned split is not visible from outside; NB Pro was the most frequent image arm in the 2026-09-29 captures, hence 40%) and the rules, which show the flag AFTER the one-time setup (holdout rule first, then two ASSUMED country rules; see README).",
+  "key": "suite-default-model-create-image",
+  "_version": 28,
+  "variations": [
+    { "_id": "5b1e0c3a-6f2d-4c1b-9e7a-0a0000000001", "value": "nano-banana-pro", "name": "Nano Banana Pro" },
+    { "_id": "5b1e0c3a-6f2d-4c1b-9e7a-0a0000000002", "value": "gpt-image-2-5", "name": "GPT Image 2.5" },
+    { "_id": "5b1e0c3a-6f2d-4c1b-9e7a-0a0000000003", "value": "nano-banana-2", "name": "Nano Banana 2" },
+    { "_id": "5b1e0c3a-6f2d-4c1b-9e7a-0a0000000004", "value": "gpt-image-2", "name": "GPT Image 2" }
+  ],
+  "environments": {
+    "production": {
+      "on": true,
+      "archived": false,
+      "salt": "SYNTHETIC-salt-create-image",
+      "version": 28,
+      "lastModified": 1790000000000,
+      "offVariation": 1,
+      "targets": [],
+      "contextTargets": [],
+      "prerequisites": [],
+      "fallthrough": {
+        "rollout": {
+          "variations": [
+            { "variation": 0, "weight": 40000 },
+            { "variation": 1, "weight": 20000 },
+            { "variation": 2, "weight": 20000 },
+            { "variation": 3, "weight": 20000 }
+          ],
+          "bucketBy": "key",
+          "contextKind": "user"
+        }
+      },
+      "rules": [
+        {
+          "_id": "9d7c1a20-0b4e-4f6a-8c11-1a0000000001",
+          "description": "openart-signal holdout: fixed uniform split for clean measurement. The allocator never edits this rule.",
+          "clauses": [
+            { "_id": "9d7c1a20-0b4e-4f6a-8c11-1c0000000001", "contextKind": "user", "attribute": "key", "op": "matches", "values": ["[0-5]$"], "negate": false }
+          ],
+          "rollout": {
+            "variations": [
+              { "variation": 0, "weight": 25000 },
+              { "variation": 1, "weight": 25000 },
+              { "variation": 2, "weight": 25000 },
+              { "variation": 3, "weight": 25000 }
+            ],
+            "bucketBy": "key",
+            "contextKind": "user"
+          },
+          "trackEvents": false
+        },
+        {
+          "_id": "9d7c1a20-0b4e-4f6a-8c11-1a0000000002",
+          "description": "openart-signal allocation: country bucket us (ASSUMED context attribute `country`)",
+          "clauses": [
+            { "_id": "9d7c1a20-0b4e-4f6a-8c11-1c0000000002", "contextKind": "user", "attribute": "country", "op": "in", "values": ["US"], "negate": false }
+          ],
+          "rollout": {
+            "variations": [
+              { "variation": 0, "weight": 40000 },
+              { "variation": 1, "weight": 20000 },
+              { "variation": 2, "weight": 20000 },
+              { "variation": 3, "weight": 20000 }
+            ],
+            "bucketBy": "key",
+            "contextKind": "user"
+          },
+          "trackEvents": false
+        },
+        {
+          "_id": "9d7c1a20-0b4e-4f6a-8c11-1a0000000003",
+          "description": "openart-signal allocation: country bucket tier1 (ASSUMED context attribute `country`)",
+          "clauses": [
+            { "_id": "9d7c1a20-0b4e-4f6a-8c11-1c0000000003", "contextKind": "user", "attribute": "country", "op": "in", "values": ["CA", "GB", "IE", "DE", "FR", "NL", "BE", "LU", "AT", "CH", "SE", "NO", "DK", "FI", "IS", "IT", "ES", "AU", "NZ", "JP", "KR", "SG", "IL", "AE"], "negate": false }
+          ],
+          "rollout": {
+            "variations": [
+              { "variation": 0, "weight": 40000 },
+              { "variation": 1, "weight": 20000 },
+              { "variation": 2, "weight": 20000 },
+              { "variation": 3, "weight": 20000 }
+            ],
+            "bucketBy": "key",
+            "contextKind": "user"
+          },
+          "trackEvents": false
+        }
+      ]
+    }
+  }
+}

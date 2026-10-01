@@ -1,0 +1,7 @@
+# Job reports / requests and simulation outputs (`--out`).
+out/
+out-*/
+report-*.md
+requests-*.json
+simulation-*.md
+simulation-*.json

@@ -1,0 +1,456 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/stripe-event.schema.json",
+  "title": "Stripe Event (webhook payload) consumed by openart-signal",
+  "description": "Stripe's documented Event and object shapes, API version 2026-08-26.dahlia (the version pinned by the stripe library in this repo; OpenArt's account/endpoint version is unknown). Since 2025-03-31.basil an Invoice has no top-level `subscription` or `charge`: the subscription is in parent.subscription_details.subscription and payments are InvoicePayment objects (hence invoice_payment.paid, the only charge->invoice join key; Charge has no `invoice` field). Legacy top-level fields are accepted so an older-pinned endpoint can be adapted. Only fields openart-signal reads are required; Stripe adds fields often, so unknown properties are allowed.",
+  "type": "object",
+  "required": ["id", "object", "api_version", "created", "data", "livemode", "type"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^evt_[A-Za-z0-9]+$" },
+    "object": { "const": "event" },
+    "api_version": { "type": ["string", "null"] },
+    "created": { "$ref": "#/$defs/unixSeconds" },
+    "livemode": { "type": "boolean" },
+    "pending_webhooks": { "type": "integer", "minimum": 0 },
+    "request": {
+      "type": ["object", "null"],
+      "properties": {
+        "id": { "type": ["string", "null"] },
+        "idempotency_key": { "type": ["string", "null"] }
+      }
+    },
+    "type": {
+      "enum": [
+        "checkout.session.completed",
+        "invoice.paid",
+        "invoice_payment.paid",
+        "customer.subscription.updated",
+        "customer.subscription.deleted",
+        "charge.refunded",
+        "charge.dispute.created"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "required": ["object"],
+      "properties": {
+        "object": { "type": "object" },
+        "previous_attributes": { "type": "object" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "checkout.session.completed" } } },
+      "then": { "properties": { "data": { "properties": { "object": { "$ref": "#/$defs/checkoutSession" } } } } }
+    },
+    {
+      "if": { "properties": { "type": { "const": "invoice.paid" } } },
+      "then": {
+        "properties": {
+          "data": {
+            "properties": {
+              "object": {
+                "allOf": [
+                  { "$ref": "#/$defs/invoice" },
+                  { "properties": { "status": { "const": "paid" } } }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "invoice_payment.paid" } } },
+      "then": { "properties": { "data": { "properties": { "object": { "$ref": "#/$defs/invoicePayment" } } } } }
+    },
+    {
+      "if": { "properties": { "type": { "enum": ["customer.subscription.updated", "customer.subscription.deleted"] } } },
+      "then": { "properties": { "data": { "properties": { "object": { "$ref": "#/$defs/subscription" } } } } }
+    },
+    {
+      "if": { "properties": { "type": { "const": "customer.subscription.deleted" } } },
+      "then": { "properties": { "data": { "properties": { "object": { "properties": { "status": { "const": "canceled" } } } } } } }
+    },
+    {
+      "if": { "properties": { "type": { "const": "charge.refunded" } } },
+      "then": {
+        "properties": {
+          "data": {
+            "properties": {
+              "object": {
+                "allOf": [
+                  { "$ref": "#/$defs/charge" },
+                  { "properties": { "amount_refunded": { "type": "integer", "minimum": 1 } } }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "charge.dispute.created" } } },
+      "then": { "properties": { "data": { "properties": { "object": { "$ref": "#/$defs/dispute" } } } } }
+    }
+  ],
+  "$defs": {
+    "unixSeconds": { "type": "integer", "minimum": 1000000000, "maximum": 9999999999 },
+    "currency": { "type": "string", "pattern": "^[a-z]{3}$" },
+    "metadata": { "type": "object", "additionalProperties": { "type": "string" } },
+    "customerId": {
+      "description": "At OpenArt the Stripe customer id IS the OpenArt uid (research/10 §7), so it does not start with cus_.",
+      "type": "string",
+      "minLength": 1
+    },
+    "listOf": {
+      "type": "object",
+      "required": ["object", "data", "has_more"],
+      "properties": {
+        "object": { "const": "list" },
+        "data": { "type": "array" },
+        "has_more": { "type": "boolean" },
+        "url": { "type": "string" }
+      }
+    },
+    "price": {
+      "type": "object",
+      "required": ["id", "object", "product", "currency", "unit_amount", "type"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^price_[A-Za-z0-9]+$" },
+        "object": { "const": "price" },
+        "product": { "type": "string", "pattern": "^prod_[A-Za-z0-9]+$" },
+        "currency": { "$ref": "#/$defs/currency" },
+        "unit_amount": { "type": ["integer", "null"], "minimum": 0 },
+        "type": { "enum": ["recurring", "one_time"] },
+        "recurring": {
+          "type": ["object", "null"],
+          "properties": {
+            "interval": { "enum": ["day", "week", "month", "year"] },
+            "interval_count": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "lookup_key": { "type": ["string", "null"] },
+        "metadata": { "$ref": "#/$defs/metadata" }
+      }
+    },
+    "checkoutSession": {
+      "type": "object",
+      "required": [
+        "id",
+        "object",
+        "mode",
+        "status",
+        "payment_status",
+        "customer",
+        "subscription",
+        "invoice",
+        "amount_total",
+        "currency",
+        "created",
+        "livemode",
+        "metadata",
+        "client_reference_id"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^cs_(live|test)_[A-Za-z0-9]+$" },
+        "object": { "const": "checkout.session" },
+        "mode": { "enum": ["payment", "subscription", "setup"] },
+        "status": { "enum": ["open", "complete", "expired"] },
+        "payment_status": { "enum": ["paid", "unpaid", "no_payment_required"] },
+        "customer": { "anyOf": [{ "$ref": "#/$defs/customerId" }, { "type": "null" }] },
+        "subscription": { "type": ["string", "null"], "pattern": "^sub_[A-Za-z0-9]+$" },
+        "invoice": { "type": ["string", "null"], "pattern": "^in_[A-Za-z0-9]+$" },
+        "payment_intent": { "type": ["string", "null"], "pattern": "^pi_[A-Za-z0-9]+$" },
+        "amount_total": { "type": ["integer", "null"], "minimum": 0 },
+        "amount_subtotal": { "type": ["integer", "null"], "minimum": 0 },
+        "currency": { "anyOf": [{ "$ref": "#/$defs/currency" }, { "type": "null" }] },
+        "created": { "$ref": "#/$defs/unixSeconds" },
+        "livemode": { "type": "boolean" },
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "client_reference_id": { "type": ["string", "null"] },
+        "success_url": { "type": ["string", "null"] },
+        "cancel_url": { "type": ["string", "null"] },
+        "customer_details": { "type": ["object", "null"] }
+      }
+    },
+    "invoiceLine": {
+      "type": "object",
+      "required": ["id", "object", "amount", "currency", "period", "quantity"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^il_[A-Za-z0-9]+$" },
+        "object": { "const": "line_item" },
+        "amount": { "type": "integer" },
+        "currency": { "$ref": "#/$defs/currency" },
+        "description": { "type": ["string", "null"] },
+        "period": {
+          "type": "object",
+          "required": ["start", "end"],
+          "properties": { "start": { "$ref": "#/$defs/unixSeconds" }, "end": { "$ref": "#/$defs/unixSeconds" } }
+        },
+        "quantity": { "type": ["integer", "null"], "minimum": 0 },
+        "pricing": {
+          "type": ["object", "null"],
+          "properties": {
+            "type": { "const": "price_details" },
+            "price_details": {
+              "type": "object",
+              "required": ["price", "product"],
+              "properties": {
+                "price": { "type": "string", "pattern": "^price_[A-Za-z0-9]+$" },
+                "product": { "type": "string", "pattern": "^prod_[A-Za-z0-9]+$" }
+              }
+            },
+            "unit_amount_decimal": { "type": ["string", "null"] }
+          }
+        },
+        "parent": {
+          "type": ["object", "null"],
+          "properties": {
+            "type": { "enum": ["invoice_item_details", "subscription_item_details"] },
+            "subscription_item_details": {
+              "type": ["object", "null"],
+              "properties": {
+                "subscription": { "type": ["string", "null"] },
+                "subscription_item": { "type": "string" },
+                "proration": { "type": "boolean" }
+              }
+            },
+            "invoice_item_details": { "type": ["object", "null"] }
+          }
+        },
+        "price": { "description": "Legacy (pre-basil) line price.", "type": ["object", "null"] },
+        "proration": { "description": "Legacy (pre-basil) proration flag.", "type": "boolean" }
+      }
+    },
+    "invoice": {
+      "type": "object",
+      "required": [
+        "id",
+        "object",
+        "customer",
+        "status",
+        "billing_reason",
+        "currency",
+        "amount_due",
+        "amount_paid",
+        "total",
+        "subtotal",
+        "created",
+        "period_start",
+        "period_end",
+        "lines",
+        "livemode"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^in_[A-Za-z0-9]+$" },
+        "object": { "const": "invoice" },
+        "customer": { "$ref": "#/$defs/customerId" },
+        "status": { "enum": ["draft", "open", "paid", "uncollectible", "void"] },
+        "billing_reason": {
+          "enum": [
+            "automatic_pending_invoice_item_invoice",
+            "manual",
+            "quote_accept",
+            "subscription",
+            "subscription_create",
+            "subscription_cycle",
+            "subscription_threshold",
+            "subscription_update",
+            "upcoming",
+            null
+          ]
+        },
+        "currency": { "$ref": "#/$defs/currency" },
+        "amount_due": { "type": "integer" },
+        "amount_paid": { "type": "integer", "minimum": 0 },
+        "amount_remaining": { "type": "integer" },
+        "subtotal": { "type": "integer" },
+        "total": { "type": "integer" },
+        "created": { "$ref": "#/$defs/unixSeconds" },
+        "period_start": { "$ref": "#/$defs/unixSeconds" },
+        "period_end": { "$ref": "#/$defs/unixSeconds" },
+        "livemode": { "type": "boolean" },
+        "metadata": { "type": ["object", "null"] },
+        "parent": {
+          "type": ["object", "null"],
+          "properties": {
+            "type": { "enum": ["quote_details", "subscription_details"] },
+            "subscription_details": {
+              "type": ["object", "null"],
+              "required": ["subscription"],
+              "properties": {
+                "subscription": { "type": "string", "pattern": "^sub_[A-Za-z0-9]+$" },
+                "metadata": { "type": ["object", "null"] }
+              }
+            }
+          }
+        },
+        "subscription": { "description": "Legacy (pre-basil) top-level subscription.", "type": ["string", "null"] },
+        "charge": { "description": "Legacy (pre-basil) top-level charge.", "type": ["string", "null"] },
+        "payment_intent": { "description": "Legacy (pre-basil).", "type": ["string", "null"] },
+        "status_transitions": {
+          "type": "object",
+          "properties": { "paid_at": { "anyOf": [{ "$ref": "#/$defs/unixSeconds" }, { "type": "null" }] } }
+        },
+        "lines": {
+          "allOf": [
+            { "$ref": "#/$defs/listOf" },
+            { "properties": { "data": { "items": { "$ref": "#/$defs/invoiceLine" } } } }
+          ]
+        }
+      }
+    },
+    "invoicePayment": {
+      "type": "object",
+      "required": ["id", "object", "invoice", "payment", "status", "amount_paid", "currency", "created", "livemode"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^inpay_[A-Za-z0-9]+$" },
+        "object": { "const": "invoice_payment" },
+        "invoice": { "type": "string", "pattern": "^in_[A-Za-z0-9]+$" },
+        "amount_paid": { "type": ["integer", "null"], "minimum": 0 },
+        "amount_requested": { "type": "integer", "minimum": 0 },
+        "currency": { "$ref": "#/$defs/currency" },
+        "created": { "$ref": "#/$defs/unixSeconds" },
+        "is_default": { "type": "boolean" },
+        "livemode": { "type": "boolean" },
+        "status": { "type": "string" },
+        "payment": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": { "enum": ["charge", "payment_intent", "payment_record"] },
+            "payment_intent": { "type": "string", "pattern": "^pi_[A-Za-z0-9]+$" },
+            "charge": { "type": "string", "pattern": "^(ch|py)_[A-Za-z0-9]+$" }
+          }
+        },
+        "status_transitions": { "type": "object" }
+      }
+    },
+    "subscription": {
+      "type": "object",
+      "required": [
+        "id",
+        "object",
+        "customer",
+        "status",
+        "items",
+        "cancel_at_period_end",
+        "canceled_at",
+        "created",
+        "currency",
+        "livemode",
+        "metadata"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^sub_[A-Za-z0-9]+$" },
+        "object": { "const": "subscription" },
+        "customer": { "$ref": "#/$defs/customerId" },
+        "status": {
+          "enum": ["incomplete", "incomplete_expired", "trialing", "active", "past_due", "canceled", "unpaid", "paused"]
+        },
+        "cancel_at_period_end": { "type": "boolean" },
+        "cancel_at": { "anyOf": [{ "$ref": "#/$defs/unixSeconds" }, { "type": "null" }] },
+        "canceled_at": { "anyOf": [{ "$ref": "#/$defs/unixSeconds" }, { "type": "null" }] },
+        "ended_at": { "anyOf": [{ "$ref": "#/$defs/unixSeconds" }, { "type": "null" }] },
+        "cancellation_details": { "type": ["object", "null"] },
+        "created": { "$ref": "#/$defs/unixSeconds" },
+        "start_date": { "$ref": "#/$defs/unixSeconds" },
+        "currency": { "$ref": "#/$defs/currency" },
+        "latest_invoice": { "type": ["string", "null"] },
+        "livemode": { "type": "boolean" },
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "schedule": { "type": ["string", "null"] },
+        "pause_collection": { "type": ["object", "null"] },
+        "items": {
+          "allOf": [
+            { "$ref": "#/$defs/listOf" },
+            {
+              "properties": {
+                "data": {
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "object", "price", "quantity", "current_period_start", "current_period_end"],
+                    "properties": {
+                      "id": { "type": "string", "pattern": "^si_[A-Za-z0-9]+$" },
+                      "object": { "const": "subscription_item" },
+                      "price": { "$ref": "#/$defs/price" },
+                      "quantity": { "type": "integer", "minimum": 0 },
+                      "current_period_start": { "$ref": "#/$defs/unixSeconds" },
+                      "current_period_end": { "$ref": "#/$defs/unixSeconds" }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "charge": {
+      "type": "object",
+      "required": [
+        "id",
+        "object",
+        "amount",
+        "amount_captured",
+        "amount_refunded",
+        "refunded",
+        "currency",
+        "customer",
+        "payment_intent",
+        "status",
+        "created",
+        "livemode"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(ch|py)_[A-Za-z0-9]+$" },
+        "object": { "const": "charge" },
+        "amount": { "type": "integer", "minimum": 0 },
+        "amount_captured": { "type": "integer", "minimum": 0 },
+        "amount_refunded": { "type": "integer", "minimum": 0 },
+        "refunded": { "type": "boolean" },
+        "disputed": { "type": "boolean" },
+        "currency": { "$ref": "#/$defs/currency" },
+        "customer": { "anyOf": [{ "$ref": "#/$defs/customerId" }, { "type": "null" }] },
+        "payment_intent": { "type": ["string", "null"], "pattern": "^pi_[A-Za-z0-9]+$" },
+        "status": { "enum": ["succeeded", "pending", "failed"] },
+        "created": { "$ref": "#/$defs/unixSeconds" },
+        "livemode": { "type": "boolean" },
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "invoice": { "description": "Legacy (pre-basil) only.", "type": ["string", "null"] }
+      }
+    },
+    "dispute": {
+      "type": "object",
+      "required": ["id", "object", "amount", "charge", "currency", "created", "reason", "status", "livemode"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(dp|du)_[A-Za-z0-9]+$" },
+        "object": { "const": "dispute" },
+        "amount": { "type": "integer", "minimum": 1 },
+        "charge": { "type": "string", "pattern": "^(ch|py)_[A-Za-z0-9]+$" },
+        "payment_intent": { "type": ["string", "null"], "pattern": "^pi_[A-Za-z0-9]+$" },
+        "currency": { "$ref": "#/$defs/currency" },
+        "created": { "$ref": "#/$defs/unixSeconds" },
+        "reason": { "type": "string" },
+        "status": {
+          "enum": [
+            "lost",
+            "needs_response",
+            "prevented",
+            "under_review",
+            "warning_closed",
+            "warning_needs_response",
+            "warning_under_review",
+            "won"
+          ]
+        },
+        "livemode": { "type": "boolean" },
+        "metadata": { "$ref": "#/$defs/metadata" },
+        "is_charge_refundable": { "type": "boolean" }
+      }
+    }
+  }
+}

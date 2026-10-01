@@ -1,0 +1,60 @@
+[
+  {
+    "id": "evt_1SynthU05PackCheckout",
+    "object": "event",
+    "api_version": "2026-08-26.dahlia",
+    "created": 1783245600,
+    "data": {
+      "object": {
+        "id": "cs_live_a1SynthU05Pack00000001",
+        "object": "checkout.session",
+        "mode": "payment",
+        "status": "complete",
+        "payment_status": "paid",
+        "customer": "SynthU05FreeTrialE5x",
+        "customer_creation": null,
+        "customer_details": {
+          "email": "synth.u05@example.test",
+          "name": null,
+          "address": null,
+          "phone": null,
+          "tax_exempt": "none",
+          "tax_ids": []
+        },
+        "client_reference_id": null,
+        "subscription": null,
+        "invoice": null,
+        "payment_intent": "pi_3SynthU05Pi0001",
+        "amount_subtotal": 999,
+        "amount_total": 999,
+        "currency": "usd",
+        "allow_promotion_codes": true,
+        "automatic_tax": {
+          "enabled": false,
+          "liability": null,
+          "status": null
+        },
+        "created": 1783245599,
+        "expires_at": 1783331999,
+        "livemode": true,
+        "locale": null,
+        "metadata": {},
+        "payment_method_types": [
+          "card",
+          "amazon_pay",
+          "crypto"
+        ],
+        "success_url": "https://openart.ai/suite/subscriptions?offer=one_time_pack_800&uid=SynthU05FreeTrialE5x&session_id={CHECKOUT_SESSION_ID}",
+        "cancel_url": "https://openart.ai/pricing",
+        "url": null
+      }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": {
+      "id": null,
+      "idempotency_key": null
+    },
+    "type": "checkout.session.completed"
+  }
+]

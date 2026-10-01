@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/oa-ad-clids-store.schema.json",
+  "title": "oa_ad_clids cookie / localStorage value",
+  "description": "JSON {<key>: {v, ts}} written by the Astro shim (gclid, gbraid, wbraid, fbclid, msclkid, ttclid) and the Suite (gclid, fbclid, msclkid, ttclid); cookie Max-Age=7776000, Path=/, Domain=.openart.ai, SameSite=Lax, Secure. The Suite reader keeps only its 4 keys and rewrites the value, which deletes a stored gbraid/wbraid (research/01 T2c, research/02 §3.3). ts = Date.now() in ms.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": ["v", "ts"],
+    "properties": {
+      "v": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,1000}$" },
+      "ts": { "type": "integer", "minimum": 1000000000000 }
+    }
+  },
+  "propertyNames": { "pattern": "^[a-z_]{2,32}$" }
+}

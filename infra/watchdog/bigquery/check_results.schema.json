@@ -1,0 +1,11 @@
+[
+  { "name": "run_id", "type": "STRING", "mode": "REQUIRED" },
+  { "name": "started_at", "type": "TIMESTAMP", "mode": "REQUIRED" },
+  { "name": "target", "type": "STRING", "mode": "REQUIRED" },
+  { "name": "check_id", "type": "STRING", "mode": "REQUIRED", "description": "scenarios/contract.json check id" },
+  { "name": "title", "type": "STRING", "mode": "REQUIRED" },
+  { "name": "platform", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "status", "type": "STRING", "mode": "REQUIRED", "description": "PASS | FAIL | ERROR | SKIP" },
+  { "name": "observed", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "confidence", "type": "STRING", "mode": "NULLABLE", "description": "observed | inferred" }
+]

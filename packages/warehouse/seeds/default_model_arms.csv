@@ -1,0 +1,8 @@
+flag_key,arm,business_type,default_setting,credits_per_generation,media_type,evidence
+suite-default-model-create-image,nano-banana-pro,nano-banana-pro:text2image,1K/2K,40,image,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)
+suite-default-model-create-image,gpt-image-2-5,gpt-image-2-5-flare:text2image,1024x1024 low,5,image,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)
+suite-default-model-create-image,nano-banana-2,nano-banana-2:text2image,1K,20,image,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)
+suite-default-model-create-image,gpt-image-2,gpt-image-2:text2image,1024x1024 low,5,image,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)
+suite-default-model-create-video,byte-plus-seedance-2,byte-plus-seedance-2:text2video,720p 5s,400,video,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)
+suite-default-model-create-video,byte-plus-seedance-2-5,byte-plus-seedance-2-5:text2video,720p 5s,650,video,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)
+suite-default-model-create-video,wan3-0,wan3-0:text2video,720p 5s,200,video,contracts/src/cohort/params.ts ARM_DEFAULT_GENERATION (credits OBSERVED research/12 V2)

@@ -1,0 +1,20 @@
+{
+  "name": "@openart-signal/web-fixes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Drop-in web fixes for OpenArt's existing tagging: GTM change pack (import + compiled-container proof), click-ID shim, Suite/legacy app patches, HubSpot form fill and Consent Mode v2.",
+  "exports": {
+    "./gtm": "./gtm/src/index.ts",
+    "./shim": "./shim/src/shim.ts",
+    "./app-patches/*": "./app-patches/src/*.ts",
+    "./hubspot": "./hubspot/src/hubspot-fill.ts",
+    "./consent": "./consent/src/consent-defaults.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsx scripts/build.ts",
+    "build:check": "tsx scripts/build.ts --check"
+  }
+}

@@ -1,0 +1,98 @@
+# Least-privilege IAM for the conversion-service (nothing is applied by this repo).
+# Every grant is on the narrowest resource that works: single tables and views, one Firestore
+# database, one bucket, single secrets. No dataset-wide or project-wide data roles, no objectAdmin.
+#
+# Service account: conversion-service@PROJECT_ID.iam.gserviceaccount.com
+#   gcloud iam service-accounts create conversion-service --display-name "openart-signal conversion-service"
+
+service_account: conversion-service@PROJECT_ID.iam.gserviceaccount.com
+
+bindings:
+  # --- Firestore: inbox, join state, parked events, outbox, value decisions (one database only) ---
+  - role: roles/datastore.user
+    resource: projects/PROJECT_ID
+    condition:
+      title: conversion-service database only
+      expression: resource.name == "projects/PROJECT_ID/databases/conversion-service"
+    command: >-
+      gcloud projects add-iam-policy-binding PROJECT_ID
+      --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=roles/datastore.user
+      --condition='title=conversion-service database only,expression=resource.name == "projects/PROJECT_ID/databases/conversion-service"'
+
+  # --- BigQuery: run parameterised queries ---
+  - role: roles/bigquery.jobUser
+    resource: projects/PROJECT_ID
+    command: >-
+      gcloud projects add-iam-policy-binding PROJECT_ID
+      --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com --role=roles/bigquery.jobUser
+
+  # --- BigQuery WRITES: table-level, the two tables the service writes ---
+  - role: roles/bigquery.dataEditor
+    resource: PROJECT_ID:conversions.conversion_ledger_raw   # streaming inserts + partition-bounded reads
+    command: >-
+      bq add-iam-policy-binding --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=roles/bigquery.dataEditor PROJECT_ID:conversions.conversion_ledger_raw
+  - role: roles/bigquery.dataEditor
+    resource: PROJECT_ID:conversions.erasure_requests         # erasure requests (POST /tasks/erase)
+    command: >-
+      bq add-iam-policy-binding --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=roles/bigquery.dataEditor PROJECT_ID:conversions.erasure_requests
+
+  # --- BigQuery READS: table/view-level. NOT dataViewer on the app or marts datasets. ---
+  - role: roles/bigquery.dataViewer
+    resource: PROJECT_ID:marts.fct_purchase_value_score       # purchase-time value (the ad value)
+    command: >-
+      bq add-iam-policy-binding --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=roles/bigquery.dataViewer PROJECT_ID:marts.fct_purchase_value_score
+  - role: roles/bigquery.dataViewer
+    resource: PROJECT_ID:app.ad_click_ids
+    command: >-
+      bq add-iam-policy-binding --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=roles/bigquery.dataViewer PROJECT_ID:app.ad_click_ids
+  - role: roles/bigquery.dataViewer
+    resource: PROJECT_ID:conversion_context.conversion_user_context
+    note: >-
+      Create conversion_user_context as an AUTHORIZED VIEW in its own dataset (conversion_context) and
+      authorize it on the user-store dataset. The service then reads only the view's 11 columns, never
+      the underlying user tables. It holds raw email/phone: keep the dataset restricted.
+    command: >-
+      bq add-iam-policy-binding --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=roles/bigquery.dataViewer PROJECT_ID:conversion_context.conversion_user_context
+
+  # --- Dry-run payload bucket: write-once objects only (custom role, see dry-run-writer-role.yaml) ---
+  - role: projects/PROJECT_ID/roles/conversionServiceDryRunWriter
+    resource: gs://PROJECT_ID-conversion-service-dry-run
+    note: >-
+      create/get/list only: no delete, no overwrite, no IAM changes (objectAdmin granted all of those).
+      Files are write-once (unique ULID names, opened with O_EXCL). The bucket's lifecycle rule deletes
+      them after 30 days (dry-run-bucket-lifecycle.json). Mount with gcsfuse streaming writes so the
+      writer never needs to delete temporary objects.
+    command: >-
+      gcloud iam roles create conversionServiceDryRunWriter --project=PROJECT_ID
+      --file=infra/conversion-service/dry-run-writer-role.yaml &&
+      gcloud storage buckets add-iam-policy-binding gs://PROJECT_ID-conversion-service-dry-run
+      --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      --role=projects/PROJECT_ID/roles/conversionServiceDryRunWriter
+
+  # --- Secret Manager: each secret separately (never project-wide) ---
+  - role: roles/secretmanager.secretAccessor
+    resource: each secret listed in secrets.yaml (always + the live platforms only)
+    command: >-
+      gcloud secrets add-iam-policy-binding SECRET_NAME
+      --member=serviceAccount:conversion-service@PROJECT_ID.iam.gserviceaccount.com --role=roles/secretmanager.secretAccessor
+
+  # --- Google Ads (only when google_ads is in LIVE_PLATFORMS) ---
+  - role: Google Ads account user (in the Google Ads UI, not IAM)
+    note: Data Manager API scope https://www.googleapis.com/auth/datamanager; add the service account email as a user of the operating account.
+
+# Service accounts that call the service need NO role on it: the service verifies their Google OIDC
+# tokens itself (server.ts). Keep them role-less.
+callers:
+  - conversion-service-scheduler@PROJECT_ID.iam.gserviceaccount.com   # POST /tasks/drain, /tasks/erase
+  - stripe-events-push@PROJECT_ID.iam.gserviceaccount.com             # POST /pubsub/stripe
+
+# Not granted, on purpose:
+#   roles/bigquery.dataViewer on the app or marts DATASETS   (was: whole datasets)
+#   roles/storage.objectAdmin on the dry-run bucket          (was: delete/overwrite/setIamPolicy)
+#   roles/bigquery.dataEditor on the conversions DATASET     (table-level above instead)

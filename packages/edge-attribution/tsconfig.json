@@ -1,0 +1,11 @@
+{
+  // Worker-side program: src (minus the Node-only edge-sim entry) + workerd tests.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types/latest", "@cloudflare/vitest-pool-workers/types"],
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts", "test/worker/**/*.ts", "test/fixtures/**/*.ts"],
+  "exclude": ["src/sim.ts"]
+}

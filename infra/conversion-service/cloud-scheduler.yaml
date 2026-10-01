@@ -1,0 +1,22 @@
+# Cloud Scheduler job that drains the outbox and sweeps parked Stripe events, as a gcloud --flags-file
+# (nothing is deployed here):
+#   gcloud scheduler jobs create http conversion-service-drain \
+#     --location REGION --flags-file infra/conversion-service/cloud-scheduler.yaml
+# Ingest requests already drain in the background; this job covers retries (backoff), held rows whose
+# gate opened (web fix live, multi-source / Reddit dedup confirmed), Google adjustments that must wait
+# 24 h after the original conversion, and events parked on a missing Stripe join.
+# The OIDC token is minted for a dedicated service account the service accepts on /tasks/drain
+# (SCHEDULER_SERVICE_ACCOUNT in cloudrun-service.yaml); it needs no IAM role on the service because
+# the service authenticates the token itself.
+--schedule: '* * * * *'
+--time-zone: Etc/UTC
+--uri: SERVICE_URL/tasks/drain
+--http-method: POST
+--headers: Content-Type=application/json
+--message-body: '{}'
+--oidc-service-account-email: conversion-service-scheduler@PROJECT_ID.iam.gserviceaccount.com
+--oidc-token-audience: SERVICE_URL
+--attempt-deadline: 60s
+# A skipped minute is harmless: the next run picks up everything that is due.
+--max-retry-attempts: 0
+--description: openart-signal conversion-service - drain outbox (retries, released holds, due adjustments) and sweep parked Stripe events

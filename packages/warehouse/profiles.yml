@@ -1,0 +1,27 @@
+# dbt finds this file because commands run from packages/warehouse (dbt >= 1.3 looks in the
+# working directory first). No credentials live here.
+#
+#   local  DuckDB file loaded from the contracts fixtures by scripts/load_fixtures.py
+#   prod   BigQuery. Auth = Application Default Credentials (gcloud ADC locally, the attached
+#          service account on Cloud Run / Composer), so nothing secret is ever written to disk.
+openart_signal:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('WAREHOUSE_DUCKDB_PATH', 'target/local.duckdb') }}"
+      schema: openart_signal
+      threads: 4
+      settings:
+        # The machine's zone would otherwise leak into TIMESTAMPTZ casts.
+        TimeZone: UTC
+    prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('OPENART_BQ_PROJECT') }}"
+      dataset: "{{ env_var('OPENART_BQ_DATASET', 'openart_signal') }}"
+      location: "{{ env_var('OPENART_BQ_LOCATION', 'US') }}"
+      threads: 8
+      priority: interactive
+      job_execution_timeout_seconds: 900
+      job_retries: 1

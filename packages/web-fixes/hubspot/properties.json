@@ -1,0 +1,112 @@
+{
+  "$comment": "Contact properties the /enterprise form needs (FORM_FIX.md step A). Check each name first (GET /crm/properties/2026-09/contacts/{name}); create only the missing ones. gclid, gbraid and wbraid already exist: the live form references them. Every object under properties/optionalProperties is a complete POST body.",
+  "portalId": 244977254,
+  "objectType": "contacts",
+  "endpoints": {
+    "getProperty": "GET https://api.hubapi.com/crm/properties/2026-09/contacts/{propertyName}",
+    "createGroup": "POST https://api.hubapi.com/crm/properties/2026-09/contacts/groups  (body: group)",
+    "batchCreate": "POST https://api.hubapi.com/crm/properties/2026-09/contacts/batch/create  (body: {\"inputs\": [...properties, ...chosen optionalProperties]})",
+    "createProperty": "POST https://api.hubapi.com/crm/properties/2026-09/contacts  (body: one property)",
+    "scope": "crm.schemas.contacts.write",
+    "$comment": "Paths, body schemas (PropertyGroupCreate, BatchInputPropertyCreate/PropertyCreate: required groupName, name, label, type, fieldType; formField = usable in HubSpot forms) and scope from HubSpot crm-properties-v2026-09 OpenAPI, fetched 2026-09-30. Do not set hidden:true: hidden properties cannot be used in HubSpot."
+  },
+  "group": {
+    "name": "openart_attribution",
+    "label": "OpenArt attribution",
+    "displayOrder": -1
+  },
+  "properties": [
+    {
+      "groupName": "openart_attribution",
+      "name": "utm_source",
+      "label": "UTM source",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "utm_source of the visit before the form submission (first-party oa_utm store, 90 days). Filled by openart-hubspot-fill."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "utm_medium",
+      "label": "UTM medium",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "utm_medium of the visit before the form submission (first-party oa_utm store, 90 days). Filled by openart-hubspot-fill."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "utm_campaign",
+      "label": "UTM campaign",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "utm_campaign of the visit before the form submission (first-party oa_utm store, 90 days). Filled by openart-hubspot-fill."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "utm_term",
+      "label": "UTM term",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "utm_term of the visit before the form submission (first-party oa_utm store, 90 days). Filled by openart-hubspot-fill."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "utm_content",
+      "label": "UTM content",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "utm_content of the visit before the form submission (first-party oa_utm store, 90 days). Filled by openart-hubspot-fill."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "li_fat_id",
+      "label": "LinkedIn click id (li_fat_id)",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "LinkedIn first-party ad tracking UUID (oa_ad_clids or the li_fat_id cookie). Sent as LINKEDIN_FIRST_PARTY_ADS_TRACKING_UUID with LinkedIn Conversions API lead events."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "fbclid",
+      "label": "Meta click id (fbclid)",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "Meta ad click id (oa_ad_clids). Server-side lead events build fbc from it."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "ttclid",
+      "label": "TikTok click id (ttclid)",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "TikTok ad click id (oa_ad_clids or the ttclid cookie). Sent as user.ttclid with TikTok Events API lead events."
+    }
+  ],
+  "optionalProperties": [
+    {
+      "groupName": "openart_attribution",
+      "name": "fbc",
+      "label": "Meta click cookie (fbc)",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "Optional. The _fbc value fb.1.<ms>.<fbclid> with its original creation time. Preferred over rebuilding fbc from fbclid."
+    },
+    {
+      "groupName": "openart_attribution",
+      "name": "msclkid",
+      "label": "Microsoft click id (msclkid)",
+      "type": "string",
+      "fieldType": "text",
+      "formField": true,
+      "description": "Optional. Microsoft Advertising click id (oa_ad_clids or the _uetmsclkid cookie), for UET offline or CAPI lead conversions."
+    }
+  ]
+}

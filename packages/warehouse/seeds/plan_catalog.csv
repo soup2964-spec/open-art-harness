@@ -1,0 +1,11 @@
+price_id,product_id,item_type,plan_tier,billing_interval,unit_amount_minor,plan_tier_code,monthly_credits,credits_per_unit,amount_evidence,source
+price_1QWx4UKVhG51tYSBfdRth4n8,prod_RHumJXcmLdV3R9,plan,essential,month,1400,1000,4000,,observed,contracts/src/stripe-catalog.ts (live Checkout research/10 §5.3)
+price_1QWx4eKVhG51tYSBpjHjWeCu,prod_RHumJXcmLdV3R9,plan,essential,year,15120,1000,4000,,observed,contracts/src/stripe-catalog.ts (Stripe annual upsell research/10 §5.3)
+price_1TvuqQKVhG51tYSBesVOM0JO,prod_RHums1icx6Ol9x,plan,advanced,month,3400,2000,12000,,observed,contracts/src/stripe-catalog.ts
+price_1TvuqeKVhG51tYSBOLvVdqSS,prod_RHums1icx6Ol9x,plan,advanced,year,32640,2000,12000,,computed,contracts/src/stripe-catalog.ts (monthly x 12 x 0.80)
+price_1QPKxIKVhG51tYSBcgKOHs5y,prod_RHumZDdIzaVqJB,plan,infinite,month,5600,3000,24000,,observed,contracts/src/stripe-catalog.ts
+price_1QPKxIKVhG51tYSBtzq6ijS3,prod_RHumZDdIzaVqJB,plan,infinite,year,52416,3000,24000,,observed,contracts/src/stripe-catalog.ts (research/12 correction 9)
+price_1SULG9KVhG51tYSBA1dGTcTQ,prod_TRDhpbWHKB2e4p,plan,wonder,month,24000,3500,106000,,observed,contracts/src/stripe-catalog.ts
+price_1SULGUKVhG51tYSBGd4Avkuj,prod_TRDhpbWHKB2e4p,plan,wonder,year,210240,3500,106000,,computed,contracts/src/stripe-catalog.ts (monthly x 12 x 0.73)
+price_SYNTHcreditPack5kMonth,prod_RHum8ynRJZXQBr,credit_pack,,month,1500,,,5000,synthetic_price_id,contracts/src/stripe-catalog.ts CREDIT_PACK (price id SYNTHETIC; $15 per 5000 credits OBSERVED)
+price_SYNTHoneTimePack800,prod_SYNTHoneTimePack800,one_time_pack,,,999,,,800,synthetic,contracts/src/stripe-catalog.ts ONE_TIME_PACK (ids and price SYNTHETIC; 800 credits OBSERVED)

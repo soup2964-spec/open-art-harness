@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/sources/app-user.schema.json",
+  "title": "OpenArt app user (subset of POST /suite/api/user/my-info)",
+  "description": "Field names observed in the my-info response (crawl/loggedin_billing/evidence_api_samples_REDACTED.json): id (= uid = Stripe customer id), email, account_created_at, provider. The cohort generator emits this subset so audience-sync has an email source for non-paying users. Production values are personal data.",
+  "type": "object",
+  "required": ["id", "email", "account_created_at", "provider"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "email": { "type": "string", "format": "email" },
+    "account_created_at": { "type": "string", "format": "date-time" },
+    "provider": { "type": "string" }
+  }
+}

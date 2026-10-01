@@ -1,0 +1,9 @@
+# Custom role for the dry-run payload bucket (gcloud iam roles create ... --file=this file).
+# Write-once objects: create, stat and list. No delete, update, overwrite or IAM permissions.
+title: conversion-service dry-run writer
+description: Write-once access to the conversion-service dry-run payload bucket (no delete, no overwrite, no IAM).
+stage: GA
+includedPermissions:
+  - storage.objects.create
+  - storage.objects.get
+  - storage.objects.list

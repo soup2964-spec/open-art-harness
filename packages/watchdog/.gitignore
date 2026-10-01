@@ -1,0 +1,7 @@
+# Fresh Chrome profiles live here only for the duration of a run and are deleted after it.
+.profiles/
+# Raw request captures, screenshots and executed script bodies stay local (they are large and
+# contain full request bodies); results.json + report.html are the committed artefacts.
+reports/**/raw/
+# uBlock default lists fetched by scripts/fetch-blocklists.sh (Docker / CI).
+blocklists/

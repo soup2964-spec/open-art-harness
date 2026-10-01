@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "gtm/src/**/*.ts",
+    "gtm/test/**/*.ts",
+    "shim/src/**/*.ts",
+    "shim/test/**/*.ts",
+    "app-patches/src/**/*.ts",
+    "app-patches/test/**/*.ts",
+    "hubspot/src/**/*.ts",
+    "hubspot/test/**/*.ts",
+    "consent/src/**/*.ts",
+    "consent/test/**/*.ts",
+    "scripts/**/*.ts",
+    "vitest.config.ts",
+    "test-utils/**/*.ts"
+  ]
+}

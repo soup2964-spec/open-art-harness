@@ -1,0 +1,9 @@
+plan_tier,billing_interval,fallback_value_usd,evidence
+essential,month,14,OBSERVED stale fallback PRICES table in the Suite bundle 91db8069961c7577.js (research/02 §3.2): Starter {monthly:14 yearly:7}
+essential,year,7,OBSERVED (research/02 §3.2): the yearly entry is a stale per-month figure sent as the value of a whole annual sale
+advanced,month,34,OBSERVED (research/02 §3.2): Plus {monthly:34 yearly:17}
+advanced,year,17,OBSERVED (research/02 §3.2)
+infinite,month,56,OBSERVED (research/02 §3.2): Pro {monthly:56 yearly:28}
+infinite,year,28,OBSERVED (research/02 §3.2)
+wonder,month,240,OBSERVED (research/02 §3.2): Wonder {monthly:240 yearly:120}
+wonder,year,120,OBSERVED (research/02 §3.2)

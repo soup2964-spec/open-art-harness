@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/common.schema.json",
+  "title": "Shared definitions",
+  "description": "Building blocks reused by the canonical openart-signal contracts. The .example host is intentionally non-resolving (RFC 2606); schemas are registered locally by schema-registry.ts.",
+  "$defs": {
+    "utcTimestamp": {
+      "description": "RFC 3339 timestamp in UTC with a trailing Z.",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "userId": {
+      "description": "OpenArt uid (case-sensitive). Equal to the Stripe customer id, Amplitude user_id and credit-ledger userId (research/10 §7).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^\\S+$"
+    },
+    "currency": {
+      "description": "ISO 4217, upper case (Stripe sends lower case; adapters upper-case it).",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "sha256Hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "planTier": {
+      "description": "OpenArt tierKey lower-cased (= Amplitude subscription_tier): essential=Starter, advanced=Plus, infinite=Pro.",
+      "enum": [
+        "essential",
+        "advanced",
+        "infinite",
+        "wonder",
+        "team",
+        "business"
+      ]
+    },
+    "billingInterval": {
+      "enum": [
+        "month",
+        "year"
+      ]
+    },
+    "platform": {
+      "enum": [
+        "google_ads",
+        "meta",
+        "tiktok",
+        "reddit",
+        "linkedin",
+        "x",
+        "microsoft"
+      ]
+    },
+    "canonicalEventName": {
+      "enum": [
+        "signup",
+        "activation_first_generation",
+        "checkout_started",
+        "purchase_first",
+        "purchase_renewal",
+        "purchase_upgrade",
+        "purchase_add_on",
+        "purchase_one_time_pack",
+        "refund",
+        "chargeback",
+        "enterprise_lead",
+        "lead_stage_change"
+      ]
+    },
+    "flagKey": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]{1,128}$"
+    },
+    "clickIdEntry": {
+      "description": "A stored click id and when it was first seen (ms epoch converted to UTC). created_at is what builds Meta fbc = fb.1.<ms>.<fbclid> server-side.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "created_at"
+      ],
+      "properties": {
+        "value": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._-]{1,1000}$"
+        },
+        "created_at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/utcTimestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "clickIds": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gclid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "gbraid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "wbraid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "fbclid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "msclkid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "ttclid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "rdt_cid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "twclid": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "li_fat_id": {
+          "$ref": "#/$defs/clickIdEntry"
+        },
+        "oppref": {
+          "$ref": "#/$defs/clickIdEntry"
+        }
+      }
+    },
+    "utm": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "utm_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "utm_medium": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "utm_campaign": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "utm_term": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "utm_content": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "utm_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        }
+      }
+    },
+    "consentState": {
+      "enum": [
+        "granted",
+        "denied",
+        "unknown"
+      ]
+    },
+    "consent": {
+      "description": "Google Consent Mode v2 signals plus region and US-state opt-outs. OpenArt runs no CMP today, so live rows carry unknown/none (gcd=13l3l3l3l1l1, research/11 §3.3). Semantics (consent-regions.ts): an explicit denied from any source counts, and gpc or opt_out_sale_sharing blocks ad sharing in every region.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ad_storage",
+        "ad_user_data",
+        "ad_personalization",
+        "analytics_storage",
+        "region",
+        "source"
+      ],
+      "properties": {
+        "ad_storage": {
+          "$ref": "#/$defs/consentState"
+        },
+        "ad_user_data": {
+          "$ref": "#/$defs/consentState"
+        },
+        "ad_personalization": {
+          "$ref": "#/$defs/consentState"
+        },
+        "analytics_storage": {
+          "$ref": "#/$defs/consentState"
+        },
+        "region": {
+          "description": "ISO 3166-1 alpha-2 country (e.g. from OpenArt's country_code cookie), optionally with an ISO 3166-2 subdivision (US-CA) for US state privacy rules.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z]{2}(-[A-Z0-9]{1,3})?$"
+        },
+        "source": {
+          "enum": [
+            "cmp",
+            "regional_default",
+            "none"
+          ]
+        },
+        "gpc": {
+          "description": "Global Privacy Control (Sec-GPC: 1) observed for this user. true blocks ad sharing in every region, a CMP grant included. Optional: absent = not observed or not recorded.",
+          "type": "boolean"
+        },
+        "opt_out_sale_sharing": {
+          "description": "US-state \"do not sell or share\" opt-out (CCPA/CPRA and similar) recorded for this user. true blocks ad sharing in every region. Optional: absent = none recorded.",
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

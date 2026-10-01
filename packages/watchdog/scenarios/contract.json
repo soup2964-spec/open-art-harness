@@ -1,0 +1,326 @@
+{
+  "schema": "openart-signal/watchdog-contract@1",
+  "title": "OpenArt conversion + attribution signal contract",
+  "description": "The TARGET behaviour of OpenArt's existing tag stack (GTM-56CMP8K, Google tag gateway /4vu8/, Meta pixel + CAPI Gateway, TikTok/Reddit/LinkedIn/X/UET/OpenAI Ads). PASS means the behaviour is fixed; today's live site is expected to FAIL most checks. Every observation comes from requests that were failed locally and never delivered. Claim ids refer to research/00_claims_register.md (FINAL VERDICTS).",
+  "templates": "{uid}, {email}, {transaction_id} and {invoice_id} resolve from the replay scenario's synthetic context (src/replay/scenarios.ts).",
+  "checks": [
+    {
+      "id": "signup.google_ads.user_data",
+      "title": "Signup reaches Google Ads, with user data",
+      "claim": "G1",
+      "platform": "google_ads",
+      "kind": "replay.google_ads_conversion",
+      "source": {
+        "replay": "signup"
+      },
+      "params": {
+        "requireUserData": true,
+        "labels": [
+          "rVk2CJ7Ot8EZEOSYw_Up"
+        ]
+      },
+      "rationale": "The app pushes `signup`; the Google Ads signup conversion (AW-11252321380/rVk2CJ7Ot8EZEOSYw_Up) listens for `new_user_signed_up`, which nothing emits (research/11 §0 claim 1). Fixed = the real signup push produces a Google Ads conversion carrying user-provided data (EC envelope or em). The check is pinned to the signup conversion label: any other conversion firing on signup does not count, and the user data must ride on that conversion (a labelled copy with em/eme, or ccm/form-data for the same account)."
+    },
+    {
+      "id": "purchase.linkedin.value_and_event_id",
+      "title": "LinkedIn purchase has a value and an event id",
+      "claim": "G12",
+      "platform": "linkedin",
+      "kind": "replay.linkedin_conversion_fields",
+      "source": {
+        "replay": "purchase"
+      },
+      "params": {
+        "value": true,
+        "eventId": true
+      },
+      "rationale": "Today LinkedIn conversion 29290225 carries only conversionId (research/11 §3.2). The Insight tag maps conversion_value->val and event_id->eventId on the wire."
+    },
+    {
+      "id": "purchase.x.single_deterministic_event",
+      "title": "X sends exactly one purchase event with a deterministic id",
+      "claim": "G2",
+      "platform": "x",
+      "kind": "replay.x_single_purchase",
+      "source": {
+        "replay": "purchase"
+      },
+      "params": {
+        "idEqualsOneOf": [
+          "{transaction_id}",
+          "purchase_{invoice_id}",
+          "sub_{invoice_id}"
+        ]
+      },
+      "rationale": "uwt.js sends the explicit tw-qwghh-13vj24 conversion AND an automatic gtm_purchase for every purchase (research/11 §6.1), each with a random per-hit event_id. Fixed = one purchase event whose conversion_id/order_id is the transaction id."
+    },
+    {
+      "id": "signup.tiktok.event_id",
+      "title": "TikTok signup event_id equals reg_<uid>",
+      "claim": "G2",
+      "platform": "tiktok",
+      "kind": "replay.tiktok_event_id",
+      "source": {
+        "replay": "signup"
+      },
+      "params": {
+        "event": "CompleteRegistration",
+        "eventId": "reg_{uid}"
+      },
+      "rationale": "TikTok CompleteRegistration fires with event_id \"\" (research/11 §3.1) while Meta and OpenAI already use reg_<uid>; a server-side twin can only deduplicate against reg_<uid>."
+    },
+    {
+      "id": "business_subscription.consumed",
+      "title": "business_subscription is consumed",
+      "claim": "G11",
+      "platform": "any",
+      "kind": "replay.scenario_consumed",
+      "source": {
+        "replay": "business_subscription"
+      },
+      "params": {
+        "minConversionEvents": 1
+      },
+      "rationale": "The app pushes business_subscription for business-tier first purchases but no tag listens; only a TikTok diagnostic beacon notices it (research/11 claim 3)."
+    },
+    {
+      "id": "generation.google.no_auto_form_events",
+      "title": "No Google automatic form_start/form_submit events on generation",
+      "claim": "FINAL VERDICTS (NEW, logged-in data)",
+      "platform": "google_ads",
+      "kind": "journey.google_auto_form_events",
+      "source": {
+        "journey": "spa_pageviews",
+        "step": "generation"
+      },
+      "params": {
+        "events": [
+          "form_start",
+          "form_submit"
+        ],
+        "max": 0
+      },
+      "rationale": "The Google tag's automatic form events turn a prompt submission into form_start/form_submit remarketing hits (auto-noise) while no real generation/activation event reaches any ad platform."
+    },
+    {
+      "id": "spa.page_views.google_ads",
+      "title": "Exactly one page view per route change — Google Ads",
+      "claim": "G15",
+      "platform": "google_ads",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "google_ads",
+        "exactly": 1
+      },
+      "rationale": "Suite soft navigations: Google/Reddit/LinkedIn/X send 0, Meta and UET up to 3 (research FINAL VERDICTS G15). Google is counted per destination seen on the hard load."
+    },
+    {
+      "id": "spa.page_views.meta",
+      "title": "Exactly one page view per route change — Meta",
+      "claim": "G15",
+      "platform": "meta",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "meta",
+        "exactly": 1
+      },
+      "rationale": "Browser /tr and the CAPI Gateway copy share one eid and count once."
+    },
+    {
+      "id": "spa.page_views.tiktok",
+      "title": "Exactly one page view per route change — TikTok",
+      "claim": "G15",
+      "platform": "tiktok",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "tiktok",
+        "exactly": 1
+      },
+      "rationale": "TikTok's HistoryObserver already sends one Pageview per soft navigation."
+    },
+    {
+      "id": "spa.page_views.reddit",
+      "title": "Exactly one page view per route change — Reddit",
+      "claim": "G15",
+      "platform": "reddit",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "reddit",
+        "exactly": 1
+      },
+      "rationale": "Base pixels fire only on gtm.js (hard loads); no History Change trigger (research/02 §2.3)."
+    },
+    {
+      "id": "spa.page_views.linkedin",
+      "title": "Exactly one page view per route change — LinkedIn",
+      "claim": "G15",
+      "platform": "linkedin",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "linkedin",
+        "exactly": 1
+      },
+      "rationale": "Base Insight tag fires on gtm.js only."
+    },
+    {
+      "id": "spa.page_views.x",
+      "title": "Exactly one page view per route change — X",
+      "claim": "G15",
+      "platform": "x",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "x",
+        "exactly": 1
+      },
+      "rationale": "X base pixel fires on gtm.js only; the t.co + analytics.twitter.com copies share one event_id and count once."
+    },
+    {
+      "id": "spa.page_views.microsoft_uet",
+      "title": "Exactly one page view per route change — Microsoft UET",
+      "claim": "G15",
+      "platform": "microsoft_uet",
+      "kind": "journey.page_views_per_route_change",
+      "source": {
+        "journey": "spa_pageviews"
+      },
+      "params": {
+        "platform": "microsoft_uet",
+        "exactly": 1
+      },
+      "rationale": "enableAutoSpaTracking sends pageLoad spa=Y per history change, i.e. more than one per route when the app redirects."
+    },
+    {
+      "id": "meta.fbc.multi_hop",
+      "title": "fbc present after a multi-hop journey",
+      "claim": "G4",
+      "platform": "meta",
+      "kind": "journey.meta_fbc",
+      "source": {
+        "journey": "meta_multi_hop"
+      },
+      "rationale": "Landing → second marketing page → app loses fbc in both /tr and the CAPI Gateway although the shim holds fbclid (research/01 §T1, T1f).",
+      "params": {
+        "stepPaths": {
+          "landing": "^/$",
+          "marketing_page2": "^/ai-model/"
+        }
+      }
+    },
+    {
+      "id": "meta.fbc.return",
+      "title": "fbc present after a return (typed) visit",
+      "claim": "G4",
+      "platform": "meta",
+      "kind": "journey.meta_fbc",
+      "source": {
+        "journey": "meta_return"
+      },
+      "rationale": "Landing, then a typed /home: no fbc anywhere (research/01 §T1, T1g).",
+      "params": {
+        "stepPaths": {
+          "landing": "^/$",
+          "app_typed": "^/home"
+        }
+      }
+    },
+    {
+      "id": "openai.oppref.marketing_landing",
+      "title": "oppref preserved on marketing landings",
+      "claim": "01 §T3",
+      "platform": "openai_ads",
+      "kind": "journey.oppref_preserved",
+      "source": {
+        "journey": "oppref_marketing"
+      },
+      "rationale": "The OpenAI Ads SDK runs only on the app and reads only location.search; the Astro shim does not keep oppref, so ChatGPT-ads click refs are lost on marketing landings (research/01 T3a vs T3b).",
+      "params": {
+        "stepPaths": {
+          "landing": "^/$"
+        }
+      }
+    },
+    {
+      "id": "google.gbraid_wbraid.persisted",
+      "title": "gbraid/wbraid persisted in oa_ad_clids",
+      "claim": "G6",
+      "platform": "google_ads",
+      "kind": "journey.oa_ad_clids_keys",
+      "source": {
+        "journey": "gbraid_wbraid"
+      },
+      "params": {
+        "keys": [
+          "gbraid",
+          "wbraid"
+        ]
+      },
+      "rationale": "The app's reader keeps only gclid/fbclid/msclkid/ttclid and rewrites oa_ad_clids, deleting a stored gbraid (research/01 T2c)."
+    },
+    {
+      "id": "webview.handoff.attribution",
+      "title": "In-app-browser handoff URL carries attribution or a token",
+      "claim": "G5",
+      "platform": "meta",
+      "kind": "journey.handoff_attribution",
+      "source": {
+        "journey": "instagram_webview"
+      },
+      "params": {
+        "tokenParams": [
+          "oa_t",
+          "oat",
+          "oa_token",
+          "handoff",
+          "h",
+          "token",
+          "attr"
+        ]
+      },
+      "rationale": "Option 2 of the 'Open page in your browser' overlay copies window.location.href, which after the usual landing → /home hop has no click ids, UTMs or token (research/01 §T11)."
+    },
+    {
+      "id": "consent.eea_uk_ch.defaults",
+      "title": "Consent defaults set for EEA/UK/CH in consent mode",
+      "claim": "G7",
+      "platform": "google_ads",
+      "kind": "consent.region_defaults",
+      "source": {
+        "consentProbes": [
+          "DE",
+          "GB",
+          "CH"
+        ]
+      },
+      "params": {
+        "defaultDenied": [
+          "ad_storage",
+          "ad_user_data",
+          "ad_personalization"
+        ],
+        "defaultSet": [
+          "analytics_storage"
+        ]
+      },
+      "rationale": "Every Google hit carries gcd=13l3l3l3l1l1 (no default, no update, research/01 §T2). Each probe serves the live Google scripts with the visitor geo rewritten locally to an EEA / UK / CH region and decodes gcd on the attempted hits."
+    }
+  ],
+  "validity": "A check is ERROR (never PASS/FAIL) when its source did not run as specified: a replay scenario that did not execute or threw, a tag that was not ready on the replay page, a journey step that failed, a journey that never reached an app page or deviated from params.stepPaths, a route change that was not a clean soft navigation, a consent probe whose geo could not be simulated. SKIP only appears for sources deliberately not requested (e.g. --no-replay)."
+}

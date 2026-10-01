@@ -1,0 +1,5 @@
+# Copy to .dev.vars for `wrangler dev --local` (never commit .dev.vars).
+# Any random string of 32+ characters, e.g. `openssl rand -base64 48`.
+ATTRIBUTION_SECRET=replace-with-32-or-more-random-characters
+# Local stub origin, so the example's pass-through never reaches a real site.
+ORIGIN_OVERRIDE=http://127.0.0.1:8788

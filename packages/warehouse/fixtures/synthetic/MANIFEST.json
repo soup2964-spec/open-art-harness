@@ -1,0 +1,28 @@
+{
+  "counts": {
+    "invoice_lookups_failed": 1,
+    "report_rows": 471,
+    "subscription_checkouts": 93
+  },
+  "data_origin": "SYNTHETIC - generated from the contracts cohort; no ad platform or OpenArt data",
+  "generator": "packages/warehouse/scripts/make_platform_reports.py",
+  "generator_version": "1.0.0",
+  "illustrative_parameters": {
+    "LOOKUP_DELAY_SECONDS": 3,
+    "LOOKUP_FAILURE_RATE": 0.05,
+    "LTV_MULTIPLIER_MONTHLY": "4.375"
+  },
+  "inputs": {
+    "cohort/amplitude_events.jsonl": "ed5725fabc7705b3fdc768fcbbb81f2f4664737a3807885aef185ac6d97e5b53",
+    "cohort/amplitude_exposures.jsonl": "541177261fd96aaecb24391525a01a1a7d8c7f9c0db9169d064ee754bfc3f07f",
+    "cohort/stripe_events.jsonl": "5908670e8ff087227d335bfffe7b7dab3a7aa832a1b26c5f1cbd7ca58542b34e",
+    "seeds/fallback_price_table.csv": "4c4b36b8336b8566febce4b5cad8e28d4ddc8d4bb0ef1f1eb11b2be4abcc65df",
+    "seeds/plan_catalog.csv": "04918c1f7ccf9d981601aa93315ae5c88c4e6992edf0b4fbb4cdd265308a2388",
+    "seeds/platform_reporting_rules.csv": "85ca57cb3beebe4d836725e0b194a92ebb7b953c466f175239dfb887fb61c820"
+  },
+  "outputs": {
+    "invoice_lookups.jsonl": "08de631f25e700498bb715f5d0368e8a84974a907da0714d67c5a56d852321d3",
+    "platform_daily_conversions.csv": "c4aff4d785300f6f07bee45ea600a420503b587bf54bdfdd14f8e6a68f17fcfc"
+  },
+  "rules_seed": "seeds/platform_reporting_rules.csv (shared with dbt fct_reconciliation)"
+}

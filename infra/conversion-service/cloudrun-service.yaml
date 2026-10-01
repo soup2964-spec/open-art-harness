@@ -1,0 +1,185 @@
+# Cloud Run SERVICE for the conversion-service (GCP-native; nothing is deployed by this repo).
+# Deploy (after replacing PROJECT_ID / REGION / TAG / SERVICE_URL and the Dockerfile digests):
+#   gcloud artifacts repositories create openart-signal --repository-format=docker --location=REGION
+#   docker build --platform linux/amd64 -f infra/conversion-service/Dockerfile -t REGION-docker.pkg.dev/PROJECT_ID/openart-signal/conversion-service:TAG .
+#   docker push REGION-docker.pkg.dev/PROJECT_ID/openart-signal/conversion-service:TAG
+#   gcloud storage buckets create gs://PROJECT_ID-conversion-service-dry-run --location=US \
+#     --uniform-bucket-level-access --public-access-prevention \
+#     --lifecycle-file=infra/conversion-service/dry-run-bucket-lifecycle.json
+#   gcloud run services replace infra/conversion-service/cloudrun-service.yaml --region REGION
+#   IAM: infra/conversion-service/iam.yaml (table-level BigQuery grants, one Firestore database,
+#   a write-once custom role on the dry-run bucket, per-secret access).
+#
+# Ingress and rate limiting. Stripe cannot present Google IAM credentials, so every route
+# authenticates itself (Stripe signature, HMAC, or Google OIDC — see src/server.ts) and run.invoker
+# is granted to allUsers. The service does NOT take traffic straight from the internet:
+#   ingress internal-and-cloud-load-balancing (below). Pub/Sub push and Cloud Scheduler still reach it
+#   (they count as internal traffic in the same project). Stripe and OpenArt's backend come through an
+#   external HTTPS load balancer (serverless NEG) with a Cloud Armor policy:
+#     gcloud compute security-policies create conversion-service-edge
+#     # /webhooks/stripe: only Stripe's published webhook IPs (https://docs.stripe.com/ips), rate-limited
+#     gcloud compute security-policies rules create 100 --security-policy conversion-service-edge \
+#       --expression "request.path.startsWith('/webhooks/stripe') && !inIpRange(origin.ip, 'STRIPE_WEBHOOK_CIDR')" --action deny-403
+#     # /events and /value: only OpenArt's backend egress (Cloud NAT) addresses
+#     gcloud compute security-policies rules create 110 --security-policy conversion-service-edge \
+#       --expression "(request.path.startsWith('/events') || request.path.startsWith('/value')) && !inIpRange(origin.ip, 'OPENART_EGRESS_CIDR')" --action deny-403
+#     # per-IP rate-based ban for everything else
+#     gcloud compute security-policies rules create 1000 --security-policy conversion-service-edge \
+#       --src-ip-ranges='*' --action rate-based-ban --rate-limit-threshold-count 600 --rate-limit-threshold-interval-sec 60 \
+#       --ban-duration-sec 600 --conform-action allow --exceed-action deny-429 --enforce-on-key IP
+#   (API Gateway in front is the alternative; either way the service keeps its own authentication.)
+#   Then: Stripe Dashboard -> Developers -> Webhooks -> add endpoint LB_URL/webhooks/stripe with the
+#   7 event types in packages/conversion-service/README.md, and store its signing secret (secrets.yaml).
+#
+# Starts in DRY-RUN. Going live for a platform needs CONVERSION_SERVICE_MODE=live, LIVE_PLATFORMS and
+# LIVE_CONFIRM=send-real-conversions-to-ad-platforms, plus that platform's secrets. Live mode refuses to
+# start with in-memory storage, example/placeholder/short secrets, an implicit GOOGLE_VALIDATE_ONLY,
+# PUBSUB_REQUIRE_STRIPE_SIGNATURE=false or STRIPE_LIVEMODE other than live.
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: conversion-service
+  labels:
+    app: openart-signal-conversion-service
+  annotations:
+    run.googleapis.com/ingress: internal-and-cloud-load-balancing
+    run.googleapis.com/launch-stage: GA
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: '1'
+        autoscaling.knative.dev/maxScale: '10'
+        # Outbox drains run after the response (OUTBOX_DRAIN_AFTER_INGEST=async): keep CPU allocated.
+        run.googleapis.com/cpu-throttling: 'false'
+        run.googleapis.com/startup-cpu-boost: 'true'
+        # gen2 is required for the Cloud Storage volume mount below.
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      serviceAccountName: conversion-service@PROJECT_ID.iam.gserviceaccount.com
+      containerConcurrency: 40
+      timeoutSeconds: 60
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/openart-signal/conversion-service:TAG
+          ports:
+            - name: http1
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: '1'
+              memory: 512Mi
+          env:
+            # --- mode (dry-run until explicitly switched) ---
+            - name: CONVERSION_SERVICE_MODE
+              value: dry_run
+            - name: DRY_RUN_OUT_DIR
+              value: /dry-run
+            - name: OUTBOX_DRAIN_AFTER_INGEST
+              value: async
+            # --- storage (live mode requires exactly these: Firestore + BigQuery) ---
+            - name: STORE_BACKEND
+              value: firestore
+            - name: FIRESTORE_PROJECT_ID
+              value: PROJECT_ID
+            - name: FIRESTORE_DATABASE
+              value: conversion-service
+            - name: LEDGER_BACKEND
+              value: bigquery
+            - name: BIGQUERY_PROJECT_ID
+              value: PROJECT_ID
+            - name: BIGQUERY_LOCATION
+              value: US
+            - name: BQ_LEDGER_TABLE
+              value: conversions.conversion_ledger_raw
+            - name: BQ_ERASURE_REQUESTS_TABLE
+              value: conversions.erasure_requests
+            # The purchase-time value E[gross_profit_90d | purchase] (contracts PurchaseValueScore).
+            # Never fct_predicted_profit_24h: that estimand is for experiment readouts (the service refuses
+            # BQ_PREDICTED_PROFIT_TABLE).
+            - name: BQ_PURCHASE_VALUE_TABLE
+              value: marts.fct_purchase_value_score
+            - name: BQ_AD_CLICK_IDS_TABLE
+              value: app.ad_click_ids
+            - name: BQ_USER_CONTEXT_TABLE
+              value: conversion_context.conversion_user_context
+            # --- value (see README "Value") ---
+            - name: VALUE_SCORE_SLA_MS
+              value: '600000'
+            - name: REPORTING_CURRENCY
+              value: USD
+            - name: FX_RATES_TO_REPORTING
+              # units of the reporting currency per 1 unit; amounts without a rate stay in their own currency
+              value: '{}'
+            # --- auth for push/scheduler routes ---
+            - name: OIDC_AUDIENCE
+              value: SERVICE_URL
+            - name: PUBSUB_PUSH_SERVICE_ACCOUNT
+              value: stripe-events-push@PROJECT_ID.iam.gserviceaccount.com
+            - name: SCHEDULER_SERVICE_ACCOUNT
+              value: conversion-service-scheduler@PROJECT_ID.iam.gserviceaccount.com
+            - name: PUBSUB_REQUIRE_STRIPE_SIGNATURE
+              # default true; live mode refuses false
+              value: 'true'
+            # --- destinations (fill in from Google Ads / LinkedIn / Microsoft Advertising) ---
+            - name: GOOGLE_ADS_OPERATING_ACCOUNT_ID
+              value: 'GOOGLE_ADS_CUSTOMER_ID_10_DIGITS'
+            - name: GOOGLE_ADS_CONVERSION_ACTIONS
+              # purchase_first MUST be the numeric id of the action whose tag label is OfGcCJisoLQZEOSYw_Up.
+              value: '{"purchase_first":"CONVERSION_ACTION_ID","signup":"CONVERSION_ACTION_ID"}'
+            - name: GOOGLE_MULTI_SOURCE_CONFIRMED
+              value: 'false'
+            - name: GOOGLE_ADJUSTMENTS
+              value: 'off'
+            - name: GOOGLE_VALIDATE_ONLY
+              # Explicit on purpose: live mode refuses to start without it when google_ads is live.
+              # true = Google only validates (outbox status "validated", never "sent").
+              value: 'true'
+            - name: LINKEDIN_CONVERSION_RULES
+              value: '{}'
+            - name: MICROSOFT_SEND_MODE
+              # offline_conversions until the UET Conversions API is enabled for the account (staged rollout).
+              value: uet_capi
+            - name: MICROSOFT_ADJUSTMENTS
+              value: 'off'
+            - name: WEB_FIXES_LIVE
+              value: ''
+            - name: REDDIT_DEDUP_VERIFIED
+              value: 'false'
+            # --- secrets (names only; values live in Secret Manager, see secrets.yaml) ---
+            - name: STRIPE_WEBHOOK_SECRETS
+              valueFrom:
+                secretKeyRef:
+                  name: conversion-service-stripe-webhook-secrets
+                  key: latest
+            - name: INTERNAL_EVENTS_HMAC_SECRETS
+              valueFrom:
+                secretKeyRef:
+                  name: conversion-service-internal-hmac-secrets
+                  key: latest
+            # Live-only secrets: add the pair for each platform in LIVE_PLATFORMS, e.g.
+            # - name: META_CAPI_ACCESS_TOKEN
+            #   valueFrom: { secretKeyRef: { name: conversion-service-meta-capi-access-token, key: latest } }
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 2
+            failureThreshold: 15
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 30
+          volumeMounts:
+            - name: dry-run
+              mountPath: /dry-run
+      volumes:
+        # Dry-run payloads (hashed identifiers, IP/UA) go to a private bucket whose lifecycle rule
+        # (dry-run-bucket-lifecycle.json) deletes objects after 30 days. The service account has the
+        # write-once custom role only (iam.yaml); file names are unique per instance (ULID).
+        - name: dry-run
+          csi:
+            driver: gcsfuse.run.googleapis.com
+            readOnly: false
+            volumeAttributes:
+              bucketName: PROJECT_ID-conversion-service-dry-run

@@ -1,0 +1,490 @@
+unit_tests:
+  - name: purchases_classified_from_billing_reason_and_lines
+    description: >
+      One Plus subscription through its life, plus a one-time pack and two invoices that must not
+      become purchases in silence:
+        in_1First   subscription_create                 -> purchase_first (is_first_purchase, checkout session)
+        in_1AddOn   subscription_update, CreditPack line -> purchase_add_on, tier from subscription state, 1 pack
+        in_1Upgrade subscription_update, -Plus/+Pro lines -> purchase_upgrade infinite, previous advanced
+        in_1Renew   subscription_cycle, Pro + 1 pack     -> purchase_renewal, credit_pack_quantity 1
+        in_1Weird   billing_reason manual                -> kept with event_name NULL (fails a not_null test)
+        in_1Zero    $0 invoice                            -> not a purchase
+        cs_live_1Pack payment-mode Checkout              -> purchase_one_time_pack, not first (after in_1First)
+    model: int_stripe__purchases
+    given:
+      - input: ref('stg_stripe__checkout_sessions')
+        format: dict
+        rows:
+          - {checkout_session_id: cs_live_1Sub, completed_event_id: evt_cs1, completed_at: '2026-06-15 12:00:01', session_status: complete, payment_status: paid, checkout_mode: subscription, user_id: u1, subscription_id: sub_1S, invoice_id: in_1First, payment_intent_id: null, amount_total_minor: 3400, currency: USD}
+          - {checkout_session_id: cs_live_1Pack, completed_event_id: evt_cs2, completed_at: '2026-06-20 10:00:00', session_status: complete, payment_status: paid, checkout_mode: payment, user_id: u1, subscription_id: null, invoice_id: null, payment_intent_id: pi_3Pack, amount_total_minor: 999, currency: USD}
+      - input: ref('stg_stripe__invoices')
+        format: dict
+        rows:
+          - {invoice_id: in_1First, paid_event_id: evt_i1, invoice_status: paid, user_id: u1, subscription_id: sub_1S, billing_reason: subscription_create, currency: USD, amount_paid_minor: 3400, paid_at: '2026-06-15 12:00:00'}
+          - {invoice_id: in_1AddOn, paid_event_id: evt_i2, invoice_status: paid, user_id: u1, subscription_id: sub_1S, billing_reason: subscription_update, currency: USD, amount_paid_minor: 1000, paid_at: '2026-06-25 12:00:00'}
+          - {invoice_id: in_1Upgrade, paid_event_id: evt_i3, invoice_status: paid, user_id: u1, subscription_id: sub_1S, billing_reason: subscription_update, currency: USD, amount_paid_minor: 734, paid_at: '2026-07-05 12:00:00'}
+          - {invoice_id: in_1Renew, paid_event_id: evt_i4, invoice_status: paid, user_id: u1, subscription_id: sub_1S, billing_reason: subscription_cycle, currency: USD, amount_paid_minor: 7100, paid_at: '2026-07-15 12:00:00'}
+          - {invoice_id: in_1Weird, paid_event_id: evt_i5, invoice_status: paid, user_id: u1, subscription_id: sub_1S, billing_reason: manual, currency: USD, amount_paid_minor: 500, paid_at: '2026-07-20 12:00:00'}
+          - {invoice_id: in_1Zero, paid_event_id: evt_i6, invoice_status: paid, user_id: u1, subscription_id: sub_1S, billing_reason: subscription_create, currency: USD, amount_paid_minor: 0, paid_at: '2026-06-01 12:00:00'}
+      - input: ref('stg_stripe__invoice_lines')
+        format: dict
+        rows:
+          - {invoice_id: in_1First, line_id: il_1, amount_minor: 3400, quantity: 1, price_id: price_1TvuqQKVhG51tYSBesVOM0JO}
+          - {invoice_id: in_1AddOn, line_id: il_2, amount_minor: 1000, quantity: 1, price_id: price_SYNTHcreditPack5kMonth}
+          - {invoice_id: in_1Upgrade, line_id: il_3, amount_minor: -1133, quantity: 1, price_id: price_1TvuqQKVhG51tYSBesVOM0JO}
+          - {invoice_id: in_1Upgrade, line_id: il_4, amount_minor: 1867, quantity: 1, price_id: price_1QPKxIKVhG51tYSBcgKOHs5y}
+          - {invoice_id: in_1Renew, line_id: il_5, amount_minor: 5600, quantity: 1, price_id: price_1QPKxIKVhG51tYSBcgKOHs5y}
+          - {invoice_id: in_1Renew, line_id: il_6, amount_minor: 1500, quantity: 1, price_id: price_SYNTHcreditPack5kMonth}
+          - {invoice_id: in_1Weird, line_id: il_7, amount_minor: 500, quantity: 1, price_id: price_1TvuqQKVhG51tYSBesVOM0JO}
+      - input: ref('plan_catalog')
+        format: dict
+        rows:
+          - {price_id: price_1TvuqQKVhG51tYSBesVOM0JO, item_type: plan, plan_tier: advanced, billing_interval: month, unit_amount_minor: 3400, plan_tier_code: 2000}
+          - {price_id: price_1QPKxIKVhG51tYSBcgKOHs5y, item_type: plan, plan_tier: infinite, billing_interval: month, unit_amount_minor: 5600, plan_tier_code: 3000}
+          - {price_id: price_SYNTHcreditPack5kMonth, item_type: credit_pack, plan_tier: null, billing_interval: month, unit_amount_minor: 1500, plan_tier_code: null}
+      - input: ref('stg_stripe__subscription_events')
+        format: dict
+        rows:
+          - {stripe_event_id: evt_s1, subscription_id: sub_1S, changed_at: '2026-06-25 12:00:00'}
+          - {stripe_event_id: evt_s2, subscription_id: sub_1S, changed_at: '2026-07-05 12:00:00'}
+      - input: ref('stg_stripe__subscription_items')
+        format: dict
+        rows:
+          - {stripe_event_id: evt_s1, price_id: price_1TvuqQKVhG51tYSBesVOM0JO, quantity: 1}
+          - {stripe_event_id: evt_s1, price_id: price_SYNTHcreditPack5kMonth, quantity: 1}
+          - {stripe_event_id: evt_s2, price_id: price_1QPKxIKVhG51tYSBcgKOHs5y, quantity: 1}
+          - {stripe_event_id: evt_s2, price_id: price_SYNTHcreditPack5kMonth, quantity: 1}
+      - input: ref('stg_stripe__invoice_payments')
+        format: dict
+        rows:
+          - {invoice_payment_id: inpay_1, invoice_id: in_1First, payment_intent_id: pi_3First, charge_id: null, payment_created_at: '2026-06-15 12:00:00'}
+      - input: ref('int_fx__rates')
+        format: dict
+        rows:
+          - {currency: USD, reporting_currency: USD, valid_from: '2020-01-01', valid_to: null, reporting_per_unit: 1.0, minor_unit_digits: 2}
+    expect:
+      format: dict
+      rows:
+        - {event_id: purchase_in_1First, order_id: sub_in_1First, event_name: purchase_first, classification_rule: billing_reason_subscription_create, cash_value_minor: 3400, plan_tier: advanced, plan_tier_code: 2000, billing_interval: month, previous_plan_tier: null, credit_pack_quantity: null, is_first_purchase: true, checkout_session_id: cs_live_1Sub, payment_intent_id: pi_3First}
+        - {event_id: purchase_in_1AddOn, order_id: sub_in_1AddOn, event_name: purchase_add_on, classification_rule: credit_pack_line, cash_value_minor: 1000, plan_tier: advanced, plan_tier_code: 2000, billing_interval: month, previous_plan_tier: null, credit_pack_quantity: 1, is_first_purchase: false, checkout_session_id: null, payment_intent_id: null}
+        - {event_id: purchase_in_1Upgrade, order_id: sub_in_1Upgrade, event_name: purchase_upgrade, classification_rule: plan_change_lines, cash_value_minor: 734, plan_tier: infinite, plan_tier_code: 3000, billing_interval: month, previous_plan_tier: advanced, credit_pack_quantity: 1, is_first_purchase: false, checkout_session_id: null, payment_intent_id: null}
+        - {event_id: purchase_in_1Renew, order_id: sub_in_1Renew, event_name: purchase_renewal, classification_rule: billing_reason_recurring, cash_value_minor: 7100, plan_tier: infinite, plan_tier_code: 3000, billing_interval: month, previous_plan_tier: null, credit_pack_quantity: 1, is_first_purchase: false, checkout_session_id: null, payment_intent_id: null}
+        - {event_id: purchase_in_1Weird, order_id: sub_in_1Weird, event_name: null, classification_rule: unclassified_billing_reason, cash_value_minor: 500, plan_tier: advanced, plan_tier_code: 2000, billing_interval: month, previous_plan_tier: null, credit_pack_quantity: null, is_first_purchase: false, checkout_session_id: null, payment_intent_id: null}
+        - {event_id: purchase_cs_live_1Pack, order_id: sub_cs_live_1Pack, event_name: purchase_one_time_pack, classification_rule: payment_mode_checkout, cash_value_minor: 999, plan_tier: null, plan_tier_code: null, billing_interval: null, previous_plan_tier: null, credit_pack_quantity: null, is_first_purchase: false, checkout_session_id: cs_live_1Pack, payment_intent_id: pi_3Pack}
+
+  - name: purchases_convert_to_the_reporting_currency_point_in_time_and_net_of_tax
+    description: >
+      Money reaches the profit models in the reporting currency (USD), tax-exclusive, converted
+      at the rate valid on the purchase date. in_Usd pays 11.00 with 1.00 tax -> revenue 10.00;
+      in_EurJun / in_EurJul pay 10.00 EUR either side of a rate change (1.08 then 1.10);
+      in_Jpy pays 1400 JPY, a zero-decimal currency (1,400 yen x 0.0067 = 9.38, not 14.00);
+      cs_live_Gbp is a pack paid 12.00 GBP incl. 2.00 tax; in_Xyz has no rate -> NULL values.
+    model: int_stripe__purchases
+    given:
+      - input: ref('stg_stripe__checkout_sessions')
+        format: dict
+        rows:
+          - {checkout_session_id: cs_live_Gbp, completed_event_id: evt_cs, completed_at: '2026-06-20 10:00:00', session_status: complete, payment_status: paid, checkout_mode: payment, user_id: u1, subscription_id: null, invoice_id: null, payment_intent_id: pi_Gbp, amount_total_minor: 1200, amount_tax_minor: 200, currency: GBP}
+      - input: ref('stg_stripe__invoices')
+        format: dict
+        rows:
+          - {invoice_id: in_Usd, paid_event_id: e1, invoice_status: paid, user_id: u1, subscription_id: sub_1, billing_reason: subscription_create, currency: USD, amount_paid_minor: 1100, total_minor: 1100, total_excluding_tax_minor: 1000, paid_at: '2026-06-01 12:00:00'}
+          - {invoice_id: in_EurJun, paid_event_id: e2, invoice_status: paid, user_id: u2, subscription_id: sub_2, billing_reason: subscription_create, currency: EUR, amount_paid_minor: 1000, total_minor: 1000, total_excluding_tax_minor: 1000, paid_at: '2026-06-15 12:00:00'}
+          - {invoice_id: in_EurJul, paid_event_id: e3, invoice_status: paid, user_id: u2, subscription_id: sub_2, billing_reason: subscription_cycle, currency: EUR, amount_paid_minor: 1000, total_minor: 1000, total_excluding_tax_minor: null, paid_at: '2026-07-15 12:00:00'}
+          - {invoice_id: in_Jpy, paid_event_id: e4, invoice_status: paid, user_id: u3, subscription_id: sub_3, billing_reason: subscription_create, currency: JPY, amount_paid_minor: 1400, total_minor: 1400, total_excluding_tax_minor: 1400, paid_at: '2026-06-02 12:00:00'}
+          - {invoice_id: in_Xyz, paid_event_id: e5, invoice_status: paid, user_id: u4, subscription_id: sub_4, billing_reason: subscription_create, currency: XYZ, amount_paid_minor: 500, total_minor: 500, total_excluding_tax_minor: 500, paid_at: '2026-06-02 12:00:00'}
+      - input: ref('stg_stripe__invoice_lines')
+        format: dict
+        rows:
+          - {invoice_id: in_Usd, line_id: l1, amount_minor: 1100, quantity: 1, price_id: p_ess}
+      - input: ref('plan_catalog')
+        format: dict
+        rows:
+          - {price_id: p_ess, item_type: plan, plan_tier: essential, billing_interval: month, unit_amount_minor: 1400, plan_tier_code: 1000}
+      - input: ref('stg_stripe__subscription_events')
+        format: dict
+        rows: []
+      - input: ref('stg_stripe__subscription_items')
+        format: dict
+        rows: []
+      - input: ref('stg_stripe__invoice_payments')
+        format: dict
+        rows: []
+      - input: ref('int_fx__rates')
+        format: dict
+        rows:
+          - {currency: USD, reporting_currency: USD, valid_from: '2020-01-01', valid_to: null, reporting_per_unit: 1.0, minor_unit_digits: 2}
+          - {currency: EUR, reporting_currency: USD, valid_from: '2020-01-01', valid_to: '2026-07-01', reporting_per_unit: 1.08, minor_unit_digits: 2}
+          - {currency: EUR, reporting_currency: USD, valid_from: '2026-07-01', valid_to: null, reporting_per_unit: 1.10, minor_unit_digits: 2}
+          - {currency: JPY, reporting_currency: USD, valid_from: '2020-01-01', valid_to: null, reporting_per_unit: 0.0067, minor_unit_digits: 0}
+          - {currency: GBP, reporting_currency: USD, valid_from: '2020-01-01', valid_to: null, reporting_per_unit: 1.27, minor_unit_digits: 2}
+    expect:
+      format: dict
+      rows:
+        - {event_id: purchase_in_Usd, cash_value_minor: 1100, revenue_minor: 1000, reporting_currency: USD, cash_value_reporting: 11.0, revenue_reporting: 10.0}
+        - {event_id: purchase_in_EurJun, cash_value_minor: 1000, revenue_minor: 1000, reporting_currency: USD, cash_value_reporting: 10.8, revenue_reporting: 10.8}
+        - {event_id: purchase_in_EurJul, cash_value_minor: 1000, revenue_minor: 1000, reporting_currency: USD, cash_value_reporting: 11.0, revenue_reporting: 11.0}
+        - {event_id: purchase_in_Jpy, cash_value_minor: 1400, revenue_minor: 1400, reporting_currency: USD, cash_value_reporting: 9.38, revenue_reporting: 9.38}
+        - {event_id: purchase_in_Xyz, cash_value_minor: 500, revenue_minor: 500, reporting_currency: USD, cash_value_reporting: null, revenue_reporting: null}
+        - {event_id: purchase_cs_live_Gbp, cash_value_minor: 1200, revenue_minor: 1000, reporting_currency: USD, cash_value_reporting: 15.24, revenue_reporting: 12.7}
+
+  - name: adjustments_link_through_purchase_keys_and_net_disputes
+    description: >
+      Refunds and disputes find their purchase through every key the purchase itself holds, and a
+      dispute never takes back more than is left (database review 2 and 3):
+        ch_1  refunded in full, THEN disputed          -> refund -3400; the dispute nets to 0: no ledger event
+        in_2  has no invoice_payment.paid (legacy invoice.payment_intent pi_2): refund 400 links
+              through the purchase's own payment intent; its dispute of 1400 nets to 1000
+        ch_9  legacy charge on in_4, dispute won         -> no ledger event (funds reinstated)
+        pi_3  pack disputed and lost                     -> chargeback -999
+        ch_x  refund of a charge no purchase knows       -> kept, unlinked (quarantined downstream)
+      restated_order_value_minor never goes below zero.
+    model: int_stripe__adjustments
+    given:
+      - input: ref('int_stripe__purchases')
+        format: dict
+        rows:
+          - {event_id: purchase_in_1, order_id: sub_in_1, event_name: purchase_first, occurred_at: '2026-06-01 10:00:00', user_id: u1, invoice_id: in_1, subscription_id: sub_1, payment_intent_id: pi_1, charge_id: null, cash_value_minor: 3400, revenue_minor: 3400, currency: USD, plan_tier: advanced, plan_tier_code: 2000, billing_interval: month}
+          - {event_id: purchase_in_2, order_id: sub_in_2, event_name: purchase_first, occurred_at: '2026-06-02 10:00:00', user_id: u2, invoice_id: in_2, subscription_id: sub_2, payment_intent_id: pi_2, charge_id: null, cash_value_minor: 1400, revenue_minor: 1400, currency: USD, plan_tier: essential, plan_tier_code: 1000, billing_interval: month}
+          - {event_id: purchase_cs_live_3, order_id: sub_cs_live_3, event_name: purchase_one_time_pack, occurred_at: '2026-06-03 10:00:00', user_id: u3, invoice_id: null, subscription_id: null, payment_intent_id: pi_3, charge_id: null, cash_value_minor: 999, revenue_minor: 999, currency: USD, plan_tier: null, plan_tier_code: null, billing_interval: null}
+          - {event_id: purchase_in_4, order_id: sub_in_4, event_name: purchase_first, occurred_at: '2026-06-04 10:00:00', user_id: u4, invoice_id: in_4, subscription_id: sub_4, payment_intent_id: null, charge_id: ch_9, cash_value_minor: 1400, revenue_minor: 1400, currency: USD, plan_tier: essential, plan_tier_code: 1000, billing_interval: month}
+      - input: ref('stg_stripe__invoice_payments')
+        format: dict
+        rows:
+          - {invoice_payment_id: inpay_1, invoice_id: in_1, payment_intent_id: pi_1, charge_id: ch_1, payment_created_at: '2026-06-01 10:00:00'}
+      - input: ref('stg_stripe__refunds')
+        format: dict
+        rows:
+          - {stripe_event_id: evt_r1, refunded_at: '2026-06-05 10:00:00', charge_id: ch_1, user_id: u1, payment_intent_id: pi_1, legacy_invoice_id: null, amount_refunded_cumulative_minor: 3400, refund_step_minor: 3400, currency: USD}
+          - {stripe_event_id: evt_r2, refunded_at: '2026-06-06 10:00:00', charge_id: ch_2, user_id: u2, payment_intent_id: pi_2, legacy_invoice_id: null, amount_refunded_cumulative_minor: 400, refund_step_minor: 400, currency: USD}
+          - {stripe_event_id: evt_rx, refunded_at: '2026-06-07 10:00:00', charge_id: ch_x, user_id: u9, payment_intent_id: pi_x, legacy_invoice_id: null, amount_refunded_cumulative_minor: 100, refund_step_minor: 100, currency: USD}
+      - input: ref('stg_stripe__disputes')
+        format: dict
+        rows:
+          - {dispute_id: dp_1, stripe_event_id: evt_d1, disputed_at: '2026-06-10 10:00:00', charge_id: ch_1, payment_intent_id: pi_1, amount_minor: 3400, currency: USD, dispute_reason: fraudulent, dispute_status: needs_response, is_money_lost: true}
+          - {dispute_id: dp_2, stripe_event_id: evt_d2, disputed_at: '2026-06-12 10:00:00', charge_id: ch_2, payment_intent_id: pi_2, amount_minor: 1400, currency: USD, dispute_reason: general, dispute_status: lost, is_money_lost: true}
+          - {dispute_id: dp_3, stripe_event_id: evt_d3, disputed_at: '2026-06-13 10:00:00', charge_id: ch_9, payment_intent_id: null, amount_minor: 1400, currency: USD, dispute_reason: general, dispute_status: won, is_money_lost: false}
+          - {dispute_id: dp_4, stripe_event_id: evt_d4, disputed_at: '2026-06-14 10:00:00', charge_id: ch_3, payment_intent_id: pi_3, amount_minor: 999, currency: USD, dispute_reason: product_not_received, dispute_status: lost, is_money_lost: true}
+      - input: ref('int_fx__rates')
+        format: dict
+        rows:
+          - {currency: USD, reporting_currency: USD, valid_from: '2020-01-01', valid_to: null, reporting_per_unit: 1.0, minor_unit_digits: 2}
+    expect:
+      format: dict
+      rows:
+        - {event_id: refund_ch_1_3400, event_name: refund, adjusts_event_id: purchase_in_1, cash_value_minor: -3400, ledger_cash_value_minor: -3400, is_ledger_event: true, restated_order_value_minor: 0, cash_value_reporting: -34.0, disposition: refund}
+        - {event_id: refund_ch_2_400, event_name: refund, adjusts_event_id: purchase_in_2, cash_value_minor: -400, ledger_cash_value_minor: -400, is_ledger_event: true, restated_order_value_minor: 1000, cash_value_reporting: -4.0, disposition: refund}
+        - {event_id: refund_ch_x_100, event_name: refund, adjusts_event_id: null, cash_value_minor: -100, ledger_cash_value_minor: -100, is_ledger_event: true, restated_order_value_minor: null, cash_value_reporting: -1.0, disposition: refund}
+        - {event_id: chargeback_dp_1, event_name: chargeback, adjusts_event_id: purchase_in_1, cash_value_minor: -3400, ledger_cash_value_minor: 0, is_ledger_event: false, restated_order_value_minor: 0, cash_value_reporting: 0.0, disposition: dispute_after_full_refund}
+        - {event_id: chargeback_dp_2, event_name: chargeback, adjusts_event_id: purchase_in_2, cash_value_minor: -1400, ledger_cash_value_minor: -1000, is_ledger_event: true, restated_order_value_minor: 0, cash_value_reporting: -10.0, disposition: chargeback}
+        - {event_id: chargeback_dp_3, event_name: chargeback, adjusts_event_id: purchase_in_4, cash_value_minor: -1400, ledger_cash_value_minor: 0, is_ledger_event: false, restated_order_value_minor: 1400, cash_value_reporting: 0.0, disposition: dispute_won_or_inquiry}
+        - {event_id: chargeback_dp_4, event_name: chargeback, adjusts_event_id: purchase_cs_live_3, cash_value_minor: -999, ledger_cash_value_minor: -999, is_ledger_event: true, restated_order_value_minor: 0, cash_value_reporting: -9.99, disposition: chargeback}
+
+  - name: subscription_status_uses_the_line_service_period_not_the_invoice_period
+    description: >
+      Real Stripe (database review 1): a subscription_cycle invoice's own period_start/period_end
+      cover the PREVIOUS period (the usage it bills for); the new term is on the subscription line
+      (lines.data[].period). The fixture builder writes the new term at invoice level, so the old
+      max(period_end) looked right on fixtures while every real subscriber read `lapsed`.
+      sub_active renewed 2026-09-10 for 09-10..10-10 (invoice-level period 08-10..09-10): active
+      at the 09-28 as-of. sub_lapsed's last line ended 09-01: lapsed. A proration line (upgrade
+      credit) never extends the term. sub_gone was deleted: canceled.
+    model: int_stripe__subscription_status
+    overrides:
+      vars:
+        as_of_timestamp: '2026-09-28 00:00:00'
+    given:
+      - input: ref('stg_stripe__invoices')
+        format: dict
+        rows:
+          - {invoice_id: in_a1, user_id: u1, subscription_id: sub_active, invoice_status: paid, paid_at: '2026-08-10 00:00:00', period_start: '2026-07-10 00:00:00', period_end: '2026-08-10 00:00:00'}
+          - {invoice_id: in_a2, user_id: u1, subscription_id: sub_active, invoice_status: paid, paid_at: '2026-09-10 00:00:00', period_start: '2026-08-10 00:00:00', period_end: '2026-09-10 00:00:00'}
+          - {invoice_id: in_l1, user_id: u2, subscription_id: sub_lapsed, invoice_status: paid, paid_at: '2026-08-01 00:00:00', period_start: '2026-07-01 00:00:00', period_end: '2026-08-01 00:00:00'}
+          - {invoice_id: in_l2, user_id: u2, subscription_id: sub_lapsed, invoice_status: paid, paid_at: '2026-08-20 00:00:00', period_start: '2026-08-20 00:00:00', period_end: '2026-08-20 00:00:00'}
+          - {invoice_id: in_g1, user_id: u3, subscription_id: sub_gone, invoice_status: paid, paid_at: '2026-09-05 00:00:00', period_start: '2026-08-05 00:00:00', period_end: '2026-09-05 00:00:00'}
+      - input: ref('stg_stripe__invoice_lines')
+        format: dict
+        rows:
+          - {invoice_id: in_a1, line_id: la1, is_proration: false, line_period_start: '2026-08-10 00:00:00', line_period_end: '2026-09-10 00:00:00'}
+          - {invoice_id: in_a2, line_id: la2, is_proration: false, line_period_start: '2026-09-10 00:00:00', line_period_end: '2026-10-10 00:00:00'}
+          - {invoice_id: in_l1, line_id: ll1, is_proration: false, line_period_start: '2026-08-01 00:00:00', line_period_end: '2026-09-01 00:00:00'}
+          - {invoice_id: in_l2, line_id: ll2, is_proration: true, line_period_start: '2026-08-20 00:00:00', line_period_end: '2026-12-01 00:00:00'}
+          - {invoice_id: in_g1, line_id: lg1, is_proration: false, line_period_start: '2026-09-05 00:00:00', line_period_end: '2026-10-05 00:00:00'}
+      - input: ref('stg_stripe__subscription_events')
+        format: dict
+        rows:
+          - {stripe_event_id: evt_del, event_type: customer.subscription.deleted, subscription_id: sub_gone, changed_at: '2026-09-15 00:00:00'}
+      - input: ref('int_stripe__purchases')
+        format: dict
+        rows:
+          - {event_id: purchase_in_a2, subscription_id: sub_active, plan_tier: essential, billing_interval: month, occurred_at: '2026-09-10 00:00:00'}
+    expect:
+      format: dict
+      rows:
+        - {subscription_id: sub_active, current_period_end: '2026-10-10 00:00:00', status_as_of: active}
+        - {subscription_id: sub_lapsed, current_period_end: '2026-09-01 00:00:00', status_as_of: lapsed}
+        - {subscription_id: sub_gone, current_period_end: '2026-10-05 00:00:00', status_as_of: canceled}
+
+  - name: arm_multipliers_shrink_by_between_arm_variance
+    description: >
+      EB shrinkage of the arm terms (ML review 4). Image arm A: 4 matured users, 3 conversions,
+      expected 1 (p 0.25 each); arm B: 0 of expected 1. r = ln((O+0.5)/(E+0.5)), v = 1/(O+0.5),
+      tau2 = var(r) - mean(v) = 0.750426; multiplier = exp(tau2/(tau2+v) * r): A 1.847173, B 0.741007.
+      The single video arm has no between-arm variance: its multiplier is exactly 1. Value: only A has
+      converters and they match the pooled mean: value multipliers 1.
+    model: int_pp__arm_multipliers
+    given:
+      - input: ref('int_pp__fit_sets')
+        format: dict
+        rows:
+          - {fit_id: xf0, user_id: a1}
+          - {fit_id: xf0, user_id: a2}
+          - {fit_id: xf0, user_id: a3}
+          - {fit_id: xf0, user_id: a4}
+          - {fit_id: xf0, user_id: b1}
+          - {fit_id: xf0, user_id: b2}
+          - {fit_id: xf0, user_id: b3}
+          - {fit_id: xf0, user_id: b4}
+      - input: ref('int_pp__user_outcomes')
+        format: dict
+        rows:
+          - {user_id: a1, segment: activated, is_conversion_mature: true, converted_after_24h: true, first_subscription_cash_usd: 10.0, arm_create_image: A, arm_create_video: v}
+          - {user_id: a2, segment: activated, is_conversion_mature: true, converted_after_24h: true, first_subscription_cash_usd: 20.0, arm_create_image: A, arm_create_video: v}
+          - {user_id: a3, segment: activated, is_conversion_mature: true, converted_after_24h: true, first_subscription_cash_usd: 30.0, arm_create_image: A, arm_create_video: v}
+          - {user_id: a4, segment: activated, is_conversion_mature: true, converted_after_24h: false, first_subscription_cash_usd: null, arm_create_image: A, arm_create_video: v}
+          - {user_id: b1, segment: activated, is_conversion_mature: true, converted_after_24h: false, first_subscription_cash_usd: null, arm_create_image: B, arm_create_video: v}
+          - {user_id: b2, segment: activated, is_conversion_mature: true, converted_after_24h: false, first_subscription_cash_usd: null, arm_create_image: B, arm_create_video: v}
+          - {user_id: b3, segment: activated, is_conversion_mature: true, converted_after_24h: false, first_subscription_cash_usd: null, arm_create_image: B, arm_create_video: v}
+          - {user_id: b4, segment: activated, is_conversion_mature: true, converted_after_24h: false, first_subscription_cash_usd: null, arm_create_image: B, arm_create_video: v}
+      - input: ref('int_pp__segment_rates')
+        format: dict
+        rows:
+          - {fit_id: xf0, segment: activated, p_convert: 0.25}
+    expect:
+      format: dict
+      rows:
+        - {fit_id: xf0, flag_key: suite-default-model-create-image, arm: A, observed_conversions: 3, tau2: 0.750426011, conversion_multiplier: 1.847173478, value_multiplier: 1.0}
+        - {fit_id: xf0, flag_key: suite-default-model-create-image, arm: B, observed_conversions: 0, tau2: 0.750426011, conversion_multiplier: 0.74100694, value_multiplier: 1.0}
+        - {fit_id: xf0, flag_key: suite-default-model-create-video, arm: v, observed_conversions: 3, tau2: 0.0, conversion_multiplier: 1.0, value_multiplier: 1.0}
+
+  - name: purchase_value_score_is_the_structural_expectation_at_the_purchase
+    description: >
+      Hand-computed E[90-day gross profit | purchase] (int_pvs__scores), both purchases by fold-0
+      users, so scored with fit xf0. Monthly Essential first purchase ($14): renewal s = 0.8 ->
+      renewals 0.8 + 0.64 = 1.44, paid months 2.44; revenue 14 + 14 x 1.44 + $1/month add-ons x 2.44
+      = 36.6; burn 0.25 x 4000 = 1000 credits/month; $/credit blends the user's own 40 pre-purchase
+      credits at $0.004 with the arms' measured $0.002 (2000 pseudo-credits) = $0.00203922; fees
+      36.6 x 3% + 2.44 x ($0.30 + 0.5% x $15); refund risk 1.5% of revenue. Interval: 0 renewals with
+      burn +1.28 CV (low), 2 renewals with burn -1.28 CV (high). Annual Essential ($151.20): no
+      renewal inside 90 days, 2.957 paid months of add-ons and burn.
+    model: int_pvs__scores
+    overrides:
+      vars:
+        payment_fee_pct: 0.03
+        payment_fee_fixed_usd: 0.3
+        affiliate_commission_pct: 0.2
+        dispute_fee_usd: 15.0
+        pvs_interval_coverage: 0.8
+        pvs_cpc_prior_strength_credits: 2000
+        pvs_burn_prior_strength_months: 2
+        pp_monthly_retention: 0.8
+        default_cost_per_credit_usd: 0.002
+    given:
+      - input: ref('int_pvs__features')
+        format: dict
+        rows:
+          - {event_id: purchase_in_M, event_name: purchase_first, occurred_at: '2026-06-10 00:00:00', user_id: u1, invoice_id: in_M, plan_tier: essential, billing_interval: month, purchase_kind: monthly, revenue_reporting: 14.0, cash_value_reporting: 14.0, cash_value_minor: 1400, currency: USD, reporting_currency: USD, list_price_usd: 14.0, plan_monthly_credits: 4000, pack_credits: 800, cf_fold: 0, signup_week: '2026-06-08', country_bucket: us, is_affiliate: false, arm_create_image: img_a, arm_create_video: vid_a, credits_before: 40, cost_per_credit_before_usd: 0.004, paid_months_before: 0, paid_credits_before: 0, is_qa_account: false}
+          - {event_id: purchase_in_Y, event_name: purchase_first, occurred_at: '2026-06-11 00:00:00', user_id: u2, invoice_id: in_Y, plan_tier: essential, billing_interval: year, purchase_kind: annual, revenue_reporting: 151.2, cash_value_reporting: 151.2, cash_value_minor: 15120, currency: USD, reporting_currency: USD, list_price_usd: 151.2, plan_monthly_credits: 4000, pack_credits: 800, cf_fold: 0, signup_week: '2026-06-08', country_bucket: us, is_affiliate: false, arm_create_image: img_a, arm_create_video: vid_a, credits_before: 40, cost_per_credit_before_usd: 0.004, paid_months_before: 0, paid_credits_before: 0, is_qa_account: false}
+      - input: ref('int_pvs__outcomes')
+        format: dict
+        rows:
+          - {event_id: purchase_in_M, is_horizon_complete: true}
+          - {event_id: purchase_in_Y, is_horizon_complete: true}
+      - input: ref('int_pp__oot_weeks')
+        format: dict
+        rows: []
+      - input: ref('int_pvs__renewal_rates')
+        format: dict
+        rows:
+          - {fit_id: xf0, plan_tier: essential, country_bucket: us, renewal_prob: 0.8}
+      - input: ref('int_pvs__params')
+        format: dict
+        rows:
+          - {fit_id: xf0, addon_revenue_per_month_usd: 1.0, plan_utilization: 0.25, burn_cv: 0.5, pack_utilization: 0.5, pack_future_revenue_usd: 5.0, pack_future_revenue_q90_usd: 30.0, refund_rate_per_charge: 0.01, chargeback_rate_per_charge: 0.005}
+      - input: ref('int_pp__converter_value')
+        format: dict
+        rows:
+          - {fit_id: xf0, paid_video_credit_share: 0.5}
+      - input: ref('int_pp__cost_per_credit')
+        format: dict
+        rows:
+          - {fit_id: xf0, flag_key: suite-default-model-create-image, arm: img_a, media_type: image, pooled_cost_per_credit_usd: 0.004, cost_per_credit_usd: 0.001}
+          - {fit_id: xf0, flag_key: suite-default-model-create-video, arm: vid_a, media_type: video, pooled_cost_per_credit_usd: 0.004, cost_per_credit_usd: 0.003}
+    expect:
+      format: dict
+      rows:
+        - {purpose: serve, fit_id: xf0, event_id: purchase_in_M, predicted_revenue_90d: 36.6, predicted_generation_cost_90d: 4.975686, predicted_fees_90d: 2.013, predicted_refund_risk: 0.549, predicted_profit_90d: 29.062314, interval_low: 10.604055, interval_high: 39.652541}
+        - {purpose: serve, fit_id: xf0, event_id: purchase_in_Y, predicted_revenue_90d: 154.156879, predicted_generation_cost_90d: 6.029714, predicted_fees_90d: 4.999706, predicted_refund_risk: 2.312353, predicted_profit_90d: 140.815106, interval_low: 136.951265, interval_high: 144.678946}
+
+  - name: exposures_prefer_the_exposure_event_over_an_earlier_user_property
+    description: >
+      A $exposure event always wins over an ab_<flag> user property, even an EARLIER one (mutation
+      M26 survived). u1's user property says gpt-image-2 at 10:00; its $exposure says nano-banana-2
+      at 10:05 -> nano-banana-2, first exposed 10:05, and 2 distinct arms seen (contaminated).
+    model: int_experiment__exposures
+    given:
+      - input: ref('stg_amplitude__events')
+        format: dict
+        rows:
+          - {event_uuid: e1, event_type: experiment_flags_ready, event_time: '2026-06-01 10:00:00', user_id: u1, device_id: d1, ep_flag_key: null, ep_variant: null, up_ab_suite_default_model_create_image: gpt-image-2, up_ab_suite_default_model_create_video: null}
+          - {event_uuid: e2, event_type: $exposure, event_time: '2026-06-01 10:05:00', user_id: u1, device_id: d1, ep_flag_key: suite-default-model-create-image, ep_variant: nano-banana-2, up_ab_suite_default_model_create_image: null, up_ab_suite_default_model_create_video: null}
+    expect:
+      format: dict
+      rows:
+        - {user_id: u1, flag_key: suite-default-model-create-image, arm: nano-banana-2, first_exposed_at: '2026-06-01 10:05:00', source: amplitude_exposure_event, n_distinct_arms: 2}
+
+  - name: reconciliation_facts_bound_clicks_and_cut_months_in_the_account_zone
+    description: >
+      Mutations M05 and M18 survived: nothing tested that a click AFTER the purchase cannot
+      attribute it, or that a purchase at 03:00 UTC on 1 July belongs to June in a Los Angeles
+      account. u1 bought 2026-07-01 03:00 UTC: its only Google click is later (not attributed);
+      its Meta click is earlier (attributed). month_utc = July; month_account_tz (LA) = June.
+    model: int_reconciliation__purchase_platform
+    given:
+      - input: ref('fct_conversion_ledger')
+        format: dict
+        rows:
+          - {event_id: purchase_in_1, event_name: purchase_first, user_id: u1, occurred_at: '2026-07-01 03:00:00', checkout_session_id: null, cash_value_minor: 1400, cash_value_reporting: 14.0, is_first_purchase: true, plan_tier: essential, billing_interval: month, is_qa_account: false}
+      - input: ref('platform_reporting_rules')
+        format: dict
+        rows:
+          - {platform: google_ads, scope: every_subscription_checkout, value_rule: invoice_amount, events_per_purchase: 1, accepts_fallback_value: true, click_window_days: 90, date_basis: conversion, account_timezone: America/Los_Angeles}
+          - {platform: meta, scope: every_subscription_checkout, value_rule: invoice_amount, events_per_purchase: 1, accepts_fallback_value: false, click_window_days: 7, date_basis: conversion, account_timezone: America/Los_Angeles}
+      - input: ref('int_user__click_ids')
+        format: dict
+        rows:
+          - {user_id: u1, click_id_key: gclid, click_id_value: G, click_id_created_at: '2026-07-02 00:00:00', known_at: '2026-07-02 00:00:00', platform: google_ads}
+          - {user_id: u1, click_id_key: fbclid, click_id_value: F, click_id_created_at: '2026-06-30 12:00:00', known_at: '2026-06-30 12:00:00', platform: meta}
+      - input: ref('int_user__profile')
+        format: dict
+        rows:
+          - {user_id: u1, has_amplitude_events: true}
+      - input: ref('stg_app__invoice_lookups')
+        format: dict
+        rows: []
+      - input: ref('fallback_price_table')
+        format: dict
+        rows: []
+    expect:
+      format: dict
+      rows:
+        - {event_id: purchase_in_1, platform: google_ads, attributed: false, month_utc: '2026-07-01', month_account_tz: '2026-06-01'}
+        - {event_id: purchase_in_1, platform: meta, attributed: true, month_utc: '2026-07-01', month_account_tz: '2026-06-01'}
+
+  - name: user_readout_is_intention_to_treat_over_a_fixed_matured_horizon
+    description: >
+      ML review 6. usr_a1 was first exposed to arm A (2026-06-01 10:00) and later saw another arm:
+      kept in A and flagged, never dropped. Its pack bought BEFORE the exposure does not count
+      (mutation M12), its renewal on day 91 is outside the fixed 90-day horizon, and it is matured
+      (horizon ended 08-30, before the 09-28 as-of), so its realised profit is final:
+      14 - 1.00 cost - (14 x 3.6% + 0.30) fees = 12.196; residual vs its 24h score of 10 = 2.196.
+      usr_b8 (exposed 07-15) is not matured: its realised columns stay NULL although it converted.
+      Slices: uids ending 0-5 are the fixed holdout.
+    model: int_experiment__user_readout
+    overrides:
+      vars:
+        as_of_timestamp: '2026-09-28 00:00:00'
+        payment_fee_pct: 0.036
+        payment_fee_fixed_usd: 0.3
+    given:
+      - input: ref('fct_experiment_exposures')
+        format: dict
+        rows:
+          - {user_id: usr_a1, flag_key: suite-default-model-create-image, arm: A, first_exposed_at: '2026-06-01 10:00:00', n_distinct_arms: 2, is_qa_account: false}
+          - {user_id: usr_b8, flag_key: suite-default-model-create-image, arm: B, first_exposed_at: '2026-07-15 10:00:00', n_distinct_arms: 1, is_qa_account: false}
+      - input: ref('fct_conversion_ledger')
+        format: dict
+        rows:
+          - {event_id: purchase_cs_live_P, event_name: purchase_one_time_pack, user_id: usr_a1, occurred_at: '2026-06-01 09:00:00', cash_value_reporting: 9.99, revenue_reporting: 9.99}
+          - {event_id: purchase_in_F, event_name: purchase_first, user_id: usr_a1, occurred_at: '2026-06-05 10:00:00', cash_value_reporting: 14.0, revenue_reporting: 14.0}
+          - {event_id: purchase_in_R, event_name: purchase_renewal, user_id: usr_a1, occurred_at: '2026-08-31 11:00:00', cash_value_reporting: 14.0, revenue_reporting: 14.0}
+          - {event_id: purchase_in_B, event_name: purchase_first, user_id: usr_b8, occurred_at: '2026-07-20 10:00:00', cash_value_reporting: 34.0, revenue_reporting: 34.0}
+      - input: ref('fct_generation_cost')
+        format: dict
+        rows:
+          - {generation_id: 'g1:0', user_id: usr_a1, created_at: '2026-06-02 10:00:00', cost_usd: 1.0}
+      - input: ref('stg_amplitude__events')
+        format: dict
+        rows:
+          - {event_uuid: e0, user_id: usr_a1, event_time: '2026-06-01 09:59:00'}
+      - input: ref('int_pp__fit_sets')
+        format: dict
+        rows: []
+      - input: ref('int_pp__user_outcomes')
+        format: dict
+        rows: []
+      - input: ref('int_amplitude__user_first_seen')
+        format: dict
+        rows:
+          - {user_id: usr_a1, segment_country_bucket: us, segment_device: desktop, segment_acquisition_channel: organic}
+      - input: ref('int_user__acquisition')
+        format: dict
+        rows:
+          - {user_id: usr_a1, acquisition_channel: organic}
+          - {user_id: usr_b8, acquisition_channel: organic}
+      - input: ref('fct_predicted_profit_24h')
+        format: dict
+        rows:
+          - {user_id: usr_a1, predicted_profit: 10.0, paid_within_24h: false, p_convert: 0.1, value_if_converted: 100.5, unconditional_cost: 0.05, model_version: v}
+          - {user_id: usr_b8, predicted_profit: 5.0, paid_within_24h: false, p_convert: 0.05, value_if_converted: 101.0, unconditional_cost: 0.05, model_version: v}
+      - input: ref('int_experiment__allocation_log')
+        format: dict
+        rows:
+          - {flag_key: suite-default-model-create-image, arm: A, allocation_slice: holdout, valid_from: '2026-06-01', valid_to: null, assignment_probability: 0.25, data_origin: test}
+      - input: ref('fct_user_features_24h')
+        format: dict
+        rows:
+          - {user_id: usr_a1, activated_24h: true, generations_24h: 3, failed_generations_24h: 1}
+    expect:
+      format: dict
+      rows:
+        - {user_id: usr_a1, arm: A, is_contaminated: true, allocation_slice: holdout, is_matured: true, converted_in_horizon_observed: true, realised_net_revenue_90d: 14.0, realised_generation_cost_90d: 1.0, realised_fees_90d: 0.804, realised_profit_90d: 12.196, residual_90d: 2.196, matured_value_capped: 13.196, realised_refunded_90d: false, pre_exposure_amplitude_events: 1, propensity: 0.25, country_bucket: us, generations_started_24h: 4}
+        - {user_id: usr_b8, arm: B, is_contaminated: false, allocation_slice: bandit, is_matured: false, converted_in_horizon_observed: true, realised_net_revenue_90d: null, realised_generation_cost_90d: null, realised_fees_90d: null, realised_profit_90d: null, residual_90d: null, matured_value_capped: null, realised_refunded_90d: null, pre_exposure_amplitude_events: 0, propensity: null, country_bucket: unknown, generations_started_24h: 0}
+
+  - name: acquisition_prefers_the_store_per_key_and_the_latest_click_across_keys
+    description: >
+      int_user__click_ids keeps every click from both sources (database review 7), so the
+      point-in-time acquisition macro must choose: per key, the click-id store beats Amplitude's
+      first touch (u1: stored gclid S from 06-01, not Amplitude's later A); across keys, the most
+      recent click wins (u2: fbclid on 06-03 over ttclid on 06-01); without clicks, UTMs decide
+      (u3: utm_source tolt = affiliate); with nothing, organic (u4).
+    model: int_user__acquisition
+    overrides:
+      vars:
+        as_of_timestamp: '2026-09-28 00:00:00'
+    given:
+      - input: ref('int_user__profile')
+        format: dict
+        rows:
+          - {user_id: u1}
+          - {user_id: u2}
+          - {user_id: u3}
+          - {user_id: u4}
+      - input: ref('int_user__click_ids')
+        format: dict
+        rows:
+          - {user_id: u1, click_id_key: gclid, click_id_value: S, click_id_created_at: '2026-06-01 00:00:00', known_at: '2026-06-01 00:01:00', click_id_source: ad_click_id_store, source_priority: 1, platform: google_ads, acquisition_channel: google_cpc, precedence: 1}
+          - {user_id: u1, click_id_key: gclid, click_id_value: A, click_id_created_at: '2026-06-05 00:00:00', known_at: '2026-06-05 00:00:00', click_id_source: amplitude_initial_user_property, source_priority: 2, platform: google_ads, acquisition_channel: google_cpc, precedence: 1}
+          - {user_id: u2, click_id_key: ttclid, click_id_value: T, click_id_created_at: '2026-06-01 00:00:00', known_at: '2026-06-01 00:01:00', click_id_source: ad_click_id_store, source_priority: 1, platform: tiktok, acquisition_channel: tiktok_paid_social, precedence: 1}
+          - {user_id: u2, click_id_key: fbclid, click_id_value: F, click_id_created_at: '2026-06-03 00:00:00', known_at: '2026-06-03 00:01:00', click_id_source: ad_click_id_store, source_priority: 1, platform: meta, acquisition_channel: meta_paid_social, precedence: 1}
+      - input: ref('int_user__utm')
+        format: dict
+        rows:
+          - {user_id: u3, utm_key: utm_source, utm_value: tolt, captured_at: '2026-06-01 00:00:00', known_at: '2026-06-01 00:00:00', utm_source_system: ad_click_id_store, source_priority: 1}
+    expect:
+      format: dict
+      rows:
+        - {user_id: u1, acquisition_channel: google_cpc, acquisition_click_at: '2026-06-01 00:00:00', has_gclid: true, has_ttclid: false, has_fbclid: false}
+        - {user_id: u2, acquisition_channel: meta_paid_social, acquisition_click_at: '2026-06-03 00:00:00', has_gclid: false, has_ttclid: true, has_fbclid: true}
+        - {user_id: u3, acquisition_channel: affiliate, acquisition_click_at: null, has_gclid: false, has_ttclid: false, has_fbclid: false}
+        - {user_id: u4, acquisition_channel: organic, acquisition_click_at: null, has_gclid: false, has_ttclid: false, has_fbclid: false}

@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openart-signal.example/schemas/conversion-ledger-event.schema.json",
+  "title": "ConversionLedgerEvent",
+  "description": "One canonical conversion row (warehouse table fct_conversion_ledger). Keys: event_id is unique; purchase rows reuse OpenArt's browser dedup ids (purchase_<invoiceId> / sub_<invoiceId>, signup reg_<uid>). cash_value_minor is signed Stripe minor units: purchases >= 0, refunds and chargebacks < 0, null for non-cash events, so SUM(cash_value_minor) reconciles to Stripe net cash. Cross-field invariants that JSON Schema cannot express (event_id suffix == order_id suffix == invoice_id, reg_<user_id>, refund_<charge_id>_<n>) are enforced by validators.ts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_name",
+    "occurred_at",
+    "source_system",
+    "source_event_id",
+    "user_id",
+    "device_id",
+    "order_id",
+    "adjusts_event_id",
+    "adjusts_order_id",
+    "cash_value_minor",
+    "currency",
+    "invoice_id",
+    "subscription_id",
+    "checkout_session_id",
+    "charge_id",
+    "plan_tier",
+    "plan_tier_code",
+    "billing_interval",
+    "previous_plan_tier",
+    "credit_pack_quantity",
+    "is_first_purchase",
+    "is_business",
+    "generation",
+    "lead",
+    "click_ids",
+    "utm",
+    "ga_client_id",
+    "ga_session_id",
+    "tolt_referral",
+    "consent",
+    "experiment_arms"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_id": { "type": "string", "minLength": 5, "maxLength": 300, "pattern": "^\\S+$" },
+    "event_name": { "$ref": "common.schema.json#/$defs/canonicalEventName" },
+    "occurred_at": { "$ref": "common.schema.json#/$defs/utcTimestamp" },
+    "source_system": { "enum": ["stripe", "credit_ledger", "amplitude", "hubspot", "app_backend"] },
+    "source_event_id": {
+      "description": "Lineage: Stripe event id (evt_…), ledger entry id (UUIDv7), Amplitude uuid, or HubSpot conversion/event id.",
+      "type": "string",
+      "minLength": 1
+    },
+    "user_id": { "anyOf": [{ "$ref": "common.schema.json#/$defs/userId" }, { "type": "null" }] },
+    "device_id": {
+      "description": "oa_device_id cookie = Amplitude device_id.",
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "order_id": {
+      "description": "Purchases only: sub_<invoiceId> (sub_<checkoutSessionId> for an invoice-less one-time pack).",
+      "type": ["string", "null"],
+      "pattern": "^sub_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$"
+    },
+    "adjusts_event_id": {
+      "description": "Refund/chargeback: event_id of the purchase being adjusted (null until the charge is joined to its invoice).",
+      "type": ["string", "null"],
+      "pattern": "^purchase_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$"
+    },
+    "adjusts_order_id": {
+      "description": "Refund/chargeback: order_id (Google transactionId) of the purchase being adjusted.",
+      "type": ["string", "null"],
+      "pattern": "^sub_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$"
+    },
+    "cash_value_minor": { "type": ["integer", "null"] },
+    "currency": { "anyOf": [{ "$ref": "common.schema.json#/$defs/currency" }, { "type": "null" }] },
+    "invoice_id": { "type": ["string", "null"], "pattern": "^in_[A-Za-z0-9]+$" },
+    "subscription_id": { "type": ["string", "null"], "pattern": "^sub_[A-Za-z0-9]+$" },
+    "checkout_session_id": { "type": ["string", "null"], "pattern": "^cs_(live|test)_[A-Za-z0-9]+$" },
+    "charge_id": { "type": ["string", "null"], "pattern": "^(ch|py)_[A-Za-z0-9]+$" },
+    "plan_tier": { "anyOf": [{ "$ref": "common.schema.json#/$defs/planTier" }, { "type": "null" }] },
+    "plan_tier_code": {
+      "description": "The tier code OpenArt's checkout form posts (1000 Starter, 2000 Plus, 3000 Pro, 3500 Wonder, 4000 Team, 4450-4750 Business).",
+      "type": ["integer", "null"]
+    },
+    "billing_interval": { "anyOf": [{ "$ref": "common.schema.json#/$defs/billingInterval" }, { "type": "null" }] },
+    "previous_plan_tier": { "anyOf": [{ "$ref": "common.schema.json#/$defs/planTier" }, { "type": "null" }] },
+    "credit_pack_quantity": {
+      "description": "purchase_add_on: number of 5,000-credit add-on packs after the change.",
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "is_first_purchase": {
+      "description": "First paid invoice ever for this user (mirrors the invoice lookup's isFirstPurchase). purchase_first means 'first invoice of a subscription' (billing_reason=subscription_create); a win-back re-subscription is purchase_first with is_first_purchase=false.",
+      "type": ["boolean", "null"]
+    },
+    "is_business": { "type": ["boolean", "null"] },
+    "generation": {
+      "description": "activation_first_generation: the first CONSUME ledger row.",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["business_type", "model_id", "credits"],
+          "properties": {
+            "business_type": { "type": "string", "pattern": "^[A-Za-z0-9.-]+:[A-Za-z0-9-]+$" },
+            "model_id": { "type": "string", "minLength": 1 },
+            "credits": { "type": "integer", "minimum": 0 }
+          }
+        }
+      ]
+    },
+    "lead": {
+      "description": "enterprise_lead / lead_stage_change: HubSpot context (no personal data).",
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hubspot_portal_id",
+            "form_id",
+            "contact_id",
+            "lifecycle_stage",
+            "previous_lifecycle_stage",
+            "lead_source",
+            "lead_source_detail",
+            "company_size"
+          ],
+          "properties": {
+            "hubspot_portal_id": { "type": "integer" },
+            "form_id": { "type": ["string", "null"] },
+            "contact_id": { "type": ["string", "null"] },
+            "lifecycle_stage": { "type": ["string", "null"] },
+            "previous_lifecycle_stage": { "type": ["string", "null"] },
+            "lead_source": { "type": ["string", "null"] },
+            "lead_source_detail": { "type": ["string", "null"] },
+            "company_size": { "type": ["string", "null"] }
+          }
+        }
+      ]
+    },
+    "click_ids": { "$ref": "common.schema.json#/$defs/clickIds" },
+    "utm": { "$ref": "common.schema.json#/$defs/utm" },
+    "ga_client_id": { "description": "Posted by the checkout form (from _ga).", "type": ["string", "null"] },
+    "ga_session_id": { "type": ["string", "null"] },
+    "tolt_referral": { "description": "Tolt affiliate referral posted by the checkout form.", "type": ["string", "null"] },
+    "consent": { "$ref": "common.schema.json#/$defs/consent" },
+    "experiment_arms": {
+      "description": "flag_key -> arm at event time, e.g. {\"suite-default-model-create-image\": \"nano-banana-pro\"}.",
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/flagKey" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "cash_value_minor": { "type": "integer" } }, "required": ["cash_value_minor"] },
+      "then": { "properties": { "currency": { "$ref": "common.schema.json#/$defs/currency" } } }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "signup" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^reg_\\S+$" },
+          "user_id": { "$ref": "common.schema.json#/$defs/userId" },
+          "cash_value_minor": { "type": "null" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "activation_first_generation" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^activation_\\S+$" },
+          "user_id": { "$ref": "common.schema.json#/$defs/userId" },
+          "generation": { "type": "object" },
+          "cash_value_minor": { "type": "null" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "checkout_started" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^checkout_\\S+$" },
+          "cash_value_minor": { "type": "null" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_name": {
+            "enum": ["purchase_first", "purchase_renewal", "purchase_upgrade", "purchase_add_on", "purchase_one_time_pack"]
+          }
+        },
+        "required": ["event_name"]
+      },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^purchase_(in_[A-Za-z0-9]+|cs_(live|test)_[A-Za-z0-9]+)$" },
+          "order_id": { "type": "string" },
+          "user_id": { "$ref": "common.schema.json#/$defs/userId" },
+          "cash_value_minor": { "type": "integer", "minimum": 0 },
+          "source_system": { "const": "stripe" },
+          "adjusts_event_id": { "type": "null" },
+          "adjusts_order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_name": { "enum": ["purchase_first", "purchase_renewal", "purchase_upgrade", "purchase_add_on"] } },
+        "required": ["event_name"]
+      },
+      "then": {
+        "properties": {
+          "invoice_id": { "type": "string" },
+          "subscription_id": { "type": "string" },
+          "plan_tier": { "$ref": "common.schema.json#/$defs/planTier" },
+          "billing_interval": { "$ref": "common.schema.json#/$defs/billingInterval" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "purchase_add_on" } }, "required": ["event_name"] },
+      "then": { "properties": { "credit_pack_quantity": { "type": "integer" } } }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "refund" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^refund_\\S+_[1-9][0-9]*$" },
+          "cash_value_minor": { "type": "integer", "exclusiveMaximum": 0 },
+          "charge_id": { "type": "string" },
+          "source_system": { "const": "stripe" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "chargeback" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^chargeback_\\S+$" },
+          "cash_value_minor": { "type": "integer", "exclusiveMaximum": 0 },
+          "charge_id": { "type": "string" },
+          "source_system": { "const": "stripe" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "enterprise_lead" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^lead_\\S+$" },
+          "source_system": { "const": "hubspot" },
+          "lead": { "type": "object" },
+          "cash_value_minor": { "type": "null" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_name": { "const": "lead_stage_change" } }, "required": ["event_name"] },
+      "then": {
+        "properties": {
+          "event_id": { "pattern": "^leadstage_\\S+$" },
+          "source_system": { "const": "hubspot" },
+          "lead": { "type": "object", "properties": { "lifecycle_stage": { "type": "string" } } },
+          "cash_value_minor": { "type": "null" },
+          "order_id": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_name": { "not": { "enum": ["refund", "chargeback"] } } },
+        "required": ["event_name"]
+      },
+      "then": { "properties": { "adjusts_event_id": { "type": "null" }, "adjusts_order_id": { "type": "null" } } }
+    }
+  ]
+}

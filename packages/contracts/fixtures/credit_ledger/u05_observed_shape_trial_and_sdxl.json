@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "entries": [
+    {
+      "id": "019f1d23-98e0-78f1-8b7d-d50da5a9191e",
+      "sequenceId": 0,
+      "type": "CONSUME",
+      "amount": -1,
+      "creditField": "trial_credit_balance",
+      "balanceBefore": 40,
+      "balanceAfter": 39,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "openart-sdxl:text2image",
+        "businessId": "SynthHistU05SdxlA001"
+      },
+      "idempotencyKey": "openart-sdxl:text2image:REDUCE:SynthHistU05SdxlA001",
+      "createdAt": "2026-07-01T10:05:00.000Z",
+      "userId": "SynthU05FreeTrialE5x",
+      "businessDetails": [
+        {
+          "metadata": {
+            "projectId": "SynthProjU05Main0001"
+          },
+          "quantity": 1,
+          "unitCredits": 1,
+          "subBusinessType": "openart-sdxl:text2image"
+        }
+      ]
+    },
+    {
+      "id": "019f1d1f-0500-7464-999a-ec54b93cf7a1",
+      "sequenceId": 0,
+      "type": "ADD",
+      "amount": 40,
+      "creditField": "trial_credit_balance",
+      "balanceBefore": 0,
+      "balanceAfter": 40,
+      "previousSequenceId": null,
+      "reference": {
+        "businessType": "USER_SIGNUP_TRIAL",
+        "businessId": "SynthU05FreeTrialE5x"
+      },
+      "idempotencyKey": "USER_SIGNUP_TRIAL:ADD:SynthU05FreeTrialE5x",
+      "createdAt": "2026-07-01T10:00:00.000Z",
+      "userId": "SynthU05FreeTrialE5x",
+      "reason": "New user trial grant"
+    }
+  ],
+  "hasMore": false,
+  "_synthetic_note": "SYNTHETIC values in the exact observed shape (crawl/loggedin/generation/ledger_post.json): trial ADD + openart-sdxl:text2image CONSUME."
+}

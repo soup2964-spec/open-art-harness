@@ -1,0 +1,149 @@
+version: 2
+
+# Raw layer. Locally these are loaded by scripts/load_fixtures.py; in BigQuery point the
+# vars in dbt_project.yml at the datasets OpenArt already has. `meta.real_world` says what
+# each table is in production; README.md "Raw layer" has the column mappings.
+
+sources:
+  - name: stripe
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('raw_stripe_schema') }}"
+    description: >
+      Stripe Event objects as delivered to a webhook endpoint (one row per delivery; duplicates
+      and out-of-order deliveries are expected and handled in staging). API version 2026-08-26.dahlia
+      shape, with the legacy top-level fields tolerated.
+    config:
+      meta:
+        real_world: >
+          Route (a) an extra Stripe webhook endpoint (Cloud Run) writing to BigQuery, or (b) events
+          forwarded from OpenArt's existing handler via Pub/Sub -> BigQuery subscription (parse the
+          message `data` into these columns). Route (c) Stripe Data Pipeline delivers tables
+          (invoices, invoice_line_items, charges, refunds, disputes, checkout_sessions) instead of
+          events; swap the stg_stripe__* models for thin adapters over those tables (same output
+          columns). Data Pipeline refreshes every 3 h: fine for reconciliation, too slow for Meta's
+          1 h window.
+    tables:
+      - name: events
+        identifier: "{{ var('raw_stripe_events_table') }}"
+        config:
+          loaded_at_field: received_at
+          freshness:
+            warn_after: {count: 6, period: hour}
+            error_after: {count: 24, period: hour}
+        columns:
+          - name: id
+            description: Stripe event id (evt_...). Unique per event, repeated per redelivery.
+          - name: type
+            description: checkout.session.completed, invoice.paid, invoice_payment.paid, customer.subscription.updated/deleted, charge.refunded, charge.dispute.created.
+          - name: created
+            description: Unix seconds. Never order by it (1-second resolution, no ordering guarantee).
+          - name: data
+            description: JSON {object, previous_attributes}.
+          - name: received_at
+            description: When the sink received this delivery.
+
+  - name: amplitude
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('raw_amplitude_schema') }}"
+    description: Amplitude's documented BigQuery export (hourly, partitioned by event_time date, may contain duplicates; key = uuid).
+    config:
+      meta:
+        real_world: >
+          The EVENTS_<project_id> table written by Amplitude's BigQuery destination (set
+          raw_amplitude_events_table). If the destination is not enabled, enable it or land the
+          Export API into the same columns. user_id = OpenArt uid, device_id = oa_device_id.
+    tables:
+      - name: events
+        identifier: "{{ var('raw_amplitude_events_table') }}"
+        config:
+          loaded_at_field: server_upload_time
+          freshness:
+            warn_after: {count: 3, period: hour}
+            error_after: {count: 12, period: hour}
+        columns:
+          - name: uuid
+            description: Row id (the export has no insert_id).
+          - name: event_properties
+            description: JSON, e.g. asset_created {model, credits_num, ...}, $exposure {flag_key, variant}.
+          - name: user_properties
+            description: JSON at event time, incl. ab_<flag> arms and the attribution plugin's initial_* click ids / UTMs.
+
+  - name: app
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('raw_app_schema') }}"
+    description: OpenArt application data replicated to BigQuery.
+    tables:
+      - name: credit_ledger
+        description: >
+          One row per ledger entry in the exact shape of GET /suite/api/credits/logs entries[]
+          (camelCase field names; reference and businessDetails as JSON). Order by id (UUIDv7) then
+          createdAt: sequenceId was 0 on every observed row.
+        config:
+          meta:
+            real_world: >
+              Replicate the ledger store to BigQuery (Firestore -> BigQuery streaming extension,
+              database CDC or a nightly export). The storage engine is unknown [I]; any replica that
+              produces the API entry shape plugs in unchanged.
+      - name: ad_click_ids
+        description: Persisted bodies of POST /api/user/ad-click-ids (current or extended shape) with the authenticated uid and receive time.
+        config:
+          meta:
+            real_world: The backend table behind /api/user/ad-click-ids (name unknown), or edge-attribution's store.
+      - name: users
+        description: my-info subset (id, email, account_created_at, provider). Contains personal data in production; staging keeps no email.
+        config:
+          meta:
+            real_world: The users collection/table behind /suite/api/user/my-info.
+      - name: invoice_lookups
+        description: >
+          SYNTHETIC locally (scripts/make_platform_reports.py). Responses of GET
+          /legacy/api/stripe/checkout-session-invoice, which decide the value the browser sends
+          (ltvValueMajor, or the stale fallback when the lookup fails).
+        config:
+          meta:
+            real_world: Request logs of the checkout-session-invoice endpoint (or the backend table holding ltvValueMajor per invoice).
+
+  - name: hubspot
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('raw_hubspot_schema') }}"
+    description: HubSpot enterprise funnel (portal 244977254, /enterprise form 9f0b1fda-34f1-4364-93d5-bdc196c44004).
+    config:
+      meta:
+        real_world: Form Integrations API submissions and contact.propertyChange webhooks landed in BigQuery, or a CRM connector (Fivetran/Airbyte) with the same fields.
+    tables:
+      - name: form_submissions
+      - name: contact_property_changes
+
+  - name: platforms
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('raw_platforms_schema') }}"
+    description: >
+      Platform-reported conversions, normalised to one row per platform x account x report layer x
+      report date. SYNTHETIC locally (scripts/make_platform_reports.py).
+    config:
+      meta:
+        real_world: >
+          BigQuery Data Transfer Service (Google Ads, Facebook Ads) plus exports for TikTok, Reddit,
+          LinkedIn, X and Microsoft, mapped into these columns by per-platform staging views.
+          report_layer 'tag_received' = conversions the tag delivered (tag diagnostics / Events
+          Manager); 'ads_attributed' = conversions credited to ads (Ads Manager / GAQL).
+    tables:
+      - name: daily_conversions
+
+  - name: synthetic
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('raw_synthetic_schema') }}"
+    description: Ground truth of the synthetic contracts cohort. Exists only on the local fixture target; used by tests.
+    tables:
+      - name: cohort_truth
+
+  - name: ml
+    database: "{{ var('raw_database') or target.database }}"
+    schema: "{{ var('ml_scores_schema') }}"
+    description: >
+      Swap-in point for a trained predicted-profit model. Read only when
+      var('predicted_profit_source') = 'external_scores'. Must carry the PredictedProfit contract
+      columns (user_id, computed_at, predicted_revenue, predicted_generation_cost, predicted_fees,
+      predicted_refund_risk, refund_probability, predicted_profit, model_version, features).
+    tables:
+      - name: predicted_profit_scores

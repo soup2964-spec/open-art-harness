@@ -1,0 +1,15 @@
+{
+  "generator": "@openart-signal/contracts src/cohort/generate.ts",
+  "illustrative": true,
+  "seed": "openart-signal/cohort/v1",
+  "users": 2000,
+  "params_sha256": "a4403393c8f1ebdb6cc20937df7ec873ea11c46192a46edcd15a75e2f2b8b265",
+  "counts": {
+    "app_users.jsonl": 2000,
+    "stripe_events.jsonl": 588,
+    "credit_ledger.jsonl": 12373,
+    "amplitude_events.jsonl": 11894,
+    "amplitude_exposures.jsonl": 4000,
+    "cohort_truth.jsonl": 2000
+  }
+}

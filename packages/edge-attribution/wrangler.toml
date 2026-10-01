@@ -1,0 +1,37 @@
+# Example Worker config for @openart-signal/edge-attribution.
+#
+# This is NOT a new proxy to deploy. OpenArt already routes openart.ai through its own
+# Worker; the README shows how to wrap that Worker's existing fetch handler with
+# `withAttribution`. This file exists so `wrangler dev --local` and the vitest pool can
+# run the example, and to show the three things the real Worker needs: a KV binding,
+# a secret, and the routes it already has.
+#
+# Every id and hostname below is a placeholder. Do not deploy this file.
+
+name = "edge-attribution-example"
+main = "src/example-worker.ts"
+compatibility_date = "2026-08-01"
+workers_dev = false
+
+# Placeholder route. OpenArt keeps its existing routes (e.g. `openart.ai/*`).
+routes = [
+  { pattern = "example.com/*", zone_name = "example.com" },
+]
+
+# Device-keyed attribution records (TTL 90 d) and in-app-browser handoff tokens (TTL 30 min).
+[[kv_namespaces]]
+binding = "ATTRIBUTION_KV"
+id = "00000000000000000000000000000000"          # placeholder
+preview_id = "11111111111111111111111111111111"  # placeholder
+
+[vars]
+# Local dev only: point the example's pass-through at a local stub instead of any real origin.
+# Leave empty in production (the handler then does `fetch(request)` to the origin as today).
+ORIGIN_OVERRIDE = ""
+
+# HMAC key for the signed `oa_attr` cookie (>= 32 chars of randomness). Never commit a value.
+#   production:  wrangler secret put ATTRIBUTION_SECRET
+#   rotation:    move the old value to ATTRIBUTION_SECRET_PREVIOUS, then put a new ATTRIBUTION_SECRET
+#   local dev:   copy .dev.vars.example to .dev.vars
+[secrets]
+required = ["ATTRIBUTION_SECRET"]

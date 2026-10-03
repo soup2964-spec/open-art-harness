@@ -1,6 +1,6 @@
 // One watchdog run: seal self-test → container diff → sealed conversion replay → click-ID journeys
 // → consent probes → contract evaluation → coverage / consent / zero-leak proof → results.json +
-// report.html. Everything live is human-paced and fails every collection request locally.
+// report.html. Journeys are human-paced; isolated conversion scenarios launch together after sealing.
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -20,7 +20,7 @@ import { pageViewReport, type PageViewReport } from './observe/pageviews.js';
 import { checkInjectableScript, loadEdgeSim, loadPatchSource } from './patches/patches.js';
 import { runPilot } from './pilot.js';
 import { allowConnectHost, isFirstPartyHost, type PolicyContext } from './policy/policy.js';
-import { runReplay, type ReplayRun } from './replay/replay.js';
+import { runReplay, type ReplayBatch, type ReplayRun } from './replay/replay.js';
 import { defaultScenarios, loadScenarios } from './replay/scenarios.js';
 import type { CapturedRequest, CheckResult, ConsentProbeObservation, JourneyObservation, Observations, Platform } from './types.js';
 import { AD_PLATFORMS } from './types.js';
@@ -101,7 +101,10 @@ export interface Results {
   }>;
   replay: {
     page: string;
-    scenarios: Array<{ id: string; desc: string; source?: string; context: unknown; error?: string; perVendor: Record<string, Array<{ kind: string; event?: string; endpoint: string; transport: string; fields: Record<string, unknown>; clickIds: Record<string, string>; scenarioData: boolean }>> }>;
+    /** Absent in historical sequential replay reports. */
+    mode?: 'parallel-isolated';
+    startSpreadMs?: number | null;
+    scenarios: Array<{ id: string; desc: string; source?: string; context: unknown; start?: string; end?: string; loadStatus?: string; error?: string; perVendor: Record<string, Array<{ kind: string; event?: string; endpoint: string; transport: string; fields: Record<string, unknown>; clickIds: Record<string, string>; scenarioData: boolean }>> }>;
     loadStatus?: string;
     sealProbes: unknown;
     readiness: unknown;
@@ -178,6 +181,8 @@ async function runSessions(o: RunOptions, c: { log: (m: string) => void; started
     budget.used += n;
     budget.byStage[stage] = (budget.byStage[stage] ?? 0) + n;
   };
+  const replayScenarios = o.replay === false ? [] : o.scenariosFile ? loadScenarios(o.scenariosFile) : defaultScenarios(data);
+  if (replayScenarios.length > budget.max) throw new Error(`page-load budget (${budget.max}) cannot fit ${replayScenarios.length} isolated replay scenarios`);
 
   const policy: PolicyContext = { markers };
   const allowConnect = (h: string, p: number) => allowConnectHost(h, p);
@@ -193,7 +198,7 @@ async function runSessions(o: RunOptions, c: { log: (m: string) => void; started
   const loaders: LoaderRecord[] = [];
   const patchEvents: PatchEvent[] = [];
   const observations: Observations = { journeys: [], consentProbes: [] };
-  let replayRun: ReplayRun | null = null;
+  let replayRun: ReplayBatch | null = null;
 
   // ---- 1. seal self-test against a loopback server (nothing leaves the machine)
   let pilot: Results['pilot'] = null;
@@ -219,11 +224,13 @@ async function runSessions(o: RunOptions, c: { log: (m: string) => void; started
 
   // ---- 3. conversion contract replay under a FULL seal
   if (o.replay !== false) {
-    log('replay: sealed conversion replay');
-    const scenarios = o.scenariosFile ? loadScenarios(o.scenariosFile) : defaultScenarios(data);
-    const rr = await runReplay({
+    log(`replay: ${replayScenarios.length} isolated scenarios, launching together after every full seal`);
+    // Reserve every scenario's page load before opening the concurrent browser sessions.
+    if (budget.used + replayScenarios.length > budget.max) throw new Error(`page-load budget (${budget.max}) reached before replay`);
+    spend('replay', replayScenarios.length);
+    const batch = await runReplay({
       pageUrl: o.replayPage ?? `${O}/pricing`,
-      scenarios,
+      scenarios: replayScenarios,
       data,
       chromePath,
       profileDir: path.join(profilesDir, `replay-${Date.now().toString(36)}`),
@@ -232,14 +239,16 @@ async function runSessions(o: RunOptions, c: { log: (m: string) => void; started
       allowConnect,
       log,
     });
-    spend('replay', 1);
-    observations.replay = rr.observation;
-    loaders.push(...rr.preSeal.loaders);
-    patchEvents.push(...rr.preSeal.patchEvents);
-    errors.push(...rr.preSeal.errors.map((e) => 'replay: ' + e));
-    if (rr.run.meta.error) errors.push('replay: ' + String(rr.run.meta.error).split('\n')[0]);
-    sessions.push(...replayEvidence(rr, markers));
-    replayRun = rr;
+    observations.replay = batch.observation;
+    for (const rr of batch.runs) {
+      const name = String(rr.run.meta.runName ?? 'replay');
+      loaders.push(...rr.preSeal.loaders);
+      patchEvents.push(...rr.preSeal.patchEvents);
+      errors.push(...rr.preSeal.errors.map((e) => `${name}: ${e}`));
+      if (rr.run.meta.error) errors.push(`${name}: ${String(rr.run.meta.error).split('\n')[0]}`);
+      sessions.push(...replayEvidence(rr, markers));
+    }
+    replayRun = batch;
     await jitter(5000, 9000);
   }
 
@@ -359,6 +368,7 @@ async function runSessions(o: RunOptions, c: { log: (m: string) => void; started
 
 /** Zero-leak evidence for the replay: the pre-seal page load (collection seal) and the full-seal phase. */
 export function replayEvidence(rr: ReplayRun, markers: string[]): SessionEvidence[] {
+  const name = String(rr.run.meta.runName ?? 'replay');
   const seal = rr.run.seal as Record<string, any>;
   const pre = rr.run.net.filter((n: any) => n.phase === 'pre');
   const preNet = pre
@@ -375,11 +385,11 @@ export function replayEvidence(rr: ReplayRun, markers: string[]): SessionEvidenc
   const responsesAfterSeal = rr.run.net.filter((n: any) => n.phase === 'post' && n.responseAfterSeal && !/^(data|blob):/.test(n.url)).length;
   return [
     {
-      id: 'replay-load', kind: 'replay (pre-seal page load)', requests: rr.preSeal.requests, net: preNet, proxy: { ...rr.run.proxy, postSealAllowed: 0 }, teardown, fetchLayers,
+      id: `${name}-load`, kind: 'replay (pre-seal page load)', requests: rr.preSeal.requests, net: preNet, proxy: { ...rr.run.proxy, postSealAllowed: 0 }, teardown, fetchLayers,
       webSockets: pre.filter((n: any) => n.type === 'WebSocket(created)').map((n: any) => ({ url: n.url })), ...common,
     },
     {
-      id: 'replay-sealed', kind: 'replay (full seal)', requests: rr.observation.requests.filter((r) => r.step !== 'LOAD'), net: [], netNotApplicable: true, proxy: { ...rr.run.proxy, tunnelledHosts: [] }, teardown,
+      id: `${name}-sealed`, kind: 'replay (full seal)', requests: rr.observation.requests.filter((r) => r.step !== 'LOAD'), net: [], netNotApplicable: true, proxy: { ...rr.run.proxy, tunnelledHosts: [] }, teardown,
       fetchLayers: {
         browser: seal.browserFetch === 'enabled',
         page: (seal.sessions ?? []).some((x: any) => x.label === 'page' && x.fetch === 'enabled'),
@@ -398,7 +408,7 @@ export interface AssembleInput {
   chromePath: string;
   contractFile: string;
   observations: Observations;
-  replayRun: ReplayRun | null;
+  replayRun: ReplayRun | ReplayBatch | null;
   sessions: SessionEvidence[];
   container: Results['container'];
   pilot: Results['pilot'];
@@ -585,8 +595,11 @@ function journeySummary(j: JourneyObservation, rawFile: string): Results['journe
   };
 }
 
-function replaySummary(obs: Observations, rr: ReplayRun | null, rawRel: string): Results['replay'] {
+function replaySummary(obs: Observations, rr: ReplayRun | ReplayBatch | null, rawRel: string): Results['replay'] {
   if (!obs.replay || !rr) return null;
+  const batch = 'runs' in rr ? rr : null;
+  const runs = batch ? batch.runs : [rr as ReplayRun];
+  const perScenario = (value: (run: ReplayRun) => unknown) => Object.fromEntries(runs.flatMap((run) => run.observation.scenarios.map((s) => [s.id, value(run)])));
   const byScenario = obs.replay.scenarios.map((s) => {
     const perVendor: Record<string, any[]> = {};
     const reqById = new Map(obs.replay!.requests.map((q) => [q.id, q]));
@@ -597,21 +610,22 @@ function replaySummary(obs: Observations, rr: ReplayRun | null, rawRel: string):
       const scenarioData = !!q && needles.length > 0 && (containsMarker(q.url, needles) || containsMarker(q.postData ?? '', needles) || (q.postDataB64 ?? []).some((b) => containsMarker(Buffer.from(b, 'base64').toString('latin1'), needles)));
       (perVendor[h.platform === 'other' ? h.vendor : h.platform] ??= []).push({ kind: h.kind, event: h.eventName, endpoint: h.endpoint, transport: h.transport, fields: h.fields, clickIds: h.clickIds, scenarioData });
     }
-    return { id: s.id, desc: s.desc, context: s.context, error: s.error, perVendor };
+    return { id: s.id, desc: s.desc, context: s.context, start: s.start, end: s.end, loadStatus: s.loadStatus, error: s.error, perVendor };
   });
   return {
     page: obs.replay.page,
+    ...(batch ? { mode: batch.mode, startSpreadMs: batch.startSpreadMs } : {}),
     loadStatus: obs.replay.loadStatus,
     scenarios: byScenario,
-    sealProbes: rr.run.sealProbes,
-    readiness: rr.run.readiness,
-    rawFile: path.join(rawRel, path.basename(rr.run.meta.outFile)),
+    sealProbes: batch ? perScenario((run) => run.run.sealProbes) : runs[0]!.run.sealProbes,
+    readiness: batch ? perScenario((run) => run.run.readiness) : runs[0]!.run.readiness,
+    rawFile: path.join(rawRel, path.basename(batch ? batch.rawFile : runs[0]!.run.meta.outFile)),
     accounting: {
-      postSealRecords: rr.accounting.accounting.length,
-      unaccounted: rr.accounting.unaccounted.length,
-      failRequestErrors: rr.accounting.failErrors.length,
-      proxyPostSeal: rr.accounting.proxyPostSeal,
-      attributionDisagreements: rr.accounting.attribution.filter((a: any) => !a.agree).length,
+      postSealRecords: runs.reduce((n, run) => n + run.accounting.accounting.length, 0),
+      unaccounted: runs.reduce((n, run) => n + run.accounting.unaccounted.length, 0),
+      failRequestErrors: runs.reduce((n, run) => n + run.accounting.failErrors.length, 0),
+      proxyPostSeal: batch ? perScenario((run) => run.accounting.proxyPostSeal) : runs[0]!.accounting.proxyPostSeal,
+      attributionDisagreements: runs.reduce((n, run) => n + run.accounting.attribution.filter((a: any) => !a.agree).length, 0),
     },
   };
 }

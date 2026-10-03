@@ -3,8 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { journeyFromTeardown, replayFromSealed, spaJourneyFromLoggedIn, type LoggedInFixture, type SealedFixture, type TeardownFixture } from '../src/adapters/legacy.js';
 import { buildSlackMessage, sendSlack, shouldAlert, slackEscape } from '../src/alert/slack.js';
 import { parseArgs } from '../src/cli.js';
+import { newInterceptState } from '../src/browser/intercept.js';
 import { DEFAULT_CONTRACT_PATH } from '../src/contract.js';
 import { renderReport } from '../src/report/html.js';
+import type { ReplayBatch, ReplayRun } from '../src/replay/replay.js';
 import { assembleResults, firstPartyUnlisted, skipsToErrors, uniqueRequests, type Results } from '../src/run.js';
 import { loadContract, evaluateContract } from '../src/contract.js';
 import type { Observations } from '../src/types.js';
@@ -151,6 +153,91 @@ describe('fail-closed result assembly', () => {
       { ...base, id: 'c', url: 'https://openart.ai/suite/api/ip', reason: 'first-party:fp-suite-api', action: 'allow' as const },
     ]);
     expect(out).toEqual([{ host: 'openart.ai', path: '/suite/api/user/<n>/prefs', type: 'Fetch', count: 2, example: 'https://openart.ai/suite/api/user/1234/prefs' }]);
+  });
+});
+
+describe('isolated replay result assembly', () => {
+  function scenarioRun(id: string, index: number): ReplayRun {
+    const start = `2026-10-02T12:00:00.00${index}Z`;
+    const end = `2026-10-02T12:00:18.00${index}Z`;
+    const readiness = { gtag: index === 0 ? 'function' : 'undefined', worker: index };
+    return {
+      observation: {
+        page: 'https://openart.ai/pricing', source: 'unit test', loadStatus: 'load', readiness,
+        scenarios: [{ id, desc: id, code: '', context: {}, start, end, loadStatus: 'load', readiness }],
+        requests: [], hits: [],
+      },
+      run: {
+        meta: { runName: `replay-${index}`, outFile: `/private/captures/run_replay-${index}_UNIT.json` },
+        load: { status: 'load' }, versions: {}, readiness, seal: {},
+        sealProbes: [{ phase: 'before-replay', at: start, result: { worker: index, blocked: true } }],
+        wrap: {}, timeline: [], captures: [], net: [], jsTrace: [], console: [], targets: [], final: {}, proxy: {}, teardown: {},
+      },
+      preSeal: newInterceptState(),
+      accounting: {
+        summary: {}, decoded: [],
+        accounting: Array.from({ length: index + 1 }, () => ({ t: 0, scenario: id, sess: id, type: 'Fetch', method: 'POST', url: 'https://example.invalid/collect', outcome: 'failed', gotNetworkResponse: false })),
+        unaccounted: index ? [{ scenario: id }] : [],
+        failErrors: index ? [{ url: 'https://example.invalid/collect', err: 'test error' }] : [],
+        proxyPostSeal: [{ iso: start, kind: 'CONNECT', target: `${id}.invalid:443`, action: 'deny', class: 'test' }],
+        attribution: [{ i: 0, vendor: 'test', hostPath: 'example.invalid/collect', window: id, marker: [id], agree: index === 0 }],
+        jsTrace: [], timeline: [], sealProbes: [], markers: { EMAIL_MARKERS: {}, TXN_MARKERS: {} },
+      },
+    };
+  }
+
+  function assemble(replayRun: ReplayRun | ReplayBatch): Results {
+    return assembleResults({
+      target: 'live', startedAt: '2026-10-02T12:00:00.000Z', runTag: 'UNIT', chromePath: 'chrome', contractFile: DEFAULT_CONTRACT_PATH,
+      observations: { replay: replayRun.observation, journeys: [], consentProbes: [] }, replayRun,
+      sessions: [], container: { error: 'not fetched in unit test' }, pilot: null, loaders: [], patchEvents: [], patches: {},
+      pageLoads: { total: 2, budget: 60, byStage: { replay: 2 } }, journeyRaw: {}, rawRel: 'raw', errors: [],
+    });
+  }
+
+  it('aggregates all workers, preserves scenario readiness/probes and renders timing with the batch manifest', () => {
+    const runs = [scenarioRun('signup', 0), scenarioRun('purchase', 1)];
+    const batch: ReplayBatch = {
+      mode: 'parallel-isolated', startSpreadMs: 1, runs, rawFile: '/private/captures/run_replay_batch_UNIT.json',
+      observation: { ...runs[0]!.observation, scenarios: runs.flatMap((r) => r.observation.scenarios) },
+    };
+    const results = assemble(batch);
+    expect(results.replay).toMatchObject({
+      mode: 'parallel-isolated', startSpreadMs: 1, rawFile: 'raw/run_replay_batch_UNIT.json',
+      accounting: { postSealRecords: 3, unaccounted: 1, failRequestErrors: 1, attributionDisagreements: 1 },
+      readiness: { signup: runs[0]!.run.readiness, purchase: runs[1]!.run.readiness },
+      sealProbes: { signup: runs[0]!.run.sealProbes, purchase: runs[1]!.run.sealProbes },
+    });
+    expect(results.replay!.accounting.proxyPostSeal).toEqual({ signup: runs[0]!.accounting.proxyPostSeal, purchase: runs[1]!.accounting.proxyPostSeal });
+    expect(results.replay!.scenarios.map(({ id, start, end }) => ({ id, start, end }))).toEqual(runs.map((r) => {
+      const { id, start, end } = r.observation.scenarios[0]!;
+      return { id, start, end };
+    }));
+    const html = renderReport(results);
+    expect(html).toContain('All scenarios launch together from a shared barrier');
+    expect(html).toContain('Measured spread between the first and last scenario start: 1 ms');
+    expect(html).toContain('href="raw/run_replay_batch_UNIT.json"');
+    expect(html).not.toContain('/private/captures');
+    expect(html).not.toContain('href="raw/run_replay-0_UNIT.json"');
+    for (const run of runs) {
+      const scenario = run.observation.scenarios[0]!;
+      expect(html).toContain(`Started: ${scenario.start}`);
+      expect(html).toContain(`Ended: ${scenario.end}`);
+    }
+  });
+
+  it('keeps historical single-session summaries and reports compatible', () => {
+    const run = scenarioRun('signup', 0);
+    const results = assemble(run);
+    expect(results.replay).not.toHaveProperty('mode');
+    expect(results.replay).not.toHaveProperty('startSpreadMs');
+    expect(results.replay!.rawFile).toBe('raw/run_replay-0_UNIT.json');
+    expect(results.replay!.readiness).toEqual(run.run.readiness);
+    expect(results.replay!.sealProbes).toEqual(run.run.sealProbes);
+    const html = renderReport(results);
+    expect(html).toContain('href="raw/run_replay-0_UNIT.json"');
+    expect(html).not.toContain('All scenarios launch together');
+    expect(html).not.toContain('Measured spread');
   });
 });
 

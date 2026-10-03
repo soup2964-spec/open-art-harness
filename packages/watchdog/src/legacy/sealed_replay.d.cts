@@ -43,6 +43,8 @@ export interface RunSealedReplayOptions {
   /** [watchdog] puppeteer default args to drop (default ['--enable-automation']). */
   ignoreDefaultArgs?: string[];
   allowConnect?: (host: string, port: number) => boolean;
+  /** Wait at a shared launch barrier after the full seal and its probes are installed. */
+  beforeReplay?: () => Promise<void>;
   scenarioGapMs?: number;
   tailMs?: number;
   settleMs?: number;

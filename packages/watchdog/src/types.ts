@@ -214,6 +214,9 @@ export interface ReplayScenarioObservation {
   context: ReplayScenarioContext;
   start?: string;
   end?: string;
+  /** Independent page state when scenarios run together in isolated browsers. */
+  loadStatus?: string;
+  readiness?: Record<string, unknown> | null;
   /** The scenario code threw in the page (it did not run to completion). */
   error?: string;
 }

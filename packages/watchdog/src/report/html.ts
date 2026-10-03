@@ -142,10 +142,15 @@ function replaySection(r: Results): string {
             })
             .join('')
         : '<li class="muted">no request to any vendor</li>';
-      return `<tr><td><strong>${esc(s.id)}</strong><div class="muted small">${esc(s.desc)}</div>${(s as { error?: string }).error ? `<div class="sym-bad small">threw: ${esc((s as { error?: string }).error)}</div>` : ''}</td><td><ul class="ev">${lines}</ul></td></tr>`;
+      const timing = s.start || s.end ? `<div class="muted small mono">Started: ${esc(s.start ?? 'not recorded')}<br>Ended: ${esc(s.end ?? 'not recorded')}</div>` : '';
+      return `<tr><td><strong>${esc(s.id)}</strong><div class="muted small">${esc(s.desc)}</div>${timing}${s.error ? `<div class="sym-bad small">threw: ${esc(s.error)}</div>` : ''}</td><td><ul class="ev">${lines}</ul></td></tr>`;
     })
     .join('');
-  return `<p class="muted">Page <code>${esc(r.replay.page)}</code> loaded under the collection seal; full seal (Fetch fail-all on every target + proxy refusing every connection) before the first synthetic push. Raw capture: <a href="${href(r.replay.rawFile)}">${esc(r.replay.rawFile)}</a> (local, gitignored).</p><div class="tablewrap"><table><thead><tr><th>Scenario (the app's real push)</th><th>What each vendor would have received (all failed locally)</th></tr></thead><tbody>${sc}</tbody></table></div>`;
+  const parallel = r.replay.mode === 'parallel-isolated';
+  const launch = parallel
+    ? `Each scenario loads <code>${esc(r.replay.page)}</code> in its own isolated browser session with independent cookies, storage and tag state. All scenarios launch together from a shared barrier after every session has its full seal installed and probed. Measured spread between the first and last scenario start: ${num(r.replay.startSpreadMs)} ms.`
+    : `Page <code>${esc(r.replay.page)}</code> loaded under the collection seal; full seal before the first synthetic push.`;
+  return `<p class="muted">${launch} The full seal (Fetch fail-all on every target + proxy refusing every connection) prevents synthetic event delivery. ${parallel ? 'Batch manifest and per-scenario capture links' : 'Raw capture'}: <a href="${href(r.replay.rawFile)}">${esc(r.replay.rawFile)}</a> (local, gitignored).</p><div class="tablewrap"><table><thead><tr><th>Scenario (the app's real push)</th><th>What each vendor would have received (all failed locally)</th></tr></thead><tbody>${sc}</tbody></table></div>`;
 }
 
 function journeysSection(r: Results): string {

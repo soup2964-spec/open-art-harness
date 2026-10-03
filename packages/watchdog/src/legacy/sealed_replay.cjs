@@ -25,6 +25,8 @@
 //                 no speculation-rules prefetch/prerender), opts.ignoreDefaultArgs drops puppeteer's
 //                 --disable-popup-blocking, and service/shared worker targets are held paused
 //                 (never instrumented, never resumed) and recorded in out.seal.heldTargets.
+//   [watchdog] 7. Isolated scenario workers rendezvous after sealing; shared signal cleanup waits
+//                 for every worker, including a Chrome launch still in progress.
 // ---------------------------------------------------------------------------------------------
 // Sealed replay harness (OpenArt tag verification, 2026-09-29).
 //
@@ -46,7 +48,8 @@
 //         no upstream socket is ever opened again.
 //  5. Seal verification probes to example.com (fetch, keepalive fetch, beacon, img, xhr, iframe,
 //     worker, websocket).
-//  6. Scenario replay with gaps; every intercepted request labelled with the active scenario.
+//  6. Scenario replay (shared launch barrier for isolated workers, gaps for legacy multi-scenario
+//     runs); every intercepted request labelled with the active scenario.
 //  7. Chrome is SIGKILLed while still sealed (no unload handlers, no shutdown beacons), the
 //     process tree is verified dead, then the profile directory is deleted.
 'use strict';
@@ -56,6 +59,35 @@ const path = require('path');
 const crypto = require('crypto');
 const { execSync } = require('child_process');
 const { startProxy } = require('./gatekeeper_proxy.cjs');
+
+// [watchdog] A batch has several live Chrome processes. Exit only after every active replay has
+// sealed its proxy and completed cleanup; one fast worker must not interrupt a slower teardown.
+const activeReplayCleanups = new Set();
+let signalCleanup = null;
+function cleanupReplaysOnSignal(signal) {
+  if (signalCleanup) return;
+  signalCleanup = Promise.allSettled(Array.from(activeReplayCleanups, (cleanup) => cleanup(signal)))
+    .then(() => process.exit(2));
+}
+const onReplaySigint = () => cleanupReplaysOnSignal('SIGINT');
+const onReplaySigterm = () => cleanupReplaysOnSignal('SIGTERM');
+const onReplaySighup = () => cleanupReplaysOnSignal('SIGHUP');
+function registerReplayCleanup(cleanup) {
+  if (!activeReplayCleanups.size) {
+    process.on('SIGINT', onReplaySigint);
+    process.on('SIGTERM', onReplaySigterm);
+    process.on('SIGHUP', onReplaySighup);
+  }
+  activeReplayCleanups.add(cleanup);
+  return () => {
+    activeReplayCleanups.delete(cleanup);
+    if (!activeReplayCleanups.size) {
+      process.removeListener('SIGINT', onReplaySigint);
+      process.removeListener('SIGTERM', onReplaySigterm);
+      process.removeListener('SIGHUP', onReplaySighup);
+    }
+  };
+}
 
 const DEFAULT_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'; // [watchdog] overridable
 
@@ -228,6 +260,11 @@ async function runSealedReplay(opts) {
   const preSeal = opts.preSeal || null; // [watchdog] {handler(sess, event, ctx), patterns}
 
   const proxy = await startProxy({ allowConnect: opts.allowConnect }); // [watchdog] host allowlist pre-seal
+  if (signalCleanup) {
+    proxy.seal();
+    await proxy.close().catch(() => {});
+    throw new Error('replay startup cancelled during signal cleanup');
+  }
   out.meta.proxyPort = proxy.port;
 
   const launchArgs = sealedLaunchArgs(proxy.port, opts.extraArgs);
@@ -238,31 +275,46 @@ async function runSealedReplay(opts) {
     fs.writeFileSync(path.join(profile, 'Default', 'Preferences'), JSON.stringify(opts.profilePrefs));
   }
   let browser;
+  let browserSession;
+  let launchPromise;
+  let killPromise;
+  function hardKill(reason) {
+    if (!killPromise) killPromise = (async () => {
+      out.teardown.reason = reason;
+      out.teardown.proxySealedBeforeKill = proxy.state.sealed;
+      if (!proxy.state.sealed) proxy.seal(); // never let anything out during shutdown
+      // A signal may arrive while launch is still resolving. Own that Chrome process too.
+      if (!browser && launchPromise) { try { browser = await launchPromise; } catch (e) {} }
+      const proc = browser && browser.process();
+      if (proc) Object.assign(out.teardown, await killChromeTree(proc.pid, profile));
+    })();
+    return killPromise;
+  }
+  const unregisterCleanup = registerReplayCleanup(async (signal) => {
+    try { await hardKill('signal ' + signal); }
+    finally { await proxy.close().catch(() => {}); try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) {} }
+  });
   try {
-    browser = await puppeteer.launch({
+    launchPromise = puppeteer.launch({
       executablePath: opts.chromePath || DEFAULT_CHROME, headless: true, userDataDir: profile, pipe: true, // [watchdog] pipe: no debugging port
       ignoreDefaultArgs: opts.ignoreDefaultArgs || ['--enable-automation'], args: launchArgs, defaultViewport: null, protocolTimeout: 180000, // [watchdog] 6.
+      handleSIGINT: false, handleSIGTERM: false, handleSIGHUP: false, // shared batch cleanup
     });
-  } catch (err) { // [watchdog] never leave the proxy listening or the profile behind
-    proxy.seal(); await proxy.close().catch(() => {}); fs.rmSync(profile, { recursive: true, force: true });
+    browser = await launchPromise;
+    const chromeProc = browser.process();
+    out.meta.chromePid = chromeProc ? chromeProc.pid : null;
+    out.meta.spawnArgs = chromeProc ? chromeProc.spawnargs : null;
+    out.meta.chromeVersion = await browser.version();
+    browserSession = await browser.target().createCDPSession();
+  } catch (err) { // [watchdog] setup failures after launch also own Chrome/proxy/profile cleanup
+    try { await hardKill('setup error'); }
+    finally {
+      await proxy.close().catch(() => {});
+      try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) {}
+      unregisterCleanup();
+    }
     throw err;
   }
-  const chromeProc = browser.process();
-  out.meta.chromeVersion = await browser.version();
-  out.meta.chromePid = chromeProc ? chromeProc.pid : null;
-  out.meta.spawnArgs = chromeProc ? chromeProc.spawnargs : null;
-  const browserSession = await browser.target().createCDPSession();
-
-  let killed = false;
-  async function hardKill(reason) {
-    if (killed) return; killed = true;
-    out.teardown.reason = reason;
-    out.teardown.proxySealedBeforeKill = proxy.state.sealed;
-    if (!proxy.state.sealed) proxy.seal(); // never let anything out during shutdown
-    Object.assign(out.teardown, await killChromeTree(out.meta.chromePid, profile)); // [watchdog] same algorithm, shared helper
-  }
-  const onSignal = async (sig) => { await hardKill('signal ' + sig); try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) {} process.exit(2); };
-  process.on('SIGINT', onSignal); process.on('SIGTERM', onSignal);
 
   function recFetchPaused(sess, layer, label) {
     sess.on('Fetch.requestPaused', async (e) => {
@@ -480,6 +532,7 @@ async function runSealedReplay(opts) {
     await sleep(500);
 
     // ---- 5. Scenarios ----
+    if (opts.beforeReplay) await opts.beforeReplay();
     let traceSeen = 0;
     for (const name of scenarioList) {
       const sc = scenarios[name];
@@ -495,7 +548,8 @@ async function runSealedReplay(opts) {
       const after = await evalPage(`({dataLayerLen:(window.dataLayer||[]).length, last: JSON.stringify((window.dataLayer||[]).slice(-3).map(function(m){ try { if (m && typeof m.length==='number' && !Array.isArray(m) && m[0]!==undefined) return {__arguments: Array.prototype.slice.call(m)}; return m; } catch(e){ return String(m);} }), function(k,v){ return typeof v==='function' ? '[fn]' : v; })})`);
       out.timeline.push({ scenario: name, desc: sc.desc, start: tStart, end: iso(), before, result, after });
     }
-    current = 'TAIL';
+    // An isolated scenario owns delayed/batched SDK requests for its entire observation window.
+    current = scenarioList.length === 1 ? scenarioList[0] : 'TAIL';
     await sleep(tailMs);
     const trace = await evalPage(`(window.__sealTrace||[]).slice(${traceSeen})`);
     if (Array.isArray(trace)) for (const tr of trace) out.jsTrace.push(Object.assign({ scenario: 'TAIL' }, tr));
@@ -507,19 +561,20 @@ async function runSealedReplay(opts) {
     mainErr = e;
     out.meta.error = String(e && e.stack || e);
   } finally {
-    current = 'TEARDOWN';
-    await hardKill(mainErr ? 'error' : 'normal');
-    await sleep(1500);
-    out.proxy = proxy.summary();
-    out.proxy.log = proxy.state.log;
-    try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) { out.teardown.rmErr = e.message; }
-    out.teardown.profileDeleted = !fs.existsSync(profile);
-    out.teardown.at = iso();
-    await proxy.close();
-    process.removeListener('SIGINT', onSignal); process.removeListener('SIGTERM', onSignal); // [watchdog]
-    out.meta.sealAtMs = sealT ? sealT - T0 : null;
-    out.meta.finishedAt = iso();
-    if (outFile) { fs.mkdirSync(path.dirname(outFile), { recursive: true }); fs.writeFileSync(outFile, JSON.stringify(out, null, 1)); }
+    try {
+      current = 'TEARDOWN';
+      await hardKill(mainErr ? 'error' : 'normal');
+      await sleep(1500);
+      out.proxy = proxy.summary();
+      out.proxy.log = proxy.state.log;
+      try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) { out.teardown.rmErr = e.message; }
+      out.teardown.profileDeleted = !fs.existsSync(profile);
+      out.teardown.at = iso();
+      await proxy.close();
+      out.meta.sealAtMs = sealT ? sealT - T0 : null;
+      out.meta.finishedAt = iso();
+      if (outFile) { fs.mkdirSync(path.dirname(outFile), { recursive: true }); fs.writeFileSync(outFile, JSON.stringify(out, null, 1)); }
+    } finally { unregisterCleanup(); }
   }
   return out;
 }

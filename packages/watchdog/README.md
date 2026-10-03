@@ -25,9 +25,13 @@ in patched runs — serving a candidate container/config, a shim or an edge-cook
 
 ### 1. Conversion contract replay (full seal)
 
-`/pricing` is loaded under the collection seal, then **fully sealed** (every Fetch-intercepted
-request is failed on every target, and the gatekeeper proxy refuses every connection) before the
-first synthetic event. The app's real calls are then replayed with `WD_TEST_*` data — verbatim shapes
+**All conversion scenarios fire together**, each in a separate browser session with its own
+cookies, storage and tag state. Each session loads `/pricing` under the collection seal, then is
+**fully sealed** (every Fetch-intercepted request is failed on every target, and the gatekeeper proxy
+refuses every connection). Once every session has installed and probed its seal, a shared barrier
+releases all scenarios without a delay between them. Independent sessions keep one scenario's user
+data or event state from contaminating another's results. The app's real calls are replayed with
+`WD_TEST_*` data — verbatim shapes
 from the shipped Suite bundles ([`src/replay/scenarios.ts`](src/replay/scenarios.ts)):
 
 | Scenario | The app's call (source chunk) |
@@ -46,6 +50,13 @@ Amplitude). The replay records the page-load outcome and a tag-readiness probe; 
 not execute, threw, or whose vendor tag was not ready makes that check **ERROR**, never a false
 FAIL/PASS. When the app's pushes change, pass the new shapes with `--scenarios file.json` — that file
 *is* the dataLayer contract the app team owns.
+
+“Together” means concurrent dispatch from that barrier; browser scheduling and vendor SDKs can
+still add timing differences. `results.json` and `report.html` record each scenario's start/end
+times and the measured start spread. The raw batch manifest links to the separate captures, with
+readiness, seal probes and zero-leak evidence retained for every session. **The network blockade
+prevents fake conversions from reaching ad accounts**; simultaneous timing and `WD_TEST_*` labels
+are not the protection. The committed September 30 baseline remains the historical sequential run.
 
 ### 2. Click-ID journeys (collection seal)
 
@@ -297,8 +308,10 @@ pages need to render. Nothing else is delivered. Layered, and each layer is chec
   fresh `--user-data-dir` under `packages/watchdog/.profiles/` per session, deleted afterwards;
   anonymous only (no accounts, no forms submitted — the sign-up wall is closed, never filled — no
   checkout; the Stripe CLI is never used). `results.json` records no hostname or home-directory paths.
-- **Traffic budget**: ~21 OpenArt page loads per full run (hard cap `--max-page-loads`, default 60),
-  human-paced (3–10 s dwell, quiet-network waits), 3 container GETs; no retries in the scheduled job.
+- **Traffic budget**: ~26 OpenArt page loads per full run with the six default isolated replay
+  scenarios (hard cap `--max-page-loads`, default 60). All replay page loads are reserved before the
+  batch starts; journeys retain 3–10 s dwell and quiet-network waits. Replay sessions prepare in
+  parallel and dispatch together after sealing. Three container GETs; no retries in the scheduled job.
 
 ---
 

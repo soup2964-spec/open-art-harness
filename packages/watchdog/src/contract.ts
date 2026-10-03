@@ -81,13 +81,15 @@ function replayHits(obs: Observations, scenario: string, platform?: string): { h
   const hits = (obs.replay?.hits ?? []).filter((h) => h.step === scenario);
   let invalid: string | null = null;
   const r = obs.replay;
+  const loadStatus = sc?.loadStatus ?? r?.loadStatus;
+  const readiness = sc?.readiness !== undefined ? sc.readiness : r?.readiness;
   if (!sc) invalid = `scenario ${scenario} missing from the replay`;
   else if (!sc.start) invalid = `scenario ${scenario} never executed`;
   else if (sc.error) invalid = `scenario ${scenario} threw in the page: ${sc.error}`;
-  else if (r?.loadStatus !== undefined && r.loadStatus !== 'load') invalid = `the replay page did not load (${r.loadStatus})`;
-  else if (r?.readiness !== undefined) {
+  else if (loadStatus !== undefined && loadStatus !== 'load') invalid = `the replay page did not load (${loadStatus})`;
+  else if (readiness !== undefined) {
     const probe = READY[platform ?? 'any'] ?? READY.any!;
-    if (!r.readiness || !probe(r.readiness)) invalid = `${platform ?? 'GTM'} tag not ready on the replay page (readiness ${JSON.stringify(r.readiness ?? null).slice(0, 160)})`;
+    if (!readiness || !probe(readiness)) invalid = `${platform ?? 'GTM'} tag not ready on the replay page (readiness ${JSON.stringify(readiness ?? null).slice(0, 160)})`;
   }
   return { hits, ctx: sc?.context ?? {}, invalid };
 }
